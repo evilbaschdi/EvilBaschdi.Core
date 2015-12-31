@@ -1,0 +1,28 @@
+﻿<Window x:Class="EvilBaschdi.TestUI.MainWindow"
+
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      Title="EvilBaschdi.TestUI.MainWindow" Height="350" Width="525">
+    <Grid>
+        <Label Content="Input:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" />
+        <TextBox Height="23" Margin="100,10,10,0" TextWrapping="Wrap" VerticalAlignment="Top" Name="txtInput" />
+
+        <Label Content="Output:" HorizontalAlignment="Left" Margin="10,38,0,0" VerticalAlignment="Top" />
+        <TextBox Height="23" Margin="100,38,10,0" TextWrapping="Wrap" VerticalAlignment="Top" IsReadOnly="True"
+                 Name="txtOutput" />
+
+        <Button Content="Enycrypt" HorizontalAlignment="Left" Margin="10,66,0,0" VerticalAlignment="Top" Width="75"
+                Name="btnEncrypt" Click="btnEncrypt_Click" />
+        <Button Content="Decrypt" HorizontalAlignment="Left" Margin="90,66,0,0" VerticalAlignment="Top" Width="75"
+                Name="btnDecrypt" Click="btnDecrypt_Click" />
+        <Button Content="Compare" HorizontalAlignment="Left" Margin="170,66,0,0" VerticalAlignment="Top" Width="75"
+                Name="btnCompare" Click="btnCompare_Click" />
+
+        <Label Content="Encrypted:" HorizontalAlignment="Left" Margin="10,91,0,0" VerticalAlignment="Top" />
+        <TextBox Height="140" Margin="100,91,10,0" TextWrapping="Wrap" IsReadOnly="True" Name="txtEncrypted"
+                 VerticalAlignment="Top" />
+
+        <Label Content="Network:" HorizontalAlignment="Left" Margin="10,236,0,0" VerticalAlignment="Top" />
+        <ComboBox Height="23" Margin="100,236,10,0" IsReadOnly="False" Name="cboNetwork" VerticalAlignment="Top" />
+    </Grid>
+</Window>
