@@ -6,7 +6,7 @@ using System.Windows;
 
 namespace EvilBaschdi.Core.Browsers
 {
-    public sealed class NetworkBrowser
+    public sealed class NetworkBrowser : INetworkBrowser
     {
         [DllImport("Netapi32", CharSet = CharSet.Auto,
             SetLastError = true),
@@ -28,50 +28,53 @@ namespace EvilBaschdi.Core.Browsers
         public static extern int NetApiBufferFree(
             IntPtr pBuf);
 
-        public static ArrayList GetNetworkComputers()
+        public ArrayList GetNetworkComputers
         {
-            var networkComputers = new ArrayList();
-            const int maxPreferredLength = -1;
-            const int svTypeWorkstation = 1;
-            const int svTypeServer = 2;
-            var buffer = IntPtr.Zero;
-            var sizeofInfo = Marshal.SizeOf(typeof(ServerInfo));
-
-            try
+            get
             {
-                int entriesRead;
-                int totalEntries;
-                int resHandle;
-                var ret = NetServerEnum(null, 100, ref buffer,
-                    maxPreferredLength,
-                    out entriesRead,
-                    out totalEntries, svTypeWorkstation |
-                                      svTypeServer, null, out
-                                          resHandle);
-                if (ret == 0)
+                var networkComputers = new ArrayList();
+                const int maxPreferredLength = -1;
+                const int svTypeWorkstation = 1;
+                const int svTypeServer = 2;
+                var buffer = IntPtr.Zero;
+                var sizeofInfo = Marshal.SizeOf(typeof(ServerInfo));
+
+                try
                 {
-                    for (var i = 0; i < totalEntries; i++)
+                    int entriesRead;
+                    int totalEntries;
+                    int resHandle;
+                    var ret = NetServerEnum(null, 100, ref buffer,
+                        maxPreferredLength,
+                        out entriesRead,
+                        out totalEntries, svTypeWorkstation |
+                                          svTypeServer, null, out
+                                              resHandle);
+                    if(ret == 0)
                     {
-                        var tmpBuffer = new IntPtr((int)buffer + (i * sizeofInfo));
-                        var svrInfo = (ServerInfo)Marshal.PtrToStructure(tmpBuffer, typeof(ServerInfo));
-                        networkComputers.Add(svrInfo.svName);
+                        for(var i = 0; i < totalEntries; i++)
+                        {
+                            var tmpBuffer = new IntPtr((int) buffer + (i*sizeofInfo));
+                            var svrInfo = (ServerInfo) Marshal.PtrToStructure(tmpBuffer, typeof(ServerInfo));
+                            networkComputers.Add(svrInfo.svName);
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Problem with acessing " +
-                                "network computers in NetworkBrowser " +
-                                "\r\n\r\n\r\n" + ex.Message,
-                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return null;
-            }
-            finally
-            {
-                NetApiBufferFree(buffer);
-            }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("Problem with acessing " +
+                                    "network computers in NetworkBrowser " +
+                                    "\r\n\r\n\r\n" + ex.Message,
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return null;
+                }
+                finally
+                {
+                    NetApiBufferFree(buffer);
+                }
 
-            return networkComputers;
+                return networkComputers;
+            }
         }
 
         [StructLayout(LayoutKind.Sequential)]
@@ -79,8 +82,7 @@ namespace EvilBaschdi.Core.Browsers
         {
             internal int svPlatformId;
 
-            [MarshalAs(UnmanagedType.LPWStr)]
-            internal string svName;
+            [MarshalAs(UnmanagedType.LPWStr)] internal string svName;
         }
     }
 }

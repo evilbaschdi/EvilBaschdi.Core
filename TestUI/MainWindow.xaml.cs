@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using EvilBaschdi.Core.Browsers;
 using EvilBaschdi.Core.Security;
 using EvilBaschdi.Core.Wpf;
@@ -13,20 +12,20 @@ namespace EvilBaschdi.TestUI
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ArrayList _networkList;
+        private INetworkBrowser _networkBrowser;
 
         public MainWindow()
         {
             InitializeComponent();
             Loaded += (s, e) => GlassEffectHelper.EnableGlassEffect(this);
 
-            //LoadNetworkBrowserToArrayList();
+            LoadNetworkBrowserToArrayList();
         }
 
         private void LoadNetworkBrowserToArrayList()
         {
-            _networkList = NetworkBrowser.GetNetworkComputers();
-            UpdateCombo(cboNetwork, _networkList);
+            _networkBrowser = new NetworkBrowser();
+            UpdateCombo(cboNetwork, _networkBrowser.GetNetworkComputers);
         }
 
         private void btnEncrypt_Click(object sender, RoutedEventArgs e)
@@ -41,16 +40,33 @@ namespace EvilBaschdi.TestUI
 
         private void btnCompare_Click(object sender, RoutedEventArgs e)
         {
-            if(txtInput.Text == txtOutput.Text)
+            //if(txtInput.Text == txtOutput.Text)
+            //{
+            //    txtInput.Background = Brushes.GreenYellow;
+            //    txtOutput.Background = Brushes.GreenYellow;
+            //}
+            //else
+            //{
+            //    txtInput.Background = Brushes.DarkRed;
+            //    txtOutput.Background = Brushes.DarkRed;
+            //}
+
+
+            //var folderBrowser = new FolderBrowser
+            //{
+            //    SelectedPath = @"C:\temp"
+            //};
+
+            //folderBrowser.ShowDialog();
+
+            //MessageBox.Show(folderBrowser.SelectedPath);
+
+            var dialog = new ExplorerFolderBrower
             {
-                txtInput.Background = Brushes.GreenYellow;
-                txtOutput.Background = Brushes.GreenYellow;
-            }
-            else
-            {
-                txtInput.Background = Brushes.DarkRed;
-                txtOutput.Background = Brushes.DarkRed;
-            }
+                SelectedPath = @"c:\temp"
+            };
+            dialog.ShowDialog();
+            MessageBox.Show(dialog.SelectedPath);
         }
 
         public void UpdateCombo(ComboBox comboBox, ArrayList arrayList)
