@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using EvilBaschdi.Core.Browsers;
 using EvilBaschdi.Core.Security;
 using EvilBaschdi.Core.Wpf;
@@ -40,17 +41,16 @@ namespace EvilBaschdi.TestUI
 
         private void btnCompare_Click(object sender, RoutedEventArgs e)
         {
-            //if(txtInput.Text == txtOutput.Text)
-            //{
-            //    txtInput.Background = Brushes.GreenYellow;
-            //    txtOutput.Background = Brushes.GreenYellow;
-            //}
-            //else
-            //{
-            //    txtInput.Background = Brushes.DarkRed;
-            //    txtOutput.Background = Brushes.DarkRed;
-            //}
-
+            if(txtInput.Text == txtOutput.Text)
+            {
+                txtInput.Background = Brushes.GreenYellow;
+                txtOutput.Background = Brushes.GreenYellow;
+            }
+            else
+            {
+                txtInput.Background = Brushes.DarkRed;
+                txtOutput.Background = Brushes.DarkRed;
+            }
 
             //var folderBrowser = new FolderBrowser
             //{
@@ -61,12 +61,12 @@ namespace EvilBaschdi.TestUI
 
             //MessageBox.Show(folderBrowser.SelectedPath);
 
-            var dialog = new ExplorerFolderBrower
-            {
-                SelectedPath = @"c:\temp"
-            };
-            dialog.ShowDialog();
-            MessageBox.Show(dialog.SelectedPath);
+            //var dialog = new ExplorerFolderBrower
+            //{
+            //    SelectedPath = @"c:\temp"
+            //};
+            //dialog.ShowDialog();
+            //MessageBox.Show(dialog.SelectedPath);
         }
 
         public void UpdateCombo(ComboBox comboBox, ArrayList arrayList)
