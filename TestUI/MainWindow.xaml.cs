@@ -18,7 +18,7 @@ namespace EvilBaschdi.TestUI
         public MainWindow()
         {
             InitializeComponent();
-            Loaded += (s, e) => GlassEffectHelper.EnableGlassEffect(this);
+            Loaded += (s, e) => this.EnableGlassEffect();
 
             LoadNetworkBrowserToArrayList();
         }
@@ -61,12 +61,12 @@ namespace EvilBaschdi.TestUI
 
             //MessageBox.Show(folderBrowser.SelectedPath);
 
-            //var dialog = new ExplorerFolderBrower
-            //{
-            //    SelectedPath = @"c:\temp"
-            //};
-            //dialog.ShowDialog();
-            //MessageBox.Show(dialog.SelectedPath);
+            var dialog = new ExplorerFolderBrower
+            {
+                SelectedPath = @"c:\temp"
+            };
+            dialog.ShowDialog();
+            MessageBox.Show(dialog.SelectedPath);
         }
 
         public void UpdateCombo(ComboBox comboBox, ArrayList arrayList)

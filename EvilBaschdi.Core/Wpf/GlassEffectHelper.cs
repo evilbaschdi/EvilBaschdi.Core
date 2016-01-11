@@ -9,7 +9,7 @@ namespace EvilBaschdi.Core.Wpf
     /// <summary>
     ///     this.Loaded += (s, e) => GlassEffectHelper.EnableGlassEffect(this);
     /// </summary>
-    public class GlassEffectHelper
+    public static class GlassEffectHelper
     {
         [DllImport("dwmapi.dll", PreserveSig = false)]
         private static extern void DwmExtendFrameIntoClientArea(IntPtr hwnd, ref Margins margins);
@@ -17,7 +17,7 @@ namespace EvilBaschdi.Core.Wpf
         [DllImport("dwmapi.dll", PreserveSig = false)]
         private static extern bool DwmIsCompositionEnabled();
 
-        public static bool EnableGlassEffect(Window window)
+        public static bool EnableGlassEffect(this Window window)
         {
             window.MouseLeftButtonDown += (s, e) => window.DragMove();
             return EnableGlassEffect(window, true);
@@ -30,18 +30,18 @@ namespace EvilBaschdi.Core.Wpf
 
         public static bool EnableGlassEffect(Window window, bool enabled, Thickness margin)
         {
-            if (!VersionHelper.IsAtLeastVista)
+            if(!VersionHelper.IsAtLeastVista)
             {
                 // Go and buy Windows 7 ;-)
                 return false;
             }
 
-            if (!DwmIsCompositionEnabled())
+            if(!DwmIsCompositionEnabled())
             {
                 return false;
             }
 
-            if (enabled)
+            if(enabled)
             {
                 var hwnd = new WindowInteropHelper(window).Handle;
 
@@ -50,7 +50,7 @@ namespace EvilBaschdi.Core.Wpf
 
                 // Die Farbe festlegen die den Glaseffekt bekommt
                 var hwndSource = HwndSource.FromHwnd(hwnd);
-                if (hwndSource?.CompositionTarget != null)
+                if(hwndSource?.CompositionTarget != null)
                 {
                     hwndSource.CompositionTarget.BackgroundColor =
                         Colors.Transparent;
@@ -82,10 +82,10 @@ namespace EvilBaschdi.Core.Wpf
 
         public Margins(Thickness t)
         {
-            Left = (int)t.Left;
-            Right = (int)t.Right;
-            Top = (int)t.Top;
-            Bottom = (int)t.Bottom;
+            Left = (int) t.Left;
+            Right = (int) t.Right;
+            Top = (int) t.Top;
+            Bottom = (int) t.Bottom;
         }
     }
 
