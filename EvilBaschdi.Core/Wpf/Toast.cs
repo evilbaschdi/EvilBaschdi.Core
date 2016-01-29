@@ -15,7 +15,7 @@ namespace EvilBaschdi.Core.Wpf
         /// </summary>
         public Toast(string imagePath)
         {
-            if(imagePath == null)
+            if (imagePath == null)
             {
                 throw new ArgumentNullException(nameof(imagePath));
             }
@@ -26,7 +26,7 @@ namespace EvilBaschdi.Core.Wpf
         public void Show(string status, string message)
         {
             //C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral\Windows.winmd
-            if(!_showToast)
+            if (!_showToast)
             {
                 return;
             }
@@ -45,7 +45,7 @@ namespace EvilBaschdi.Core.Wpf
             var imagePath = $"file:///{Path.GetFullPath(_imagePath)}";
             var imageElements = toastXml.GetElementsByTagName("image");
             var image = imageElements[0].Attributes.GetNamedItem("src");
-            if(image != null)
+            if (image != null)
             {
                 image.NodeValue = imagePath;
             }
@@ -56,9 +56,9 @@ namespace EvilBaschdi.Core.Wpf
 
             // Create the toast and attach event listeners
             var toast = new ToastNotification(toastXml)
-            {
-                ExpirationTime = DateTimeOffset.UtcNow.AddSeconds(3600)
-            };
+                        {
+                            ExpirationTime = DateTimeOffset.UtcNow.AddSeconds(3600)
+                        };
             //toast.Activated += ToastActivated;
             //toast.Dismissed += ToastDismissed;
             //toast.Failed += ToastFailed;

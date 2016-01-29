@@ -75,7 +75,7 @@ namespace EvilBaschdi.Core.Browsers
         /// <returns><c>true</c> wenn der Benutzer die Ordnerauswahl bestätigte; andernfalls <c>false</c></returns>
         public bool ShowDialog(IntPtr owner)
         {
-            if(Environment.OSVersion.Version.Major < 6)
+            if (Environment.OSVersion.Version.Major < 6)
             {
                 throw new InvalidOperationException("The dialog needs at least Windows Vista to work.");
             }
@@ -86,7 +86,7 @@ namespace EvilBaschdi.Core.Browsers
                 SetInitialFolder(dialog);
                 SetOptions(dialog);
 
-                if(dialog.Show(owner) != 0)
+                if (dialog.Show(owner) != 0)
                 {
                     return false;
                 }
@@ -112,7 +112,7 @@ namespace EvilBaschdi.Core.Browsers
             {
                 item.GetDisplayName(Sigdn.Filesyspath, out path);
             }
-            catch(ArgumentException ex) when(ex.HResult == -2147024809)
+            catch (ArgumentException ex) when (ex.HResult == -2147024809)
             {
                 path = null;
             }
@@ -125,13 +125,13 @@ namespace EvilBaschdi.Core.Browsers
 
         private void SetInitialFolder(IFileOpenDialog dialog)
         {
-            if(!string.IsNullOrEmpty(SelectedPath))
+            if (!string.IsNullOrEmpty(SelectedPath))
             {
                 IntPtr idl;
                 uint atts = 0;
                 IShellItem item;
-                if(NativeMethods.SHILCreateFromPath(SelectedPath, out idl, ref atts) == 0
-                   && NativeMethods.SHCreateShellItem(IntPtr.Zero, IntPtr.Zero, idl, out item) == 0)
+                if (NativeMethods.SHILCreateFromPath(SelectedPath, out idl, ref atts) == 0
+                    && NativeMethods.SHCreateShellItem(IntPtr.Zero, IntPtr.Zero, idl, out item) == 0)
                 {
                     dialog.SetFolder(item);
                 }
@@ -146,11 +146,11 @@ namespace EvilBaschdi.Core.Browsers
         private Fos GetDialogOptions()
         {
             var options = Fos.Pickfolders;
-            if(Multiselect)
+            if (Multiselect)
             {
                 options |= Fos.Allowmultiselect;
             }
-            if(!AllowNonStoragePlaces)
+            if (!AllowNonStoragePlaces)
             {
                 options |= Fos.Forcefilesystem;
             }
@@ -166,11 +166,11 @@ namespace EvilBaschdi.Core.Browsers
                 string path, value;
                 GetPathAndElementName(item, out path, out value);
                 SelectedPath = path;
-                SelectedPaths = new[] { path };
+                SelectedPaths = new[] {path};
                 SelectedElementName = value;
-                SelectedElementNames = new[] { value };
+                SelectedElementNames = new[] {value};
             }
-            catch(COMException ex) when(ex.HResult == -2147418113)
+            catch (COMException ex) when (ex.HResult == -2147418113)
             {
                 IShellItemArray items;
                 dialog.GetResults(out items);
@@ -181,7 +181,7 @@ namespace EvilBaschdi.Core.Browsers
                 SelectedPaths = new string[count];
                 SelectedElementNames = new string[count];
 
-                for(uint i = 0; i < count; ++i)
+                for (uint i = 0; i < count; ++i)
                 {
                     items.GetItemAt(i, out item);
                     string path, value;
@@ -233,7 +233,7 @@ namespace EvilBaschdi.Core.Browsers
             void EnumItems([MarshalAs(UnmanagedType.Interface)] out IntPtr ppenumShellItems);
         }
 
-        [ComImport, Guid("42f85136-db7e-439c-85f1-e4075d135fc8"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown), CoClass(typeof(FileOpenDialog))]
+        [ComImport, Guid("42f85136-db7e-439c-85f1-e4075d135fc8"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown), CoClass(typeof (FileOpenDialog))]
         private interface IFileOpenDialog //: IFileDialog
         {
             [PreserveSig]

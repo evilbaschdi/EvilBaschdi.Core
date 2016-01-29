@@ -20,7 +20,7 @@ namespace EvilBaschdi.Core.DirectoryExtensions
                 realpath.GetDirectories();
                 return true;
             }
-            catch(Exception)
+            catch (Exception)
             {
                 //if exception is not accesible
                 return false;

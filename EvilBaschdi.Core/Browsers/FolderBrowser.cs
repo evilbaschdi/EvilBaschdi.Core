@@ -9,12 +9,12 @@ namespace EvilBaschdi.Core.Browsers
         public void ShowDialog()
         {
             var folderDialog = new FolderBrowserDialog
-            {
-                SelectedPath = _selectedPath
-            };
+                               {
+                                   SelectedPath = _selectedPath
+                               };
 
             var result = folderDialog.ShowDialog();
-            if(result.ToString() != "OK")
+            if (result.ToString() != "OK")
             {
                 return;
             }

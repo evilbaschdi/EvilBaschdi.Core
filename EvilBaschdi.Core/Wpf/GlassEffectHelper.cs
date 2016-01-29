@@ -30,18 +30,18 @@ namespace EvilBaschdi.Core.Wpf
 
         public static bool EnableGlassEffect(Window window, bool enabled, Thickness margin)
         {
-            if(!VersionHelper.IsAtLeastVista)
+            if (!VersionHelper.IsAtLeastVista)
             {
                 // Go and buy Windows 7 ;-)
                 return false;
             }
 
-            if(!DwmIsCompositionEnabled())
+            if (!DwmIsCompositionEnabled())
             {
                 return false;
             }
 
-            if(enabled)
+            if (enabled)
             {
                 var hwnd = new WindowInteropHelper(window).Handle;
 
@@ -50,7 +50,7 @@ namespace EvilBaschdi.Core.Wpf
 
                 // Die Farbe festlegen die den Glaseffekt bekommt
                 var hwndSource = HwndSource.FromHwnd(hwnd);
-                if(hwndSource?.CompositionTarget != null)
+                if (hwndSource?.CompositionTarget != null)
                 {
                     hwndSource.CompositionTarget.BackgroundColor =
                         Colors.Transparent;

@@ -43,7 +43,7 @@ namespace EvilBaschdi.TestUI
 
         private void btnCompare_Click(object sender, RoutedEventArgs e)
         {
-            if(txtInput.Text == txtOutput.Text)
+            if (txtInput.Text == txtOutput.Text)
             {
                 txtInput.Background = Brushes.GreenYellow;
                 txtOutput.Background = Brushes.GreenYellow;
@@ -128,7 +128,7 @@ namespace EvilBaschdi.TestUI
         public void UpdateCombo(ComboBox comboBox, ArrayList arrayList)
         {
             comboBox.Items.Clear();
-            foreach(string value in arrayList)
+            foreach (string value in arrayList)
             {
                 comboBox.Items.Add(value);
             }

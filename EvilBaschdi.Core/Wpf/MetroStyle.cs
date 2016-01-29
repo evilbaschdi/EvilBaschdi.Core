@@ -37,23 +37,23 @@ namespace EvilBaschdi.Core.Wpf
         /// <param name="themeDark" />
         public MetroStyle(MetroWindow mainWindow, ComboBox accent, RadioButton themeDark, RadioButton themeLight, ISettings settings)
         {
-            if(mainWindow == null)
+            if (mainWindow == null)
             {
                 throw new ArgumentNullException(nameof(mainWindow));
             }
-            if(accent == null)
+            if (accent == null)
             {
                 throw new ArgumentNullException(nameof(accent));
             }
-            if(themeDark == null)
+            if (themeDark == null)
             {
                 throw new ArgumentNullException(nameof(themeDark));
             }
-            if(themeLight == null)
+            if (themeLight == null)
             {
                 throw new ArgumentNullException(nameof(themeLight));
             }
-            if(settings == null)
+            if (settings == null)
             {
                 throw new ArgumentNullException(nameof(settings));
             }
@@ -75,28 +75,28 @@ namespace EvilBaschdi.Core.Wpf
         /// </summary>
         public void Load(bool center, bool resizeWithBorder400)
         {
-            if(center)
+            if (center)
             {
                 _mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             }
-            if(resizeWithBorder400)
+            if (resizeWithBorder400)
             {
                 _mainWindow.Width = SystemParameters.PrimaryScreenWidth - 400;
                 _mainWindow.Height = SystemParameters.PrimaryScreenHeight - 400;
             }
 
-            if(!string.IsNullOrWhiteSpace(_settings.Accent))
+            if (!string.IsNullOrWhiteSpace(_settings.Accent))
             {
                 _styleAccent = ThemeManager.GetAccent(_settings.Accent);
             }
-            if(!string.IsNullOrWhiteSpace(_settings.Theme))
+            if (!string.IsNullOrWhiteSpace(_settings.Theme))
             {
                 _styleTheme = ThemeManager.GetAppTheme(_settings.Theme);
             }
 
             _accent.SelectedValue = _styleAccent.Name;
 
-            switch(_styleTheme.Name)
+            switch (_styleTheme.Name)
             {
                 case "BaseDark":
                     _themeDark.IsChecked = true;
@@ -111,7 +111,7 @@ namespace EvilBaschdi.Core.Wpf
 
             SetStyle();
 
-            foreach(var accent in ThemeManager.Accents)
+            foreach (var accent in ThemeManager.Accents)
             {
                 _accent.Items.Add(accent.Name);
             }
@@ -148,7 +148,7 @@ namespace EvilBaschdi.Core.Wpf
             var radiobutton = (RadioButton) sender;
             _styleTheme = style.Item1;
 
-            switch(radiobutton.Name)
+            switch (radiobutton.Name)
             {
                 case "Dark":
                     _styleTheme = ThemeManager.GetAppTheme("BaseDark");

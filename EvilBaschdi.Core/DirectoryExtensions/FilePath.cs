@@ -21,7 +21,7 @@ namespace EvilBaschdi.Core.DirectoryExtensions
         /// <returns></returns>
         public List<string> GetFileList(string initialDirectory)
         {
-            if(initialDirectory == null)
+            if (initialDirectory == null)
             {
                 throw new ArgumentNullException(nameof(initialDirectory));
             }
@@ -36,21 +36,21 @@ namespace EvilBaschdi.Core.DirectoryExtensions
         /// <returns></returns>
         public List<string> GetFileList(string initialDirectory, List<string> includeExtensionList, List<string> excludeExtensionList)
         {
-            if(initialDirectory == null)
+            if (initialDirectory == null)
             {
                 throw new ArgumentNullException(nameof(initialDirectory));
             }
-            if(includeExtensionList == null)
+            if (includeExtensionList == null)
             {
                 includeExtensionList = new List<string>();
             }
-            if(excludeExtensionList == null)
+            if (excludeExtensionList == null)
             {
                 excludeExtensionList = new List<string>();
             }
 
             var fileList = new List<string>();
-            if(initialDirectory.IsAccessible())
+            if (initialDirectory.IsAccessible())
             {
                 var initialDirectoryFileList = Directory.GetFiles(initialDirectory).ToList();
                 Parallel.ForEach(initialDirectoryFileList.Where(file => IsValidFileName(file, fileList, includeExtensionList, excludeExtensionList)), file => fileList.Add(file));
@@ -67,19 +67,19 @@ namespace EvilBaschdi.Core.DirectoryExtensions
 
         private bool IsValidFileName(string file, ICollection<string> fileList, List<string> includeExtensionList, List<string> excludeExtensionList)
         {
-            if(file == null)
+            if (file == null)
             {
                 throw new ArgumentNullException(nameof(file));
             }
-            if(fileList == null)
+            if (fileList == null)
             {
                 throw new ArgumentNullException(nameof(fileList));
             }
-            if(includeExtensionList == null)
+            if (includeExtensionList == null)
             {
                 includeExtensionList = new List<string>();
             }
-            if(excludeExtensionList == null)
+            if (excludeExtensionList == null)
             {
                 excludeExtensionList = new List<string>();
             }
@@ -88,7 +88,7 @@ namespace EvilBaschdi.Core.DirectoryExtensions
 
             var directoryInfo = new FileInfo(file).Directory;
 
-            if(directoryInfo == null)
+            if (directoryInfo == null)
             {
                 return false;
             }
