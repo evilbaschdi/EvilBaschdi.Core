@@ -70,6 +70,9 @@
     <Compile Include="Browsers\NetworkBrowser.cs">
       <DependentUpon>INetworkBrowser.cs</DependentUpon>
     </Compile>
+    <Compile Include="DirectoryExtensions\IFilePath.cs" />
+    <Compile Include="DirectoryExtensions\FilePath.cs" />
+    <Compile Include="DirectoryExtensions\Helpers.cs" />
     <Compile Include="DotNetExtensions\CalculateTimeSpan.cs" />
     <Compile Include="Security\Encryption.cs" />
     <Compile Include="Wpf\IToast.cs" />

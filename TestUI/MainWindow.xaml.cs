@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using EvilBaschdi.Core.Browsers;
+using EvilBaschdi.Core.DirectoryExtensions;
 using EvilBaschdi.Core.Security;
 using EvilBaschdi.Core.Wpf;
 
@@ -14,13 +15,14 @@ namespace EvilBaschdi.TestUI
     public partial class MainWindow : Window
     {
         private INetworkBrowser _networkBrowser;
+        private IFilePath _filePath;
 
         public MainWindow()
         {
             InitializeComponent();
             Loaded += (s, e) => this.EnableGlassEffect();
-
-            LoadNetworkBrowserToArrayList();
+            _filePath = new FilePath();
+            //LoadNetworkBrowserToArrayList();
         }
 
         private void LoadNetworkBrowserToArrayList()
@@ -52,22 +54,76 @@ namespace EvilBaschdi.TestUI
                 txtOutput.Background = Brushes.DarkRed;
             }
 
-            //var folderBrowser = new FolderBrowser
+            //var currentDirectory = Directory.GetCurrentDirectory();
+            //var configuration = currentDirectory.EndsWith("Release") ? "Release" : "Debug";
+
+            //var config = currentDirectory.Replace(@"TestUI\bin\" + configuration, @"EvilBaschdi.Core\packages.config");
+            //var root = currentDirectory.Replace(@"EvilBaschdi.Core\TestUI\bin\" + configuration, "");
+
+            //_filePath.GetFileList(root);
+
+            //if(File.Exists(config))
             //{
-            //    SelectedPath = @"C:\temp"
+            //    MessageBox.Show(config);
+            //}
+            //if(Directory.Exists(root))
+            //{
+            //    MessageBox.Show(root);
+            //}
+
+
+            //var project = new Project(current);
+            //var isCoreIncluded = project.Items.Any(item => item.EvaluatedInclude == "EvilBaschdi.Core");
+            //var mahAppsInclude = "";
+            //var mahAppsHintPath = "";
+            //var sysWinIntInclude = "";
+            //var sysWinIntHintPath = "";
+
+            //if (isCoreIncluded)
+            //{
+            //    foreach (var item in project.Items)
+            //    {
+            //        if (item.EvaluatedInclude.StartsWith("MahApps.Metro"))
+            //        {
+            //            mahAppsInclude = item.EvaluatedInclude;
+            //            mahAppsHintPath = item.Metadata.First().EvaluatedValue;
+            //            item.Rename("test"); //name from EvilBaschdi.Core Project
+            //            item.RemoveMetadata("HintPath");
+            //            //item.SetMetadataValue("test1", "test2");
+            //        }
+            //        if (item.EvaluatedInclude.StartsWith("System.Windows.Interactivity"))
+            //        {
+            //            sysWinIntInclude = item.EvaluatedInclude;
+            //            sysWinIntHintPath = item.Metadata.First().EvaluatedValue;
+            //        }
+            //    }
+            //}
+            //project.Save();
+
+            //var current2 = @"M:\dev\WinSPCheck\WinSPCheck\packages2.config";
+            //var xmlWriterSettings = new XmlWriterSettings
+            //{
+            //    Indent = true,
+            //    OmitXmlDeclaration = false,
+            //    Encoding = Encoding.UTF8
             //};
+            //var serializer = new XmlSerializer(typeof(PackageCollection));
+            //var reader = new StreamReader(config);
+            //var package = (PackageCollection) serializer.Deserialize(reader);
+            //foreach(var pkg in package.Packages.Where(pkg => pkg.Id == "MahApps.Metro"))
+            //{
+            //    pkg.Version = "1.2.5.0";
+            //}
+            //reader.Close();
+            //File.Delete(current2);
 
-            //folderBrowser.ShowDialog();
+            //var xmlWriter = XmlWriter.Create(current2, xmlWriterSettings);
+            //var ns = new XmlSerializerNamespaces();
 
-            //MessageBox.Show(folderBrowser.SelectedPath);
-
-            var dialog = new ExplorerFolderBrower
-            {
-                SelectedPath = @"c:\temp"
-            };
-            dialog.ShowDialog();
-            MessageBox.Show(dialog.SelectedPath);
+            //ns.Add("", "");
+            //serializer.Serialize(xmlWriter, package, ns);
         }
+
 
         public void UpdateCombo(ComboBox comboBox, ArrayList arrayList)
         {

@@ -5,7 +5,7 @@ namespace EvilBaschdi.Core.DotNetExtensions
     /// <summary>
     ///     Summary description for CalculateTimeSpan
     /// </summary>
-    public class CalculateTimeSpan
+    public static class CalculateTimeSpan
     {
         public static int Month(TimeSpan span)
         {
@@ -15,6 +15,11 @@ namespace EvilBaschdi.Core.DotNetExtensions
         public static int Year(TimeSpan span)
         {
             return InternalClasses._year(span);
+        }
+
+        public static int Quarter(this DateTime date)
+        {
+            return (date.Month + 2)/3;
         }
     }
 }
