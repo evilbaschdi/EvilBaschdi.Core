@@ -52,10 +52,12 @@ namespace EvilBaschdi.Core.DirectoryExtensions
             var fileList = new List<string>();
             if (initialDirectory.IsAccessible())
             {
-                var initialDirectoryFileList = Directory.GetFiles(initialDirectory).ToList();
+                //root directory.
+                var initialDirectoryFileList = Directory.GetFiles(initialDirectory).Select(item => item.ToLower()).ToList();
                 Parallel.ForEach(initialDirectoryFileList.Where(file => IsValidFileName(file, fileList, includeExtensionList, excludeExtensionList)), file => fileList.Add(file));
 
-                var initialDirectorySubdirectoriesFileList = GetSubdirectoriesContainingOnlyFiles(initialDirectory).SelectMany(Directory.GetFiles);
+                //sub directories.
+                var initialDirectorySubdirectoriesFileList = GetSubdirectoriesContainingOnlyFiles(initialDirectory).SelectMany(Directory.GetFiles).Select(item => item.ToLower());
 
                 Parallel.ForEach(initialDirectorySubdirectoriesFileList.Where(file => IsValidFileName(file, fileList, includeExtensionList, excludeExtensionList)),
                     file => fileList.Add(file));

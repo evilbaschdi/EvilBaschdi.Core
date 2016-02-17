@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Xml.Serialization;
 
-namespace EvilBaschdi.TestUI
+namespace EvilBaschdi.TestUI.NuGet
 {
     [Serializable]
     [XmlType]

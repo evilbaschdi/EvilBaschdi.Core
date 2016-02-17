@@ -1,4 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -6,6 +12,9 @@ using EvilBaschdi.Core.Browsers;
 using EvilBaschdi.Core.DirectoryExtensions;
 using EvilBaschdi.Core.Security;
 using EvilBaschdi.Core.Wpf;
+using EvilBaschdi.TestUI.NuGet;
+using EvilBaschdi.TestUI.Vs;
+using Microsoft.Build.Evaluation;
 
 namespace EvilBaschdi.TestUI
 {
@@ -15,7 +24,7 @@ namespace EvilBaschdi.TestUI
     public partial class MainWindow : Window
     {
         private INetworkBrowser _networkBrowser;
-        private IFilePath _filePath;
+        private readonly IFilePath _filePath;
 
         public MainWindow()
         {
@@ -54,74 +63,83 @@ namespace EvilBaschdi.TestUI
                 txtOutput.Background = Brushes.DarkRed;
             }
 
-            //var currentDirectory = Directory.GetCurrentDirectory();
-            //var configuration = currentDirectory.EndsWith("Release") ? "Release" : "Debug";
 
-            //var config = currentDirectory.Replace(@"TestUI\bin\" + configuration, @"EvilBaschdi.Core\packages.config");
-            //var root = currentDirectory.Replace(@"EvilBaschdi.Core\TestUI\bin\" + configuration, "");
+            var currentDirectory = Directory.GetCurrentDirectory();
+            var configuration = currentDirectory.EndsWith("Release") ? "Release" : "Debug";
+            var root = currentDirectory.Replace($@"EvilBaschdi.Core\TestUI\bin\{configuration}", "");
+            var coreProject = new CoreProject();
+            var coreNuGetPackagesConfig = currentDirectory.Replace($@"TestUI\bin\{configuration}", @"EvilBaschdi.Core\packages.config");
+            var includeList = new List<string> {"csproj"};
+            var childProjects = _filePath.GetFileList(root, includeList, null).Where(file => !file.ToLower().Contains("evilbaschdi.core"));
+            var childConfigs = new ConcurrentBag<string>();
 
-            //_filePath.GetFileList(root);
+            #region cs project
 
-            //if(File.Exists(config))
-            //{
-            //    MessageBox.Show(config);
-            //}
-            //if(Directory.Exists(root))
-            //{
-            //    MessageBox.Show(root);
-            //}
+            Parallel.ForEach(childProjects,
+                childProject =>
+                {
+                    try
+                    {
+                        var targetProject = new Project(childProject);
 
+                        var isCoreIncluded = targetProject.Items.Any(item => item.EvaluatedInclude == "EvilBaschdi.Core");
+                        var isMahAppsVersionDifferent =
+                            targetProject.Items.Any(item => item.EvaluatedInclude.StartsWith("MahApps.Metro,") && item.EvaluatedInclude != coreProject.MahApps.Key);
+                        if (isCoreIncluded && isMahAppsVersionDifferent)
+                        {
+                            foreach (var item in targetProject.Items)
+                            {
+                                if (item.EvaluatedInclude.StartsWith("MahApps.Metro"))
+                                {
+                                    item.Rename(coreProject.MahApps.Key);
+                                    item.RemoveMetadata("HintPath");
+                                    item.SetMetadataValue("HintPath", coreProject.MahApps.Value);
+                                }
+                                if (item.EvaluatedInclude.StartsWith("System.Windows.Interactivity"))
+                                {
+                                    item.Rename(coreProject.SysWinInt.Key);
+                                    item.RemoveMetadata("HintPath");
+                                    item.SetMetadataValue("HintPath", coreProject.SysWinInt.Value);
+                                }
+                            }
+                            targetProject.Save();
+                            var currentPath = Path.GetDirectoryName(childProject);
+                            var configPath = $@"{currentPath}\packages.config";
+                            if (File.Exists(configPath))
+                            {
+                                childConfigs.Add(configPath);
+                            }
+                        }
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show(exception.Message);
+                    }
+                });
 
-            //var project = new Project(current);
-            //var isCoreIncluded = project.Items.Any(item => item.EvaluatedInclude == "EvilBaschdi.Core");
-            //var mahAppsInclude = "";
-            //var mahAppsHintPath = "";
-            //var sysWinIntInclude = "";
-            //var sysWinIntHintPath = "";
+            #endregion cs project
 
-            //if (isCoreIncluded)
-            //{
-            //    foreach (var item in project.Items)
-            //    {
-            //        if (item.EvaluatedInclude.StartsWith("MahApps.Metro"))
-            //        {
-            //            mahAppsInclude = item.EvaluatedInclude;
-            //            mahAppsHintPath = item.Metadata.First().EvaluatedValue;
-            //            item.Rename("test"); //name from EvilBaschdi.Core Project
-            //            item.RemoveMetadata("HintPath");
-            //            //item.SetMetadataValue("test1", "test2");
-            //        }
-            //        if (item.EvaluatedInclude.StartsWith("System.Windows.Interactivity"))
-            //        {
-            //            sysWinIntInclude = item.EvaluatedInclude;
-            //            sysWinIntHintPath = item.Metadata.First().EvaluatedValue;
-            //        }
-            //    }
-            //}
-            //project.Save();
+            #region nuget
 
-            //var current2 = @"M:\dev\WinSPCheck\WinSPCheck\packages2.config";
-            //var xmlWriterSettings = new XmlWriterSettings
-            //{
-            //    Indent = true,
-            //    OmitXmlDeclaration = false,
-            //    Encoding = Encoding.UTF8
-            //};
-            //var serializer = new XmlSerializer(typeof(PackageCollection));
-            //var reader = new StreamReader(config);
-            //var package = (PackageCollection) serializer.Deserialize(reader);
-            //foreach(var pkg in package.Packages.Where(pkg => pkg.Id == "MahApps.Metro"))
-            //{
-            //    pkg.Version = "1.2.5.0";
-            //}
-            //reader.Close();
-            //File.Delete(current2);
+            var mahAppsId = "MahApps.Metro";
+            var corePackageConfig = new PackageConfig();
+            var coreCollection = corePackageConfig.Read(coreNuGetPackagesConfig);
+            var coreMahAppsVersion = corePackageConfig.Version(mahAppsId, coreCollection);
+            var coreMahAppsTargetFramework = corePackageConfig.TargetFramework(mahAppsId, coreCollection);
+            Parallel.ForEach(childConfigs,
+                childConfig =>
+                {
+                    var targetPackageConfig = new PackageConfig();
+                    var targetCollection = targetPackageConfig.Read(childConfig);
+                    var targetMahAppsVersion = targetPackageConfig.Version(mahAppsId, targetCollection);
+                    if (!string.IsNullOrWhiteSpace(targetMahAppsVersion) && targetMahAppsVersion != coreMahAppsVersion)
+                    {
+                        targetPackageConfig.SetVersion(mahAppsId, coreMahAppsVersion, targetCollection);
+                        targetPackageConfig.Write(childConfig, targetCollection);
+                    }
+                });
 
-            //var xmlWriter = XmlWriter.Create(current2, xmlWriterSettings);
-            //var ns = new XmlSerializerNamespaces();
-
-            //ns.Add("", "");
-            //serializer.Serialize(xmlWriter, package, ns);
+            #endregion nuget
         }
 
 
