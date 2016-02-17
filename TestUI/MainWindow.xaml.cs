@@ -69,7 +69,10 @@ namespace EvilBaschdi.TestUI
             var root = currentDirectory.Replace($@"EvilBaschdi.Core\TestUI\bin\{configuration}", "");
             var coreProject = new CoreProject();
             var coreNuGetPackagesConfig = currentDirectory.Replace($@"TestUI\bin\{configuration}", @"EvilBaschdi.Core\packages.config");
-            var includeList = new List<string> {"csproj"};
+            var includeList = new List<string>
+                              {
+                                  "csproj"
+                              };
             var childProjects = _filePath.GetFileList(root, includeList, null).Where(file => !file.ToLower().Contains("evilbaschdi.core"));
             var childConfigs = new ConcurrentBag<string>();
 

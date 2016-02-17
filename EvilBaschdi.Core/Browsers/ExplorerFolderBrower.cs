@@ -166,9 +166,9 @@ namespace EvilBaschdi.Core.Browsers
                 string path, value;
                 GetPathAndElementName(item, out path, out value);
                 SelectedPath = path;
-                SelectedPaths = new[] {path};
+                SelectedPaths = new[] { path };
                 SelectedElementName = value;
-                SelectedElementNames = new[] {value};
+                SelectedElementNames = new[] { value };
             }
             catch (COMException ex) when (ex.HResult == -2147418113)
             {
