@@ -76,6 +76,7 @@
     <Compile Include="DirectoryExtensions\IFilePath.cs" />
     <Compile Include="DirectoryExtensions\Helpers.cs" />
     <Compile Include="DotNetExtensions\CalculateTimeSpan.cs" />
+    <Compile Include="Threading\Execution.cs" />
     <Compile Include="Security\Encryption.cs" />
     <Compile Include="Wpf\IToast.cs" />
     <Compile Include="Wpf\MetroStyle.cs">

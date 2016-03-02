@@ -20,6 +20,6 @@ namespace EvilBaschdi.Core.DirectoryExtensions
         /// <returns></returns>
         List<string> GetFileList(string initialDirectory, List<string> includeExtensionList, List<string> excludeExtensionList);
 
-        IEnumerable<string> GetSubdirectoriesContainingOnlyFiles(string path);
+        List<string> GetSubdirectoriesContainingOnlyFiles(string path);
     }
 }

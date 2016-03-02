@@ -10,6 +10,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using EvilBaschdi.Core.Browsers;
 using EvilBaschdi.Core.DirectoryExtensions;
+using EvilBaschdi.Core.MultiThreading;
 using EvilBaschdi.Core.Security;
 using EvilBaschdi.Core.Wpf;
 using EvilBaschdi.TestUI.NuGet;
@@ -25,12 +26,14 @@ namespace EvilBaschdi.TestUI
     {
         private INetworkBrowser _networkBrowser;
         private readonly IFilePath _filePath;
+        private readonly IMultiThreadingHelper _multiThreadingHelper;
 
         public MainWindow()
         {
             InitializeComponent();
             Loaded += (s, e) => this.EnableGlassEffect();
-            _filePath = new FilePath();
+            _multiThreadingHelper = new MultiThreadingHelper();
+            _filePath = new FilePath(_multiThreadingHelper);
             //LoadNetworkBrowserToArrayList();
         }
 

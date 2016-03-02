@@ -1,8 +1,10 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using EvilBaschdi.Core.MultiThreading;
 
 namespace EvilBaschdi.Core.DirectoryExtensions
 {
@@ -10,7 +12,21 @@ namespace EvilBaschdi.Core.DirectoryExtensions
     /// </summary>
     public class FilePath : IFilePath
     {
-        public IEnumerable<string> GetSubdirectoriesContainingOnlyFiles(string path)
+        private readonly IMultiThreadingHelper _multiThreadingHelper;
+
+        /// <summary>
+        ///     Initialisiert eine neue Instanz der <see cref="T:System.Object" />-Klasse.
+        /// </summary>
+        public FilePath(IMultiThreadingHelper multiThreadingHelper)
+        {
+            if (multiThreadingHelper == null)
+            {
+                throw new ArgumentNullException(nameof(multiThreadingHelper));
+            }
+            _multiThreadingHelper = multiThreadingHelper;
+        }
+
+        public List<string> GetSubdirectoriesContainingOnlyFiles(string path)
         {
             return Directory.GetDirectories(path, "*", SearchOption.AllDirectories).Where(dir => dir.IsAccessible()).ToList();
         }
@@ -49,25 +65,30 @@ namespace EvilBaschdi.Core.DirectoryExtensions
                 excludeExtensionList = new List<string>();
             }
 
-            var fileList = new List<string>();
+            var fileList = new ConcurrentBag<string>();
             if (initialDirectory.IsAccessible())
             {
                 //root directory.
                 var initialDirectoryFileList = Directory.GetFiles(initialDirectory).Select(item => item.ToLower()).ToList();
-                Parallel.ForEach(initialDirectoryFileList.Where(file => IsValidFileName(file, fileList, includeExtensionList, excludeExtensionList)), file => fileList.Add(file));
-
+                var dirList = initialDirectoryFileList.Where(file => IsValidFileName(file, fileList, includeExtensionList, excludeExtensionList)).ToList();
                 //sub directories.
                 var initialDirectorySubdirectoriesFileList = GetSubdirectoriesContainingOnlyFiles(initialDirectory).SelectMany(Directory.GetFiles).Select(item => item.ToLower());
+                var dirSubList = initialDirectorySubdirectoriesFileList.Where(file => IsValidFileName(file, fileList, includeExtensionList, excludeExtensionList)).ToList();
 
-                Parallel.ForEach(initialDirectorySubdirectoriesFileList.Where(file => IsValidFileName(file, fileList, includeExtensionList, excludeExtensionList)),
-                    file => fileList.Add(file));
+                var processList = new List<string>();
+                processList.AddRange(dirList);
+                processList.AddRange(dirSubList);
+
+                _multiThreadingHelper.CallInParallelByProcessorCount(processList,
+                    range => Parallel.For(range.Item1, range.Item2,
+                        i => { fileList.Add(processList[i]); }));
             }
 
-            return fileList;
+            return fileList.ToList();
         }
 
 
-        private bool IsValidFileName(string file, ICollection<string> fileList, List<string> includeExtensionList, List<string> excludeExtensionList)
+        private bool IsValidFileName(string file, ConcurrentBag<string> fileList, List<string> includeExtensionList, List<string> excludeExtensionList)
         {
             if (file == null)
             {
