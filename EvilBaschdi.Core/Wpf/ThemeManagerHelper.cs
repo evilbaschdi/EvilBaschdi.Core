@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
+using EvilBaschdi.Core.DotNetExtensions;
 using MahApps.Metro;
 using Microsoft.Win32;
 
@@ -15,7 +16,7 @@ namespace EvilBaschdi.Core.Wpf
 
             var resourceDictionary = new ResourceDictionary
                                      {
-                                         { "HighlightColor", Color.FromArgb(255, color.R, color.G, color.B) },
+                                         { "HighlightColor", Color.FromArgb(255, color.R.Subtract(10), color.G.Subtract(10), color.B.Subtract(10)) },
                                          //{ "AccentColor", Color.FromArgb(204, color.R, color.G, color.B) },
                                          { "AccentColor", Color.FromArgb(255, color.R, color.G, color.B) },
                                          { "AccentColor2", Color.FromArgb(153, color.R, color.G, color.B) },
@@ -43,7 +44,7 @@ namespace EvilBaschdi.Core.Wpf
 
             resourceDictionary.Add("IdealForegroundColor", Colors.White);
             resourceDictionary.Add("IdealForegroundColorBrush", new SolidColorBrush((Color) resourceDictionary["IdealForegroundColor"]));
-            resourceDictionary.Add("IdealForegroundDisabledBrush", new SolidColorBrush((Color) resourceDictionary["IdealForegroundColor"])); //Opacitity 0.4
+            resourceDictionary.Add("IdealForegroundDisabledBrush", new SolidColorBrush((Color) resourceDictionary["IdealForegroundColor"]));
             resourceDictionary.Add("AccentSelectedColorBrush", new SolidColorBrush((Color) resourceDictionary["IdealForegroundColor"]));
 
             // DataGrid brushes since latest alpha after 1.1.2
@@ -80,6 +81,7 @@ namespace EvilBaschdi.Core.Wpf
             ThemeManager.AddAccent(newAccent.Name, newAccent.Resources.Source);
         }
 
+
         public void RegisterSystemColorTheme()
         {
             var dwm = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\DWM");
@@ -95,29 +97,18 @@ namespace EvilBaschdi.Core.Wpf
 
                 if (useColor && themeActive && colorizationColor != null)
                 {
-                    accentColor = ConvertToColor(colorizationColor);
+                    accentColor = colorizationColor.ToColor();
                 }
                 else
                 {
                     if (IsWindows10())
                     {
-                        accentColor = ConvertToColor("#FFC6C6C6");
+                        accentColor = "#FFCCCCCC".ToColor();
                     }
                 }
 
                 CreateAppStyleBy(accentColor, "Accent from windows");
             }
-        }
-
-        private Color ConvertToColor(string hex)
-        {
-            var value = hex.PadLeft(8, 'F').PadLeft(9, '#');
-            var convertFromString = ColorConverter.ConvertFromString(value);
-            if (convertFromString != null)
-            {
-                return (Color) convertFromString;
-            }
-            return Colors.Black;
         }
 
         private bool IsWindows10()

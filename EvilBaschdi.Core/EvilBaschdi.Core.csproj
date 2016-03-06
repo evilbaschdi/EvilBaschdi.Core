@@ -80,6 +80,7 @@
     <Compile Include="DirectoryExtensions\Helpers.cs" />
     <Compile Include="DirectoryExtensions\IFtp.cs" />
     <Compile Include="DotNetExtensions\CalculateTimeSpan.cs" />
+    <Compile Include="DotNetExtensions\TypeHelpers.cs" />
     <Compile Include="Threading\Execution.cs" />
     <Compile Include="Security\Encryption.cs" />
     <Compile Include="Wpf\IThemeManagerHelper.cs" />

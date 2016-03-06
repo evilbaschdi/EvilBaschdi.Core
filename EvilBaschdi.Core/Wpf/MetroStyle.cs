@@ -85,8 +85,10 @@ namespace EvilBaschdi.Core.Wpf
                 _mainWindow.Width = SystemParameters.PrimaryScreenWidth - 400;
                 _mainWindow.Height = SystemParameters.PrimaryScreenHeight - 400;
             }
+
             var themeManagerHelper = new ThemeManagerHelper();
             themeManagerHelper.RegisterSystemColorTheme();
+
             if (!string.IsNullOrWhiteSpace(_settings.Accent))
             {
                 _styleAccent = ThemeManager.GetAccent(_settings.Accent);
