@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using EvilBaschdi.Core.Application;
@@ -84,7 +85,8 @@ namespace EvilBaschdi.Core.Wpf
                 _mainWindow.Width = SystemParameters.PrimaryScreenWidth - 400;
                 _mainWindow.Height = SystemParameters.PrimaryScreenHeight - 400;
             }
-
+            var themeManagerHelper = new ThemeManagerHelper();
+            themeManagerHelper.RegisterSystemColorTheme();
             if (!string.IsNullOrWhiteSpace(_settings.Accent))
             {
                 _styleAccent = ThemeManager.GetAccent(_settings.Accent);
@@ -111,7 +113,7 @@ namespace EvilBaschdi.Core.Wpf
 
             SetStyle();
 
-            foreach (var accent in ThemeManager.Accents)
+            foreach (var accent in ThemeManager.Accents.OrderBy(a => a.Name))
             {
                 _accent.Items.Add(accent.Name);
             }

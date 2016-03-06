@@ -12,6 +12,8 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -73,11 +75,15 @@
     <Compile Include="DirectoryExtensions\FilePath.cs">
       <DependentUpon>IFilePath.cs</DependentUpon>
     </Compile>
+    <Compile Include="DirectoryExtensions\Ftp.cs" />
     <Compile Include="DirectoryExtensions\IFilePath.cs" />
     <Compile Include="DirectoryExtensions\Helpers.cs" />
+    <Compile Include="DirectoryExtensions\IFtp.cs" />
     <Compile Include="DotNetExtensions\CalculateTimeSpan.cs" />
     <Compile Include="Threading\Execution.cs" />
     <Compile Include="Security\Encryption.cs" />
+    <Compile Include="Wpf\IThemeManagerHelper.cs" />
+    <Compile Include="Wpf\ThemeManagerHelper.cs" />
     <Compile Include="Wpf\IToast.cs" />
     <Compile Include="Wpf\MetroStyle.cs">
       <DependentUpon>IMetroStyle.cs</DependentUpon>
