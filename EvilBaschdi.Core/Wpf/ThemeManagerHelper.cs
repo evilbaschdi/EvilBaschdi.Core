@@ -88,24 +88,22 @@ namespace EvilBaschdi.Core.Wpf
             var thememanager = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\ThemeManager");
             if (dwm != null && thememanager != null)
             {
-                var colorizationColor = ((int) dwm.GetValue("ColorizationColor")).ToString("X");
-                var colorPrevalence = dwm.GetValue("ColorPrevalence").ToString();
-                var themeActive = thememanager.GetValue("ThemeActive").ToString().Equals("1");
+                var colorizationColor = dwm.GetValue("ColorizationColor") != null ? ((int) dwm.GetValue("ColorizationColor")).ToString("X") : string.Empty;
+                var colorPrevalence = dwm.GetValue("ColorPrevalence") != null && dwm.GetValue("ColorPrevalence").ToString().Equals("1");
+                var themeActive = thememanager.GetValue("ThemeActive") != null && thememanager.GetValue("ThemeActive").ToString().Equals("1");
 
-                var useColor = !(!string.IsNullOrWhiteSpace(colorPrevalence) && colorPrevalence == "0");
                 var accentColor = SystemColors.ActiveCaptionColor;
 
-                if (useColor && themeActive && colorizationColor != null)
+                if (themeActive && !string.IsNullOrWhiteSpace(colorizationColor))
                 {
                     accentColor = colorizationColor.ToColor();
                 }
-                else
+
+                if (IsWindows10() && !colorPrevalence)
                 {
-                    if (IsWindows10())
-                    {
-                        accentColor = "#FFCCCCCC".ToColor();
-                    }
+                    accentColor = "#FFCCCCCC".ToColor();
                 }
+
 
                 CreateAppStyleBy(accentColor, "Accent from windows");
             }
