@@ -1,11 +1,16 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using EvilBaschdi.Core.Browsers;
 using EvilBaschdi.Core.DirectoryExtensions;
+using EvilBaschdi.Core.DotNetExtensions;
 using EvilBaschdi.Core.MultiThreading;
 using EvilBaschdi.Core.Security;
+using EvilBaschdi.Core.Wpf;
+using MahApps.Metro;
 using MahApps.Metro.Controls;
 
 namespace EvilBaschdi.TestUI
@@ -149,5 +154,56 @@ namespace EvilBaschdi.TestUI
             }
             comboBox.SelectedIndex = 0;
         }
+
+        private void CustomColorOnLostFocus(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrWhiteSpace(CustomColor.Text))
+            {
+                try
+                {
+                    var themeManagerHelper = new ThemeManagerHelper();
+                    themeManagerHelper.CreateAppStyleBy(CustomColor.Text.ToColor(), CustomColor.Text);
+                    var styleAccent = ThemeManager.GetAccent(CustomColor.Text);
+                    var styleTheme = ThemeManager.GetAppTheme("BaseLight");
+                    ThemeManager.ChangeAppStyle(Application.Current, styleAccent, styleTheme);
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show(exception.Message);
+                }
+            }
+        }
+
+        #region Flyout
+
+        private void ToggleSettingsFlyoutClick(object sender, RoutedEventArgs e)
+        {
+            ToggleFlyout(0);
+        }
+
+        private void ToggleFlyout(int index, bool stayOpen = false)
+        {
+            var activeFlyout = (Flyout) Flyouts.Items[index];
+            if (activeFlyout == null)
+            {
+                return;
+            }
+
+            foreach (var nonactiveFlyout in Flyouts.Items.Cast<Flyout>().Where(nonactiveFlyout => nonactiveFlyout.IsOpen && nonactiveFlyout.Name != activeFlyout.Name))
+            {
+                nonactiveFlyout.IsOpen = false;
+            }
+
+            if (activeFlyout.IsOpen && stayOpen)
+            {
+                activeFlyout.IsOpen = true;
+            }
+            else
+            {
+                activeFlyout.IsOpen = !activeFlyout.IsOpen;
+            }
+        }
+
+        #endregion Flyout
     }
 }

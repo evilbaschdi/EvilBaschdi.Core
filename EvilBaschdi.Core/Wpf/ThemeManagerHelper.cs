@@ -16,7 +16,7 @@ namespace EvilBaschdi.Core.Wpf
 
             var resourceDictionary = new ResourceDictionary
                                      {
-                                         { "HighlightColor", Color.FromArgb(255, color.R.Subtract(10), color.G.Subtract(10), color.B.Subtract(10)) },
+                                         { "HighlightColor", Color.FromArgb(255, color.R.Subtract(30), color.G.Subtract(30), color.B.Subtract(30)) },
                                          //{ "AccentColor", Color.FromArgb(204, color.R, color.G, color.B) },
                                          { "AccentColor", Color.FromArgb(255, color.R, color.G, color.B) },
                                          { "AccentColor2", Color.FromArgb(153, color.R, color.G, color.B) },
@@ -42,7 +42,8 @@ namespace EvilBaschdi.Core.Wpf
             resourceDictionary.Add("CheckmarkFill", new SolidColorBrush((Color) resourceDictionary["AccentColor"]));
             resourceDictionary.Add("RightArrowFill", new SolidColorBrush((Color) resourceDictionary["AccentColor"]));
 
-            resourceDictionary.Add("IdealForegroundColor", Colors.White);
+            //resourceDictionary.Add("IdealForegroundColor", Colors.White);
+            resourceDictionary.Add("IdealForegroundColor", (int) Math.Sqrt(color.R*color.R*.241 + color.G*color.G*.691 + color.B*color.B*.068) < 130 ? Colors.White : Colors.Black);
             resourceDictionary.Add("IdealForegroundColorBrush", new SolidColorBrush((Color) resourceDictionary["IdealForegroundColor"]));
             resourceDictionary.Add("IdealForegroundDisabledBrush", new SolidColorBrush((Color) resourceDictionary["IdealForegroundColor"]));
             resourceDictionary.Add("AccentSelectedColorBrush", new SolidColorBrush((Color) resourceDictionary["IdealForegroundColor"]));
@@ -104,16 +105,16 @@ namespace EvilBaschdi.Core.Wpf
                     accentColor = "#FFCCCCCC".ToColor();
                 }
 
-
                 CreateAppStyleBy(accentColor, "Accent from windows");
             }
         }
 
         private bool IsWindows10()
         {
-            var reg = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
+            var currentVersion = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
 
-            var productName = reg.GetValue("ProductName").ToString();
+            // ReSharper disable once PossibleNullReferenceException
+            var productName = currentVersion.GetValue("ProductName").ToString();
 
             return productName.StartsWith("Windows 10");
         }
