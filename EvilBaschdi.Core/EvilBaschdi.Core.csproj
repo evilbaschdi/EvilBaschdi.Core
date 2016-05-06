@@ -84,6 +84,7 @@
     <Compile Include="Threading\Execution.cs" />
     <Compile Include="Security\Encryption.cs" />
     <Compile Include="Wpf\IThemeManagerHelper.cs" />
+    <Compile Include="Wpf\MetroStyleByToggleSwitch.cs" />
     <Compile Include="Wpf\ThemeManagerHelper.cs" />
     <Compile Include="Wpf\IToast.cs" />
     <Compile Include="Wpf\MetroStyle.cs">

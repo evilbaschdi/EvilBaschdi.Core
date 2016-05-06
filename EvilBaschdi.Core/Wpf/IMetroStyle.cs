@@ -30,6 +30,12 @@ namespace EvilBaschdi.Core.Wpf
         void SetTheme(object sender, RoutedEventArgs routedEventArgs);
 
         /// <summary>
+        ///     Theme of application style.
+        /// </summary>
+        /// <param name="sender"></param>
+        void SetTheme(object sender);
+
+        /// <summary>
         /// </summary>
         void SaveStyle();
     }

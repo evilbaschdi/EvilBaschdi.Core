@@ -10,7 +10,7 @@ namespace EvilBaschdi.Core.Wpf
 {
     /// <summary>
     /// </summary>
-    public class MetroStyle : IMetroStyle
+    public class MetroStyleByToggleSwitch : IMetroStyle
     {
         /// <summary>
         ///     Accent of Application MetroStyle.
@@ -24,8 +24,7 @@ namespace EvilBaschdi.Core.Wpf
 
         private readonly MetroWindow _mainWindow;
         private readonly ComboBox _accent;
-        private readonly RadioButton _themeDark;
-        private readonly RadioButton _themeLight;
+        private readonly ToggleSwitch _themeSwitch;
         private readonly ISettings _settings;
 
         /// <summary>
@@ -33,10 +32,9 @@ namespace EvilBaschdi.Core.Wpf
         /// </summary>
         /// <param name="mainWindow" />
         /// <param name="accent" />
-        /// <param name="themeLight" />
+        /// <param name="themeSwitch"></param>
         /// <param name="settings" />
-        /// <param name="themeDark" />
-        public MetroStyle(MetroWindow mainWindow, ComboBox accent, RadioButton themeDark, RadioButton themeLight, ISettings settings)
+        public MetroStyleByToggleSwitch(MetroWindow mainWindow, ComboBox accent, ToggleSwitch themeSwitch, ISettings settings)
         {
             if (mainWindow == null)
             {
@@ -46,22 +44,18 @@ namespace EvilBaschdi.Core.Wpf
             {
                 throw new ArgumentNullException(nameof(accent));
             }
-            if (themeDark == null)
+            if (themeSwitch == null)
             {
-                throw new ArgumentNullException(nameof(themeDark));
+                throw new ArgumentNullException(nameof(themeSwitch));
             }
-            if (themeLight == null)
-            {
-                throw new ArgumentNullException(nameof(themeLight));
-            }
+
             if (settings == null)
             {
                 throw new ArgumentNullException(nameof(settings));
             }
             _mainWindow = mainWindow;
             _accent = accent;
-            _themeDark = themeDark;
-            _themeLight = themeLight;
+            _themeSwitch = themeSwitch;
             _settings = settings;
         }
 
@@ -103,13 +97,11 @@ namespace EvilBaschdi.Core.Wpf
             switch (_styleTheme.Name)
             {
                 case "BaseDark":
-                    _themeDark.IsChecked = true;
-                    _themeLight.IsChecked = false;
+                    _themeSwitch.IsChecked = true;
                     break;
 
                 case "BaseLight":
-                    _themeDark.IsChecked = false;
-                    _themeLight.IsChecked = true;
+                    _themeSwitch.IsChecked = false;
                     break;
             }
 
@@ -148,16 +140,16 @@ namespace EvilBaschdi.Core.Wpf
             // get the theme from the current application
             var style = ThemeManager.DetectAppStyle(System.Windows.Application.Current);
 
-            var radiobutton = (RadioButton) sender;
+            var toggleSwitch = (ToggleSwitch) sender;
             _styleTheme = style.Item1;
 
-            switch (radiobutton.Name)
+            switch (toggleSwitch.IsChecked)
             {
-                case "Dark":
+                case true:
                     _styleTheme = ThemeManager.GetAppTheme("BaseDark");
                     break;
 
-                case "Light":
+                case false:
                     _styleTheme = ThemeManager.GetAppTheme("BaseLight");
                     break;
 
