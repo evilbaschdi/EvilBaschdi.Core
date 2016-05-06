@@ -37,7 +37,7 @@ namespace EvilBaschdi.Core.Browsers
                 const int svTypeWorkstation = 1;
                 const int svTypeServer = 2;
                 var buffer = IntPtr.Zero;
-                var sizeofInfo = Marshal.SizeOf(typeof (ServerInfo));
+                var sizeofInfo = Marshal.SizeOf(typeof(ServerInfo));
 
                 try
                 {
@@ -55,16 +55,14 @@ namespace EvilBaschdi.Core.Browsers
                         for (var i = 0; i < totalEntries; i++)
                         {
                             var tmpBuffer = new IntPtr((int) buffer + (i*sizeofInfo));
-                            var svrInfo = (ServerInfo) Marshal.PtrToStructure(tmpBuffer, typeof (ServerInfo));
+                            var svrInfo = (ServerInfo) Marshal.PtrToStructure(tmpBuffer, typeof(ServerInfo));
                             networkComputers.Add(svrInfo.svName);
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Problem with acessing " +
-                                    "network computers in NetworkBrowser " +
-                                    "\r\n\r\n\r\n" + ex.Message,
+                    MessageBox.Show($"Problem with acessing network computers in NetworkBrowser \r\n\r\n\r\n{ex.Message}",
                         "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return null;
                 }

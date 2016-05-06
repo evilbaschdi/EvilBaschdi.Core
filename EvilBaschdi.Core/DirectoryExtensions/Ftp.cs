@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Net;
+using System.Text;
 using System.Windows;
 
 namespace EvilBaschdi.Core.DirectoryExtensions
@@ -37,7 +38,7 @@ namespace EvilBaschdi.Core.DirectoryExtensions
         {
             try
             {
-                _ftpWebRequest = (FtpWebRequest) WebRequest.Create(_host + "/" + directory);
+                _ftpWebRequest = (FtpWebRequest) WebRequest.Create($"{_host}/{directory}");
                 _ftpWebRequest.Credentials = new NetworkCredential(_user, _pass);
                 _ftpWebRequest.UseBinary = true;
                 _ftpWebRequest.UsePassive = true;
@@ -48,12 +49,12 @@ namespace EvilBaschdi.Core.DirectoryExtensions
                 if (_ftpStream != null)
                 {
                     var ftpReader = new StreamReader(_ftpStream);
-                    var directoryRaw = string.Empty;
+                    var directoryRaw = new StringBuilder();
                     try
                     {
                         while (ftpReader.Peek() != -1)
                         {
-                            directoryRaw += ftpReader.ReadLine() + "|";
+                            directoryRaw.Append($"{ftpReader.ReadLine()}|");
                         }
                     }
                     catch (Exception ex)
@@ -66,9 +67,10 @@ namespace EvilBaschdi.Core.DirectoryExtensions
                     _ftpWebRequest = null;
                     try
                     {
-                        if (!string.IsNullOrWhiteSpace(directoryRaw))
+                        var directoryRawString = directoryRaw.ToString();
+                        if (!string.IsNullOrWhiteSpace(directoryRawString))
                         {
-                            var directoryList = directoryRaw.Split("|".ToCharArray());
+                            var directoryList = directoryRawString.Split("|".ToCharArray());
                             return directoryList;
                         }
                     }

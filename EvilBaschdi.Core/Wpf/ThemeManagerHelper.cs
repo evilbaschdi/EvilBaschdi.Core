@@ -24,7 +24,6 @@ namespace EvilBaschdi.Core.Wpf
                                          { "AccentColor4", Color.FromArgb(51, color.R, color.G, color.B) }
                                      };
 
-
             resourceDictionary.Add("HighlightBrush", new SolidColorBrush((Color) resourceDictionary["HighlightColor"]));
             resourceDictionary.Add("AccentColorBrush", new SolidColorBrush((Color) resourceDictionary["AccentColor"]));
             resourceDictionary.Add("AccentColorBrush2", new SolidColorBrush((Color) resourceDictionary["AccentColor2"]));

@@ -49,7 +49,11 @@
         <controls:FlyoutsControl>
             <!--  Settings Flyout  -->
             <controls:Flyout Name="SettingsFlyout" Width="400" AnimateOnPositionChange="True" AnimateOpacity="True"
-                             Header="settings" Position="Right" Theme="Accent" />
+                             Header="settings" Position="Right" Theme="Accent">
+                <StackPanel>
+                    <Label Content="Test" />
+                </StackPanel>
+            </controls:Flyout>
         </controls:FlyoutsControl>
     </controls:MetroWindow.Flyouts>
 </controls:MetroWindow>

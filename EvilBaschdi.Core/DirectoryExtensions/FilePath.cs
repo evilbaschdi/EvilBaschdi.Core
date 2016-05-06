@@ -33,24 +33,18 @@ namespace EvilBaschdi.Core.DirectoryExtensions
 
         /// <summary>
         /// </summary>
-        /// <param name="initialDirectory"></param>
-        /// <returns></returns>
-        public List<string> GetFileList(string initialDirectory)
-        {
-            if (initialDirectory == null)
-            {
-                throw new ArgumentNullException(nameof(initialDirectory));
-            }
-            return GetFileList(initialDirectory, new List<string>(), new List<string>());
-        }
-
-        /// <summary>
-        /// </summary>
         /// <param name="initialDirectory">Directory to start search.</param>
         /// <param name="includeExtensionList">File extensions to include. No filtering if empty.</param>
         /// <param name="excludeExtensionList">File extensions to exclude. Not filtering if empty.</param>
+        /// <param name="includeFileNameList">File name to include. No filtering if empty.</param>
+        /// <param name="excludeFileNameList">File name to exclude. No filtering if empty.</param>
+        /// <param name="includeFilePathList">File path to include. No filtering if empty.</param>
+        /// <param name="excludeFilePathList">File path to exclude. No filtering if empty.</param>
         /// <returns></returns>
-        public List<string> GetFileList(string initialDirectory, List<string> includeExtensionList, List<string> excludeExtensionList)
+        public List<string> GetFileList(string initialDirectory,
+                                        List<string> includeExtensionList = null, List<string> excludeExtensionList = null,
+                                        List<string> includeFileNameList = null, List<string> excludeFileNameList = null,
+                                        List<string> includeFilePathList = null, List<string> excludeFilePathList = null)
         {
             if (initialDirectory == null)
             {
@@ -64,16 +58,38 @@ namespace EvilBaschdi.Core.DirectoryExtensions
             {
                 excludeExtensionList = new List<string>();
             }
+            if (includeFileNameList == null)
+            {
+                includeFileNameList = new List<string>();
+            }
+            if (excludeFileNameList == null)
+            {
+                excludeFileNameList = new List<string>();
+            }
+            if (includeFilePathList == null)
+            {
+                includeFilePathList = new List<string>();
+            }
+            if (excludeFilePathList == null)
+            {
+                excludeFilePathList = new List<string>();
+            }
 
             var fileList = new ConcurrentBag<string>();
             if (initialDirectory.IsAccessible())
             {
                 //root directory.
                 var initialDirectoryFileList = Directory.GetFiles(initialDirectory).Select(item => item.ToLower()).ToList();
-                var dirList = initialDirectoryFileList.Where(file => IsValidFileName(file, fileList, includeExtensionList, excludeExtensionList)).ToList();
+                var dirList =
+                    initialDirectoryFileList.Where(file =>
+                        IsValidFileName(file, fileList,
+                            includeExtensionList, excludeExtensionList, includeFileNameList, excludeFileNameList, includeFilePathList, excludeFilePathList)).ToList();
                 //sub directories.
                 var initialDirectorySubdirectoriesFileList = GetSubdirectoriesContainingOnlyFiles(initialDirectory).SelectMany(Directory.GetFiles).Select(item => item.ToLower());
-                var dirSubList = initialDirectorySubdirectoriesFileList.Where(file => IsValidFileName(file, fileList, includeExtensionList, excludeExtensionList)).ToList();
+                var dirSubList =
+                    initialDirectorySubdirectoriesFileList.Where(file =>
+                        IsValidFileName(file, fileList,
+                            includeExtensionList, excludeExtensionList, includeFileNameList, excludeFileNameList, includeFilePathList, excludeFilePathList)).ToList();
 
                 var processList = new List<string>();
                 processList.AddRange(dirList);
@@ -87,8 +103,10 @@ namespace EvilBaschdi.Core.DirectoryExtensions
             return fileList.ToList();
         }
 
-
-        private bool IsValidFileName(string file, ConcurrentBag<string> fileList, List<string> includeExtensionList, List<string> excludeExtensionList)
+        private bool IsValidFileName(string file, ConcurrentBag<string> fileList,
+                                     List<string> includeExtensionList, List<string> excludeExtensionList,
+                                     List<string> includeFileNameList, List<string> excludeFileNameList,
+                                     List<string> includeFilePathList, List<string> excludeFilePathList)
         {
             if (file == null)
             {
@@ -100,16 +118,35 @@ namespace EvilBaschdi.Core.DirectoryExtensions
             }
             if (includeExtensionList == null)
             {
-                includeExtensionList = new List<string>();
+                throw new ArgumentNullException(nameof(includeExtensionList));
             }
             if (excludeExtensionList == null)
             {
-                excludeExtensionList = new List<string>();
+                throw new ArgumentNullException(nameof(excludeExtensionList));
+            }
+            if (includeFileNameList == null)
+            {
+                throw new ArgumentNullException(nameof(includeFileNameList));
+            }
+            if (excludeFileNameList == null)
+            {
+                throw new ArgumentNullException(nameof(excludeFileNameList));
+            }
+            if (includeFilePathList == null)
+            {
+                throw new ArgumentNullException(nameof(includeFilePathList));
+            }
+            if (excludeFilePathList == null)
+            {
+                throw new ArgumentNullException(nameof(excludeFilePathList));
             }
 
-            var fileExtension = Path.GetExtension(file).TrimStart('.');
 
-            var directoryInfo = new FileInfo(file).Directory;
+            var path = file.ToLower();
+            var fileInfo = new FileInfo(file);
+            var fileName = fileInfo.Name.ToLower();
+            var directoryInfo = fileInfo.Directory;
+            var fileExtension = fileInfo.Extension.ToLower().TrimStart('.');
 
             if (directoryInfo == null)
             {
@@ -118,10 +155,14 @@ namespace EvilBaschdi.Core.DirectoryExtensions
 
             var alreadyContained = !fileList.Contains(file);
             var hasFileExtension = !string.IsNullOrWhiteSpace(fileExtension);
-            var include = !includeExtensionList.Any() || includeExtensionList.Contains(fileExtension);
-            var exclude = excludeExtensionList.Contains(fileExtension);
+            var includeExtention = !includeExtensionList.Any() || includeExtensionList.Contains(fileExtension);
+            var includeFileName = !includeFileNameList.Any() || includeFileNameList.Contains(fileName);
+            var includeFilePath = !includeFilePathList.Any() || includeFilePathList.Contains(path);
+            var excludeExtention = excludeExtensionList.Contains(fileExtension);
+            var excludeFileName = excludeFileNameList.Contains(fileName);
+            var excludeFilePath = excludeFilePathList.Contains(path);
 
-            return alreadyContained && hasFileExtension && include && !exclude;
+            return alreadyContained && hasFileExtension && includeExtention && !excludeExtention && includeFileName && !excludeFileName && includeFilePath && !excludeFilePath;
         }
     }
 }
