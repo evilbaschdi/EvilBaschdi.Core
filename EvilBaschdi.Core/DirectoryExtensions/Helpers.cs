@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using static System.String;
 
 namespace EvilBaschdi.Core.DirectoryExtensions
 {
@@ -33,6 +34,21 @@ namespace EvilBaschdi.Core.DirectoryExtensions
         {
             var sum = dir.GetFiles().Aggregate<FileInfo, double>(0, (current, file) => current + file.Length);
             return dir.GetDirectories().Aggregate(sum, (current, dir1) => current + GetDirectorySize(dir1));
+        }
+
+        public static void RenameTo(this DirectoryInfo di, string name)
+        {
+            if (di == null)
+            {
+                throw new ArgumentNullException(nameof(di), "Directory info to rename cannot be null");
+            }
+
+            if (IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentException("New name cannot be null or blank", nameof(name));
+            }
+
+            di.MoveTo(Path.Combine(di.Parent.FullName, name));
         }
     }
 }

@@ -60,6 +60,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\Info.cs" />
     <Compile Include="Application\ISettings.cs" />
     <Compile Include="Browsers\ExplorerFolderBrower.cs">
       <DependentUpon>IFolderBrowser.cs</DependentUpon>
