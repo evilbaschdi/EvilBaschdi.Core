@@ -159,8 +159,8 @@ namespace EvilBaschdi.Core.DirectoryExtensions
             var includeFileName = !includeFileNameList.Any() || includeFileNameList.Contains(fileName);
             var includeFilePath = !includeFilePathList.Any() || includeFilePathList.Contains(path);
             var excludeExtention = excludeExtensionList.Contains(fileExtension);
-            var excludeFileName = excludeFileNameList.Contains(fileName);
-            var excludeFilePath = excludeFilePathList.Contains(path);
+            var excludeFileName = excludeFileNameList.Any(p => fileName.Contains(p));
+            var excludeFilePath = excludeFilePathList.Any(p => path.Contains(p));
 
             return alreadyContained && hasFileExtension && includeExtention && !excludeExtention && includeFileName && !excludeFileName && includeFilePath && !excludeFilePath;
         }
