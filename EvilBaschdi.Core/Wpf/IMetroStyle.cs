@@ -7,13 +7,9 @@ namespace EvilBaschdi.Core.Wpf
     {
         /// <summary>
         /// </summary>
-        void Load();
-
-        /// <summary>
-        /// </summary>
         /// <param name="center"></param>
         /// <param name="resizeWithBorder400"></param>
-        void Load(bool center, bool resizeWithBorder400);
+        void Load(bool center = false, bool resizeWithBorder400 = false);
 
         /// <summary>
         ///     Accent of application style.

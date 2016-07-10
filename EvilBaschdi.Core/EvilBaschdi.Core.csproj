@@ -85,8 +85,6 @@
     <Compile Include="Threading\Execution.cs" />
     <Compile Include="Security\Encryption.cs" />
     <Compile Include="Wpf\IThemeManagerHelper.cs" />
-    <Compile Include="Wpf\MetroStyleByToggleSwitch.cs" />
-    <Compile Include="Wpf\ThemeManagerHelper.cs" />
     <Compile Include="Wpf\IToast.cs" />
     <Compile Include="Wpf\MetroStyle.cs">
       <DependentUpon>IMetroStyle.cs</DependentUpon>
@@ -95,6 +93,9 @@
     <Compile Include="DotNetExtensions\InternalClasses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Wpf\IMetroStyle.cs" />
+    <Compile Include="Wpf\ThemeManagerHelper.cs">
+      <DependentUpon>IThemeManagerHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Wpf\Toast.cs">
       <DependentUpon>IToast.cs</DependentUpon>
     </Compile>

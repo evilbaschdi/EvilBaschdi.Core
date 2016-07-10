@@ -26,6 +26,7 @@ namespace EvilBaschdi.Core.Wpf
         private readonly ComboBox _accent;
         private readonly RadioButton _themeDark;
         private readonly RadioButton _themeLight;
+        private readonly ToggleSwitch _themeSwitch;
         private readonly ISettings _settings;
 
         /// <summary>
@@ -65,16 +66,34 @@ namespace EvilBaschdi.Core.Wpf
             _settings = settings;
         }
 
-        /// <summary>
-        /// </summary>
-        public void Load()
+        public MetroStyle(MetroWindow mainWindow, ComboBox accent, ToggleSwitch themeSwitch, ISettings settings)
         {
-            Load(false, false);
+            if (mainWindow == null)
+            {
+                throw new ArgumentNullException(nameof(mainWindow));
+            }
+            if (accent == null)
+            {
+                throw new ArgumentNullException(nameof(accent));
+            }
+            if (themeSwitch == null)
+            {
+                throw new ArgumentNullException(nameof(themeSwitch));
+            }
+
+            if (settings == null)
+            {
+                throw new ArgumentNullException(nameof(settings));
+            }
+            _mainWindow = mainWindow;
+            _accent = accent;
+            _themeSwitch = themeSwitch;
+            _settings = settings;
         }
 
         /// <summary>
         /// </summary>
-        public void Load(bool center, bool resizeWithBorder400)
+        public void Load(bool center = false, bool resizeWithBorder400 = false)
         {
             if (center)
             {
@@ -103,13 +122,27 @@ namespace EvilBaschdi.Core.Wpf
             switch (_styleTheme.Name)
             {
                 case "BaseDark":
-                    _themeDark.IsChecked = true;
-                    _themeLight.IsChecked = false;
+                    if (_themeDark != null && _themeLight != null)
+                    {
+                        _themeDark.IsChecked = true;
+                        _themeLight.IsChecked = false;
+                    }
+                    else if (_themeSwitch != null)
+                    {
+                        _themeSwitch.IsChecked = true;
+                    }
                     break;
 
                 case "BaseLight":
-                    _themeDark.IsChecked = false;
-                    _themeLight.IsChecked = true;
+                    if (_themeDark != null && _themeLight != null)
+                    {
+                        _themeDark.IsChecked = false;
+                        _themeLight.IsChecked = true;
+                    }
+                    else if (_themeSwitch != null)
+                    {
+                        _themeSwitch.IsChecked = false;
+                    }
                     break;
             }
 
@@ -148,23 +181,24 @@ namespace EvilBaschdi.Core.Wpf
             // get the theme from the current application
             var style = ThemeManager.DetectAppStyle(System.Windows.Application.Current);
 
-            var radiobutton = (RadioButton) sender;
-            _styleTheme = style.Item1;
+            var radiobutton = sender as RadioButton;
+            var toggleSwitch = sender as ToggleSwitch;
 
-            switch (radiobutton.Name)
+            //BaseDark, BaseLight
+            var themeName = style.Item1.Name;
+
+            if (radiobutton != null)
             {
-                case "Dark":
-                    _styleTheme = ThemeManager.GetAppTheme("BaseDark");
-                    break;
-
-                case "Light":
-                    _styleTheme = ThemeManager.GetAppTheme("BaseLight");
-                    break;
-
-                default:
-                    _styleTheme = style.Item1;
-                    break;
+                //BaseDark, BaseLight
+                themeName = $"Base{radiobutton.Name}";
             }
+            else if (toggleSwitch != null)
+            {
+                //BaseDark, BaseLight
+                themeName = toggleSwitch.IsChecked.HasValue && toggleSwitch.IsChecked.Value ? "BaseDark" : "BaseLight";
+            }
+
+            _styleTheme = ThemeManager.GetAppTheme(themeName);
 
             SetStyle();
         }
