@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using static System.String;
 
 namespace EvilBaschdi.Core.DirectoryExtensions
 {
@@ -14,11 +13,11 @@ namespace EvilBaschdi.Core.DirectoryExtensions
         public static bool IsAccessible(this string path)
         {
             //get directory info
-            var realpath = new DirectoryInfo(path);
+            var directoryInfo = new DirectoryInfo(path);
             try
             {
                 //if GetDirectories works then is accessible
-                realpath.GetDirectories();
+                directoryInfo.GetDirectories();
                 return true;
             }
             catch (Exception)
@@ -26,6 +25,37 @@ namespace EvilBaschdi.Core.DirectoryExtensions
                 //if exception is not accesible
                 return false;
             }
+        }
+
+        public static bool IsFileLocked(this string file)
+        {
+            var fileInfo = new FileInfo(file);
+            return fileInfo.IsFileLocked();
+        }
+
+        public static bool IsFileLocked(this FileInfo file)
+        {
+            FileStream stream = null;
+
+            try
+            {
+                stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None);
+            }
+            catch (IOException)
+            {
+                //the file is unavailable because it is:
+                //still being written to
+                //or being processed by another thread
+                //or does not exist (has already been processed)
+                return true;
+            }
+            finally
+            {
+                stream?.Close();
+            }
+
+            //file is not locked
+            return false;
         }
 
         /// <summary>
@@ -38,12 +68,12 @@ namespace EvilBaschdi.Core.DirectoryExtensions
 
         public static void RenameTo(this DirectoryInfo di, string name)
         {
-            if (di == null)
+            if (di?.Parent == null)
             {
                 throw new ArgumentNullException(nameof(di), "Directory info to rename cannot be null");
             }
 
-            if (IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(name))
             {
                 throw new ArgumentException("New name cannot be null or blank", nameof(name));
             }
