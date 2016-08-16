@@ -8,12 +8,19 @@ using Microsoft.Win32;
 
 namespace EvilBaschdi.Core.Wpf
 {
+    /// <summary>
+    ///     ThemeManagerHelper class.
+    /// </summary>
     public class ThemeManagerHelper
     {
+        /// <summary>
+        ///     Creates a new app style by color and name.
+        /// </summary>
+        /// <param name="color">Color to create app style for.</param>
+        /// <param name="accentName">Name of the new app style.</param>
         public void CreateAppStyleBy(Color color, string accentName)
         {
             // create a runtime accent resource dictionary
-
             var resourceDictionary = new ResourceDictionary
                                      {
                                          { "HighlightColor", Color.FromArgb(255, color.R.Subtract(30), color.G.Subtract(30), color.B.Subtract(30)) },
@@ -32,11 +39,11 @@ namespace EvilBaschdi.Core.Wpf
             resourceDictionary.Add("WindowTitleColorBrush", new SolidColorBrush((Color) resourceDictionary["AccentColor"]));
 
             resourceDictionary.Add("ProgressBrush", new LinearGradientBrush(
-                new GradientStopCollection(new[]
-                                           {
-                                               new GradientStop((Color) resourceDictionary["HighlightColor"], 0),
-                                               new GradientStop((Color) resourceDictionary["AccentColor3"], 1)
-                                           }), new Point(1.002, 0.5), new Point(0.001, 0.5)));
+                                                        new GradientStopCollection(new[]
+                                                                                   {
+                                                                                       new GradientStop((Color) resourceDictionary["HighlightColor"], 0),
+                                                                                       new GradientStop((Color) resourceDictionary["AccentColor3"], 1)
+                                                                                   }), new Point(1.002, 0.5), new Point(0.001, 0.5)));
 
             resourceDictionary.Add("CheckmarkFill", new SolidColorBrush((Color) resourceDictionary["AccentColor"]));
             resourceDictionary.Add("RightArrowFill", new SolidColorBrush((Color) resourceDictionary["AccentColor"]));
@@ -81,7 +88,9 @@ namespace EvilBaschdi.Core.Wpf
             ThemeManager.AddAccent(newAccent.Name, newAccent.Resources.Source);
         }
 
-
+        /// <summary>
+        ///     Gets Color of current (applied) system settings, generates an app style and adds it to available accents.
+        /// </summary>
         public void RegisterSystemColorTheme()
         {
             var dwm = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\DWM");
@@ -99,23 +108,13 @@ namespace EvilBaschdi.Core.Wpf
                     accentColor = colorizationColor.ToColor();
                 }
 
-                if (IsWindows10() && !colorPrevalence)
+                if (VersionHelper.IsWindows10() && !colorPrevalence)
                 {
                     accentColor = "#FFCCCCCC".ToColor();
                 }
 
                 CreateAppStyleBy(accentColor, "Accent from windows");
             }
-        }
-
-        private bool IsWindows10()
-        {
-            var currentVersion = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
-
-            // ReSharper disable once PossibleNullReferenceException
-            var productName = currentVersion.GetValue("ProductName").ToString();
-
-            return productName.StartsWith("Windows 10");
         }
     }
 }

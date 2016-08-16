@@ -5,6 +5,9 @@ using Windows.UI.Notifications;
 
 namespace EvilBaschdi.Core.Wpf
 {
+    /// <summary>
+    ///     Class for toast message support.
+    /// </summary>
     public class Toast : IToast
     {
         private readonly string _imagePath;
@@ -13,6 +16,7 @@ namespace EvilBaschdi.Core.Wpf
         /// <summary>
         ///     Initialisiert eine neue Instanz der <see cref="T:System.Object" />-Klasse.
         /// </summary>
+        /// <exception cref="ArgumentNullException"><paramref name="imagePath" /> is <see langword="null" />.</exception>
         public Toast(string imagePath)
         {
             if (imagePath == null)
@@ -23,8 +27,25 @@ namespace EvilBaschdi.Core.Wpf
             ValidateOsVersion();
         }
 
+        /// <summary>
+        ///     Show Message.
+        /// </summary>
+        /// <param name="status"></param>
+        /// <param name="message"></param>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="status" /> is <see langword="null" />.
+        ///     <paramref name="message" /> is <see langword="null" />.
+        /// </exception>
         public void Show(string status, string message)
         {
+            if (status == null)
+            {
+                throw new ArgumentNullException(nameof(status));
+            }
+            if (message == null)
+            {
+                throw new ArgumentNullException(nameof(message));
+            }
             //C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral\Windows.winmd
             if (!_showToast)
             {
@@ -65,7 +86,7 @@ namespace EvilBaschdi.Core.Wpf
 
             // Show the toast. Be sure to specify the AppUserModelId on your application's shortcut!
             ToastNotificationManager.CreateToastNotifier(
-                System.Reflection.Assembly.GetExecutingAssembly().GetName().Name).Show(toast);
+                                        System.Reflection.Assembly.GetExecutingAssembly().GetName().Name).Show(toast);
         }
 
         private void ValidateOsVersion()

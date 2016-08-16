@@ -21,6 +21,11 @@ namespace EvilBaschdi.Core.DirectoryExtensions
                                  List<string> includeFileNameList = null, List<string> excludeFileNameList = null,
                                  List<string> includeFilePathList = null, List<string> excludeFilePathList = null);
 
+        /// <summary>
+        ///     Gets a list of accessible directories that contain files.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         List<string> GetSubdirectoriesContainingOnlyFiles(string path);
     }
 }

@@ -2,10 +2,16 @@
 
 namespace EvilBaschdi.Core.Browsers
 {
+    /// <summary>
+    ///     Class for FolderBrowser.
+    /// </summary>
     public class FolderBrowser : IFolderBrowser
     {
         private string _selectedPath;
 
+        /// <summary>
+        ///     Shows FolderBrowser.
+        /// </summary>
         public void ShowDialog()
         {
             var folderDialog = new FolderBrowserDialog
@@ -21,6 +27,9 @@ namespace EvilBaschdi.Core.Browsers
             _selectedPath = folderDialog.SelectedPath;
         }
 
+        /// <summary>
+        ///     Get or Set selected path.
+        /// </summary>
         public string SelectedPath
         {
             get

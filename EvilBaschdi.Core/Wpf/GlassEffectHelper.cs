@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
 using System.Windows.Media;
+using EvilBaschdi.Core.DotNetExtensions;
 
 namespace EvilBaschdi.Core.Wpf
 {
@@ -17,22 +18,47 @@ namespace EvilBaschdi.Core.Wpf
         [DllImport("dwmapi.dll", PreserveSig = false)]
         private static extern bool DwmIsCompositionEnabled();
 
+        /// <summary>
+        ///     Enables glass effect.
+        /// </summary>
+        /// <param name="window"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"><paramref name="window" /> is <see langword="null" />.</exception>
         public static bool EnableGlassEffect(this Window window)
         {
+            if (window == null)
+            {
+                throw new ArgumentNullException(nameof(window));
+            }
             window.MouseLeftButtonDown += (s, e) => window.DragMove();
             return EnableGlassEffect(window, true);
         }
 
+        /// <summary>
+        ///     Enables glass effect.
+        /// </summary>
+        /// <exception cref="ArgumentNullException"><paramref name="window" /> is <see langword="null" />.</exception>
         public static bool EnableGlassEffect(Window window, bool enabled)
         {
+            if (window == null)
+            {
+                throw new ArgumentNullException(nameof(window));
+            }
             return EnableGlassEffect(window, enabled, new Thickness(-1));
         }
 
+        /// <summary>
+        ///     Enables glass effect.
+        /// </summary>
+        /// <exception cref="ArgumentNullException"><paramref name="window" /> is <see langword="null" />.</exception>
         public static bool EnableGlassEffect(Window window, bool enabled, Thickness margin)
         {
-            if (!VersionHelper.IsAtLeastVista)
+            if (window == null)
             {
-                // Go and buy Windows 7 ;-)
+                throw new ArgumentNullException(nameof(window));
+            }
+            if (!VersionHelper.IsVista || !VersionHelper.IsWindows7)
+            {
                 return false;
             }
 
@@ -71,36 +97,5 @@ namespace EvilBaschdi.Core.Wpf
 
             return true;
         }
-    }
-
-    internal struct Margins
-    {
-        public int Bottom;
-        public int Left;
-        public int Right;
-        public int Top;
-
-        public Margins(Thickness t)
-        {
-            Left = (int) t.Left;
-            Right = (int) t.Right;
-            Top = (int) t.Top;
-            Bottom = (int) t.Bottom;
-        }
-    }
-
-    public class VersionHelper
-    {
-        /// <summary>
-        ///     OS is at least Windows Vista
-        /// </summary>
-        public static bool IsAtLeastVista => Environment.OSVersion.Version.Major >= 6;
-
-        /// <summary>
-        ///     OS is Windows 7 or higher
-        /// </summary>
-        public static bool IsWindows7OrHigher => Environment.OSVersion.Version.Major == 6 &&
-                                                 Environment.OSVersion.Version.Minor >= 1 ||
-                                                 Environment.OSVersion.Version.Major > 6;
     }
 }

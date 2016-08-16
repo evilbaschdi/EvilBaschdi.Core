@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using EvilBaschdi.Core.MultiThreading;
+using EvilBaschdi.Core.Threading;
 
 namespace EvilBaschdi.Core.DirectoryExtensions
 {
@@ -17,6 +17,7 @@ namespace EvilBaschdi.Core.DirectoryExtensions
         /// <summary>
         ///     Initialisiert eine neue Instanz der <see cref="T:System.Object" />-Klasse.
         /// </summary>
+        /// <exception cref="ArgumentNullException"><paramref name="multiThreadingHelper" /> is <see langword="null" />.</exception>
         public FilePath(IMultiThreadingHelper multiThreadingHelper)
         {
             if (multiThreadingHelper == null)
@@ -26,12 +27,23 @@ namespace EvilBaschdi.Core.DirectoryExtensions
             _multiThreadingHelper = multiThreadingHelper;
         }
 
+        /// <summary>
+        ///     Gets a list of accessible directories that contain files.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"><paramref name="path" /> is <see langword="null" />.</exception>
         public List<string> GetSubdirectoriesContainingOnlyFiles(string path)
         {
+            if (path == null)
+            {
+                throw new ArgumentNullException(nameof(path));
+            }
             return Directory.GetDirectories(path, "*", SearchOption.AllDirectories).Where(dir => dir.IsAccessible()).ToList();
         }
 
         /// <summary>
+        ///     Returns a list of filepaths for given initial directory.
         /// </summary>
         /// <param name="initialDirectory">Directory to start search.</param>
         /// <param name="includeExtensionList">File extensions to include. No filtering if empty.</param>
@@ -41,6 +53,7 @@ namespace EvilBaschdi.Core.DirectoryExtensions
         /// <param name="includeFilePathList">File path to include. No filtering if empty.</param>
         /// <param name="excludeFilePathList">File path to exclude. No filtering if empty.</param>
         /// <returns></returns>
+        /// <exception cref="ArgumentNullException"><paramref name="initialDirectory" /> is <see langword="null" />.</exception>
         public List<string> GetFileList(string initialDirectory,
                                         List<string> includeExtensionList = null, List<string> excludeExtensionList = null,
                                         List<string> includeFileNameList = null, List<string> excludeFileNameList = null,
@@ -82,14 +95,16 @@ namespace EvilBaschdi.Core.DirectoryExtensions
                 var initialDirectoryFileList = Directory.GetFiles(initialDirectory).Select(item => item.ToLower()).ToList();
                 var dirList =
                     initialDirectoryFileList.Where(file =>
-                        IsValidFileName(file, fileList,
-                            includeExtensionList, excludeExtensionList, includeFileNameList, excludeFileNameList, includeFilePathList, excludeFilePathList)).ToList();
+                                                       IsValidFileName(file, fileList,
+                                                           includeExtensionList, excludeExtensionList, includeFileNameList, excludeFileNameList, includeFilePathList,
+                                                           excludeFilePathList)).ToList();
                 //sub directories.
                 var initialDirectorySubdirectoriesFileList = GetSubdirectoriesContainingOnlyFiles(initialDirectory).SelectMany(Directory.GetFiles).Select(item => item.ToLower());
                 var dirSubList =
                     initialDirectorySubdirectoriesFileList.Where(file =>
-                        IsValidFileName(file, fileList,
-                            includeExtensionList, excludeExtensionList, includeFileNameList, excludeFileNameList, includeFilePathList, excludeFilePathList)).ToList();
+                                                                     IsValidFileName(file, fileList,
+                                                                         includeExtensionList, excludeExtensionList, includeFileNameList, excludeFileNameList, includeFilePathList,
+                                                                         excludeFilePathList)).ToList();
 
                 var processList = new List<string>();
                 processList.AddRange(dirList);

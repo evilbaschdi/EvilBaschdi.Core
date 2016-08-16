@@ -3,9 +3,13 @@ using System.Windows.Controls;
 
 namespace EvilBaschdi.Core.Wpf
 {
+    /// <summary>
+    ///     Interface for classes that handle metro style on wpf.
+    /// </summary>
     public interface IMetroStyle
     {
         /// <summary>
+        ///     Load.
         /// </summary>
         /// <param name="center"></param>
         /// <param name="resizeWithBorder400"></param>
@@ -32,6 +36,7 @@ namespace EvilBaschdi.Core.Wpf
         void SetTheme(object sender);
 
         /// <summary>
+        ///     Save Style.
         /// </summary>
         void SaveStyle();
     }

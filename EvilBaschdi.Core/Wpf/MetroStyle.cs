@@ -9,6 +9,7 @@ using MahApps.Metro.Controls;
 namespace EvilBaschdi.Core.Wpf
 {
     /// <summary>
+    ///     Class that handle metro style on wpf.
     /// </summary>
     public class MetroStyle : IMetroStyle
     {
@@ -30,13 +31,20 @@ namespace EvilBaschdi.Core.Wpf
         private readonly ISettings _settings;
 
         /// <summary>
-        ///     Initialisiert eine neue Instanz der <see cref="T:System.Object" />-Klasse.
+        ///     Handle metro style by radio buttons.
         /// </summary>
         /// <param name="mainWindow" />
         /// <param name="accent" />
         /// <param name="themeLight" />
         /// <param name="settings" />
         /// <param name="themeDark" />
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="mainWindow" /> is <see langword="null" />.
+        ///     <paramref name="accent" /> is <see langword="null" />.
+        ///     <paramref name="themeDark" /> is <see langword="null" />.
+        ///     <paramref name="themeLight" /> is <see langword="null" />.
+        ///     <paramref name="settings" /> is <see langword="null" />.
+        /// </exception>
         public MetroStyle(MetroWindow mainWindow, ComboBox accent, RadioButton themeDark, RadioButton themeLight, ISettings settings)
         {
             if (mainWindow == null)
@@ -66,6 +74,20 @@ namespace EvilBaschdi.Core.Wpf
             _settings = settings;
         }
 
+        /// <summary>
+        ///     Handle metro style by ToggleSwitch.
+        /// </summary>
+        /// ///
+        /// <param name="mainWindow" />
+        /// <param name="accent" />
+        /// <param name="themeSwitch" />
+        /// <param name="settings" />
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="mainWindow" /> is <see langword="null" />.
+        ///     <paramref name="accent" /> is <see langword="null" />.
+        ///     <paramref name="themeSwitch" /> is <see langword="null" />.
+        ///     <paramref name="settings" /> is <see langword="null" />.
+        /// </exception>
         public MetroStyle(MetroWindow mainWindow, ComboBox accent, ToggleSwitch themeSwitch, ISettings settings)
         {
             if (mainWindow == null)
@@ -92,7 +114,10 @@ namespace EvilBaschdi.Core.Wpf
         }
 
         /// <summary>
+        ///     Load.
         /// </summary>
+        /// <param name="center"></param>
+        /// <param name="resizeWithBorder400"></param>
         public void Load(bool center = false, bool resizeWithBorder400 = false)
         {
             if (center)
@@ -155,6 +180,7 @@ namespace EvilBaschdi.Core.Wpf
         }
 
         /// <summary>
+        ///     Sets Style.
         /// </summary>
         private void SetStyle()
         {
@@ -214,6 +240,7 @@ namespace EvilBaschdi.Core.Wpf
         }
 
         /// <summary>
+        ///     Save Style.
         /// </summary>
         public void SaveStyle()
         {

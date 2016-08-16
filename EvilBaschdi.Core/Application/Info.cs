@@ -4,10 +4,39 @@ using System.Reflection;
 
 namespace EvilBaschdi.Core.Application
 {
+    /// <summary>
+    ///     Extension class to display change dates of current application.
+    /// </summary>
     public static class Info
     {
-        public static DateTime GetLinkerTime(this Assembly assembly, TimeZoneInfo target = null)
+        /// <summary>
+        ///     Gets LinkerTime from assembly.
+        /// </summary>
+        /// <param name="assembly"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"><paramref name="assembly" /> is <see langword="null" />.</exception>
+        public static DateTime GetLinkerTime(this Assembly assembly)
         {
+            if (assembly == null)
+            {
+                throw new ArgumentNullException(nameof(assembly));
+            }
+            return GetLinkerTime(assembly, null);
+        }
+
+        /// <summary>
+        ///     Gets LinkerTime from assembly.
+        /// </summary>
+        /// <param name="assembly"></param>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"><paramref name="assembly" /> is <see langword="null" />.</exception>
+        public static DateTime GetLinkerTime(this Assembly assembly, TimeZoneInfo target)
+        {
+            if (assembly == null)
+            {
+                throw new ArgumentNullException(nameof(assembly));
+            }
             var filePath = assembly.Location;
             const int cPeHeaderOffset = 60;
             const int cLinkerTimestampOffset = 8;

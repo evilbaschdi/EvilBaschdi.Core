@@ -2,10 +2,12 @@
 using System.IO;
 using System.Net;
 using System.Text;
-using System.Windows;
 
 namespace EvilBaschdi.Core.DirectoryExtensions
 {
+    /// <summary>
+    ///     Class for Ftp.
+    /// </summary>
     public class Ftp
     {
         private readonly string _host;
@@ -15,6 +17,11 @@ namespace EvilBaschdi.Core.DirectoryExtensions
         private FtpWebResponse _ftpWebResponse;
         private Stream _ftpStream;
 
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="host" /> is <see langword="null" />.
+        ///     <paramref name="user" /> is <see langword="null" />.
+        ///     <paramref name="password" /> is <see langword="null" />.
+        /// </exception>
         public Ftp(string host, string user, string password)
         {
             if (host == null)
@@ -34,8 +41,19 @@ namespace EvilBaschdi.Core.DirectoryExtensions
             _pass = password;
         }
 
+        /// <summary>
+        ///     Returns a list of directories by given directory.
+        /// </summary>
+        /// <param name="directory"></param>
+        /// <returns></returns>
+        /// <exception cref="ArgumentNullException"><paramref name="directory" /> is <see langword="null" />.</exception>
+        /// <exception cref="InvalidOperationException">Condition.</exception>
         public string[] DirectoryListSimple(string directory)
         {
+            if (directory == null)
+            {
+                throw new ArgumentNullException(nameof(directory));
+            }
             try
             {
                 _ftpWebRequest = (FtpWebRequest) WebRequest.Create($"{_host}/{directory}");
@@ -59,7 +77,7 @@ namespace EvilBaschdi.Core.DirectoryExtensions
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message);
+                        throw new InvalidOperationException(ex.Message, ex);
                     }
                     ftpReader.Close();
                     _ftpStream.Close();
@@ -74,15 +92,16 @@ namespace EvilBaschdi.Core.DirectoryExtensions
                             return directoryList;
                         }
                     }
+
                     catch (Exception ex)
                     {
-                        MessageBox.Show(ex.Message);
+                        throw new InvalidOperationException(ex.Message, ex);
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                throw new InvalidOperationException(ex.Message, ex);
             }
             return new[] { "" };
         }

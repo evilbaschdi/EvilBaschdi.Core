@@ -23,6 +23,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\EvilBaschdi.Core.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,6 +32,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\EvilBaschdi.Core.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MahApps.Metro, Version=1.2.4.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
@@ -76,16 +81,22 @@
     <Compile Include="DirectoryExtensions\FilePath.cs">
       <DependentUpon>IFilePath.cs</DependentUpon>
     </Compile>
-    <Compile Include="DirectoryExtensions\Ftp.cs" />
+    <Compile Include="DirectoryExtensions\Ftp.cs">
+      <DependentUpon>IFtp.cs</DependentUpon>
+    </Compile>
     <Compile Include="DirectoryExtensions\IFilePath.cs" />
     <Compile Include="DirectoryExtensions\Helpers.cs" />
     <Compile Include="DirectoryExtensions\IFtp.cs" />
     <Compile Include="DotNetExtensions\CalculateTimeSpan.cs" />
-    <Compile Include="DotNetExtensions\TypeHelpers.cs" />
-    <Compile Include="Threading\Execution.cs" />
+    <Compile Include="DotNetExtensions\ColorHelpers.cs" />
     <Compile Include="Security\Encryption.cs" />
+    <Compile Include="Threading\IMultiThreadingHelper.cs" />
+    <Compile Include="Threading\MultiThreadingHelper.cs">
+      <DependentUpon>IMultiThreadingHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Wpf\IThemeManagerHelper.cs" />
     <Compile Include="Wpf\IToast.cs" />
+    <Compile Include="Wpf\Margins.cs" />
     <Compile Include="Wpf\MetroStyle.cs">
       <DependentUpon>IMetroStyle.cs</DependentUpon>
     </Compile>
@@ -99,8 +110,10 @@
     <Compile Include="Wpf\Toast.cs">
       <DependentUpon>IToast.cs</DependentUpon>
     </Compile>
+    <Compile Include="DotNetExtensions\VersionHelper.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.manifest" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

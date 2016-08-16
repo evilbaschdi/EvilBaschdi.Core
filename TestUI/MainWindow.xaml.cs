@@ -7,8 +7,8 @@ using System.Windows.Media;
 using EvilBaschdi.Core.Browsers;
 using EvilBaschdi.Core.DirectoryExtensions;
 using EvilBaschdi.Core.DotNetExtensions;
-using EvilBaschdi.Core.MultiThreading;
 using EvilBaschdi.Core.Security;
+using EvilBaschdi.Core.Threading;
 using EvilBaschdi.Core.Wpf;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
@@ -22,15 +22,15 @@ namespace EvilBaschdi.TestUI
     {
         private INetworkBrowser _networkBrowser;
         private readonly IFilePath _filePath;
-        private readonly IMultiThreadingHelper _multiThreadingHelper;
 
         public MainWindow()
         {
             InitializeComponent();
             //Loaded += (s, e) => this.EnableGlassEffect();
-            _multiThreadingHelper = new MultiThreadingHelper();
-            _filePath = new FilePath(_multiThreadingHelper);
+            IMultiThreadingHelper multiThreadingHelper = new MultiThreadingHelper();
+            _filePath = new FilePath(multiThreadingHelper);
             //LoadNetworkBrowserToArrayList();
+            //MessageBox.Show(VersionHelper.GetWindowsClientVersion());
         }
 
 
