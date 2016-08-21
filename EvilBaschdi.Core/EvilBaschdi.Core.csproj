@@ -89,6 +89,11 @@
     <Compile Include="DirectoryExtensions\IFtp.cs" />
     <Compile Include="DotNetExtensions\CalculateTimeSpan.cs" />
     <Compile Include="DotNetExtensions\ColorHelpers.cs" />
+    <Compile Include="DotNetExtensions\IValue.cs" />
+    <Compile Include="Logging\AppendAllTextWithHeader.cs">
+      <DependentUpon>IAppendAllTextWithHeadline.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Logging\IAppendAllTextWithHeadline.cs" />
     <Compile Include="Security\Encryption.cs" />
     <Compile Include="Threading\IMultiThreadingHelper.cs" />
     <Compile Include="Threading\MultiThreadingHelper.cs">

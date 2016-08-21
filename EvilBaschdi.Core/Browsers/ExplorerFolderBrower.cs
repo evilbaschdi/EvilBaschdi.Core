@@ -9,7 +9,7 @@ namespace EvilBaschdi.Core.Browsers
     /// <summary>
     ///     Stellt einen Auswahldialog für Ordner und Systemelemente ab Windows Vista bereit.
     /// </summary>
-    public sealed class ExplorerFolderBrower : IFolderBrowser
+    public sealed class ExplorerFolderBrowser : IFolderBrowser
     {
         #region Properties
 
@@ -233,7 +233,7 @@ namespace EvilBaschdi.Core.Browsers
             void EnumItems([MarshalAs(UnmanagedType.Interface)] out IntPtr ppenumShellItems);
         }
 
-        [ComImport, Guid("42f85136-db7e-439c-85f1-e4075d135fc8"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown), CoClass(typeof (FileOpenDialog))]
+        [ComImport, Guid("42f85136-db7e-439c-85f1-e4075d135fc8"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown), CoClass(typeof(FileOpenDialog))]
         private interface IFileOpenDialog //: IFileDialog
         {
             [PreserveSig]
