@@ -3,8 +3,10 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using EvilBaschdi.Core.Application;
+using EvilBaschdi.Core.DotNetExtensions;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
+using Microsoft.Win32;
 
 namespace EvilBaschdi.Core.Wpf
 {
@@ -170,7 +172,8 @@ namespace EvilBaschdi.Core.Wpf
                     }
                     break;
             }
-
+            EnableDisableThemeControl();
+            LoadSystemAppColor();
             SetStyle();
 
             foreach (var accent in ThemeManager.Accents.OrderBy(a => a.Name))
@@ -187,6 +190,63 @@ namespace EvilBaschdi.Core.Wpf
             ThemeManager.ChangeAppStyle(System.Windows.Application.Current, _styleAccent, _styleTheme);
         }
 
+        private void EnableDisableThemeControl()
+        {
+            var accent = _accent.SelectedValue.ToString();
+            var isWindows10AndsystemStyle = VersionHelper.IsWindows10() && accent == "Accent from windows";
+            if (_themeDark != null && _themeLight != null)
+            {
+                _themeDark.IsEnabled = !isWindows10AndsystemStyle;
+                _themeLight.IsEnabled = !isWindows10AndsystemStyle;
+            }
+            else if (_themeSwitch != null)
+            {
+                _themeSwitch.IsEnabled = !isWindows10AndsystemStyle;
+            }
+        }
+
+        private void LoadSystemAppColor()
+        {
+            var accent = _accent.SelectedValue.ToString();
+            var isWindows10AndSystemStyle = VersionHelper.IsWindows10() && accent == "Accent from windows";
+            if (isWindows10AndSystemStyle)
+            {
+                var personalize = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize");
+                if (personalize != null)
+                {
+                    var appsTheme = personalize.GetValue("AppsUseLightTheme") != null && personalize.GetValue("AppsUseLightTheme").ToString().Equals("0") ? "BaseDark" : "BaseLight";
+
+                    switch (appsTheme)
+                    {
+                        case "BaseDark":
+                            if (_themeDark != null && _themeLight != null)
+                            {
+                                _themeDark.IsChecked = true;
+                                _themeLight.IsChecked = false;
+                            }
+                            else if (_themeSwitch != null)
+                            {
+                                _themeSwitch.IsChecked = true;
+                            }
+                            break;
+
+                        case "BaseLight":
+                            if (_themeDark != null && _themeLight != null)
+                            {
+                                _themeDark.IsChecked = false;
+                                _themeLight.IsChecked = true;
+                            }
+                            else if (_themeSwitch != null)
+                            {
+                                _themeSwitch.IsChecked = false;
+                            }
+                            break;
+                    }
+                    _styleTheme = ThemeManager.GetAppTheme(appsTheme);
+                }
+            }
+        }
+
         /// <summary>
         ///     Accent of application style.
         /// </summary>
@@ -194,7 +254,12 @@ namespace EvilBaschdi.Core.Wpf
         /// <param name="e"></param>
         public void SetAccent(object sender, SelectionChangedEventArgs e)
         {
-            _styleAccent = ThemeManager.GetAccent(_accent.SelectedValue.ToString());
+            var accent = _accent.SelectedValue.ToString();
+            _styleAccent = ThemeManager.GetAccent(accent);
+
+            EnableDisableThemeControl();
+            LoadSystemAppColor();
+
             SetStyle();
         }
 
