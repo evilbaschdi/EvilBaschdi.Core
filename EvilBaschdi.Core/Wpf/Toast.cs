@@ -10,19 +10,41 @@ namespace EvilBaschdi.Core.Wpf
     /// </summary>
     public class Toast : IToast
     {
+        private readonly string _applicationId;
         private readonly string _imagePath;
         private bool _showToast;
 
         /// <summary>
         ///     Initialisiert eine neue Instanz der <see cref="T:System.Object" />-Klasse.
         /// </summary>
-        /// <exception cref="ArgumentNullException"><paramref name="imagePath" /> is <see langword="null" />.</exception>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="imagePath" /> is <see langword="null" />.
+        /// </exception>
         public Toast(string imagePath)
         {
             if (imagePath == null)
             {
                 throw new ArgumentNullException(nameof(imagePath));
             }
+            _applicationId = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+            _imagePath = imagePath;
+            ValidateOsVersion();
+        }
+
+        /// <summary>
+        ///     Initialisiert eine neue Instanz der <see cref="T:System.Object" />-Klasse.
+        /// </summary>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="imagePath" /> is <see langword="null" />.
+        ///     <paramref name="applicationId" /> is <see langword="null" />.
+        /// </exception>
+        public Toast(string applicationId, string imagePath)
+        {
+            if (applicationId == null)
+            {
+                throw new ArgumentNullException(nameof(applicationId));
+            }
+            _applicationId = applicationId;
             _imagePath = imagePath;
             ValidateOsVersion();
         }
@@ -63,13 +85,17 @@ namespace EvilBaschdi.Core.Wpf
             stringElements[2].AppendChild(toastXml.CreateTextNode(message));
 
             // Specify the absolute path to an image
-            var imagePath = $"file:///{Path.GetFullPath(_imagePath)}";
-            var imageElements = toastXml.GetElementsByTagName("image");
-            var image = imageElements[0].Attributes.GetNamedItem("src");
-            if (image != null)
+            if (!string.IsNullOrWhiteSpace(_imagePath))
             {
-                image.NodeValue = imagePath;
+                var imagePath = $"file:///{Path.GetFullPath(_imagePath)}";
+                var imageElements = toastXml.GetElementsByTagName("image");
+                var image = imageElements[0].Attributes.GetNamedItem("src");
+                if (image != null)
+                {
+                    image.NodeValue = imagePath;
+                }
             }
+
 
             var toastNode = toastXml.SelectSingleNode("/toast");
             var node = (XmlElement) toastNode;
@@ -85,8 +111,7 @@ namespace EvilBaschdi.Core.Wpf
             //toast.Failed += ToastFailed;
 
             // Show the toast. Be sure to specify the AppUserModelId on your application's shortcut!
-            ToastNotificationManager.CreateToastNotifier(
-                                        System.Reflection.Assembly.GetExecutingAssembly().GetName().Name).Show(toast);
+            ToastNotificationManager.CreateToastNotifier(_applicationId).Show(toast);
         }
 
         private void ValidateOsVersion()

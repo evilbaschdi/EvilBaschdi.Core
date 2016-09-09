@@ -27,10 +27,12 @@ namespace EvilBaschdi.TestUI
         {
             InitializeComponent();
             //Loaded += (s, e) => this.EnableGlassEffect();
+            IToast toast = new Toast("");
             IMultiThreadingHelper multiThreadingHelper = new MultiThreadingHelper();
             _filePath = new FilePath(multiThreadingHelper);
             //LoadNetworkBrowserToArrayList();
             //MessageBox.Show(VersionHelper.GetWindowsClientVersion());
+            toast.Show("version", VersionHelper.GetWindowsClientVersion());
         }
 
 
