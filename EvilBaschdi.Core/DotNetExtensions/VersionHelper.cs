@@ -29,7 +29,7 @@ namespace EvilBaschdi.Core.DotNetExtensions
             // ReSharper disable once PossibleNullReferenceException
             var productName = currentVersion.GetValue("ProductName").ToString();
 
-            return productName.StartsWith("Windows 10");
+            return productName.StartsWith("Windows 10") || productName.StartsWith("Windows Server 2016");
         }
 
         /// <summary>
