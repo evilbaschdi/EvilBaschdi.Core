@@ -1,5 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
+using MahApps.Metro.Controls;
 
 namespace EvilBaschdi.Core.Wpf
 {
@@ -39,5 +40,15 @@ namespace EvilBaschdi.Core.Wpf
         ///     Save Style.
         /// </summary>
         void SaveStyle();
+
+        /// <summary>
+        ///     ComboBox for choosing an accent.
+        /// </summary>
+        ComboBox Accent { get; set; }
+
+        /// <summary>
+        ///     ToggleSwitch for choosing a theme.
+        /// </summary>
+        ToggleSwitch Theme { get; set; }
     }
 }

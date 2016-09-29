@@ -26,10 +26,10 @@ namespace EvilBaschdi.Core.Wpf
         private AppTheme _styleTheme = ThemeManager.DetectAppStyle(System.Windows.Application.Current).Item1;
 
         private readonly MetroWindow _mainWindow;
-        private readonly ComboBox _accent;
+        private ComboBox _accent;
         private readonly RadioButton _themeDark;
         private readonly RadioButton _themeLight;
-        private readonly ToggleSwitch _themeSwitch;
+        private ToggleSwitch _themeSwitch;
         private readonly ISettings _settings;
 
         /// <summary>
@@ -113,6 +113,34 @@ namespace EvilBaschdi.Core.Wpf
             _accent = accent;
             _themeSwitch = themeSwitch;
             _settings = settings;
+        }
+
+        /// <summary>
+        ///     Handle metro style by ToggleSwitch.
+        /// </summary>
+        /// ///
+        /// <param name="mainWindow" />
+        /// <param name="settings" />
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="mainWindow" /> is <see langword="null" />.
+        ///     <paramref name="settings" /> is <see langword="null" />.
+        /// </exception>
+        public MetroStyle(MetroWindow mainWindow, ISettings settings)
+        {
+            if (mainWindow == null)
+            {
+                throw new ArgumentNullException(nameof(mainWindow));
+            }
+            if (settings == null)
+            {
+                throw new ArgumentNullException(nameof(settings));
+            }
+            _mainWindow = mainWindow;
+            _settings = settings;
+            Accent = new ComboBox();
+            _accent = Accent;
+            Theme = new ToggleSwitch();
+            _themeSwitch = Theme;
         }
 
         /// <summary>
@@ -311,6 +339,24 @@ namespace EvilBaschdi.Core.Wpf
         {
             _settings.Accent = _styleAccent.Name;
             _settings.Theme = _styleTheme.Name;
+        }
+
+        /// <summary>
+        ///     ComboBox for choosing an accent.
+        /// </summary>
+        public ComboBox Accent
+        {
+            get { return _accent; }
+            set { _accent = value; }
+        }
+
+        /// <summary>
+        ///     ToggleSwitch for choosing a theme.
+        /// </summary>
+        public ToggleSwitch Theme
+        {
+            get { return _themeSwitch; }
+            set { _themeSwitch = value; }
         }
     }
 }
