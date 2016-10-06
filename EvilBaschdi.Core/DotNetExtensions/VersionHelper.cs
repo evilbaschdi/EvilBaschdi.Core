@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.Win32;
 
 namespace EvilBaschdi.Core.DotNetExtensions
 {
@@ -9,28 +8,34 @@ namespace EvilBaschdi.Core.DotNetExtensions
     public class VersionHelper
     {
         /// <summary>
-        ///     OS is at least Windows Vista.
+        ///     OS is Windows Vista.
         /// </summary>
         public static bool IsVista => GetWindowsClientVersion() == "Vista";
 
         /// <summary>
-        ///     OS is Windows 7 or higher.
+        ///     OS is Windows 7.
         /// </summary>
         public static bool IsWindows7 => GetWindowsClientVersion() == "Win7";
+
+        /// <summary>
+        ///     OS is Windows 8 or 8.1.
+        /// </summary>
+        public static bool IsWindows8 => GetWindowsClientVersion().StartsWith("Win8");
 
         /// <summary>
         ///     OS is Windows 10.
         /// </summary>
         /// <returns></returns>
-        public static bool IsWindows10()
-        {
-            var currentVersion = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
+        public static bool IsWindows10 => GetWindowsClientVersion().StartsWith("Win10");
 
-            // ReSharper disable once PossibleNullReferenceException
-            var productName = currentVersion.GetValue("ProductName").ToString();
+        //{
+        //    var currentVersion = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
 
-            return productName.StartsWith("Windows 10") || productName.StartsWith("Windows Server 2016");
-        }
+        //    // ReSharper disable once PossibleNullReferenceException
+        //    var productName = currentVersion.GetValue("ProductName").ToString();
+
+        //    return productName.StartsWith("Windows 10") || productName.StartsWith("Windows Server 2016");
+        //}
 
         /// <summary>
         ///     Gets the real OS Version.
@@ -86,11 +91,11 @@ namespace EvilBaschdi.Core.DotNetExtensions
             }
             if (major == 6 && minor == 2 && build == 9200)
             {
-                return "Win8 | Win8.1";
+                return "Win8";
             }
-            if (major == 6 && minor == 2 && build == 9600)
+            if (major == 6 && minor == 3 && build == 9600)
             {
-                return "Win8.1 Update 1";
+                return "Win8.1";
             }
             if (major == 10 && minor == 0 && build >= 10240)
             {

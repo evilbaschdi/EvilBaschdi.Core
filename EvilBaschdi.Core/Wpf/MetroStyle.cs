@@ -221,7 +221,7 @@ namespace EvilBaschdi.Core.Wpf
         private void EnableDisableThemeControl()
         {
             var accent = _accent.SelectedValue.ToString();
-            var isWindows10AndsystemStyle = VersionHelper.IsWindows10() && accent == "Accent from windows";
+            var isWindows10AndsystemStyle = VersionHelper.IsWindows10 && accent == "Accent from windows";
             if (_themeDark != null && _themeLight != null)
             {
                 _themeDark.IsEnabled = !isWindows10AndsystemStyle;
@@ -236,7 +236,7 @@ namespace EvilBaschdi.Core.Wpf
         private void LoadSystemAppColor()
         {
             var accent = _accent.SelectedValue.ToString();
-            var isWindows10AndSystemStyle = VersionHelper.IsWindows10() && accent == "Accent from windows";
+            var isWindows10AndSystemStyle = VersionHelper.IsWindows10 && accent == "Accent from windows";
             if (isWindows10AndSystemStyle)
             {
                 var personalize = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize");
