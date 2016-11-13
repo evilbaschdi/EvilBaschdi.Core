@@ -108,7 +108,7 @@ namespace EvilBaschdi.Core.Wpf
                     accentColor = colorizationColor.ToColor();
                 }
 
-                if (VersionHelper.IsWindows10() && !colorPrevalence)
+                if (VersionHelper.IsWindows10 && !colorPrevalence)
                 {
                     accentColor = "#FFCCCCCC".ToColor();
                 }

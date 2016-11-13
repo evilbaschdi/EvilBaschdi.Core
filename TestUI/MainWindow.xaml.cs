@@ -1,15 +1,18 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using EvilBaschdi.Core.Application;
 using EvilBaschdi.Core.Browsers;
 using EvilBaschdi.Core.DirectoryExtensions;
 using EvilBaschdi.Core.DotNetExtensions;
 using EvilBaschdi.Core.Security;
 using EvilBaschdi.Core.Threading;
 using EvilBaschdi.Core.Wpf;
+using EvilBaschdi.TestUI.Core;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
 
@@ -33,6 +36,12 @@ namespace EvilBaschdi.TestUI
             //LoadNetworkBrowserToArrayList();
             //MessageBox.Show(VersionHelper.GetWindowsClientVersion());
             toast.Show("version", VersionHelper.GetWindowsClientVersion());
+
+            ISettings coreSettings = new CoreSettings();
+            IMetroStyle style = new MetroStyle(this, coreSettings);
+            IFlyout flyout = new CustomFlyout(this, style, Assembly.GetExecutingAssembly().GetLinkerTime());
+            style.Load(true);
+            flyout.Load();
         }
 
 
