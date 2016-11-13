@@ -50,7 +50,7 @@
             <!--  Settings Flyout  -->
             <controls:Flyout Name="SettingsFlyout" Width="400" AnimateOnPositionChange="True" AnimateOpacity="True"
                              Header="settings" Position="Right" Theme="Accent">
-                <StackPanel>
+                <StackPanel Name="TestStackPanel">
                     <Label Content="Test" />
                 </StackPanel>
             </controls:Flyout>

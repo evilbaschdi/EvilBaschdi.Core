@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,10 +13,11 @@ namespace EvilBaschdi.Core.Wpf
     {
         private readonly MetroWindow _mainWindow;
         private readonly IMetroStyle _style;
+        private readonly DateTime _linkerTime;
         private int _overrideProtection;
 
         /// <exception cref="ArgumentNullException"><paramref name="mainWindow" /> is <see langword="null" />.</exception>
-        public CustomFlyout(MetroWindow mainWindow, IMetroStyle style)
+        public CustomFlyout(MetroWindow mainWindow, IMetroStyle style, DateTime linkerTime)
         {
             if (mainWindow == null)
             {
@@ -25,12 +27,19 @@ namespace EvilBaschdi.Core.Wpf
             {
                 throw new ArgumentNullException(nameof(style));
             }
+            if (linkerTime == null)
+            {
+                throw new ArgumentNullException(nameof(linkerTime));
+            }
             _mainWindow = mainWindow;
             _style = style;
+            _linkerTime = linkerTime;
         }
 
         public void Load()
         {
+            #region settings button
+
             var settingsButton = new Button
                                  {
                                      Content = ControlContentStackPanel(new ControlContent
@@ -50,25 +59,27 @@ namespace EvilBaschdi.Core.Wpf
                 windowCommands.Items.Add(settingsButton);
                 _mainWindow.RightWindowCommands = windowCommands;
             }
-            else
+            else if (
+                !_mainWindow.RightWindowCommands.Items.OfType<Button>()
+                            .Any(
+                                button =>
+                                    button.Name.Equals("SettingsButton", StringComparison.InvariantCultureIgnoreCase) ||
+                                    ((StackPanel) button.Content).Children.OfType<TextBlock>()
+                                                                 .Any(textBlock => textBlock.Text.Equals("settings", StringComparison.InvariantCultureIgnoreCase))))
             {
                 _mainWindow.RightWindowCommands.Items.Add(settingsButton);
             }
 
+            #endregion settings button
+
+            #region flyout
+
+            var flyoutWidth = 275d;
+
             if (_mainWindow.Flyouts == null)
             {
-                var flyoutWidth = 275;
                 var flyoutControl = new FlyoutsControl();
-                var mainStackPanel = new StackPanel();
 
-
-                var linkerTimeStackPanel = new StackPanel();
-
-                mainStackPanel.Children.Add(ThemeStackPanel());
-                mainStackPanel.Children.Add(AccentStackPanel(flyoutWidth));
-                mainStackPanel.Children.Add(SaveStyleStackPanel(flyoutWidth));
-                mainStackPanel.Children.Add(HorizontalLineStackPanel(flyoutWidth));
-                mainStackPanel.Children.Add(linkerTimeStackPanel);
 
                 var settingsFlyout = new Flyout
                                      {
@@ -79,12 +90,30 @@ namespace EvilBaschdi.Core.Wpf
                                          AnimateOpacity = true,
                                          Position = Position.Right,
                                          Theme = FlyoutTheme.Accent,
-                                         Content = mainStackPanel
+                                         Content = MainStackPanel(flyoutWidth, null)
                                      };
                 flyoutControl.Items.Add(settingsFlyout);
                 _mainWindow.Flyouts = flyoutControl;
-                _overrideProtection = 1;
             }
+            else
+            {
+                foreach (Flyout flyout in _mainWindow.Flyouts.Items)
+                {
+                    if (flyout.Name != "SettingsFlyout")
+                    {
+                        continue;
+                    }
+                    flyoutWidth = flyout.Width;
+                    var content = (StackPanel) flyout.Content;
+                    content.Parent.RemoveChild(content);
+                    var mainStackPanel = MainStackPanel(flyoutWidth, content);
+                    flyout.Content = mainStackPanel;
+                }
+            }
+
+            #endregion flyout
+
+            _overrideProtection = 1;
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
@@ -143,14 +172,89 @@ namespace EvilBaschdi.Core.Wpf
                 return;
             }
             _style.SetAccent(sender, e);
+            var accentColorBrush = (SolidColorBrush) _mainWindow.FindResource("AccentColorBrush");
+            foreach (Flyout flyout in _mainWindow.Flyouts.Items)
+            {
+                if (flyout.Name != "SettingsFlyout" || ((StackPanel) flyout.Content).Name != "MainStackPanel")
+                {
+                    continue;
+                }
+                var mainStackPanel = (StackPanel) flyout.Content;
+                var horizontalLineStackPanel = mainStackPanel.FindChild<StackPanel>("HorizontalLineStackPanel");
+                var themeStackPanel = mainStackPanel.FindChild<StackPanel>("ThemeStackPanel");
+
+                var horizontalLineRectangles = horizontalLineStackPanel.FindChildren<Rectangle>();
+
+                foreach (var horizontalLineRectangle in horizontalLineRectangles)
+                {
+                    horizontalLineRectangle.Stroke = accentColorBrush;
+                }
+
+
+                var themeSwitch = themeStackPanel.FindChild<ToggleSwitch>("ThemeSwitch");
+                themeSwitch.OnSwitchBrush = accentColorBrush;
+                themeSwitch.OffSwitchBrush = accentColorBrush;
+            }
         }
 
         #endregion MetroStyle
+
+        #region StackPanels
+
+        private StackPanel MainStackPanel(double flyoutWidth, StackPanel stackPanelToMerge)
+        {
+            var mainStackPanel = new StackPanel
+                                 {
+                                     Name = "MainStackPanel"
+                                 };
+
+            if (stackPanelToMerge != null)
+            {
+                mainStackPanel.Children.Add(stackPanelToMerge);
+                mainStackPanel.Children.Add(HorizontalLineStackPanel(flyoutWidth));
+            }
+            mainStackPanel.Children.Add(ThemeStackPanel());
+            mainStackPanel.Children.Add(AccentStackPanel(flyoutWidth));
+            mainStackPanel.Children.Add(SaveStyleStackPanel(flyoutWidth));
+            mainStackPanel.Children.Add(HorizontalLineStackPanel(flyoutWidth));
+            mainStackPanel.Children.Add(LinkerTimeStackPanel());
+
+            return mainStackPanel;
+        }
+
+        private StackPanel ControlContentStackPanel(ControlContent controlContent)
+        {
+            return new StackPanel
+                   {
+                       Orientation = Orientation.Horizontal,
+                       Children =
+                       {
+                           new Rectangle
+                           {
+                               Width = controlContent.ImageSize,
+                               Height = controlContent.ImageSize,
+                               Fill = controlContent.FillBrush,
+                               OpacityMask = new VisualBrush
+                                             {
+                                                 Stretch = Stretch.Fill,
+                                                 Visual = (Visual) _mainWindow.FindResource(controlContent.ImageResourceName)
+                                             }
+                           },
+                           new TextBlock
+                           {
+                               Margin = new Thickness(5, 0, 0, 0),
+                               VerticalAlignment = VerticalAlignment.Center,
+                               Text = controlContent.Content
+                           }
+                       }
+                   };
+        }
 
         private StackPanel ThemeStackPanel()
         {
             var themeStackPanel = new StackPanel
                                   {
+                                      Name = "ThemeStackPanel",
                                       Orientation = Orientation.Horizontal,
                                       Margin = new Thickness(10, 5, 0, 0)
                                   };
@@ -162,19 +266,18 @@ namespace EvilBaschdi.Core.Wpf
                                              VerticalAlignment = VerticalAlignment.Top,
                                              Content = "Theme"
                                          });
-            var themeSwitch = new ToggleSwitch
-                              {
-                                  Margin = new Thickness(10, 1, 0, 0),
-                                  Name = "ThemeSwitch",
-                                  HorizontalAlignment = HorizontalAlignment.Left,
-                                  VerticalAlignment = VerticalAlignment.Top,
-                                  FontSize = 12,
-                                  OnSwitchBrush = (SolidColorBrush) _mainWindow.FindResource("AccentColorBrush"),
-                                  OffSwitchBrush = (SolidColorBrush) _mainWindow.FindResource("AccentColorBrush"),
-                                  OnLabel = "Dark",
-                                  OffLabel = "Light"
-                              };
 
+            var themeSwitch = _style.Theme;
+            themeSwitch.Margin = new Thickness(10, 1, 0, 0);
+            themeSwitch.Name = "ThemeSwitch";
+            themeSwitch.HorizontalAlignment = HorizontalAlignment.Left;
+            themeSwitch.VerticalAlignment = VerticalAlignment.Top;
+            themeSwitch.FontSize = 12;
+            themeSwitch.OnSwitchBrush = (SolidColorBrush) _mainWindow.FindResource("AccentColorBrush");
+            themeSwitch.OffSwitchBrush = (SolidColorBrush) _mainWindow.FindResource("AccentColorBrush");
+            themeSwitch.OnLabel = "Dark";
+            themeSwitch.OffLabel = "Light";
+            //themeSwitch.IsChecked = _style.Theme.IsChecked;
             themeSwitch.IsCheckedChanged += ThemeSwitchIsCheckedChanged;
             themeStackPanel.Children.Add(themeSwitch);
             _style.Theme = themeSwitch;
@@ -210,24 +313,6 @@ namespace EvilBaschdi.Core.Wpf
             return accentStackPanel;
         }
 
-
-        private StackPanel HorizontalLineStackPanel(double flyoutWidth)
-        {
-            var horizontalLineStackPanel = new StackPanel
-                                           {
-                                               Orientation = Orientation.Vertical,
-                                               Margin = new Thickness(0, 10, 0, 0)
-                                           };
-            horizontalLineStackPanel.Children.Add(new Rectangle
-                                                  {
-                                                      AllowDrop = false,
-                                                      Width = flyoutWidth - 30,
-                                                      VerticalAlignment = VerticalAlignment.Center,
-                                                      Stroke = (SolidColorBrush) _mainWindow.FindResource("AccentColorBrush")
-                                                  });
-            return horizontalLineStackPanel;
-        }
-
         private StackPanel SaveStyleStackPanel(double flyoutWidth)
         {
             var saveStyleButton = new Button
@@ -243,6 +328,7 @@ namespace EvilBaschdi.Core.Wpf
                                                                              ImageSize = 16
                                                                          })
                                   };
+            saveStyleButton.Click += SaveStyleClick;
 
             var saveStyleStackPanel = new StackPanel
                                       {
@@ -253,32 +339,56 @@ namespace EvilBaschdi.Core.Wpf
             return saveStyleStackPanel;
         }
 
-        private StackPanel ControlContentStackPanel(ControlContent controlContent)
+        private StackPanel HorizontalLineStackPanel(double flyoutWidth)
         {
-            return new StackPanel
-                   {
-                       Orientation = Orientation.Horizontal,
-                       Children =
-                       {
-                           new Rectangle
-                           {
-                               Width = controlContent.ImageSize,
-                               Height = controlContent.ImageSize,
-                               Fill = controlContent.FillBrush,
-                               OpacityMask = new VisualBrush
-                                             {
-                                                 Stretch = Stretch.Fill,
-                                                 Visual = (Visual) _mainWindow.FindResource(controlContent.ImageResourceName)
-                                             }
-                           },
-                           new TextBlock
-                           {
-                               Margin = new Thickness(5, 0, 0, 0),
-                               VerticalAlignment = VerticalAlignment.Center,
-                               Text = controlContent.Content
-                           }
-                       }
-                   };
+            var horizontalLineStackPanel = new StackPanel
+                                           {
+                                               Name = "HorizontalLineStackPanel",
+                                               Orientation = Orientation.Vertical,
+                                               Margin = new Thickness(0, 10, 0, 0)
+                                           };
+
+            horizontalLineStackPanel.Children.Add(new Rectangle
+                                                  {
+                                                      Name = "HorizontalLineRectangle",
+                                                      AllowDrop = false,
+                                                      Width = flyoutWidth - 30,
+                                                      VerticalAlignment = VerticalAlignment.Center,
+                                                      Stroke = (SolidColorBrush) _mainWindow.FindResource("AccentColorBrush")
+                                                  });
+            return horizontalLineStackPanel;
         }
+
+        private StackPanel LinkerTimeStackPanel()
+        {
+            //< Label Width = "50" Margin = "10,5,0,0" HorizontalAlignment = "Left" VerticalAlignment = "Top" Content = "Build" />
+            // < Label Width = "310" Margin = "15,5,0,0" HorizontalAlignment = "Left" VerticalAlignment = "Top" Name = "LinkerTime" />
+
+            var linkerTimeStackPanel = new StackPanel
+                                       {
+                                           Orientation = Orientation.Horizontal
+                                       };
+            linkerTimeStackPanel.Children.Add(new Label
+                                              {
+                                                  Width = 50,
+                                                  Margin = new Thickness(10, 5, 0, 0),
+                                                  HorizontalAlignment = HorizontalAlignment.Left,
+                                                  VerticalAlignment = VerticalAlignment.Top,
+                                                  Content = "Build"
+                                              });
+
+            linkerTimeStackPanel.Children.Add(new Label
+                                              {
+                                                  Name = "LinkerTime",
+                                                  Width = 310,
+                                                  Margin = new Thickness(5, 5, 0, 0),
+                                                  HorizontalAlignment = HorizontalAlignment.Left,
+                                                  VerticalAlignment = VerticalAlignment.Top,
+                                                  Content = _linkerTime.ToString(CultureInfo.InvariantCulture)
+                                              });
+            return linkerTimeStackPanel;
+        }
+
+        #endregion StackPanels
     }
 }
