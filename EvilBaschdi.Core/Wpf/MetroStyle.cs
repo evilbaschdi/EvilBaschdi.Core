@@ -34,6 +34,24 @@ namespace EvilBaschdi.Core.Wpf
         private readonly IThemeManagerHelper _themeManagerHelper;
 
         /// <summary>
+        /// </summary>
+        /// <param name="mainWindow"></param>
+        /// <param name="settings"></param>
+        public MetroStyle(MetroWindow mainWindow, ISettings settings)
+        {
+            if (mainWindow == null)
+            {
+                throw new ArgumentNullException(nameof(mainWindow));
+            }
+            if (settings == null)
+            {
+                throw new ArgumentNullException(nameof(settings));
+            }
+            _mainWindow = mainWindow;
+            _settings = settings;
+        }
+
+        /// <summary>
         ///     Handle metro style by radio buttons.
         /// </summary>
         /// <param name="mainWindow" />
@@ -164,6 +182,7 @@ namespace EvilBaschdi.Core.Wpf
             _themeSwitch = Theme;
             _themeManagerHelper = themeManagerHelper;
         }
+
 
         /// <summary>
         ///     Load.

@@ -34,7 +34,6 @@ namespace EvilBaschdi.TestUI
             _filePath = new FilePath(multiThreadingHelper);
             //LoadNetworkBrowserToArrayList();
             //MessageBox.Show(VersionHelper.GetWindowsClientVersion());
-            toast.Show("version", VersionHelper.GetWindowsClientVersion());
 
             ISettings coreSettings = new CoreSettings(Properties.Settings.Default);
             IThemeManagerHelper themeManagerHelper = new ThemeManagerHelper();
