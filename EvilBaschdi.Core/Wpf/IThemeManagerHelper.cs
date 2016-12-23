@@ -17,6 +17,6 @@ namespace EvilBaschdi.Core.Wpf
         /// <summary>
         ///     Gets Color of current (applied) system settings, generates an app style and adds it to available accents.
         /// </summary>
-        void RegisterSysteColorTheme();
+        void RegisterSystemColorTheme();
     }
 }

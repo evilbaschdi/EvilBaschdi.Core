@@ -31,6 +31,7 @@ namespace EvilBaschdi.Core.Wpf
         private readonly RadioButton _themeLight;
         private ToggleSwitch _themeSwitch;
         private readonly ISettings _settings;
+        private readonly IThemeManagerHelper _themeManagerHelper;
 
         /// <summary>
         ///     Handle metro style by radio buttons.
@@ -40,14 +41,16 @@ namespace EvilBaschdi.Core.Wpf
         /// <param name="themeLight" />
         /// <param name="settings" />
         /// <param name="themeDark" />
+        /// <param name="themeManagerHelper"></param>
         /// <exception cref="ArgumentNullException">
         ///     <paramref name="mainWindow" /> is <see langword="null" />.
         ///     <paramref name="accent" /> is <see langword="null" />.
         ///     <paramref name="themeDark" /> is <see langword="null" />.
         ///     <paramref name="themeLight" /> is <see langword="null" />.
         ///     <paramref name="settings" /> is <see langword="null" />.
+        ///     <paramref name="themeManagerHelper" /> is <see langword="null" />.
         /// </exception>
-        public MetroStyle(MetroWindow mainWindow, ComboBox accent, RadioButton themeDark, RadioButton themeLight, ISettings settings)
+        public MetroStyle(MetroWindow mainWindow, ComboBox accent, RadioButton themeDark, RadioButton themeLight, ISettings settings, IThemeManagerHelper themeManagerHelper)
         {
             if (mainWindow == null)
             {
@@ -69,11 +72,16 @@ namespace EvilBaschdi.Core.Wpf
             {
                 throw new ArgumentNullException(nameof(settings));
             }
+            if (themeManagerHelper == null)
+            {
+                throw new ArgumentNullException(nameof(themeManagerHelper));
+            }
             _mainWindow = mainWindow;
             _accent = accent;
             _themeDark = themeDark;
             _themeLight = themeLight;
             _settings = settings;
+            _themeManagerHelper = themeManagerHelper;
         }
 
         /// <summary>
@@ -84,13 +92,15 @@ namespace EvilBaschdi.Core.Wpf
         /// <param name="accent" />
         /// <param name="themeSwitch" />
         /// <param name="settings" />
+        /// <param name="themeManagerHelper"></param>
         /// <exception cref="ArgumentNullException">
         ///     <paramref name="mainWindow" /> is <see langword="null" />.
         ///     <paramref name="accent" /> is <see langword="null" />.
         ///     <paramref name="themeSwitch" /> is <see langword="null" />.
         ///     <paramref name="settings" /> is <see langword="null" />.
+        ///     <paramref name="themeManagerHelper" /> is <see langword="null" />.
         /// </exception>
-        public MetroStyle(MetroWindow mainWindow, ComboBox accent, ToggleSwitch themeSwitch, ISettings settings)
+        public MetroStyle(MetroWindow mainWindow, ComboBox accent, ToggleSwitch themeSwitch, ISettings settings, IThemeManagerHelper themeManagerHelper)
         {
             if (mainWindow == null)
             {
@@ -109,10 +119,15 @@ namespace EvilBaschdi.Core.Wpf
             {
                 throw new ArgumentNullException(nameof(settings));
             }
+            if (themeManagerHelper == null)
+            {
+                throw new ArgumentNullException(nameof(themeManagerHelper));
+            }
             _mainWindow = mainWindow;
             _accent = accent;
             _themeSwitch = themeSwitch;
             _settings = settings;
+            _themeManagerHelper = themeManagerHelper;
         }
 
         /// <summary>
@@ -121,11 +136,13 @@ namespace EvilBaschdi.Core.Wpf
         /// ///
         /// <param name="mainWindow" />
         /// <param name="settings" />
+        /// <param name="themeManagerHelper"></param>
         /// <exception cref="ArgumentNullException">
         ///     <paramref name="mainWindow" /> is <see langword="null" />.
         ///     <paramref name="settings" /> is <see langword="null" />.
+        ///     <paramref name="themeManagerHelper" /> is <see langword="null" />.
         /// </exception>
-        public MetroStyle(MetroWindow mainWindow, ISettings settings)
+        public MetroStyle(MetroWindow mainWindow, ISettings settings, IThemeManagerHelper themeManagerHelper)
         {
             if (mainWindow == null)
             {
@@ -135,12 +152,17 @@ namespace EvilBaschdi.Core.Wpf
             {
                 throw new ArgumentNullException(nameof(settings));
             }
+            if (themeManagerHelper == null)
+            {
+                throw new ArgumentNullException(nameof(themeManagerHelper));
+            }
             _mainWindow = mainWindow;
             _settings = settings;
             Accent = new ComboBox();
             _accent = Accent;
             Theme = new ToggleSwitch();
             _themeSwitch = Theme;
+            _themeManagerHelper = themeManagerHelper;
         }
 
         /// <summary>
@@ -160,8 +182,7 @@ namespace EvilBaschdi.Core.Wpf
                 _mainWindow.Height = SystemParameters.PrimaryScreenHeight - 400;
             }
 
-            var themeManagerHelper = new ThemeManagerHelper();
-            themeManagerHelper.RegisterSystemColorTheme();
+            _themeManagerHelper.RegisterSystemColorTheme();
 
             if (!string.IsNullOrWhiteSpace(_settings.Accent))
             {

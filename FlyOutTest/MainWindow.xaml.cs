@@ -1,7 +1,6 @@
 ﻿using System.Reflection;
 using EvilBaschdi.Core.Application;
 using EvilBaschdi.Core.Wpf;
-using FlyOutTest.Core;
 using MahApps.Metro.Controls;
 
 namespace FlyOutTest
@@ -14,7 +13,7 @@ namespace FlyOutTest
         public MainWindow()
         {
             InitializeComponent();
-            ISettings coreSettings = new CoreSettings();
+            ISettings coreSettings = new CoreSettings(Properties.Settings.Default);
             IMetroStyle style = new MetroStyle(this, coreSettings);
             IFlyout flyout = new CustomFlyout(this, style, Assembly.GetExecutingAssembly().GetLinkerTime());
             style.Load(true);

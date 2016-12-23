@@ -1,7 +1,7 @@
 ﻿namespace EvilBaschdi.Core.Application
 {
     /// <summary>
-    ///     Wrapper arround Default Settings.
+    ///     Wrapper arround ApplicationSettings.
     /// </summary>
     public interface ISettings
     {

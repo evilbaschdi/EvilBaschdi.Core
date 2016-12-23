@@ -9,6 +9,9 @@ using MahApps.Metro.Controls;
 
 namespace EvilBaschdi.Core.Wpf
 {
+    /// <summary>
+    /// Custom Flyout. Adds theme, accent and linker time to an existing flyout or adds a new one.
+    /// </summary>
     public class CustomFlyout : IFlyout
     {
         private readonly MetroWindow _mainWindow;
@@ -36,6 +39,9 @@ namespace EvilBaschdi.Core.Wpf
             _linkerTime = linkerTime;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Load()
         {
             #region settings button
@@ -180,14 +186,14 @@ namespace EvilBaschdi.Core.Wpf
                     continue;
                 }
                 var mainStackPanel = (StackPanel) flyout.Content;
-                var horizontalLineStackPanel = mainStackPanel.FindChild<StackPanel>("HorizontalLineStackPanel");
+                var horizontalLineRectangles = mainStackPanel.FindChildren<Rectangle>().Where(item => item.Name == "HorizontalLineRectangle");
                 var themeStackPanel = mainStackPanel.FindChild<StackPanel>("ThemeStackPanel");
 
-                var horizontalLineRectangles = horizontalLineStackPanel.FindChildren<Rectangle>();
 
                 foreach (var horizontalLineRectangle in horizontalLineRectangles)
                 {
                     horizontalLineRectangle.Stroke = accentColorBrush;
+                    horizontalLineRectangle.Fill = accentColorBrush;
                 }
 
 
@@ -345,6 +351,7 @@ namespace EvilBaschdi.Core.Wpf
                                            {
                                                Name = "HorizontalLineStackPanel",
                                                Orientation = Orientation.Vertical,
+                                               Height = 1,
                                                Margin = new Thickness(0, 10, 0, 0)
                                            };
 
@@ -353,6 +360,7 @@ namespace EvilBaschdi.Core.Wpf
                                                       Name = "HorizontalLineRectangle",
                                                       AllowDrop = false,
                                                       Width = flyoutWidth - 30,
+                                                      Height = 1,
                                                       VerticalAlignment = VerticalAlignment.Center,
                                                       Stroke = (SolidColorBrush) _mainWindow.FindResource("AccentColorBrush")
                                                   });

@@ -1,7 +1,10 @@
-﻿namespace EvilBaschdi.Core.Wpf
+﻿using EvilBaschdi.Core.DotNetExtensions;
+
+namespace EvilBaschdi.Core.Wpf
 {
-    public interface IFlyout
+    /// <summary>
+    /// </summary>
+    public interface IFlyout : ILoad
     {
-        void Load();
     }
 }

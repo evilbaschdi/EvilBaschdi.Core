@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom.Compiler;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Interop;
@@ -9,6 +10,7 @@ namespace EvilBaschdi.Core.Browsers
     /// <summary>
     ///     Stellt einen Auswahldialog für Ordner und Systemelemente ab Windows Vista bereit.
     /// </summary>
+    [GeneratedCode("EvilBaschdi.Core", "1.0")]
     public sealed class ExplorerFolderBrowser : IFolderBrowser
     {
         #region Properties

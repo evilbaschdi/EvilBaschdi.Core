@@ -3,8 +3,14 @@ using System.Windows.Controls;
 
 namespace EvilBaschdi.Core.Wpf
 {
+    /// <summary>
+    /// </summary>
     public static class RemoveChildHelper
     {
+        /// <summary>
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="child"></param>
         public static void RemoveChild(this DependencyObject parent, UIElement child)
         {
             var panel = parent as Panel;
@@ -17,7 +23,7 @@ namespace EvilBaschdi.Core.Wpf
             var decorator = parent as Decorator;
             if (decorator != null)
             {
-                if (decorator.Child == child)
+                if (Equals(decorator.Child, child))
                 {
                     decorator.Child = null;
                 }
@@ -27,7 +33,7 @@ namespace EvilBaschdi.Core.Wpf
             var contentPresenter = parent as ContentPresenter;
             if (contentPresenter != null)
             {
-                if (contentPresenter.Content == child)
+                if (Equals(contentPresenter.Content, child))
                 {
                     contentPresenter.Content = null;
                 }
@@ -37,7 +43,7 @@ namespace EvilBaschdi.Core.Wpf
             var contentControl = parent as ContentControl;
             if (contentControl != null)
             {
-                if (contentControl.Content == child)
+                if (Equals(contentControl.Content, child))
                 {
                     contentControl.Content = null;
                 }

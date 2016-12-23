@@ -3,10 +3,9 @@
     /// <summary>
     ///     Generic Interface construct to encapsulate Classes without Interfaces
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public interface IValue<out T>
+    /// <typeparam name="TOut"></typeparam>
+    /// <typeparam name="TIn1"></typeparam>
+    public interface IValueFor1<in TIn1, out TOut> : IValueFor<TIn1, TOut>
     {
-        /// <summary>Value</summary>
-        T Value { get; }
     }
 }

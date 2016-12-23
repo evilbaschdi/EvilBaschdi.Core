@@ -1,7 +1,4 @@
 ﻿using System;
-using System.IO;
-using Windows.Data.Xml.Dom;
-using Windows.UI.Notifications;
 
 namespace EvilBaschdi.Core.Wpf
 {
@@ -68,7 +65,9 @@ namespace EvilBaschdi.Core.Wpf
             {
                 throw new ArgumentNullException(nameof(message));
             }
+
             //C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral\Windows.winmd
+            /*
             if (!_showToast)
             {
                 return;
@@ -112,6 +111,7 @@ namespace EvilBaschdi.Core.Wpf
 
             // Show the toast. Be sure to specify the AppUserModelId on your application's shortcut!
             ToastNotificationManager.CreateToastNotifier(_applicationId).Show(toast);
+            */
         }
 
         private void ValidateOsVersion()
