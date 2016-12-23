@@ -2,7 +2,7 @@
                       GlowBrush="{DynamicResource AccentColorBrush}"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
                       Title="EvilBaschdi.Core TestUI" Height="350" Width="525">
     <!--  RightWindowCommands  -->
     <controls:MetroWindow.RightWindowCommands>
@@ -50,7 +50,7 @@
             <!--  Settings Flyout  -->
             <controls:Flyout Name="SettingsFlyout" Width="400" AnimateOnPositionChange="True" AnimateOpacity="True"
                              Header="settings" Position="Right" Theme="Accent">
-                <StackPanel>
+                <StackPanel Name="TestStackPanel">
                     <Label Content="Test" />
                 </StackPanel>
             </controls:Flyout>

@@ -24,9 +24,7 @@ namespace EvilBaschdi.Core.Browsers
         /// <param name="domain"></param>
         /// <param name="dwResumeHandle"></param>
         /// <returns></returns>
-        [DllImport("Netapi32", CharSet = CharSet.Auto,
-             SetLastError = true),
-         SuppressUnmanagedCodeSecurity]
+        [DllImport("Netapi32", CharSet = CharSet.Auto, SetLastError = true), SuppressUnmanagedCodeSecurity]
         public static extern int NetServerEnum(
             string serverName,
             int dwLevel,
@@ -44,10 +42,8 @@ namespace EvilBaschdi.Core.Browsers
         /// </summary>
         /// <param name="pBuf"></param>
         /// <returns></returns>
-        [DllImport("Netapi32", SetLastError = true),
-         SuppressUnmanagedCodeSecurity]
-        public static extern int NetApiBufferFree(
-            IntPtr pBuf);
+        [DllImport("Netapi32", SetLastError = true), SuppressUnmanagedCodeSecurity]
+        public static extern int NetApiBufferFree(IntPtr pBuf);
 
         /// <summary>
         ///     Contains an ArrayList of computers found in the network.
@@ -68,12 +64,7 @@ namespace EvilBaschdi.Core.Browsers
                     int entriesRead;
                     int totalEntries;
                     int resHandle;
-                    var ret = NetServerEnum(null, 100, ref buffer,
-                        maxPreferredLength,
-                        out entriesRead,
-                        out totalEntries, svTypeWorkstation |
-                                          svTypeServer, null, out
-                        resHandle);
+                    var ret = NetServerEnum(null, 100, ref buffer, maxPreferredLength, out entriesRead, out totalEntries, svTypeWorkstation | svTypeServer, null, out resHandle);
                     if (ret == 0)
                     {
                         for (var i = 0; i < totalEntries; i++)
@@ -87,8 +78,7 @@ namespace EvilBaschdi.Core.Browsers
                 // ReSharper disable once CatchAllClause
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Problem with acessing network computers in NetworkBrowser \r\n\r\n\r\n{ex.Message}",
-                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Problem with acessing network computers in NetworkBrowser \r\n\r\n\r\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return null;
                 }
                 finally

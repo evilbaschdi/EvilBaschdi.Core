@@ -11,7 +11,7 @@ namespace EvilBaschdi.Core.Wpf
     /// <summary>
     ///     ThemeManagerHelper class.
     /// </summary>
-    public class ThemeManagerHelper
+    public class ThemeManagerHelper : IThemeManagerHelper
     {
         /// <summary>
         ///     Creates a new app style by color and name.
@@ -24,7 +24,6 @@ namespace EvilBaschdi.Core.Wpf
             var resourceDictionary = new ResourceDictionary
                                      {
                                          { "HighlightColor", Color.FromArgb(255, color.R.Subtract(30), color.G.Subtract(30), color.B.Subtract(30)) },
-                                         //{ "AccentColor", Color.FromArgb(204, color.R, color.G, color.B) },
                                          { "AccentColor", Color.FromArgb(255, color.R, color.G, color.B) },
                                          { "AccentColor2", Color.FromArgb(153, color.R, color.G, color.B) },
                                          { "AccentColor3", Color.FromArgb(102, color.R, color.G, color.B) },
@@ -39,17 +38,18 @@ namespace EvilBaschdi.Core.Wpf
             resourceDictionary.Add("WindowTitleColorBrush", new SolidColorBrush((Color) resourceDictionary["AccentColor"]));
 
             resourceDictionary.Add("ProgressBrush", new LinearGradientBrush(
-                                                        new GradientStopCollection(new[]
-                                                                                   {
-                                                                                       new GradientStop((Color) resourceDictionary["HighlightColor"], 0),
-                                                                                       new GradientStop((Color) resourceDictionary["AccentColor3"], 1)
-                                                                                   }), new Point(1.002, 0.5), new Point(0.001, 0.5)));
+                new GradientStopCollection(new[]
+                                           {
+                                               new GradientStop((Color) resourceDictionary["HighlightColor"], 0),
+                                               new GradientStop((Color) resourceDictionary["AccentColor3"], 1)
+                                           }), new Point(1.002, 0.5), new Point(0.001, 0.5)));
 
             resourceDictionary.Add("CheckmarkFill", new SolidColorBrush((Color) resourceDictionary["AccentColor"]));
             resourceDictionary.Add("RightArrowFill", new SolidColorBrush((Color) resourceDictionary["AccentColor"]));
 
             //resourceDictionary.Add("IdealForegroundColor", Colors.White);
-            resourceDictionary.Add("IdealForegroundColor", (int) Math.Sqrt(color.R*color.R*.241 + color.G*color.G*.691 + color.B*color.B*.068) < 130 ? Colors.White : Colors.Black);
+            resourceDictionary.Add("IdealForegroundColor",
+                (int) Math.Sqrt(color.R * color.R * .241 + color.G * color.G * .691 + color.B * color.B * .068) < 130 ? Colors.White : Colors.Black);
             resourceDictionary.Add("IdealForegroundColorBrush", new SolidColorBrush((Color) resourceDictionary["IdealForegroundColor"]));
             resourceDictionary.Add("IdealForegroundDisabledBrush", new SolidColorBrush((Color) resourceDictionary["IdealForegroundColor"]));
             resourceDictionary.Add("AccentSelectedColorBrush", new SolidColorBrush((Color) resourceDictionary["IdealForegroundColor"]));
@@ -64,7 +64,14 @@ namespace EvilBaschdi.Core.Wpf
 
             // applying theme to MahApps
             var resDictName = $"ApplicationAccent_{accentName}.xaml";
+
             var fileName = Path.Combine(Path.GetTempPath(), resDictName);
+
+            //if (File.Exists(fileName))
+            //{
+            //    File.Delete(fileName);
+            //}
+
             using (var writer = System.Xml.XmlWriter.Create(fileName, new System.Xml.XmlWriterSettings
                                                                       {
                                                                           Indent = true
@@ -85,8 +92,16 @@ namespace EvilBaschdi.Core.Wpf
                                 Name = accentName,
                                 Resources = resourceDictionary
                             };
+
+            //if (ThemeManager.Accents.Any(accent => accent.Name.Equals(newAccent.Name, StringComparison.InvariantCultureIgnoreCase)))
+            //{
+            //    var item = ThemeManager.Accents.Where(accent => accent.Name.Equals(newAccent.Name, StringComparison.InvariantCultureIgnoreCase));
+            //    ThemeManager.Accents = ThemeManager.Accents.Except(item);
+            //}
+
             ThemeManager.AddAccent(newAccent.Name, newAccent.Resources.Source);
         }
+
 
         /// <summary>
         ///     Gets Color of current (applied) system settings, generates an app style and adds it to available accents.
@@ -108,7 +123,7 @@ namespace EvilBaschdi.Core.Wpf
                     accentColor = colorizationColor.ToColor();
                 }
 
-                if (VersionHelper.IsWindows10() && !colorPrevalence)
+                if (VersionHelper.IsWindows10 && !colorPrevalence)
                 {
                     accentColor = "#FFCCCCCC".ToColor();
                 }

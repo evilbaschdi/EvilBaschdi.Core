@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using EvilBaschdi.Core.Application;
 using EvilBaschdi.Core.Browsers;
 using EvilBaschdi.Core.DirectoryExtensions;
 using EvilBaschdi.Core.DotNetExtensions;
@@ -33,6 +35,13 @@ namespace EvilBaschdi.TestUI
             //LoadNetworkBrowserToArrayList();
             //MessageBox.Show(VersionHelper.GetWindowsClientVersion());
             toast.Show("version", VersionHelper.GetWindowsClientVersion());
+
+            ISettings coreSettings = new CoreSettings(Properties.Settings.Default);
+            IThemeManagerHelper themeManagerHelper = new ThemeManagerHelper();
+            IMetroStyle style = new MetroStyle(this, coreSettings, themeManagerHelper);
+            IFlyout flyout = new CustomFlyout(this, style, Assembly.GetExecutingAssembly().GetLinkerTime());
+            style.Load(true);
+            flyout.Load();
         }
 
 

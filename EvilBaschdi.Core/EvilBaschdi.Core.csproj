@@ -38,9 +38,9 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MahApps.Metro, Version=1.3.0.0, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\MahApps.Metro.1.3.0\lib\net45\MahApps.Metro.dll</HintPath>
+    <Reference Include="MahApps.Metro, Version=1.4.0.42, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.4.0\lib\net45\MahApps.Metro.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -49,7 +49,7 @@
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.1.3.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\MahApps.Metro.1.4.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xaml" />
@@ -59,12 +59,12 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="Windows">
-      <HintPath>C:\Program Files (x86)\Windows Kits\8.1\References\CommonConfiguration\Neutral\Windows.winmd</HintPath>
-    </Reference>
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Application\CoreSettings.cs">
+      <DependentUpon>ISettings.cs</DependentUpon>
+    </Compile>
     <Compile Include="Application\Info.cs" />
     <Compile Include="Application\ISettings.cs" />
     <Compile Include="Browsers\ExplorerFolderBrower.cs">
@@ -89,7 +89,22 @@
     <Compile Include="DirectoryExtensions\IFtp.cs" />
     <Compile Include="DotNetExtensions\CalculateTimeSpan.cs" />
     <Compile Include="DotNetExtensions\ColorHelpers.cs" />
+    <Compile Include="DotNetExtensions\ConcurrentBagExtensions.cs" />
+    <Compile Include="DotNetExtensions\ILoad.cs" />
+    <Compile Include="DotNetExtensions\IRun.cs" />
+    <Compile Include="DotNetExtensions\IRunFor.cs" />
+    <Compile Include="DotNetExtensions\IRunFor1.cs" />
+    <Compile Include="DotNetExtensions\IRunFor2.cs" />
+    <Compile Include="DotNetExtensions\IRunFor3.cs" />
+    <Compile Include="DotNetExtensions\IRunFor4.cs" />
+    <Compile Include="DotNetExtensions\IRunFor5.cs" />
     <Compile Include="DotNetExtensions\IValue.cs" />
+    <Compile Include="DotNetExtensions\IValueFor.cs" />
+    <Compile Include="DotNetExtensions\IValueFor1.cs" />
+    <Compile Include="DotNetExtensions\IValueFor2.cs" />
+    <Compile Include="DotNetExtensions\IValueFor3.cs" />
+    <Compile Include="DotNetExtensions\IValueFor4.cs" />
+    <Compile Include="DotNetExtensions\IValueFor5.cs" />
     <Compile Include="Logging\AppendAllTextWithHeader.cs">
       <DependentUpon>IAppendAllTextWithHeadline.cs</DependentUpon>
     </Compile>
@@ -99,6 +114,15 @@
     <Compile Include="Threading\MultiThreadingHelper.cs">
       <DependentUpon>IMultiThreadingHelper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Wpf\ControlContent.cs" />
+    <Compile Include="Wpf\CustomFlyout.cs">
+      <DependentUpon>IFlyout.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf\DialogService.cs">
+      <DependentUpon>IDialogService.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf\IDialogService.cs" />
+    <Compile Include="Wpf\IFlyout.cs" />
     <Compile Include="Wpf\IThemeManagerHelper.cs" />
     <Compile Include="Wpf\IToast.cs" />
     <Compile Include="Wpf\Margins.cs" />
@@ -109,6 +133,7 @@
     <Compile Include="DotNetExtensions\InternalClasses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Wpf\IMetroStyle.cs" />
+    <Compile Include="Wpf\RemoveChildHelper.cs" />
     <Compile Include="Wpf\ThemeManagerHelper.cs">
       <DependentUpon>IThemeManagerHelper.cs</DependentUpon>
     </Compile>

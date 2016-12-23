@@ -1,3 +1,5 @@
+using System;
+
 namespace EvilBaschdi.Core.Wpf
 {
     /// <summary>
@@ -10,6 +12,7 @@ namespace EvilBaschdi.Core.Wpf
         /// </summary>
         /// <param name="status"></param>
         /// <param name="message"></param>
+        [Obsolete("removed code temporarily")]
         void Show(string status, string message);
     }
 }
