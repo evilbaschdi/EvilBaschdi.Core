@@ -7,6 +7,6 @@ namespace EvilBaschdi.Core.DotNetExtensions
     {
         /// <summary>
         /// </summary>
-        void Run(TIn value);
+        void RunFor(TIn value);
     }
 }

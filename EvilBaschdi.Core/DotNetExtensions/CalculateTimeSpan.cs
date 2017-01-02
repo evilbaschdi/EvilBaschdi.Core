@@ -34,7 +34,7 @@ namespace EvilBaschdi.Core.DotNetExtensions
         /// <returns></returns>
         public static int Quarter(this DateTime date)
         {
-            return (date.Month + 2)/3;
+            return (date.Month + 2) / 3;
         }
     }
 }

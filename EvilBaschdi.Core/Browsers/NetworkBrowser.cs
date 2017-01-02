@@ -69,7 +69,7 @@ namespace EvilBaschdi.Core.Browsers
                     {
                         for (var i = 0; i < totalEntries; i++)
                         {
-                            var tmpBuffer = new IntPtr((int) buffer + (i*sizeofInfo));
+                            var tmpBuffer = new IntPtr((int) buffer + (i * sizeofInfo));
                             var svrInfo = (ServerInfo) Marshal.PtrToStructure(tmpBuffer, typeof(ServerInfo));
                             networkComputers.Add(svrInfo.svName);
                         }

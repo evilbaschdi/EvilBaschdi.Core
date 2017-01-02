@@ -90,7 +90,6 @@
     <Compile Include="DotNetExtensions\CalculateTimeSpan.cs" />
     <Compile Include="DotNetExtensions\ColorHelpers.cs" />
     <Compile Include="DotNetExtensions\ConcurrentBagExtensions.cs" />
-    <Compile Include="DotNetExtensions\ILoad.cs" />
     <Compile Include="DotNetExtensions\IRun.cs" />
     <Compile Include="DotNetExtensions\IRunFor.cs" />
     <Compile Include="DotNetExtensions\IRunFor1.cs" />

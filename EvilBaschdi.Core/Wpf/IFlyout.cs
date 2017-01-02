@@ -1,6 +1,4 @@
-﻿using EvilBaschdi.Core.DotNetExtensions;
-
-namespace EvilBaschdi.Core.Wpf
+﻿namespace EvilBaschdi.Core.Wpf
 {
     /// <summary>
     /// </summary>
