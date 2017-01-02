@@ -165,6 +165,7 @@ namespace EvilBaschdi.Core.Wpf
             _themeManagerHelper = themeManagerHelper;
         }
 
+
         /// <summary>
         ///     Load.
         /// </summary>
