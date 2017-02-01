@@ -41,7 +41,7 @@ namespace EvilBaschdi.TestUI
             IMetroStyle style = new MetroStyle(this, coreSettings, themeManagerHelper);
             IFlyout flyout = new CustomFlyout(this, style, Assembly.GetExecutingAssembly().GetLinkerTime());
             style.Load(true);
-            flyout.Load();
+            flyout.Run();
         }
 
 

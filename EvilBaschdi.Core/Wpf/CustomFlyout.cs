@@ -41,7 +41,7 @@ namespace EvilBaschdi.Core.Wpf
 
         /// <summary>
         /// </summary>
-        public void Load()
+        public void Run()
         {
             #region settings button
 
