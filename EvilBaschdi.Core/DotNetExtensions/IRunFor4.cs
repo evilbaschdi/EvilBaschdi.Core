@@ -10,6 +10,6 @@ namespace EvilBaschdi.Core.DotNetExtensions
     {
         /// <summary>
         /// </summary>
-        void Run(TIn1 valueIn1, TIn2 valueIn2, TIn3 valueIn3, TIn4 valueIn4);
+        void RunFor(TIn1 valueIn1, TIn2 valueIn2, TIn3 valueIn3, TIn4 valueIn4);
     }
 }

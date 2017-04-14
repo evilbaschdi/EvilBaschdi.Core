@@ -10,7 +10,7 @@ using MahApps.Metro.Controls;
 namespace EvilBaschdi.Core.Wpf
 {
     /// <summary>
-    /// Custom Flyout. Adds theme, accent and linker time to an existing flyout or adds a new one.
+    ///     Custom Flyout. Adds theme, accent and linker time to an existing flyout or adds a new one.
     /// </summary>
     public class CustomFlyout : IFlyout
     {
@@ -40,9 +40,8 @@ namespace EvilBaschdi.Core.Wpf
         }
 
         /// <summary>
-        /// 
         /// </summary>
-        public void Load()
+        public void Run()
         {
             #region settings button
 

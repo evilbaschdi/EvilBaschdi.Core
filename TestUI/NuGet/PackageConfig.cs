@@ -10,7 +10,7 @@ namespace EvilBaschdi.TestUI.NuGet
     {
         public PackageCollection Read(string path)
         {
-            var serializer = new XmlSerializer(typeof (PackageCollection));
+            var serializer = new XmlSerializer(typeof(PackageCollection));
             var reader = new StreamReader(path);
             var packageCollection = (PackageCollection) serializer.Deserialize(reader);
             reader.Close();
@@ -45,7 +45,7 @@ namespace EvilBaschdi.TestUI.NuGet
                                         OmitXmlDeclaration = false,
                                         Encoding = Encoding.UTF8
                                     };
-            var serializer = new XmlSerializer(typeof (PackageCollection));
+            var serializer = new XmlSerializer(typeof(PackageCollection));
             var xmlWriter = XmlWriter.Create(path, xmlWriterSettings);
             var ns = new XmlSerializerNamespaces();
 

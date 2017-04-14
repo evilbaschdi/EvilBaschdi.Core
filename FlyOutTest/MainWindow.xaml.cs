@@ -14,10 +14,11 @@ namespace FlyOutTest
         {
             InitializeComponent();
             ISettings coreSettings = new CoreSettings(Properties.Settings.Default);
-            IMetroStyle style = new MetroStyle(this, coreSettings);
+            IThemeManagerHelper themeManagerHelper = new ThemeManagerHelper();
+            IMetroStyle style = new MetroStyle(this, coreSettings, themeManagerHelper);
             IFlyout flyout = new CustomFlyout(this, style, Assembly.GetExecutingAssembly().GetLinkerTime());
             style.Load(true);
-            flyout.Load();
+            flyout.Run();
         }
     }
 }

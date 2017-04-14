@@ -11,7 +11,7 @@ using Microsoft.Win32;
 namespace EvilBaschdi.Core.Wpf
 {
     /// <summary>
-    ///     Class that handle metro style on wpf.
+    ///     Class that handle metro style on Wpf.
     /// </summary>
     public class MetroStyle : IMetroStyle
     {

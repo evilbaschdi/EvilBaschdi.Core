@@ -33,7 +33,7 @@ namespace EvilBaschdi.Core.Threading
             {
                 return;
             }
-            var partitionSitze = Math.Ceiling(list.Count/(decimal) Environment.ProcessorCount);
+            var partitionSitze = Math.Ceiling(list.Count / (decimal) Environment.ProcessorCount);
 
             Parallel.ForEach(Partitioner.Create(0, list.Count, (int) partitionSitze), worker);
         }

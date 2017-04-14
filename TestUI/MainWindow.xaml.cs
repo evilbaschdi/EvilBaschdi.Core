@@ -24,6 +24,7 @@ namespace EvilBaschdi.TestUI
     {
         private INetworkBrowser _networkBrowser;
         private readonly IFilePath _filePath;
+        private readonly ISettings _coreSettings;
 
         public MainWindow()
         {
@@ -35,14 +36,36 @@ namespace EvilBaschdi.TestUI
             //LoadNetworkBrowserToArrayList();
             //MessageBox.Show(VersionHelper.GetWindowsClientVersion());
 
-            ISettings coreSettings = new CoreSettings(Properties.Settings.Default);
+            _coreSettings = new CoreSettings(Properties.Settings.Default);
             IThemeManagerHelper themeManagerHelper = new ThemeManagerHelper();
-            IMetroStyle style = new MetroStyle(this, coreSettings, themeManagerHelper);
+            IMetroStyle style = new MetroStyle(this, _coreSettings, themeManagerHelper);
             IFlyout flyout = new CustomFlyout(this, style, Assembly.GetExecutingAssembly().GetLinkerTime());
             style.Load(true);
-            flyout.Load();
+            flyout.Run();
+
+
+            var filePath = Assembly.GetEntryAssembly().Location;
+            if (filePath != null)
+            {
+                TestTaskbarIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(filePath);
+            }
+            var contextMenu = new ContextMenu();
+
+            foreach (string accentItem in style.Accent.Items)
+            {
+                var menuItem = new MenuItem();
+                menuItem.Header = accentItem;
+                menuItem.Click += MenuItem_Click;
+                contextMenu.Items.Add(menuItem);
+            }
+
+            TestTaskbarIcon.ContextMenu = contextMenu;
         }
 
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("bla");
+        }
 
         private void LoadNetworkBrowserToArrayList()
         {
@@ -174,7 +197,7 @@ namespace EvilBaschdi.TestUI
                     var themeManagerHelper = new ThemeManagerHelper();
                     themeManagerHelper.CreateAppStyleBy(CustomColor.Text.ToColor(), CustomColor.Text);
                     var styleAccent = ThemeManager.GetAccent(CustomColor.Text);
-                    var styleTheme = ThemeManager.GetAppTheme("BaseLight");
+                    var styleTheme = ThemeManager.GetAppTheme(_coreSettings.Theme);
                     ThemeManager.ChangeAppStyle(Application.Current, styleAccent, styleTheme);
                 }
                 catch (Exception exception)
