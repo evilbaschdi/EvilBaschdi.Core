@@ -1,7 +1,7 @@
 ﻿namespace EvilBaschdi.Core.Application
 {
     /// <summary>
-    ///     Wrapper arround ApplicationSettings.
+    ///     ApplicationSettings wrapper Interface.
     /// </summary>
     public interface ISettings
     {
@@ -14,5 +14,10 @@
         ///     MahApps ThemeManager Theme.
         /// </summary>
         string Theme { get; set; }
+
+        /// <summary>
+        ///     DisplayName of last screen position.
+        /// </summary>
+        string LastScreenDisplayName { get; set; }
     }
 }

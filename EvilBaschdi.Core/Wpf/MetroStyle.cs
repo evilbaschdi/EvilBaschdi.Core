@@ -15,6 +15,11 @@ namespace EvilBaschdi.Core.Wpf
     /// </summary>
     public class MetroStyle : IMetroStyle
     {
+        private readonly MetroWindow _mainWindow;
+        private readonly IMoveToScreen _moveToScreen;
+        private readonly ISettings _settings;
+        private readonly IThemeManagerHelper _themeManagerHelper;
+
         /// <summary>
         ///     Accent of Application MetroStyle.
         /// </summary>
@@ -25,66 +30,23 @@ namespace EvilBaschdi.Core.Wpf
         /// </summary>
         private AppTheme _styleTheme = ThemeManager.DetectAppStyle(System.Windows.Application.Current).Item1;
 
-        private readonly MetroWindow _mainWindow;
-        private ComboBox _accent;
-        private readonly RadioButton _themeDark;
-        private readonly RadioButton _themeLight;
-        private ToggleSwitch _themeSwitch;
-        private readonly ISettings _settings;
-        private readonly IThemeManagerHelper _themeManagerHelper;
-
         /// <summary>
+        ///     Handle metro style by ToggleSwitch.
         /// </summary>
-        /// <param name="mainWindow"></param>
-        /// <param name="settings"></param>
-        public MetroStyle(MetroWindow mainWindow, ISettings settings)
-        {
-            if (mainWindow == null)
-            {
-                throw new ArgumentNullException(nameof(mainWindow));
-            }
-            if (settings == null)
-            {
-                throw new ArgumentNullException(nameof(settings));
-            }
-            _mainWindow = mainWindow;
-            _settings = settings;
-        }
-
-        /// <summary>
-        ///     Handle metro style by radio buttons.
-        /// </summary>
+        /// ///
         /// <param name="mainWindow" />
-        /// <param name="accent" />
-        /// <param name="themeLight" />
         /// <param name="settings" />
-        /// <param name="themeDark" />
         /// <param name="themeManagerHelper"></param>
         /// <exception cref="ArgumentNullException">
         ///     <paramref name="mainWindow" /> is <see langword="null" />.
-        ///     <paramref name="accent" /> is <see langword="null" />.
-        ///     <paramref name="themeDark" /> is <see langword="null" />.
-        ///     <paramref name="themeLight" /> is <see langword="null" />.
         ///     <paramref name="settings" /> is <see langword="null" />.
         ///     <paramref name="themeManagerHelper" /> is <see langword="null" />.
         /// </exception>
-        public MetroStyle(MetroWindow mainWindow, ComboBox accent, RadioButton themeDark, RadioButton themeLight, ISettings settings, IThemeManagerHelper themeManagerHelper)
+        public MetroStyle(MetroWindow mainWindow, ISettings settings, IThemeManagerHelper themeManagerHelper)
         {
             if (mainWindow == null)
             {
                 throw new ArgumentNullException(nameof(mainWindow));
-            }
-            if (accent == null)
-            {
-                throw new ArgumentNullException(nameof(accent));
-            }
-            if (themeDark == null)
-            {
-                throw new ArgumentNullException(nameof(themeDark));
-            }
-            if (themeLight == null)
-            {
-                throw new ArgumentNullException(nameof(themeLight));
             }
             if (settings == null)
             {
@@ -94,12 +56,57 @@ namespace EvilBaschdi.Core.Wpf
             {
                 throw new ArgumentNullException(nameof(themeManagerHelper));
             }
+
             _mainWindow = mainWindow;
-            _accent = accent;
-            _themeDark = themeDark;
-            _themeLight = themeLight;
             _settings = settings;
+            Accent = new ComboBox();
+            Accent = Accent;
+            Theme = new ToggleSwitch();
+            Theme = Theme;
             _themeManagerHelper = themeManagerHelper;
+        }
+
+        /// <summary>
+        ///     Handle metro style by ToggleSwitch.
+        /// </summary>
+        /// ///
+        /// <param name="mainWindow" />
+        /// <param name="settings" />
+        /// <param name="themeManagerHelper"></param>
+        /// <param name="moveToScreen"></param>
+        /// <exception cref="ArgumentNullException">
+        ///     <paramref name="mainWindow" /> is <see langword="null" />.
+        ///     <paramref name="settings" /> is <see langword="null" />.
+        ///     <paramref name="themeManagerHelper" /> is <see langword="null" />.
+        /// </exception>
+        public MetroStyle(MetroWindow mainWindow, ISettings settings, IThemeManagerHelper themeManagerHelper, IMoveToScreen moveToScreen)
+        {
+            if (mainWindow == null)
+            {
+                throw new ArgumentNullException(nameof(mainWindow));
+            }
+            if (settings == null)
+            {
+                throw new ArgumentNullException(nameof(settings));
+            }
+            if (themeManagerHelper == null)
+            {
+                throw new ArgumentNullException(nameof(themeManagerHelper));
+            }
+
+            if (moveToScreen == null)
+            {
+                throw new ArgumentNullException(nameof(moveToScreen));
+            }
+
+            _mainWindow = mainWindow;
+            _settings = settings;
+            Accent = new ComboBox();
+            Accent = Accent;
+            Theme = new ToggleSwitch();
+            Theme = Theme;
+            _themeManagerHelper = themeManagerHelper;
+            _moveToScreen = moveToScreen;
         }
 
         /// <summary>
@@ -142,8 +149,8 @@ namespace EvilBaschdi.Core.Wpf
                 throw new ArgumentNullException(nameof(themeManagerHelper));
             }
             _mainWindow = mainWindow;
-            _accent = accent;
-            _themeSwitch = themeSwitch;
+            Accent = accent;
+            Theme = themeSwitch;
             _settings = settings;
             _themeManagerHelper = themeManagerHelper;
         }
@@ -153,19 +160,35 @@ namespace EvilBaschdi.Core.Wpf
         /// </summary>
         /// ///
         /// <param name="mainWindow" />
+        /// <param name="accent" />
+        /// <param name="themeSwitch" />
         /// <param name="settings" />
         /// <param name="themeManagerHelper"></param>
+        /// <param name="currentScreen"></param>
+        /// <param name="moveToScreen"></param>
         /// <exception cref="ArgumentNullException">
         ///     <paramref name="mainWindow" /> is <see langword="null" />.
+        ///     <paramref name="accent" /> is <see langword="null" />.
+        ///     <paramref name="themeSwitch" /> is <see langword="null" />.
         ///     <paramref name="settings" /> is <see langword="null" />.
         ///     <paramref name="themeManagerHelper" /> is <see langword="null" />.
         /// </exception>
-        public MetroStyle(MetroWindow mainWindow, ISettings settings, IThemeManagerHelper themeManagerHelper)
+        public MetroStyle(MetroWindow mainWindow, ComboBox accent, ToggleSwitch themeSwitch, ISettings settings, IThemeManagerHelper themeManagerHelper,
+                          IMoveToScreen moveToScreen)
         {
             if (mainWindow == null)
             {
                 throw new ArgumentNullException(nameof(mainWindow));
             }
+            if (accent == null)
+            {
+                throw new ArgumentNullException(nameof(accent));
+            }
+            if (themeSwitch == null)
+            {
+                throw new ArgumentNullException(nameof(themeSwitch));
+            }
+
             if (settings == null)
             {
                 throw new ArgumentNullException(nameof(settings));
@@ -174,15 +197,18 @@ namespace EvilBaschdi.Core.Wpf
             {
                 throw new ArgumentNullException(nameof(themeManagerHelper));
             }
-            _mainWindow = mainWindow;
-            _settings = settings;
-            Accent = new ComboBox();
-            _accent = Accent;
-            Theme = new ToggleSwitch();
-            _themeSwitch = Theme;
-            _themeManagerHelper = themeManagerHelper;
-        }
 
+            if (moveToScreen == null)
+            {
+                throw new ArgumentNullException(nameof(moveToScreen));
+            }
+            _mainWindow = mainWindow;
+            Accent = accent;
+            Theme = themeSwitch;
+            _settings = settings;
+            _themeManagerHelper = themeManagerHelper;
+            _moveToScreen = moveToScreen;
+        }
 
         /// <summary>
         ///     Load.
@@ -195,6 +221,12 @@ namespace EvilBaschdi.Core.Wpf
             {
                 _mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             }
+
+            if (!string.IsNullOrWhiteSpace(_settings.LastScreenDisplayName))
+            {
+                _moveToScreen?.RunFor(_mainWindow, _settings.LastScreenDisplayName);
+            }
+
             if (resizeWithBorder400)
             {
                 _mainWindow.Width = SystemParameters.PrimaryScreenWidth - 400;
@@ -212,33 +244,19 @@ namespace EvilBaschdi.Core.Wpf
                 _styleTheme = ThemeManager.GetAppTheme(_settings.Theme);
             }
 
-            _accent.SelectedValue = _styleAccent.Name;
+            Accent.SelectedValue = _styleAccent.Name;
 
-            switch (_styleTheme.Name)
+            if (Theme != null)
             {
-                case "BaseDark":
-                    if (_themeDark != null && _themeLight != null)
-                    {
-                        _themeDark.IsChecked = true;
-                        _themeLight.IsChecked = false;
-                    }
-                    else if (_themeSwitch != null)
-                    {
-                        _themeSwitch.IsChecked = true;
-                    }
-                    break;
-
-                case "BaseLight":
-                    if (_themeDark != null && _themeLight != null)
-                    {
-                        _themeDark.IsChecked = false;
-                        _themeLight.IsChecked = true;
-                    }
-                    else if (_themeSwitch != null)
-                    {
-                        _themeSwitch.IsChecked = false;
-                    }
-                    break;
+                switch (_styleTheme.Name)
+                {
+                    case "BaseDark":
+                        Theme.IsChecked = true;
+                        break;
+                    case "BaseLight":
+                        Theme.IsChecked = false;
+                        break;
+                }
             }
             EnableDisableThemeControl();
             LoadSystemAppColor();
@@ -246,74 +264,10 @@ namespace EvilBaschdi.Core.Wpf
 
             foreach (var accent in ThemeManager.Accents.OrderBy(a => a.Name))
             {
-                _accent.Items.Add(accent.Name);
+                Accent.Items.Add(accent.Name);
             }
         }
 
-        /// <summary>
-        ///     Sets Style.
-        /// </summary>
-        private void SetStyle()
-        {
-            ThemeManager.ChangeAppStyle(System.Windows.Application.Current, _styleAccent, _styleTheme);
-        }
-
-        private void EnableDisableThemeControl()
-        {
-            var accent = _accent.SelectedValue.ToString();
-            var isWindows10AndsystemStyle = VersionHelper.IsWindows10 && accent == "Accent from windows";
-            if (_themeDark != null && _themeLight != null)
-            {
-                _themeDark.IsEnabled = !isWindows10AndsystemStyle;
-                _themeLight.IsEnabled = !isWindows10AndsystemStyle;
-            }
-            else if (_themeSwitch != null)
-            {
-                _themeSwitch.IsEnabled = !isWindows10AndsystemStyle;
-            }
-        }
-
-        private void LoadSystemAppColor()
-        {
-            var accent = _accent.SelectedValue.ToString();
-            var isWindows10AndSystemStyle = VersionHelper.IsWindows10 && accent == "Accent from windows";
-            if (isWindows10AndSystemStyle)
-            {
-                var personalize = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize");
-                if (personalize != null)
-                {
-                    var appsTheme = personalize.GetValue("AppsUseLightTheme") != null && personalize.GetValue("AppsUseLightTheme").ToString().Equals("0") ? "BaseDark" : "BaseLight";
-
-                    switch (appsTheme)
-                    {
-                        case "BaseDark":
-                            if (_themeDark != null && _themeLight != null)
-                            {
-                                _themeDark.IsChecked = true;
-                                _themeLight.IsChecked = false;
-                            }
-                            else if (_themeSwitch != null)
-                            {
-                                _themeSwitch.IsChecked = true;
-                            }
-                            break;
-
-                        case "BaseLight":
-                            if (_themeDark != null && _themeLight != null)
-                            {
-                                _themeDark.IsChecked = false;
-                                _themeLight.IsChecked = true;
-                            }
-                            else if (_themeSwitch != null)
-                            {
-                                _themeSwitch.IsChecked = false;
-                            }
-                            break;
-                    }
-                    _styleTheme = ThemeManager.GetAppTheme(appsTheme);
-                }
-            }
-        }
 
         /// <summary>
         ///     Accent of application style.
@@ -322,7 +276,7 @@ namespace EvilBaschdi.Core.Wpf
         /// <param name="e"></param>
         public void SetAccent(object sender, SelectionChangedEventArgs e)
         {
-            var accent = _accent.SelectedValue.ToString();
+            var accent = Accent.SelectedValue.ToString();
             _styleAccent = ThemeManager.GetAccent(accent);
 
             EnableDisableThemeControl();
@@ -384,19 +338,63 @@ namespace EvilBaschdi.Core.Wpf
         /// <summary>
         ///     ComboBox for choosing an accent.
         /// </summary>
-        public ComboBox Accent
-        {
-            get { return _accent; }
-            set { _accent = value; }
-        }
+        public ComboBox Accent { get; set; }
 
         /// <summary>
         ///     ToggleSwitch for choosing a theme.
         /// </summary>
-        public ToggleSwitch Theme
+        public ToggleSwitch Theme { get; set; }
+
+        /// <summary>
+        ///     Sets Style.
+        /// </summary>
+        private void SetStyle()
         {
-            get { return _themeSwitch; }
-            set { _themeSwitch = value; }
+            ThemeManager.ChangeAppStyle(System.Windows.Application.Current, _styleAccent, _styleTheme);
+        }
+
+        private void EnableDisableThemeControl()
+        {
+            var accent = Accent.SelectedValue.ToString();
+            var isWindows10AndsystemStyle = VersionHelper.IsWindows10 && accent == "Accent from windows";
+            if (Theme != null)
+            {
+                Theme.IsEnabled = !isWindows10AndsystemStyle;
+            }
+        }
+
+        private void LoadSystemAppColor()
+        {
+            var accent = Accent.SelectedValue.ToString();
+            var isWindows10AndSystemStyle = VersionHelper.IsWindows10 && accent == "Accent from windows";
+            if (isWindows10AndSystemStyle)
+            {
+                var personalize = Registry.CurrentUser.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize");
+                if (personalize != null)
+                {
+                    var appsTheme = personalize.GetValue("AppsUseLightTheme") != null && personalize.GetValue("AppsUseLightTheme").ToString().Equals("0")
+                        ? "BaseDark"
+                        : "BaseLight";
+                    if (Theme != null)
+                    {
+                        switch (appsTheme)
+                        {
+                            case "BaseDark":
+
+                                Theme.IsChecked = true;
+
+                                break;
+
+                            case "BaseLight":
+
+                                Theme.IsChecked = false;
+
+                                break;
+                        }
+                    }
+                    _styleTheme = ThemeManager.GetAppTheme(appsTheme);
+                }
+            }
         }
     }
 }

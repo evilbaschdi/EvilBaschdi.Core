@@ -4,7 +4,7 @@ using System.Configuration;
 namespace EvilBaschdi.Core.Application
 {
     /// <summary>
-    ///     Wrapper arround ApplicationSettings.
+    ///     ApplicationSettings wrapper Interface implementation.
     /// </summary>
     public class CoreSettings : ISettings
     {
@@ -29,12 +29,9 @@ namespace EvilBaschdi.Core.Application
         /// </summary>
         public string Accent
         {
-            get
-            {
-                return string.IsNullOrWhiteSpace(_settings["Accent"]?.ToString())
-                    ? ""
-                    : _settings["Accent"].ToString();
-            }
+            get => string.IsNullOrWhiteSpace(_settings["Accent"]?.ToString())
+                ? ""
+                : _settings["Accent"].ToString();
             set
             {
                 _settings["Accent"] = value;
@@ -47,15 +44,27 @@ namespace EvilBaschdi.Core.Application
         /// </summary>
         public string Theme
         {
-            get
-            {
-                return string.IsNullOrWhiteSpace(_settings["Theme"]?.ToString())
-                    ? ""
-                    : _settings["Theme"].ToString();
-            }
+            get => string.IsNullOrWhiteSpace(_settings["Theme"]?.ToString())
+                ? ""
+                : _settings["Theme"].ToString();
             set
             {
                 _settings["Theme"] = value;
+                _settings.Save();
+            }
+        }
+
+        /// <summary>
+        ///     DisplayName of last screen position.
+        /// </summary>
+        public string LastScreenDisplayName
+        {
+            get => string.IsNullOrWhiteSpace(_settings["LastScreenDisplayName"]?.ToString())
+                ? ""
+                : _settings["LastScreenDisplayName"].ToString();
+            set
+            {
+                _settings["LastScreenDisplayName"] = value;
                 _settings.Save();
             }
         }

@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections;
+using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using EvilBaschdi.Core.Application;
 using EvilBaschdi.Core.Browsers;
 using EvilBaschdi.Core.DirectoryExtensions;
@@ -12,6 +15,9 @@ using EvilBaschdi.Core.DotNetExtensions;
 using EvilBaschdi.Core.Security;
 using EvilBaschdi.Core.Threading;
 using EvilBaschdi.Core.Wpf;
+using EvilBaschdi.Core.Wpf.View;
+using EvilBaschdi.Core.Wpf.ViewModel;
+using EvilBaschdi.TestUI.Properties;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
 
@@ -22,26 +28,30 @@ namespace EvilBaschdi.TestUI
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private INetworkBrowser _networkBrowser;
-        private readonly IFilePath _filePath;
         private readonly ISettings _coreSettings;
+        private readonly IFilePath _filePath;
+        private INetworkBrowser _networkBrowser;
 
         public MainWindow()
         {
             InitializeComponent();
-            //Loaded += (s, e) => this.EnableGlassEffect();
+            Loaded += (s, e) => this.EnableGlassEffect();
             IToast toast = new Toast("");
             IMultiThreadingHelper multiThreadingHelper = new MultiThreadingHelper();
             _filePath = new FilePath(multiThreadingHelper);
             //LoadNetworkBrowserToArrayList();
             //MessageBox.Show(VersionHelper.GetWindowsClientVersion());
 
-            _coreSettings = new CoreSettings(Properties.Settings.Default);
+            _coreSettings = new CoreSettings(Settings.Default);
             IThemeManagerHelper themeManagerHelper = new ThemeManagerHelper();
-            IMetroStyle style = new MetroStyle(this, _coreSettings, themeManagerHelper);
+            IMoveToScreen moveToScreen = new MoveToScreen();
+            IMetroStyle style = new MetroStyle(this, _coreSettings, themeManagerHelper, moveToScreen);
             IFlyout flyout = new CustomFlyout(this, style, Assembly.GetExecutingAssembly().GetLinkerTime());
-            style.Load(true);
-            flyout.Run();
+            style.Load();
+            var start = 1501279200;
+            var dateTime = DateTime.Parse(start.ToString());
+            MessageBox.Show(dateTime.ToLongDateString());
+            //flyout.Run();
 
 
             var filePath = Assembly.GetEntryAssembly().Location;
@@ -55,17 +65,21 @@ namespace EvilBaschdi.TestUI
             {
                 var menuItem = new MenuItem();
                 menuItem.Header = accentItem;
-                menuItem.Click += MenuItem_Click;
+
                 contextMenu.Items.Add(menuItem);
             }
 
             TestTaskbarIcon.ContextMenu = contextMenu;
         }
 
-        private void MenuItem_Click(object sender, RoutedEventArgs e)
+
+        private void WindowClosing(object sender, CancelEventArgs cancelEventArgs)
         {
-            MessageBox.Show("bla");
+            ICurrentScreen currentScreen = new CurrentScreen();
+            var currentDisplayName = currentScreen.ValueFor(this);
+            _coreSettings.LastScreenDisplayName = currentDisplayName;
         }
+
 
         private void LoadNetworkBrowserToArrayList()
         {
@@ -87,14 +101,23 @@ namespace EvilBaschdi.TestUI
         {
             if (txtInput.Text == txtOutput.Text)
             {
-                txtInput.Background = Brushes.GreenYellow;
-                txtOutput.Background = Brushes.GreenYellow;
+                txtInput.Background = Brushes.DarkGreen;
+                txtOutput.Background = Brushes.DarkGreen;
             }
             else
             {
                 txtInput.Background = Brushes.DarkRed;
                 txtOutput.Background = Brushes.DarkRed;
             }
+
+            var aboutWindow = new AboutWindow();
+            var currentDirectory = Directory.GetCurrentDirectory();
+            var assembly = Assembly.GetExecutingAssembly();
+            var image = new BitmapImage(new Uri($@"{currentDirectory}\b.png"));
+            IAboutWindowContent aboutWindowContent = new AboutWindowContent(assembly, image);
+            aboutWindow.DataContext = new AboutViewModel(aboutWindowContent);
+
+            aboutWindow.Show();
 
             //var currentDirectory = Directory.GetCurrentDirectory();
             //var configuration = currentDirectory.EndsWith("Release") ? "Release" : "Debug";
@@ -196,6 +219,7 @@ namespace EvilBaschdi.TestUI
                 {
                     var themeManagerHelper = new ThemeManagerHelper();
                     themeManagerHelper.CreateAppStyleBy(CustomColor.Text.ToColor(), CustomColor.Text);
+
                     var styleAccent = ThemeManager.GetAccent(CustomColor.Text);
                     var styleTheme = ThemeManager.GetAppTheme(_coreSettings.Theme);
                     ThemeManager.ChangeAppStyle(Application.Current, styleAccent, styleTheme);
