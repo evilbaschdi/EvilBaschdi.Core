@@ -17,11 +17,7 @@ namespace EvilBaschdi.Core.Wpf
         /// <param name="mainWindow"></param>
         public DialogService(MetroWindow mainWindow)
         {
-            if (mainWindow == null)
-            {
-                throw new ArgumentNullException(nameof(mainWindow));
-            }
-            _mainWindow = mainWindow;
+            _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
         }
 
         /// <summary>

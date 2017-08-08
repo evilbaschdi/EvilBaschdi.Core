@@ -2,7 +2,7 @@ using System;
 
 namespace EvilBaschdi.Core.DotNetExtensions
 {
-    internal class InternalClasses
+    internal static class InternalClasses
     {
         internal static int _month(TimeSpan span)
         {

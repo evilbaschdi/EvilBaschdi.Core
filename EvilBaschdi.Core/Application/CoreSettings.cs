@@ -3,6 +3,7 @@ using System.Configuration;
 
 namespace EvilBaschdi.Core.Application
 {
+    /// <inheritdoc />
     /// <summary>
     ///     ApplicationSettings wrapper Interface implementation.
     /// </summary>
@@ -17,16 +18,11 @@ namespace EvilBaschdi.Core.Application
         /// <exception cref="ArgumentNullException"></exception>
         public CoreSettings(ApplicationSettingsBase settings)
         {
-            if (settings == null)
-            {
-                throw new ArgumentNullException(nameof(settings));
-            }
-            _settings = settings;
+            _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         }
 
-        /// <summary>
-        ///     MahApps ThemeManager Accent.
-        /// </summary>
+        /// <inheritdoc />
+
         public string Accent
         {
             get => string.IsNullOrWhiteSpace(_settings["Accent"]?.ToString())
@@ -39,9 +35,7 @@ namespace EvilBaschdi.Core.Application
             }
         }
 
-        /// <summary>
-        ///     MahApps ThemeManager Theme.
-        /// </summary>
+        /// <inheritdoc />
         public string Theme
         {
             get => string.IsNullOrWhiteSpace(_settings["Theme"]?.ToString())
@@ -54,9 +48,7 @@ namespace EvilBaschdi.Core.Application
             }
         }
 
-        /// <summary>
-        ///     DisplayName of last screen position.
-        /// </summary>
+        /// <inheritdoc />
         public string LastScreenDisplayName
         {
             get => string.IsNullOrWhiteSpace(_settings["LastScreenDisplayName"]?.ToString())

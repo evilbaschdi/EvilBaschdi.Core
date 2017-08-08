@@ -9,36 +9,30 @@ using MahApps.Metro.Controls;
 
 namespace EvilBaschdi.Core.Wpf
 {
+    /// <inheritdoc />
     /// <summary>
     ///     Custom Flyout. Adds theme, accent and linker time to an existing flyout or adds a new one.
     /// </summary>
     public class CustomFlyout : IFlyout
     {
+        private readonly DateTime _linkerTime;
         private readonly MetroWindow _mainWindow;
         private readonly IMetroStyle _style;
-        private readonly DateTime _linkerTime;
         private int _overrideProtection;
 
         /// <exception cref="ArgumentNullException"><paramref name="mainWindow" /> is <see langword="null" />.</exception>
         public CustomFlyout(MetroWindow mainWindow, IMetroStyle style, DateTime linkerTime)
         {
-            if (mainWindow == null)
-            {
-                throw new ArgumentNullException(nameof(mainWindow));
-            }
-            if (style == null)
-            {
-                throw new ArgumentNullException(nameof(style));
-            }
+            _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
+            _style = style ?? throw new ArgumentNullException(nameof(style));
             if (linkerTime == null)
             {
                 throw new ArgumentNullException(nameof(linkerTime));
             }
-            _mainWindow = mainWindow;
-            _style = style;
             _linkerTime = linkerTime;
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// </summary>
         public void Run()
@@ -66,11 +60,11 @@ namespace EvilBaschdi.Core.Wpf
             }
             else if (
                 !_mainWindow.RightWindowCommands.Items.OfType<Button>()
-                            .Any(
-                                button =>
-                                    button.Name.Equals("SettingsButton", StringComparison.InvariantCultureIgnoreCase) ||
-                                    ((StackPanel) button.Content).Children.OfType<TextBlock>()
-                                                                 .Any(textBlock => textBlock.Text.Equals("settings", StringComparison.InvariantCultureIgnoreCase))))
+                             .Any(
+                                 button =>
+                                     button.Name.Equals("SettingsButton", StringComparison.InvariantCultureIgnoreCase) ||
+                                     ((StackPanel) button.Content).Children.OfType<TextBlock>()
+                                                                   .Any(textBlock => textBlock.Text.Equals("settings", StringComparison.InvariantCultureIgnoreCase))))
             {
                 _mainWindow.RightWindowCommands.Items.Add(settingsButton);
             }

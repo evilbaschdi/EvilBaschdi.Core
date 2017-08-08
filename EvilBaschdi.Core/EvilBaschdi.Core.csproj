@@ -54,27 +54,36 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xaml" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Application\AboutWindowContent.cs" />
+    <Compile Include="Application\AboutWindowContent.cs">
+      <DependentUpon>IAboutWindowContent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Application\CoreSettings.cs">
       <DependentUpon>ISettings.cs</DependentUpon>
     </Compile>
+    <Compile Include="Application\CurrentScreen.cs">
+      <DependentUpon>ICurrentScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Application\IAboutWindowContent.cs" />
+    <Compile Include="Application\ICurrentScreen.cs" />
+    <Compile Include="Application\IMoveToScreen.cs" />
     <Compile Include="Application\Info.cs" />
     <Compile Include="Application\IScreenCount.cs" />
     <Compile Include="Application\ISettings.cs" />
+    <Compile Include="Application\MoveToScreen.cs">
+      <DependentUpon>IMoveToScreen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Application\ScreenCount.cs">
       <DependentUpon>IScreenCount.cs</DependentUpon>
     </Compile>
     <Compile Include="Browsers\ExplorerFolderBrower.cs">
+      <DependentUpon>IFolderBrowser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Browsers\ExplorerFolderBrowser.NativeMethods.cs">
       <DependentUpon>IFolderBrowser.cs</DependentUpon>
     </Compile>
     <Compile Include="Browsers\FolderBrowser.cs">
@@ -111,6 +120,7 @@
     <Compile Include="DotNetExtensions\IValueFor3.cs" />
     <Compile Include="DotNetExtensions\IValueFor4.cs" />
     <Compile Include="DotNetExtensions\IValueFor5.cs" />
+    <Compile Include="DotNetExtensions\StringExtensions.cs" />
     <Compile Include="Logging\AppendAllTextWithHeader.cs">
       <DependentUpon>IAppendAllTextWithHeadline.cs</DependentUpon>
     </Compile>

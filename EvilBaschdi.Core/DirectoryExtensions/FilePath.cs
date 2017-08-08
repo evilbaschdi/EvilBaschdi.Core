@@ -20,11 +20,7 @@ namespace EvilBaschdi.Core.DirectoryExtensions
         /// <exception cref="ArgumentNullException"><paramref name="multiThreadingHelper" /> is <see langword="null" />.</exception>
         public FilePath(IMultiThreadingHelper multiThreadingHelper)
         {
-            if (multiThreadingHelper == null)
-            {
-                throw new ArgumentNullException(nameof(multiThreadingHelper));
-            }
-            _multiThreadingHelper = multiThreadingHelper;
+            _multiThreadingHelper = multiThreadingHelper ?? throw new ArgumentNullException(nameof(multiThreadingHelper));
         }
 
         /// <summary>

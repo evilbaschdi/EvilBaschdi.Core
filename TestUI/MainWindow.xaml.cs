@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.ComponentModel;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using EvilBaschdi.Core.Application;
 using EvilBaschdi.Core.Browsers;
 using EvilBaschdi.Core.DirectoryExtensions;
@@ -15,28 +14,30 @@ using EvilBaschdi.Core.DotNetExtensions;
 using EvilBaschdi.Core.Security;
 using EvilBaschdi.Core.Threading;
 using EvilBaschdi.Core.Wpf;
-using EvilBaschdi.Core.Wpf.View;
-using EvilBaschdi.Core.Wpf.ViewModel;
 using EvilBaschdi.TestUI.Properties;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
 
 namespace EvilBaschdi.TestUI
 {
+    /// <inheritdoc cref="MetroWindow" />
     /// <summary>
     ///     Interaction logic for MainWindow.xaml
     /// </summary>
+    // ReSharper disable once RedundantExtendsListEntry
     public partial class MainWindow : MetroWindow
     {
         private readonly ISettings _coreSettings;
+
+        // ReSharper disable once NotAccessedField.Local
         private readonly IFilePath _filePath;
+
         private INetworkBrowser _networkBrowser;
 
         public MainWindow()
         {
             InitializeComponent();
             Loaded += (s, e) => this.EnableGlassEffect();
-            IToast toast = new Toast("");
             IMultiThreadingHelper multiThreadingHelper = new MultiThreadingHelper();
             _filePath = new FilePath(multiThreadingHelper);
             //LoadNetworkBrowserToArrayList();
@@ -46,15 +47,13 @@ namespace EvilBaschdi.TestUI
             IThemeManagerHelper themeManagerHelper = new ThemeManagerHelper();
             IMoveToScreen moveToScreen = new MoveToScreen();
             IMetroStyle style = new MetroStyle(this, _coreSettings, themeManagerHelper, moveToScreen);
+            // ReSharper disable once UnusedVariable
             IFlyout flyout = new CustomFlyout(this, style, Assembly.GetExecutingAssembly().GetLinkerTime());
             style.Load();
-            var start = 1501279200;
-            var dateTime = DateTime.Parse(start.ToString());
-            MessageBox.Show(dateTime.ToLongDateString());
             //flyout.Run();
 
 
-            var filePath = Assembly.GetEntryAssembly().Location;
+            var filePath = Assembly.GetEntryAssembly()?.Location;
             if (filePath != null)
             {
                 TestTaskbarIcon.Icon = System.Drawing.Icon.ExtractAssociatedIcon(filePath);
@@ -63,8 +62,10 @@ namespace EvilBaschdi.TestUI
 
             foreach (string accentItem in style.Accent.Items)
             {
-                var menuItem = new MenuItem();
-                menuItem.Header = accentItem;
+                var menuItem = new MenuItem
+                               {
+                                   Header = accentItem
+                               };
 
                 contextMenu.Items.Add(menuItem);
             }
@@ -81,6 +82,7 @@ namespace EvilBaschdi.TestUI
         }
 
 
+        // ReSharper disable once UnusedMember.Local
         private void LoadNetworkBrowserToArrayList()
         {
             _networkBrowser = new NetworkBrowser();
@@ -89,12 +91,12 @@ namespace EvilBaschdi.TestUI
 
         private void btnEncrypt_Click(object sender, RoutedEventArgs e)
         {
-            txtEncrypted.Text = Encryption.EncryptString(txtInput.Text, "abc");
+            txtEncrypted.Text = Encryption.EncryptString(txtInput.Text, "ABC");
         }
 
         private void btnDecrypt_Click(object sender, RoutedEventArgs e)
         {
-            txtOutput.Text = Encryption.DecryptString(txtEncrypted.Text, "abc");
+            txtOutput.Text = Encryption.DecryptString(txtEncrypted.Text, "ABC");
         }
 
         private void btnCompare_Click(object sender, RoutedEventArgs e)
@@ -110,14 +112,6 @@ namespace EvilBaschdi.TestUI
                 txtOutput.Background = Brushes.DarkRed;
             }
 
-            var aboutWindow = new AboutWindow();
-            var currentDirectory = Directory.GetCurrentDirectory();
-            var assembly = Assembly.GetExecutingAssembly();
-            var image = new BitmapImage(new Uri($@"{currentDirectory}\b.png"));
-            IAboutWindowContent aboutWindowContent = new AboutWindowContent(assembly, image);
-            aboutWindow.DataContext = new AboutViewModel(aboutWindowContent);
-
-            aboutWindow.Show();
 
             //var currentDirectory = Directory.GetCurrentDirectory();
             //var configuration = currentDirectory.EndsWith("Release") ? "Release" : "Debug";
@@ -201,14 +195,14 @@ namespace EvilBaschdi.TestUI
         }
 
 
-        public void UpdateCombo(ComboBox comboBox, ArrayList arrayList)
+        private void UpdateCombo(Selector selector, IEnumerable enumerable)
         {
-            comboBox.Items.Clear();
-            foreach (string value in arrayList)
+            selector.Items.Clear();
+            foreach (string value in enumerable)
             {
-                comboBox.Items.Add(value);
+                selector.Items.Add(value);
             }
-            comboBox.SelectedIndex = 0;
+            selector.SelectedIndex = 0;
         }
 
         private void CustomColorOnLostFocus(object sender, RoutedEventArgs e)

@@ -31,7 +31,7 @@ namespace EvilBaschdi.Core.Application
         /// <param name="target"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"><paramref name="assembly" /> is <see langword="null" />.</exception>
-        public static DateTime GetLinkerTime(this Assembly assembly, TimeZoneInfo target)
+        private static DateTime GetLinkerTime(this Assembly assembly, TimeZoneInfo target)
         {
             if (assembly == null)
             {

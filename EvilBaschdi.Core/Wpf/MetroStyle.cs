@@ -10,6 +10,7 @@ using Microsoft.Win32;
 
 namespace EvilBaschdi.Core.Wpf
 {
+    /// <inheritdoc />
     /// <summary>
     ///     Class that handle metro style on Wpf.
     /// </summary>
@@ -44,26 +45,13 @@ namespace EvilBaschdi.Core.Wpf
         /// </exception>
         public MetroStyle(MetroWindow mainWindow, ISettings settings, IThemeManagerHelper themeManagerHelper)
         {
-            if (mainWindow == null)
-            {
-                throw new ArgumentNullException(nameof(mainWindow));
-            }
-            if (settings == null)
-            {
-                throw new ArgumentNullException(nameof(settings));
-            }
-            if (themeManagerHelper == null)
-            {
-                throw new ArgumentNullException(nameof(themeManagerHelper));
-            }
-
-            _mainWindow = mainWindow;
-            _settings = settings;
+            _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
+            _settings = settings ?? throw new ArgumentNullException(nameof(settings));
             Accent = new ComboBox();
             Accent = Accent;
             Theme = new ToggleSwitch();
             Theme = Theme;
-            _themeManagerHelper = themeManagerHelper;
+            _themeManagerHelper = themeManagerHelper ?? throw new ArgumentNullException(nameof(themeManagerHelper));
         }
 
         /// <summary>
@@ -81,32 +69,14 @@ namespace EvilBaschdi.Core.Wpf
         /// </exception>
         public MetroStyle(MetroWindow mainWindow, ISettings settings, IThemeManagerHelper themeManagerHelper, IMoveToScreen moveToScreen)
         {
-            if (mainWindow == null)
-            {
-                throw new ArgumentNullException(nameof(mainWindow));
-            }
-            if (settings == null)
-            {
-                throw new ArgumentNullException(nameof(settings));
-            }
-            if (themeManagerHelper == null)
-            {
-                throw new ArgumentNullException(nameof(themeManagerHelper));
-            }
-
-            if (moveToScreen == null)
-            {
-                throw new ArgumentNullException(nameof(moveToScreen));
-            }
-
-            _mainWindow = mainWindow;
-            _settings = settings;
+            _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
+            _settings = settings ?? throw new ArgumentNullException(nameof(settings));
             Accent = new ComboBox();
             Accent = Accent;
             Theme = new ToggleSwitch();
             Theme = Theme;
-            _themeManagerHelper = themeManagerHelper;
-            _moveToScreen = moveToScreen;
+            _themeManagerHelper = themeManagerHelper ?? throw new ArgumentNullException(nameof(themeManagerHelper));
+            _moveToScreen = moveToScreen ?? throw new ArgumentNullException(nameof(moveToScreen));
         }
 
         /// <summary>
@@ -127,32 +97,11 @@ namespace EvilBaschdi.Core.Wpf
         /// </exception>
         public MetroStyle(MetroWindow mainWindow, ComboBox accent, ToggleSwitch themeSwitch, ISettings settings, IThemeManagerHelper themeManagerHelper)
         {
-            if (mainWindow == null)
-            {
-                throw new ArgumentNullException(nameof(mainWindow));
-            }
-            if (accent == null)
-            {
-                throw new ArgumentNullException(nameof(accent));
-            }
-            if (themeSwitch == null)
-            {
-                throw new ArgumentNullException(nameof(themeSwitch));
-            }
-
-            if (settings == null)
-            {
-                throw new ArgumentNullException(nameof(settings));
-            }
-            if (themeManagerHelper == null)
-            {
-                throw new ArgumentNullException(nameof(themeManagerHelper));
-            }
-            _mainWindow = mainWindow;
-            Accent = accent;
-            Theme = themeSwitch;
-            _settings = settings;
-            _themeManagerHelper = themeManagerHelper;
+            _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
+            Accent = accent ?? throw new ArgumentNullException(nameof(accent));
+            Theme = themeSwitch ?? throw new ArgumentNullException(nameof(themeSwitch));
+            _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+            _themeManagerHelper = themeManagerHelper ?? throw new ArgumentNullException(nameof(themeManagerHelper));
         }
 
         /// <summary>
@@ -164,7 +113,6 @@ namespace EvilBaschdi.Core.Wpf
         /// <param name="themeSwitch" />
         /// <param name="settings" />
         /// <param name="themeManagerHelper"></param>
-        /// <param name="currentScreen"></param>
         /// <param name="moveToScreen"></param>
         /// <exception cref="ArgumentNullException">
         ///     <paramref name="mainWindow" /> is <see langword="null" />.
@@ -176,40 +124,15 @@ namespace EvilBaschdi.Core.Wpf
         public MetroStyle(MetroWindow mainWindow, ComboBox accent, ToggleSwitch themeSwitch, ISettings settings, IThemeManagerHelper themeManagerHelper,
                           IMoveToScreen moveToScreen)
         {
-            if (mainWindow == null)
-            {
-                throw new ArgumentNullException(nameof(mainWindow));
-            }
-            if (accent == null)
-            {
-                throw new ArgumentNullException(nameof(accent));
-            }
-            if (themeSwitch == null)
-            {
-                throw new ArgumentNullException(nameof(themeSwitch));
-            }
-
-            if (settings == null)
-            {
-                throw new ArgumentNullException(nameof(settings));
-            }
-            if (themeManagerHelper == null)
-            {
-                throw new ArgumentNullException(nameof(themeManagerHelper));
-            }
-
-            if (moveToScreen == null)
-            {
-                throw new ArgumentNullException(nameof(moveToScreen));
-            }
-            _mainWindow = mainWindow;
-            Accent = accent;
-            Theme = themeSwitch;
-            _settings = settings;
-            _themeManagerHelper = themeManagerHelper;
-            _moveToScreen = moveToScreen;
+            _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
+            Accent = accent ?? throw new ArgumentNullException(nameof(accent));
+            Theme = themeSwitch ?? throw new ArgumentNullException(nameof(themeSwitch));
+            _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+            _themeManagerHelper = themeManagerHelper ?? throw new ArgumentNullException(nameof(themeManagerHelper));
+            _moveToScreen = moveToScreen ?? throw new ArgumentNullException(nameof(moveToScreen));
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Load.
         /// </summary>
@@ -269,6 +192,7 @@ namespace EvilBaschdi.Core.Wpf
         }
 
 
+        /// <inheritdoc />
         /// <summary>
         ///     Accent of application style.
         /// </summary>
@@ -285,6 +209,7 @@ namespace EvilBaschdi.Core.Wpf
             SetStyle();
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Theme of application style.
         /// </summary>
@@ -316,6 +241,7 @@ namespace EvilBaschdi.Core.Wpf
             SetStyle();
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Theme of application style.
         /// </summary>
@@ -326,6 +252,7 @@ namespace EvilBaschdi.Core.Wpf
             SetTheme(sender);
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Save Style.
         /// </summary>
@@ -335,11 +262,13 @@ namespace EvilBaschdi.Core.Wpf
             _settings.Theme = _styleTheme.Name;
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     ComboBox for choosing an accent.
         /// </summary>
         public ComboBox Accent { get; set; }
 
+        /// <inheritdoc />
         /// <summary>
         ///     ToggleSwitch for choosing a theme.
         /// </summary>

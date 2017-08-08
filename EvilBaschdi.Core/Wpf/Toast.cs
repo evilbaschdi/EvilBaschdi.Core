@@ -19,12 +19,8 @@ namespace EvilBaschdi.Core.Wpf
         /// </exception>
         public Toast(string imagePath)
         {
-            if (imagePath == null)
-            {
-                throw new ArgumentNullException(nameof(imagePath));
-            }
             _applicationId = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
-            _imagePath = imagePath;
+            _imagePath = imagePath ?? throw new ArgumentNullException(nameof(imagePath));
             ValidateOsVersion();
         }
 
@@ -37,11 +33,7 @@ namespace EvilBaschdi.Core.Wpf
         /// </exception>
         public Toast(string applicationId, string imagePath)
         {
-            if (applicationId == null)
-            {
-                throw new ArgumentNullException(nameof(applicationId));
-            }
-            _applicationId = applicationId;
+            _applicationId = applicationId ?? throw new ArgumentNullException(nameof(applicationId));
             _imagePath = imagePath;
             ValidateOsVersion();
         }

@@ -24,21 +24,9 @@ namespace EvilBaschdi.Core.DirectoryExtensions
         /// </exception>
         public Ftp(string host, string user, string password)
         {
-            if (host == null)
-            {
-                throw new ArgumentNullException(nameof(host));
-            }
-            if (user == null)
-            {
-                throw new ArgumentNullException(nameof(user));
-            }
-            if (password == null)
-            {
-                throw new ArgumentNullException(nameof(password));
-            }
-            _host = host;
-            _user = user;
-            _pass = password;
+            _host = host ?? throw new ArgumentNullException(nameof(host));
+            _user = user ?? throw new ArgumentNullException(nameof(user));
+            _pass = password ?? throw new ArgumentNullException(nameof(password));
         }
 
         /// <summary>

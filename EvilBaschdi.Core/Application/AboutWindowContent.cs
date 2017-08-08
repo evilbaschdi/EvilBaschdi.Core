@@ -6,25 +6,25 @@ using EvilBaschdi.Core.Model;
 
 namespace EvilBaschdi.Core.Application
 {
+    /// <inheritdoc />
     public class AboutWindowContent : IAboutWindowContent
     {
         private readonly Assembly _assembly;
         private readonly BitmapImage _logoSource;
 
+        /// <summary>
+        ///     Constructor of the class
+        /// </summary>
+        /// <param name="assembly"></param>
+        /// <param name="logoSource"></param>
+        /// <exception cref="ArgumentNullException"></exception>
         public AboutWindowContent(Assembly assembly, BitmapImage logoSource)
         {
-            if (assembly == null)
-            {
-                throw new ArgumentNullException(nameof(assembly));
-            }
-            if (logoSource == null)
-            {
-                throw new ArgumentNullException(nameof(logoSource));
-            }
-            _assembly = assembly;
-            _logoSource = logoSource;
+            _assembly = assembly ?? throw new ArgumentNullException(nameof(assembly));
+            _logoSource = logoSource ?? throw new ArgumentNullException(nameof(logoSource));
         }
 
+        /// <inheritdoc />
         public AboutWindowConfiguration Value => new AboutWindowConfiguration
                                                  {
                                                      Title = _assembly.GetCustomAttributes<AssemblyTitleAttribute>().First().Title,

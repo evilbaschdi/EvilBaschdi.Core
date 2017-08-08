@@ -7,14 +7,16 @@ using Microsoft.Win32;
 
 namespace EvilBaschdi.Core.Browsers
 {
+    /// <inheritdoc />
     /// <summary>
     ///     Stellt einen Auswahldialog für Ordner und Systemelemente ab Windows Vista bereit.
     /// </summary>
     [GeneratedCode("EvilBaschdi.Core", "1.0")]
-    public sealed class ExplorerFolderBrowser : IFolderBrowser
+    public sealed partial class ExplorerFolderBrowser : IFolderBrowser
     {
         #region Properties
 
+        /// <inheritdoc />
         /// <summary>
         ///     Ruft den ausgewählten Ordnerpfad ab bzw. legt diesen fest.
         /// </summary>
@@ -54,21 +56,30 @@ namespace EvilBaschdi.Core.Browsers
         ///     Zeigt den Auswahldialog an.
         /// </summary>
         /// <returns><c>true</c> wenn der Benutzer die Ordnerauswahl bestätigte; andernfalls <c>false</c></returns>
-        public void ShowDialog() => ShowDialog(IntPtr.Zero);
+        public void ShowDialog()
+        {
+            ShowDialog(IntPtr.Zero);
+        }
 
         /// <summary>
         ///     Zeigt den Auswahldialog an.
         /// </summary>
         /// <param name="owner">Der Besitzer des Fensters</param>
         /// <returns><c>true</c> wenn der Benutzer die Ordnerauswahl bestätigte; andernfalls <c>false</c></returns>
-        public bool ShowDialog(Window owner) => ShowDialog(owner == null ? IntPtr.Zero : new WindowInteropHelper(owner).Handle);
+        public bool ShowDialog(Window owner)
+        {
+            return ShowDialog(owner == null ? IntPtr.Zero : new WindowInteropHelper(owner).Handle);
+        }
 
         /// <summary>
         ///     Zeigt den Auswahldialog an.
         /// </summary>
         /// <param name="owner">Der Besitzer des Fensters</param>
         /// <returns><c>true</c> wenn der Benutzer die Ordnerauswahl bestätigte; andernfalls <c>false</c></returns>
-        public bool ShowDialog(IWin32Window owner) => ShowDialog(owner?.Handle ?? IntPtr.Zero);
+        public bool ShowDialog(IWin32Window owner)
+        {
+            return ShowDialog(owner?.Handle ?? IntPtr.Zero);
+        }
 
         /// <summary>
         ///     Zeigt den Auswahldialog an.
@@ -197,69 +208,60 @@ namespace EvilBaschdi.Core.Browsers
             }
         }
 
-        #endregion
-
-        #region Types
-
-        private class NativeMethods
-        {
-            [DllImport("shell32.dll")]
-            public static extern int SHILCreateFromPath([MarshalAs(UnmanagedType.LPWStr)] string pszPath, out IntPtr ppIdl, ref uint rgflnOut);
-
-            [DllImport("shell32.dll")]
-            public static extern int SHCreateShellItem(IntPtr pidlParent, IntPtr psfParent, IntPtr pidl, out IShellItem ppsi);
-
-            [DllImport("user32.dll")]
-            public static extern IntPtr GetActiveWindow();
-        }
-
-        [ComImport, Guid("43826D1E-E718-42EE-BC55-A1E261C37BFE"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        [ComImport]
+        [Guid("43826D1E-E718-42EE-BC55-A1E261C37BFE")]
+        [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         private interface IShellItem
         {
-            void BindToHandler([In, MarshalAs(UnmanagedType.Interface)] IntPtr pbc, [In] ref Guid bhid, [In] ref Guid riid, out IntPtr ppv);
+            void BindToHandler([In] [MarshalAs(UnmanagedType.Interface)] IntPtr pbc, [In] ref Guid bhid, [In] ref Guid riid, out IntPtr ppv);
             void GetParent([MarshalAs(UnmanagedType.Interface)] out IShellItem ppsi);
             void GetDisplayName([In] Sigdn sigdnName, [MarshalAs(UnmanagedType.LPWStr)] out string ppszName);
             void GetAttributes([In] uint sfgaoMask, out uint psfgaoAttribs);
-            void Compare([In, MarshalAs(UnmanagedType.Interface)] IShellItem psi, [In] uint hint, out int piOrder);
+            void Compare([In] [MarshalAs(UnmanagedType.Interface)] IShellItem psi, [In] uint hint, out int piOrder);
         }
 
-        [ComImport, Guid("B63EA76D-1F85-456F-A19C-48159EFA858B"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        [ComImport]
+        [Guid("B63EA76D-1F85-456F-A19C-48159EFA858B")]
+        [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
         private interface IShellItemArray
         {
-            void BindToHandler([In, MarshalAs(UnmanagedType.Interface)] IntPtr pbc, [In] ref Guid rbhid, [In] ref Guid riid, out IntPtr ppvOut);
+            void BindToHandler([In] [MarshalAs(UnmanagedType.Interface)] IntPtr pbc, [In] ref Guid rbhid, [In] ref Guid riid, out IntPtr ppvOut);
             void GetPropertyStore([In] int flags, [In] ref Guid riid, out IntPtr ppv);
-            void GetPropertyDescriptionList([In, MarshalAs(UnmanagedType.Struct)] ref IntPtr keyType, [In] ref Guid riid, out IntPtr ppv);
-            void GetAttributes([In, MarshalAs(UnmanagedType.I4)] IntPtr dwAttribFlags, [In] uint sfgaoMask, out uint psfgaoAttribs);
+            void GetPropertyDescriptionList([In] [MarshalAs(UnmanagedType.Struct)] ref IntPtr keyType, [In] ref Guid riid, out IntPtr ppv);
+            void GetAttributes([In] [MarshalAs(UnmanagedType.I4)] IntPtr dwAttribFlags, [In] uint sfgaoMask, out uint psfgaoAttribs);
             void GetCount(out uint pdwNumItems);
             void GetItemAt([In] uint dwIndex, [MarshalAs(UnmanagedType.Interface)] out IShellItem ppsi);
             void EnumItems([MarshalAs(UnmanagedType.Interface)] out IntPtr ppenumShellItems);
         }
 
-        [ComImport, Guid("42f85136-db7e-439c-85f1-e4075d135fc8"), InterfaceType(ComInterfaceType.InterfaceIsIUnknown), CoClass(typeof(FileOpenDialog))]
+        [ComImport]
+        [Guid("42f85136-db7e-439c-85f1-e4075d135fc8")]
+        [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        [CoClass(typeof(FileOpenDialog))]
         private interface IFileOpenDialog //: IFileDialog
         {
             [PreserveSig]
             int Show([In] IntPtr parent);
 
-            void SetFileTypes([In] uint cFileTypes, [In, MarshalAs(UnmanagedType.Struct)] ref IntPtr rgFilterSpec);
+            void SetFileTypes([In] uint cFileTypes, [In] [MarshalAs(UnmanagedType.Struct)] ref IntPtr rgFilterSpec);
             void SetFileTypeIndex([In] uint iFileType);
             void GetFileTypeIndex(out uint piFileType);
-            void Advise([In, MarshalAs(UnmanagedType.Interface)] IntPtr pfde, out uint pdwCookie);
+            void Advise([In] [MarshalAs(UnmanagedType.Interface)] IntPtr pfde, out uint pdwCookie);
             void Unadvise([In] uint dwCookie);
             void SetOptions([In] Fos fos);
             void GetOptions(out Fos pfos);
-            void SetDefaultFolder([In, MarshalAs(UnmanagedType.Interface)] IShellItem psi);
-            void SetFolder([In, MarshalAs(UnmanagedType.Interface)] IShellItem psi);
+            void SetDefaultFolder([In] [MarshalAs(UnmanagedType.Interface)] IShellItem psi);
+            void SetFolder([In] [MarshalAs(UnmanagedType.Interface)] IShellItem psi);
             void GetFolder([MarshalAs(UnmanagedType.Interface)] out IShellItem ppsi);
             void GetCurrentSelection([MarshalAs(UnmanagedType.Interface)] out IShellItem ppsi);
-            void SetFileName([In, MarshalAs(UnmanagedType.LPWStr)] string pszName);
+            void SetFileName([In] [MarshalAs(UnmanagedType.LPWStr)] string pszName);
             void GetFileName([MarshalAs(UnmanagedType.LPWStr)] out string pszName);
-            void SetTitle([In, MarshalAs(UnmanagedType.LPWStr)] string pszTitle);
-            void SetOkButtonLabel([In, MarshalAs(UnmanagedType.LPWStr)] string pszText);
-            void SetFileNameLabel([In, MarshalAs(UnmanagedType.LPWStr)] string pszLabel);
+            void SetTitle([In] [MarshalAs(UnmanagedType.LPWStr)] string pszTitle);
+            void SetOkButtonLabel([In] [MarshalAs(UnmanagedType.LPWStr)] string pszText);
+            void SetFileNameLabel([In] [MarshalAs(UnmanagedType.LPWStr)] string pszLabel);
             void GetResult([MarshalAs(UnmanagedType.Interface)] out IShellItem ppsi);
-            void AddPlace([In, MarshalAs(UnmanagedType.Interface)] IShellItem psi, FileDialogCustomPlace fdcp);
-            void SetDefaultExtension([In, MarshalAs(UnmanagedType.LPWStr)] string pszDefaultExtension);
+            void AddPlace([In] [MarshalAs(UnmanagedType.Interface)] IShellItem psi, FileDialogCustomPlace fdcp);
+            void SetDefaultExtension([In] [MarshalAs(UnmanagedType.LPWStr)] string pszDefaultExtension);
             void Close([MarshalAs(UnmanagedType.Error)] int hr);
             void SetClientGuid([In] ref Guid guid);
             void ClearClientData();
@@ -268,12 +270,13 @@ namespace EvilBaschdi.Core.Browsers
             void GetSelectedItems([MarshalAs(UnmanagedType.Interface)] out IShellItemArray ppsai);
         }
 
-        [ComImport, Guid("DC1C5A9C-E88A-4dde-A5A1-60F82A20AEF7")]
+        [ComImport]
+        [Guid("DC1C5A9C-E88A-4dde-A5A1-60F82A20AEF7")]
         private class FileOpenDialog
         {
         }
 
-        enum Sigdn : uint
+        private enum Sigdn : uint
         {
             Desktopabsoluteediting = 0x8004c000,
             Desktopabsoluteparsing = 0x80028000,
