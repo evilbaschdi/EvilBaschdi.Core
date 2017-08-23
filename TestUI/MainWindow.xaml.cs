@@ -43,7 +43,8 @@ namespace EvilBaschdi.TestUI
             //LoadNetworkBrowserToArrayList();
             //MessageBox.Show(VersionHelper.GetWindowsClientVersion());
 
-            _coreSettings = new CoreSettings(Settings.Default);
+            IApplicationSettingsBaseHelper applicationSettingsBaseHelper = new ApplicationSettingsBaseHelper(Settings.Default);
+            _coreSettings = new CoreSettings(applicationSettingsBaseHelper);
             IThemeManagerHelper themeManagerHelper = new ThemeManagerHelper();
             IMoveToScreen moveToScreen = new MoveToScreen();
             IMetroStyle style = new MetroStyle(this, _coreSettings, themeManagerHelper, moveToScreen);
@@ -89,17 +90,17 @@ namespace EvilBaschdi.TestUI
             UpdateCombo(cboNetwork, _networkBrowser.GetNetworkComputers);
         }
 
-        private void btnEncrypt_Click(object sender, RoutedEventArgs e)
+        private void BtnEncrypt_Click(object sender, RoutedEventArgs e)
         {
             txtEncrypted.Text = Encryption.EncryptString(txtInput.Text, "ABC");
         }
 
-        private void btnDecrypt_Click(object sender, RoutedEventArgs e)
+        private void BtnDecrypt_Click(object sender, RoutedEventArgs e)
         {
             txtOutput.Text = Encryption.DecryptString(txtEncrypted.Text, "ABC");
         }
 
-        private void btnCompare_Click(object sender, RoutedEventArgs e)
+        private void BtnCompare_Click(object sender, RoutedEventArgs e)
         {
             if (txtInput.Text == txtOutput.Text)
             {

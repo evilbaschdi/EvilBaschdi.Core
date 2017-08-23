@@ -62,6 +62,7 @@
     <Compile Include="Application\AboutWindowContent.cs">
       <DependentUpon>IAboutWindowContent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Application\ApplicationSettingsBaseHelper.cs" />
     <Compile Include="Application\CoreSettings.cs">
       <DependentUpon>ISettings.cs</DependentUpon>
     </Compile>
@@ -69,6 +70,7 @@
       <DependentUpon>ICurrentScreen.cs</DependentUpon>
     </Compile>
     <Compile Include="Application\IAboutWindowContent.cs" />
+    <Compile Include="Application\IApplicationSettingsBaseHelper.cs" />
     <Compile Include="Application\ICurrentScreen.cs" />
     <Compile Include="Application\IMoveToScreen.cs" />
     <Compile Include="Application\Info.cs" />

@@ -30,11 +30,11 @@
                  Name="txtOutput" />
 
         <Button Content="Encrypt" HorizontalAlignment="Left" Margin="100,72,0,0" VerticalAlignment="Top" Width="80"
-                Name="btnEncrypt" Click="btnEncrypt_Click" />
+                Name="btnEncrypt" Click="BtnEncrypt_Click" />
         <Button Content="Decrypt" HorizontalAlignment="Left" Margin="185,72,0,0" VerticalAlignment="Top" Width="80"
-                Name="btnDecrypt" Click="btnDecrypt_Click" />
+                Name="btnDecrypt" Click="BtnDecrypt_Click" />
         <Button Content="Compare" HorizontalAlignment="Left" Margin="270,72,0,0" VerticalAlignment="Top" Width="80"
-                Name="btnCompare" Click="btnCompare_Click" />
+                Name="btnCompare" Click="BtnCompare_Click" />
 
         <Label Content="Encrypted:" HorizontalAlignment="Left" Margin="10,106,0,0" VerticalAlignment="Top" />
         <TextBox Height="140" Margin="100,106,10,0" TextWrapping="Wrap" IsReadOnly="True" Name="txtEncrypted"

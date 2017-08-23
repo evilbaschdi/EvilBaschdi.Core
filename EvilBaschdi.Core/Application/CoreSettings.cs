@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 
 namespace EvilBaschdi.Core.Application
 {
@@ -9,56 +8,38 @@ namespace EvilBaschdi.Core.Application
     /// </summary>
     public class CoreSettings : ISettings
     {
-        private readonly ApplicationSettingsBase _settings;
+        private readonly IApplicationSettingsBaseHelper _applicationSettingsBaseHelper;
 
         /// <summary>
         ///     Constructor of the class.
         /// </summary>
-        /// <param name="settings"></param>
+        /// <param name="applicationSettingsBaseHelper"></param>
         /// <exception cref="ArgumentNullException"></exception>
-        public CoreSettings(ApplicationSettingsBase settings)
+        public CoreSettings(IApplicationSettingsBaseHelper applicationSettingsBaseHelper)
         {
-            _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+            _applicationSettingsBaseHelper = applicationSettingsBaseHelper ?? throw new ArgumentNullException(nameof(applicationSettingsBaseHelper));
         }
 
         /// <inheritdoc />
 
         public string Accent
         {
-            get => string.IsNullOrWhiteSpace(_settings["Accent"]?.ToString())
-                ? ""
-                : _settings["Accent"].ToString();
-            set
-            {
-                _settings["Accent"] = value;
-                _settings.Save();
-            }
+            get => _applicationSettingsBaseHelper.Get("Accent", "");
+            set => _applicationSettingsBaseHelper.Set("Accent", value);
         }
 
         /// <inheritdoc />
         public string Theme
         {
-            get => string.IsNullOrWhiteSpace(_settings["Theme"]?.ToString())
-                ? ""
-                : _settings["Theme"].ToString();
-            set
-            {
-                _settings["Theme"] = value;
-                _settings.Save();
-            }
+            get => _applicationSettingsBaseHelper.Get("Theme", "");
+            set => _applicationSettingsBaseHelper.Set("Theme", value);
         }
 
         /// <inheritdoc />
         public string LastScreenDisplayName
         {
-            get => string.IsNullOrWhiteSpace(_settings["LastScreenDisplayName"]?.ToString())
-                ? ""
-                : _settings["LastScreenDisplayName"].ToString();
-            set
-            {
-                _settings["LastScreenDisplayName"] = value;
-                _settings.Save();
-            }
+            get => _applicationSettingsBaseHelper.Get("LastScreenDisplayName", "");
+            set => _applicationSettingsBaseHelper.Set("LastScreenDisplayName", value);
         }
     }
 }
