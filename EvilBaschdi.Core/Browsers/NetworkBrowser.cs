@@ -6,11 +6,64 @@ using System.Windows;
 
 namespace EvilBaschdi.Core.Browsers
 {
+    /// <inheritdoc />
     /// <summary>
     ///     Class for NetworkBrowser.
     /// </summary>
     public sealed class NetworkBrowser : INetworkBrowser
     {
+        /// <inheritdoc />
+        /// <summary>
+        ///     Contains an ArrayList of computers found in the network.
+        /// </summary>
+        public ArrayList Value
+        {
+            get
+            {
+                var networkComputers = new ArrayList();
+                const int maxPreferredLength = -1;
+                const int svTypeWorkstation = 1;
+                const int svTypeServer = 2;
+                var buffer = IntPtr.Zero;
+                var sizeofInfo = Marshal.SizeOf(typeof(ServerInfo));
+
+                try
+                {
+                    var ret = NetServerEnum(null, 100, ref buffer, maxPreferredLength, out var entriesRead, out var totalEntries, svTypeWorkstation | svTypeServer, null,
+                        out var resHandle);
+                    if (ret == 0)
+                    {
+                        for (var i = 0; i < totalEntries; i++)
+                        {
+                            var tmpBuffer = new IntPtr((int) buffer + i * sizeofInfo);
+                            var svrInfo = (ServerInfo) Marshal.PtrToStructure(tmpBuffer, typeof(ServerInfo));
+                            networkComputers.Add(svrInfo.svName);
+                        }
+                    }
+                }
+                // ReSharper disable once CatchAllClause
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Problem accessing network computers in NetworkBrowser \r\n\r\n\r\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return null;
+                }
+                finally
+                {
+                    NetApiBufferFree(buffer);
+                }
+
+                return networkComputers;
+            }
+        }
+
+        /// <inheritdoc />
+        /// <summary>
+        ///     Contains an ArrayList of computers found in the network.
+        /// </summary>
+        [Obsolete("replaced with 'Value'")]
+        public ArrayList GetNetworkComputers => Value;
+
+
         /// <summary>
         ///     NetServerEnum.
         /// </summary>
@@ -24,7 +77,8 @@ namespace EvilBaschdi.Core.Browsers
         /// <param name="domain"></param>
         /// <param name="dwResumeHandle"></param>
         /// <returns></returns>
-        [DllImport("Netapi32", CharSet = CharSet.Auto, SetLastError = true), SuppressUnmanagedCodeSecurity]
+        [DllImport("Netapi32", CharSet = CharSet.Auto, SetLastError = true)]
+        [SuppressUnmanagedCodeSecurity]
         public static extern int NetServerEnum(
             string serverName,
             int dwLevel,
@@ -42,53 +96,9 @@ namespace EvilBaschdi.Core.Browsers
         /// </summary>
         /// <param name="pBuf"></param>
         /// <returns></returns>
-        [DllImport("Netapi32", SetLastError = true), SuppressUnmanagedCodeSecurity]
+        [DllImport("Netapi32", SetLastError = true)]
+        [SuppressUnmanagedCodeSecurity]
         public static extern int NetApiBufferFree(IntPtr pBuf);
-
-        /// <summary>
-        ///     Contains an ArrayList of computers found in the network.
-        /// </summary>
-        public ArrayList GetNetworkComputers
-        {
-            get
-            {
-                var networkComputers = new ArrayList();
-                const int maxPreferredLength = -1;
-                const int svTypeWorkstation = 1;
-                const int svTypeServer = 2;
-                var buffer = IntPtr.Zero;
-                var sizeofInfo = Marshal.SizeOf(typeof(ServerInfo));
-
-                try
-                {
-                    int entriesRead;
-                    int totalEntries;
-                    int resHandle;
-                    var ret = NetServerEnum(null, 100, ref buffer, maxPreferredLength, out entriesRead, out totalEntries, svTypeWorkstation | svTypeServer, null, out resHandle);
-                    if (ret == 0)
-                    {
-                        for (var i = 0; i < totalEntries; i++)
-                        {
-                            var tmpBuffer = new IntPtr((int) buffer + (i * sizeofInfo));
-                            var svrInfo = (ServerInfo) Marshal.PtrToStructure(tmpBuffer, typeof(ServerInfo));
-                            networkComputers.Add(svrInfo.svName);
-                        }
-                    }
-                }
-                // ReSharper disable once CatchAllClause
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Problem with acessing network computers in NetworkBrowser \r\n\r\n\r\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return null;
-                }
-                finally
-                {
-                    NetApiBufferFree(buffer);
-                }
-
-                return networkComputers;
-            }
-        }
 
         /// <summary>
         ///     ServerInfo.
@@ -96,9 +106,9 @@ namespace EvilBaschdi.Core.Browsers
         [StructLayout(LayoutKind.Sequential)]
         public struct ServerInfo
         {
-            internal int svPlatformId;
+            internal readonly int svPlatformId;
 
-            [MarshalAs(UnmanagedType.LPWStr)] internal string svName;
+            [MarshalAs(UnmanagedType.LPWStr)] internal readonly string svName;
         }
     }
 }

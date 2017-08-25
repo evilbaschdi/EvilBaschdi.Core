@@ -5,17 +5,19 @@ using System.Threading.Tasks;
 
 namespace EvilBaschdi.Core.Threading
 {
+    /// <inheritdoc />
     /// <summary>
     ///     Class to provide multi threading execution.
     /// </summary>
     public class MultiThreadingHelper : IMultiThreadingHelper
     {
+        /// <inheritdoc />
         /// <summary>
         ///     Calls actions by processor count.
         /// </summary>
         /// <param name="list"></param>
         /// <param name="worker"></param>
-        /// <exception cref="ArgumentNullException">
+        /// <exception cref="T:System.ArgumentNullException">
         ///     <paramref name="list" /> is <see langword="null" />.
         ///     <paramref name="worker" /> is <see langword="null" />.
         /// </exception>

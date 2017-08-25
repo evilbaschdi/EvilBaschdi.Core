@@ -85,7 +85,7 @@ namespace EvilBaschdi.Core.Wpf
                 // Den Bereich für den Glaseffekt definieren
                 var margins = new Margins(margin);
 
-                // Glasseffekt aktivieren
+                // Glass Effekt aktivieren
                 DwmExtendFrameIntoClientArea(hwnd, ref margins);
             }
             else

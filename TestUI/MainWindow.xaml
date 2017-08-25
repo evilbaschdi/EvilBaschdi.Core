@@ -11,7 +11,7 @@
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
             <TextBox Name="CustomColor" LostFocus="CustomColorOnLostFocus" Width="100" />
-            <Button Click="ToggleSettingsFlyoutClick">
+            <Button Click="ToggleSettingsFlyoutClick" Name="ToggleSettingsFlyout">
                 <StackPanel Orientation="Horizontal">
                     <iconPacks:PackIconMaterial Kind="Settings" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" />
                     <TextBlock Margin="5 0 0 0" VerticalAlignment="Center" Text="settings" />
@@ -43,14 +43,43 @@
         <Label Content="Network:" HorizontalAlignment="Left" Margin="10,251,0,0" VerticalAlignment="Top" />
         <ComboBox Height="23" Margin="100,251,10,0" IsReadOnly="False" Name="cboNetwork" VerticalAlignment="Top" />
     </Grid>
-    <!--  Flyouts  -->
+  <!--  Fly-outs  -->
     <controls:MetroWindow.Flyouts>
         <controls:FlyoutsControl>
-            <!--  Settings Flyout  -->
-            <controls:Flyout Name="SettingsFlyout" Width="400" AnimateOnPositionChange="True" AnimateOpacity="True"
-                             Header="settings" Position="Right" Theme="Accent">
-                <StackPanel Name="TestStackPanel">
-                    <Label Content="Test" />
+            <!--  Settings Fly-out  -->
+            <controls:Flyout Name="SettingsFlyout" Width="250" AnimateOnPositionChange="True" AnimateOpacity="True" Header="settings" Position="Right" Theme="Accent">
+                <StackPanel>
+                    <!-- Theme -->
+                    <StackPanel Margin="10,5,0,0" Orientation="Horizontal">
+                        <Label Width="50" Margin="0,5,0,0" HorizontalAlignment="Left"
+                               VerticalAlignment="Top" Content="Theme" />
+                        <controls:ToggleSwitch Name="ThemeSwitch" Margin="10,1,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" IsCheckedChanged="Theme"
+                                               OnSwitchBrush="{DynamicResource AccentColorBrush}" OnLabel="Dark"
+                                               OffSwitchBrush="{DynamicResource AccentColorBrush}" OffLabel="Light" />
+                    </StackPanel>
+                    <!-- Accent -->
+                    <StackPanel Margin="10,5,0,0" Orientation="Horizontal">
+                        <Label Width="50" Margin="0,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Accent:" />
+                        <ComboBox Name="Accent" Width="165" Margin="10,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" SelectionChanged="AccentOnSelectionChanged" />
+                    </StackPanel>
+                    <!-- Save Style -->
+                    <StackPanel Margin="10,5,0,0" Orientation="Horizontal">
+                        <Button Name="SaveStyle" Width="165" Margin="60,5,0,0" Click="SaveStyleClick">
+                            <StackPanel Orientation="Horizontal">
+                                <iconPacks:PackIconMaterial Kind="ContentSaveSettings" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <TextBlock Margin="5,0,0,0" VerticalAlignment="Center" Text="save style" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                    <!-- Horizontal Line -->
+                    <StackPanel Margin="15,10,15,0" Orientation="Vertical">
+                        <Separator Background="{DynamicResource AccentColorBrush}" />
+                    </StackPanel>
+                    <!-- Build / Linker Time -->
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="50" Margin="10,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Content="Build" />
+                        <Label Width="310" Margin="5,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Name="LinkerTime" />
+                    </StackPanel>
                 </StackPanel>
             </controls:Flyout>
         </controls:FlyoutsControl>

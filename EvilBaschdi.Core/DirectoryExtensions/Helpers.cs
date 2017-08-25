@@ -22,7 +22,7 @@ namespace EvilBaschdi.Core.DirectoryExtensions
             }
             catch (Exception)
             {
-                //if exception is not accesible
+                //if exception is not accessible
                 return false;
             }
         }
@@ -141,7 +141,6 @@ namespace EvilBaschdi.Core.DirectoryExtensions
             {
                 throw new ArgumentNullException(nameof(dir), "Directory info to rename cannot be null");
             }
-
             if (string.IsNullOrWhiteSpace(name))
             {
                 throw new ArgumentException("New name cannot be null or blank", nameof(name));

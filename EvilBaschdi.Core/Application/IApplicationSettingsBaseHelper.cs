@@ -13,7 +13,7 @@ namespace EvilBaschdi.Core.Application
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         // ReSharper disable once RedundantTypeSpecificationInDefaultExpression
-        T Get<T>(string setting, T fallback = default(T));
+        T Get<T>(string setting, T fallback = default);
 
         /// <summary>
         ///     Set value of type T

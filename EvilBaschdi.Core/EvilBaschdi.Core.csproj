@@ -24,6 +24,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\EvilBaschdi.Core.XML</DocumentationFile>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,14 +34,17 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Release\EvilBaschdi.Core.XML</DocumentationFile>
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f">
-      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="MahApps.Metro, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.6.0-alpha009\lib\net45\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro.IconPacks, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.IconPacks.1.9.0\lib\net46\MahApps.Metro.IconPacks.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -49,8 +53,8 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
-      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.6.0-alpha009\lib\net45\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xaml" />
@@ -62,7 +66,9 @@
     <Compile Include="Application\AboutWindowContent.cs">
       <DependentUpon>IAboutWindowContent.cs</DependentUpon>
     </Compile>
-    <Compile Include="Application\ApplicationSettingsBaseHelper.cs" />
+    <Compile Include="Application\ApplicationSettingsBaseHelper.cs">
+      <DependentUpon>IApplicationSettingsBaseHelper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Application\CoreSettings.cs">
       <DependentUpon>ISettings.cs</DependentUpon>
     </Compile>
@@ -108,16 +114,15 @@
     <Compile Include="DotNetExtensions\CalculateTimeSpan.cs" />
     <Compile Include="DotNetExtensions\ColorHelpers.cs" />
     <Compile Include="DotNetExtensions\ConcurrentBagExtensions.cs" />
+    <Compile Include="DotNetExtensions\GenericExtensions.cs" />
     <Compile Include="DotNetExtensions\IRun.cs" />
     <Compile Include="DotNetExtensions\IRunFor.cs" />
-    <Compile Include="DotNetExtensions\IRunFor1.cs" />
     <Compile Include="DotNetExtensions\IRunFor2.cs" />
     <Compile Include="DotNetExtensions\IRunFor3.cs" />
     <Compile Include="DotNetExtensions\IRunFor4.cs" />
     <Compile Include="DotNetExtensions\IRunFor5.cs" />
     <Compile Include="DotNetExtensions\IValue.cs" />
     <Compile Include="DotNetExtensions\IValueFor.cs" />
-    <Compile Include="DotNetExtensions\IValueFor1.cs" />
     <Compile Include="DotNetExtensions\IValueFor2.cs" />
     <Compile Include="DotNetExtensions\IValueFor3.cs" />
     <Compile Include="DotNetExtensions\IValueFor4.cs" />
@@ -129,6 +134,7 @@
     <Compile Include="Logging\IAppendAllTextWithHeadline.cs" />
     <Compile Include="Model\AboutWindowConfiguration.cs" />
     <Compile Include="Security\Encryption.cs" />
+    <Compile Include="Security\IEncryption.cs" />
     <Compile Include="Threading\IMultiThreadingHelper.cs" />
     <Compile Include="Threading\MultiThreadingHelper.cs">
       <DependentUpon>IMultiThreadingHelper.cs</DependentUpon>

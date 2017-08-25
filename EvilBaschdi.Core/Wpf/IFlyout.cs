@@ -2,8 +2,7 @@
 
 namespace EvilBaschdi.Core.Wpf
 {
-    /// <summary>
-    /// </summary>
+    /// <inheritdoc />
     public interface IFlyout : IRun
     {
     }

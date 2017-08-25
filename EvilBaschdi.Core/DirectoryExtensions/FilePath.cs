@@ -8,8 +8,7 @@ using EvilBaschdi.Core.Threading;
 
 namespace EvilBaschdi.Core.DirectoryExtensions
 {
-    /// <summary>
-    /// </summary>
+    /// <inheritdoc />
     public class FilePath : IFilePath
     {
         private readonly IMultiThreadingHelper _multiThreadingHelper;
@@ -23,12 +22,13 @@ namespace EvilBaschdi.Core.DirectoryExtensions
             _multiThreadingHelper = multiThreadingHelper ?? throw new ArgumentNullException(nameof(multiThreadingHelper));
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Gets a list of accessible directories that contain files.
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
-        /// <exception cref="ArgumentNullException"><paramref name="path" /> is <see langword="null" />.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="path" /> is <see langword="null" />.</exception>
         public List<string> GetSubdirectoriesContainingOnlyFiles(string path)
         {
             if (path == null)
@@ -38,8 +38,9 @@ namespace EvilBaschdi.Core.DirectoryExtensions
             return Directory.GetDirectories(path, "*", SearchOption.AllDirectories).Where(dir => dir.IsAccessible()).ToList();
         }
 
+        /// <inheritdoc />
         /// <summary>
-        ///     Returns a list of filepaths for given initial directory.
+        ///     Returns a list of file paths for given initial directory.
         /// </summary>
         /// <param name="initialDirectory">Directory to start search.</param>
         /// <param name="includeExtensionList">File extensions to include. No filtering if empty.</param>
@@ -49,7 +50,7 @@ namespace EvilBaschdi.Core.DirectoryExtensions
         /// <param name="includeFilePathList">File path to include. No filtering if empty.</param>
         /// <param name="excludeFilePathList">File path to exclude. No filtering if empty.</param>
         /// <returns></returns>
-        /// <exception cref="ArgumentNullException"><paramref name="initialDirectory" /> is <see langword="null" />.</exception>
+        /// <exception cref="T:System.ArgumentNullException"><paramref name="initialDirectory" /> is <see langword="null" />.</exception>
         public List<string> GetFileList(string initialDirectory,
                                         List<string> includeExtensionList = null, List<string> excludeExtensionList = null,
                                         List<string> includeFileNameList = null, List<string> excludeFileNameList = null,
@@ -156,13 +157,7 @@ namespace EvilBaschdi.Core.DirectoryExtensions
             var path = file.ToLower();
             var fileInfo = new FileInfo(file);
             var fileName = fileInfo.Name.ToLower();
-            var directoryInfo = fileInfo.Directory;
             var fileExtension = fileInfo.Extension.ToLower().TrimStart('.');
-
-            if (directoryInfo == null)
-            {
-                return false;
-            }
 
             var alreadyContained = !fileList.Contains(file);
             var hasFileExtension = !string.IsNullOrWhiteSpace(fileExtension);

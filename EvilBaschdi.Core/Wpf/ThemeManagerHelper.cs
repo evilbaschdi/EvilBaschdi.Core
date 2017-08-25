@@ -1,18 +1,19 @@
 ﻿using System;
 using System.IO;
 using System.Windows;
+using System.Windows.Markup;
 using System.Windows.Media;
+using System.Xml;
 using EvilBaschdi.Core.DotNetExtensions;
 using MahApps.Metro;
 using Microsoft.Win32;
 
 namespace EvilBaschdi.Core.Wpf
 {
-    /// <summary>
-    ///     ThemeManagerHelper class.
-    /// </summary>
+    /// <inheritdoc />
     public class ThemeManagerHelper : IThemeManagerHelper
     {
+        /// <inheritdoc />
         /// <summary>
         ///     Creates a new app style by color and name.
         /// </summary>
@@ -20,6 +21,10 @@ namespace EvilBaschdi.Core.Wpf
         /// <param name="accentName">Name of the new app style.</param>
         public void CreateAppStyleBy(Color color, string accentName)
         {
+            if (string.IsNullOrWhiteSpace(accentName))
+            {
+                throw new ArgumentException("Value cannot be null or whitespace.", nameof(accentName));
+            }
             // create a runtime accent resource dictionary
             var resourceDictionary = new ResourceDictionary
                                      {
@@ -72,12 +77,12 @@ namespace EvilBaschdi.Core.Wpf
             //    File.Delete(fileName);
             //}
 
-            using (var writer = System.Xml.XmlWriter.Create(fileName, new System.Xml.XmlWriterSettings
-                                                                      {
-                                                                          Indent = true
-                                                                      }))
+            using (var writer = XmlWriter.Create(fileName, new XmlWriterSettings
+                                                           {
+                                                               Indent = true
+                                                           }))
             {
-                System.Windows.Markup.XamlWriter.Save(resourceDictionary, writer);
+                XamlWriter.Save(resourceDictionary, writer);
                 writer.Close();
             }
 
@@ -103,6 +108,7 @@ namespace EvilBaschdi.Core.Wpf
         }
 
 
+        /// <inheritdoc />
         /// <summary>
         ///     Gets Color of current (applied) system settings, generates an app style and adds it to available accents.
         /// </summary>

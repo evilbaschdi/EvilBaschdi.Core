@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Reflection;
 
 namespace EvilBaschdi.Core.Wpf
 {
+    /// <inheritdoc />
     /// <summary>
     ///     Class for toast message support.
     /// </summary>
@@ -19,7 +21,7 @@ namespace EvilBaschdi.Core.Wpf
         /// </exception>
         public Toast(string imagePath)
         {
-            _applicationId = System.Reflection.Assembly.GetExecutingAssembly().GetName().Name;
+            _applicationId = Assembly.GetExecutingAssembly().GetName().Name;
             _imagePath = imagePath ?? throw new ArgumentNullException(nameof(imagePath));
             ValidateOsVersion();
         }
@@ -38,12 +40,13 @@ namespace EvilBaschdi.Core.Wpf
             ValidateOsVersion();
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Show Message.
         /// </summary>
         /// <param name="status"></param>
         /// <param name="message"></param>
-        /// <exception cref="ArgumentNullException">
+        /// <exception cref="T:System.ArgumentNullException">
         ///     <paramref name="status" /> is <see langword="null" />.
         ///     <paramref name="message" /> is <see langword="null" />.
         /// </exception>
@@ -109,7 +112,7 @@ namespace EvilBaschdi.Core.Wpf
         private void ValidateOsVersion()
         {
             var vs = Environment.OSVersion.Version;
-            _showToast = ((vs.Major == 6 && vs.Minor >= 2) || (vs.Major > 6));
+            _showToast = vs.Major == 6 && vs.Minor >= 2 || vs.Major > 6;
         }
 
         /*

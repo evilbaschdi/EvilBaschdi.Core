@@ -5,8 +5,7 @@ using MahApps.Metro.Controls.Dialogs;
 
 namespace EvilBaschdi.Core.Wpf
 {
-    /// <summary>
-    /// </summary>
+    /// <inheritdoc />
     public class DialogService : IDialogService
     {
         private readonly MetroWindow _mainWindow;
@@ -20,8 +19,7 @@ namespace EvilBaschdi.Core.Wpf
             _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
         }
 
-        /// <summary>
-        /// </summary>
+        /// <inheritdoc />
         /// <param name="title"></param>
         /// <param name="message"></param>
         /// <returns></returns>
@@ -36,8 +34,7 @@ namespace EvilBaschdi.Core.Wpf
             return await _mainWindow.ShowMessageAsync(title, message, MessageDialogStyle.Affirmative, options);
         }
 
-        /// <summary>
-        /// </summary>
+        /// <inheritdoc />
         /// <param name="title"></param>
         /// <param name="message"></param>
         /// <param name="dialogStyle"></param>

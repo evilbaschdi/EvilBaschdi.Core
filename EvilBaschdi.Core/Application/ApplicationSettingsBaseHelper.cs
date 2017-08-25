@@ -30,9 +30,14 @@ namespace EvilBaschdi.Core.Application
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
         // ReSharper disable once RedundantTypeSpecificationInDefaultExpression
-        public T Get<T>(string setting, T fallback = default(T))
+        public T Get<T>(string setting, T fallback = default)
         {
-            if (!_settingsBase.Properties.OfType<string>().Contains(setting))
+            if (setting == null)
+            {
+                throw new ArgumentNullException(nameof(setting));
+            }
+
+            if (!_settingsBase.Properties.OfType<SettingsProperty>().ToList().Any(x => x.Name.Equals(setting)))
             {
                 return fallback;
             }
@@ -55,7 +60,11 @@ namespace EvilBaschdi.Core.Application
         /// <param name="value"></param>
         public void Set(string setting, object value)
         {
-            _settingsBase[setting] = value;
+            if (setting == null)
+            {
+                throw new ArgumentNullException(nameof(setting));
+            }
+            _settingsBase[setting] = value ?? throw new ArgumentNullException(nameof(value));
             _settingsBase.Save();
         }
 
@@ -82,7 +91,7 @@ namespace EvilBaschdi.Core.Application
             }
             else
             {
-                if (value.Equals(default(T)))
+                if (value.Equals(default))
                 {
                     return true;
                 }

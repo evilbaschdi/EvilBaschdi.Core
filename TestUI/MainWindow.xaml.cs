@@ -29,8 +29,14 @@ namespace EvilBaschdi.TestUI
     {
         private readonly ISettings _coreSettings;
 
+        private readonly IEncryption _encryption;
+
         // ReSharper disable once NotAccessedField.Local
         private readonly IFilePath _filePath;
+
+        private readonly int _overrideProtection;
+
+        private readonly IMetroStyle _style;
 
         private INetworkBrowser _networkBrowser;
 
@@ -39,6 +45,7 @@ namespace EvilBaschdi.TestUI
             InitializeComponent();
             Loaded += (s, e) => this.EnableGlassEffect();
             IMultiThreadingHelper multiThreadingHelper = new MultiThreadingHelper();
+            _encryption = new Encryption();
             _filePath = new FilePath(multiThreadingHelper);
             //LoadNetworkBrowserToArrayList();
             //MessageBox.Show(VersionHelper.GetWindowsClientVersion());
@@ -46,11 +53,9 @@ namespace EvilBaschdi.TestUI
             IApplicationSettingsBaseHelper applicationSettingsBaseHelper = new ApplicationSettingsBaseHelper(Settings.Default);
             _coreSettings = new CoreSettings(applicationSettingsBaseHelper);
             IThemeManagerHelper themeManagerHelper = new ThemeManagerHelper();
-            IMoveToScreen moveToScreen = new MoveToScreen();
-            IMetroStyle style = new MetroStyle(this, _coreSettings, themeManagerHelper, moveToScreen);
+            _style = new MetroStyle(this, Accent, ThemeSwitch, _coreSettings, themeManagerHelper);
             // ReSharper disable once UnusedVariable
-            IFlyout flyout = new CustomFlyout(this, style, Assembly.GetExecutingAssembly().GetLinkerTime());
-            style.Load();
+            _style.Load();
             //flyout.Run();
 
 
@@ -61,7 +66,7 @@ namespace EvilBaschdi.TestUI
             }
             var contextMenu = new ContextMenu();
 
-            foreach (string accentItem in style.Accent.Items)
+            foreach (string accentItem in _style.Accent.Items)
             {
                 var menuItem = new MenuItem
                                {
@@ -71,7 +76,9 @@ namespace EvilBaschdi.TestUI
                 contextMenu.Items.Add(menuItem);
             }
 
+
             TestTaskbarIcon.ContextMenu = contextMenu;
+            _overrideProtection = 1;
         }
 
 
@@ -92,12 +99,12 @@ namespace EvilBaschdi.TestUI
 
         private void BtnEncrypt_Click(object sender, RoutedEventArgs e)
         {
-            txtEncrypted.Text = Encryption.EncryptString(txtInput.Text, "ABC");
+            txtEncrypted.Text = _encryption.EncryptString(txtInput.Text, "ABC");
         }
 
         private void BtnDecrypt_Click(object sender, RoutedEventArgs e)
         {
-            txtOutput.Text = Encryption.DecryptString(txtEncrypted.Text, "ABC");
+            txtOutput.Text = _encryption.DecryptString(txtEncrypted.Text, "ABC");
         }
 
         private void BtnCompare_Click(object sender, RoutedEventArgs e)
@@ -112,7 +119,6 @@ namespace EvilBaschdi.TestUI
                 txtInput.Background = Brushes.DarkRed;
                 txtOutput.Background = Brushes.DarkRed;
             }
-
 
             //var currentDirectory = Directory.GetCurrentDirectory();
             //var configuration = currentDirectory.EndsWith("Release") ? "Release" : "Debug";
@@ -226,7 +232,7 @@ namespace EvilBaschdi.TestUI
             }
         }
 
-        #region Flyout
+        #region Fly-out
 
         private void ToggleSettingsFlyoutClick(object sender, RoutedEventArgs e)
         {
@@ -241,7 +247,10 @@ namespace EvilBaschdi.TestUI
                 return;
             }
 
-            foreach (var nonactiveFlyout in Flyouts.Items.Cast<Flyout>().Where(nonactiveFlyout => nonactiveFlyout.IsOpen && nonactiveFlyout.Name != activeFlyout.Name))
+            foreach (
+                var nonactiveFlyout in
+                Flyouts.Items.Cast<Flyout>()
+                       .Where(nonactiveFlyout => nonactiveFlyout.IsOpen && nonactiveFlyout.Name != activeFlyout.Name))
             {
                 nonactiveFlyout.IsOpen = false;
             }
@@ -256,6 +265,34 @@ namespace EvilBaschdi.TestUI
             }
         }
 
-        #endregion Flyout
+        #endregion Fly-out
+
+        #region MetroStyle
+
+        private void SaveStyleClick(object sender, RoutedEventArgs e)
+        {
+            if (_overrideProtection != 0)
+            {
+                _style.SaveStyle();
+            }
+        }
+
+        private void Theme(object sender, EventArgs e)
+        {
+            if (_overrideProtection != 0)
+            {
+                _style.SetTheme(sender);
+            }
+        }
+
+        private void AccentOnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (_overrideProtection != 0)
+            {
+                _style.SetAccent(sender, e);
+            }
+        }
+
+        #endregion MetroStyle
     }
 }

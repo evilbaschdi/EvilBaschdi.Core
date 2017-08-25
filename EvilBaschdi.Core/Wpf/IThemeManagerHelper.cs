@@ -3,7 +3,7 @@ using System.Windows.Media;
 namespace EvilBaschdi.Core.Wpf
 {
     /// <summary>
-    ///     Interface for ThemeManagerHelper class.
+    ///     ThemeManagerHelper
     /// </summary>
     public interface IThemeManagerHelper
     {

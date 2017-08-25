@@ -2,6 +2,7 @@
 
 namespace EvilBaschdi.Core.Browsers
 {
+    /// <inheritdoc />
     /// <summary>
     ///     Class for FolderBrowser.
     /// </summary>
@@ -9,6 +10,7 @@ namespace EvilBaschdi.Core.Browsers
     {
         private string _selectedPath;
 
+        /// <inheritdoc />
         /// <summary>
         ///     Shows FolderBrowser.
         /// </summary>
@@ -27,18 +29,16 @@ namespace EvilBaschdi.Core.Browsers
             _selectedPath = folderDialog.SelectedPath;
         }
 
+        /// <inheritdoc />
         /// <summary>
         ///     Get or Set selected path.
         /// </summary>
         public string SelectedPath
         {
-            get
-            {
-                return string.IsNullOrWhiteSpace(_selectedPath)
-                    ? string.Empty
-                    : _selectedPath;
-            }
-            set { _selectedPath = value; }
+            get => string.IsNullOrWhiteSpace(_selectedPath)
+                ? string.Empty
+                : _selectedPath;
+            set => _selectedPath = value;
         }
     }
 }

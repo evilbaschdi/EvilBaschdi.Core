@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using MahApps.Metro.IconPacks;
 
 namespace EvilBaschdi.Core.Wpf
 {
@@ -41,14 +42,28 @@ namespace EvilBaschdi.Core.Wpf
 
             var settingsButton = new Button
                                  {
-                                     Content = ControlContentStackPanel(new ControlContent
-                                                                        {
-                                                                            Content = "settings",
-                                                                            FillBrush = Brushes.White,
-                                                                            ImageSize = 20,
-                                                                            ImageResourceName = "appbar_settings"
-                                                                        })
+                                     Content = new StackPanel
+                                               {
+                                                   Orientation = Orientation.Horizontal,
+                                                   Children =
+                                                   {
+                                                       new PackIconMaterial
+                                                       {
+                                                           Width = 20,
+                                                           Height = 20,
+                                                           Foreground = Brushes.White,
+                                                           Kind = PackIconMaterialKind.Settings
+                                                       },
+                                                       new TextBlock
+                                                       {
+                                                           Margin = new Thickness(5, 0, 0, 0),
+                                                           VerticalAlignment = VerticalAlignment.Center,
+                                                           Text = "settings"
+                                                       }
+                                                   }
+                                               }
                                  };
+
 
             settingsButton.Click += SettingsButton_Click;
 
@@ -60,11 +75,11 @@ namespace EvilBaschdi.Core.Wpf
             }
             else if (
                 !_mainWindow.RightWindowCommands.Items.OfType<Button>()
-                             .Any(
-                                 button =>
-                                     button.Name.Equals("SettingsButton", StringComparison.InvariantCultureIgnoreCase) ||
-                                     ((StackPanel) button.Content).Children.OfType<TextBlock>()
-                                                                   .Any(textBlock => textBlock.Text.Equals("settings", StringComparison.InvariantCultureIgnoreCase))))
+                            .Any(
+                                button =>
+                                    button.Name.Equals("SettingsButton", StringComparison.InvariantCultureIgnoreCase) ||
+                                    ((StackPanel) button.Content).Children.OfType<TextBlock>()
+                                                                 .Any(textBlock => textBlock.Text.Equals("settings", StringComparison.InvariantCultureIgnoreCase))))
             {
                 _mainWindow.RightWindowCommands.Items.Add(settingsButton);
             }
@@ -113,10 +128,20 @@ namespace EvilBaschdi.Core.Wpf
             #endregion flyout
 
             _overrideProtection = 1;
+
+            _style.Load(true);
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
             ToggleFlyout(0);
         }
 
@@ -140,6 +165,14 @@ namespace EvilBaschdi.Core.Wpf
 
         private void SaveStyleClick(object sender, RoutedEventArgs e)
         {
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
             if (_overrideProtection == 0)
             {
                 return;
@@ -149,12 +182,19 @@ namespace EvilBaschdi.Core.Wpf
 
         private void ThemeSwitchIsCheckedChanged(object sender, EventArgs e)
         {
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
             if (_overrideProtection == 0)
             {
                 return;
             }
-            var routedEventArgs = e as RoutedEventArgs;
-            if (routedEventArgs != null)
+            if (e is RoutedEventArgs routedEventArgs)
             {
                 _style.SetTheme(sender, routedEventArgs);
             }
@@ -166,6 +206,14 @@ namespace EvilBaschdi.Core.Wpf
 
         private void AccentOnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
             if (_overrideProtection == 0)
             {
                 return;
@@ -202,6 +250,10 @@ namespace EvilBaschdi.Core.Wpf
 
         private StackPanel MainStackPanel(double flyoutWidth, StackPanel stackPanelToMerge)
         {
+            if (flyoutWidth <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(flyoutWidth));
+            }
             var mainStackPanel = new StackPanel
                                  {
                                      Name = "MainStackPanel"
@@ -212,6 +264,7 @@ namespace EvilBaschdi.Core.Wpf
                 mainStackPanel.Children.Add(stackPanelToMerge);
                 mainStackPanel.Children.Add(HorizontalLineStackPanel(flyoutWidth));
             }
+
             mainStackPanel.Children.Add(ThemeStackPanel());
             mainStackPanel.Children.Add(AccentStackPanel(flyoutWidth));
             mainStackPanel.Children.Add(SaveStyleStackPanel(flyoutWidth));
@@ -223,6 +276,10 @@ namespace EvilBaschdi.Core.Wpf
 
         private StackPanel ControlContentStackPanel(ControlContent controlContent)
         {
+            if (controlContent == null)
+            {
+                throw new ArgumentNullException(nameof(controlContent));
+            }
             return new StackPanel
                    {
                        Orientation = Orientation.Horizontal,
@@ -285,6 +342,10 @@ namespace EvilBaschdi.Core.Wpf
 
         private StackPanel AccentStackPanel(double flyoutWidth)
         {
+            if (flyoutWidth <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(flyoutWidth));
+            }
             var accentStackPanel = new StackPanel
                                    {
                                        Orientation = Orientation.Horizontal,
@@ -319,13 +380,26 @@ namespace EvilBaschdi.Core.Wpf
                                       Name = "SaveStyle",
                                       Width = flyoutWidth - 85,
                                       Margin = new Thickness(60, 5, 0, 0),
-                                      Content = ControlContentStackPanel(new ControlContent
-                                                                         {
-                                                                             Content = "save style",
-                                                                             FillBrush = Brushes.Black,
-                                                                             ImageResourceName = "appbar_save",
-                                                                             ImageSize = 16
-                                                                         })
+                                      Content = new StackPanel
+                                                {
+                                                    Orientation = Orientation.Horizontal,
+                                                    Children =
+                                                    {
+                                                        new PackIconMaterial
+                                                        {
+                                                            Width = 20,
+                                                            Height = 20,
+                                                            Foreground = Brushes.Black,
+                                                            Kind = PackIconMaterialKind.ContentSaveSettings
+                                                        },
+                                                        new TextBlock
+                                                        {
+                                                            Margin = new Thickness(5, 0, 0, 0),
+                                                            VerticalAlignment = VerticalAlignment.Center,
+                                                            Text = "save style"
+                                                        }
+                                                    }
+                                                }
                                   };
             saveStyleButton.Click += SaveStyleClick;
 
@@ -340,6 +414,10 @@ namespace EvilBaschdi.Core.Wpf
 
         private StackPanel HorizontalLineStackPanel(double flyoutWidth)
         {
+            if (flyoutWidth <= 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(flyoutWidth));
+            }
             var horizontalLineStackPanel = new StackPanel
                                            {
                                                Name = "HorizontalLineStackPanel",

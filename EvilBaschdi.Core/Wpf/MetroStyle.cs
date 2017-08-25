@@ -47,11 +47,11 @@ namespace EvilBaschdi.Core.Wpf
         {
             _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
             _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+            _themeManagerHelper = themeManagerHelper ?? throw new ArgumentNullException(nameof(themeManagerHelper));
             Accent = new ComboBox();
             Accent = Accent;
             Theme = new ToggleSwitch();
             Theme = Theme;
-            _themeManagerHelper = themeManagerHelper ?? throw new ArgumentNullException(nameof(themeManagerHelper));
         }
 
         /// <summary>
@@ -71,12 +71,12 @@ namespace EvilBaschdi.Core.Wpf
         {
             _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
             _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+            _themeManagerHelper = themeManagerHelper ?? throw new ArgumentNullException(nameof(themeManagerHelper));
+            _moveToScreen = moveToScreen ?? throw new ArgumentNullException(nameof(moveToScreen));
             Accent = new ComboBox();
             Accent = Accent;
             Theme = new ToggleSwitch();
             Theme = Theme;
-            _themeManagerHelper = themeManagerHelper ?? throw new ArgumentNullException(nameof(themeManagerHelper));
-            _moveToScreen = moveToScreen ?? throw new ArgumentNullException(nameof(moveToScreen));
         }
 
         /// <summary>
@@ -200,6 +200,14 @@ namespace EvilBaschdi.Core.Wpf
         /// <param name="e"></param>
         public void SetAccent(object sender, SelectionChangedEventArgs e)
         {
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+            if (e == null)
+            {
+                throw new ArgumentNullException(nameof(e));
+            }
             var accent = Accent.SelectedValue.ToString();
             _styleAccent = ThemeManager.GetAccent(accent);
 
@@ -216,6 +224,10 @@ namespace EvilBaschdi.Core.Wpf
         /// <param name="sender"></param>
         public void SetTheme(object sender)
         {
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
             // get the theme from the current application
             var style = ThemeManager.DetectAppStyle(System.Windows.Application.Current);
 
@@ -249,6 +261,14 @@ namespace EvilBaschdi.Core.Wpf
         /// <param name="routedEventArgs"></param>
         public void SetTheme(object sender, RoutedEventArgs routedEventArgs)
         {
+            if (sender == null)
+            {
+                throw new ArgumentNullException(nameof(sender));
+            }
+            if (routedEventArgs == null)
+            {
+                throw new ArgumentNullException(nameof(routedEventArgs));
+            }
             SetTheme(sender);
         }
 

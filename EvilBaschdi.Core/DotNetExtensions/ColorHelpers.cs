@@ -9,7 +9,7 @@ namespace EvilBaschdi.Core.DotNetExtensions
     public static class ColorHelpers
     {
         /// <summary>
-        ///     Substracts integers from byte.
+        ///     Subtracts integers from byte.
         /// </summary>
         /// <param name="value"></param>
         /// <param name="integer"></param>
