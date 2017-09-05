@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("EvilBaschdi.Core")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("evilbaschdi")]
 [assembly: AssemblyProduct("EvilBaschdi.Core")]
 [assembly: AssemblyCopyright("Copyright © evilbaschdi 2015 - 2017")]
 [assembly: AssemblyTrademark("")]
