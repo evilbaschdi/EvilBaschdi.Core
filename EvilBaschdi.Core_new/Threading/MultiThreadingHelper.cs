@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 
-namespace EvilBaschdi.Core.Threading
+namespace EvilBaschdi.Core_new.Threading
 {
     /// <inheritdoc />
     /// <summary>
@@ -39,6 +39,5 @@ namespace EvilBaschdi.Core.Threading
 
             Parallel.ForEach(Partitioner.Create(0, list.Count, (int) partitionSitze), worker);
         }
-       
     }
 }

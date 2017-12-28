@@ -7,6 +7,7 @@ namespace EvilBaschdi.Core.Browsers
     {
         #region Types
 
+        // ReSharper disable once ClassNeverInstantiated.Local
         private class NativeMethods
         {
             [DllImport("shell32.dll")]

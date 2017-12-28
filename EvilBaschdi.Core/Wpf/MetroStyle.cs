@@ -17,7 +17,6 @@ namespace EvilBaschdi.Core.Wpf
     public class MetroStyle : IMetroStyle
     {
         private readonly MetroWindow _mainWindow;
-        private readonly IMoveToScreen _moveToScreen;
         private readonly ISettings _settings;
         private readonly IThemeManagerHelper _themeManagerHelper;
 
@@ -59,31 +58,6 @@ namespace EvilBaschdi.Core.Wpf
         /// </summary>
         /// ///
         /// <param name="mainWindow" />
-        /// <param name="settings" />
-        /// <param name="themeManagerHelper"></param>
-        /// <param name="moveToScreen"></param>
-        /// <exception cref="ArgumentNullException">
-        ///     <paramref name="mainWindow" /> is <see langword="null" />.
-        ///     <paramref name="settings" /> is <see langword="null" />.
-        ///     <paramref name="themeManagerHelper" /> is <see langword="null" />.
-        /// </exception>
-        public MetroStyle(MetroWindow mainWindow, ISettings settings, IThemeManagerHelper themeManagerHelper, IMoveToScreen moveToScreen)
-        {
-            _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
-            _settings = settings ?? throw new ArgumentNullException(nameof(settings));
-            _themeManagerHelper = themeManagerHelper ?? throw new ArgumentNullException(nameof(themeManagerHelper));
-            _moveToScreen = moveToScreen ?? throw new ArgumentNullException(nameof(moveToScreen));
-            Accent = new ComboBox();
-            Accent = Accent;
-            Theme = new ToggleSwitch();
-            Theme = Theme;
-        }
-
-        /// <summary>
-        ///     Handle metro style by ToggleSwitch.
-        /// </summary>
-        /// ///
-        /// <param name="mainWindow" />
         /// <param name="accent" />
         /// <param name="themeSwitch" />
         /// <param name="settings" />
@@ -104,34 +78,6 @@ namespace EvilBaschdi.Core.Wpf
             _themeManagerHelper = themeManagerHelper ?? throw new ArgumentNullException(nameof(themeManagerHelper));
         }
 
-        /// <summary>
-        ///     Handle metro style by ToggleSwitch.
-        /// </summary>
-        /// ///
-        /// <param name="mainWindow" />
-        /// <param name="accent" />
-        /// <param name="themeSwitch" />
-        /// <param name="settings" />
-        /// <param name="themeManagerHelper"></param>
-        /// <param name="moveToScreen"></param>
-        /// <exception cref="ArgumentNullException">
-        ///     <paramref name="mainWindow" /> is <see langword="null" />.
-        ///     <paramref name="accent" /> is <see langword="null" />.
-        ///     <paramref name="themeSwitch" /> is <see langword="null" />.
-        ///     <paramref name="settings" /> is <see langword="null" />.
-        ///     <paramref name="themeManagerHelper" /> is <see langword="null" />.
-        /// </exception>
-        public MetroStyle(MetroWindow mainWindow, ComboBox accent, ToggleSwitch themeSwitch, ISettings settings, IThemeManagerHelper themeManagerHelper,
-                          IMoveToScreen moveToScreen)
-        {
-            _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
-            Accent = accent ?? throw new ArgumentNullException(nameof(accent));
-            Theme = themeSwitch ?? throw new ArgumentNullException(nameof(themeSwitch));
-            _settings = settings ?? throw new ArgumentNullException(nameof(settings));
-            _themeManagerHelper = themeManagerHelper ?? throw new ArgumentNullException(nameof(themeManagerHelper));
-            _moveToScreen = moveToScreen ?? throw new ArgumentNullException(nameof(moveToScreen));
-        }
-
         /// <inheritdoc />
         /// <summary>
         ///     Load.
@@ -143,11 +89,6 @@ namespace EvilBaschdi.Core.Wpf
             if (center)
             {
                 _mainWindow.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            }
-
-            if (!string.IsNullOrWhiteSpace(_settings.LastScreenDisplayName))
-            {
-                _moveToScreen?.RunFor(_mainWindow, _settings.LastScreenDisplayName);
             }
 
             if (resizeWithBorder400)

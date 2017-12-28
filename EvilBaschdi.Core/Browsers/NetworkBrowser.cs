@@ -1,8 +1,8 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Security;
-using System.Windows;
 
 namespace EvilBaschdi.Core.Browsers
 {
@@ -16,11 +16,11 @@ namespace EvilBaschdi.Core.Browsers
         /// <summary>
         ///     Contains an ArrayList of computers found in the network.
         /// </summary>
-        public ArrayList Value
+        public List<string> Value
         {
             get
             {
-                var networkComputers = new ArrayList();
+                var networkComputers = new List<string>();
                 const int maxPreferredLength = -1;
                 const int svTypeWorkstation = 1;
                 const int svTypeServer = 2;
@@ -29,8 +29,10 @@ namespace EvilBaschdi.Core.Browsers
 
                 try
                 {
+                    // ReSharper disable UnusedVariable
                     var ret = NetServerEnum(null, 100, ref buffer, maxPreferredLength, out var entriesRead, out var totalEntries, svTypeWorkstation | svTypeServer, null,
                         out var resHandle);
+                    // ReSharper restore UnusedVariable
                     if (ret == 0)
                     {
                         for (var i = 0; i < totalEntries; i++)
@@ -41,11 +43,9 @@ namespace EvilBaschdi.Core.Browsers
                         }
                     }
                 }
-                // ReSharper disable once CatchAllClause
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Problem accessing network computers in NetworkBrowser \r\n\r\n\r\n{ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    return null;
+                    Exception = ex;
                 }
                 finally
                 {
@@ -61,8 +61,13 @@ namespace EvilBaschdi.Core.Browsers
         ///     Contains an ArrayList of computers found in the network.
         /// </summary>
         [Obsolete("replaced with 'Value'")]
-        public ArrayList GetNetworkComputers => Value;
+        public ArrayList GetNetworkComputers => new ArrayList(Value);
 
+        /// <inheritdoc />
+        /// <summary>
+        ///     Contains an Exception if Value has thrown some.
+        /// </summary>
+        public Exception Exception { get; private set; }
 
         /// <summary>
         ///     NetServerEnum.
@@ -79,7 +84,7 @@ namespace EvilBaschdi.Core.Browsers
         /// <returns></returns>
         [DllImport("Netapi32", CharSet = CharSet.Auto, SetLastError = true)]
         [SuppressUnmanagedCodeSecurity]
-        public static extern int NetServerEnum(
+        private static extern int NetServerEnum(
             string serverName,
             int dwLevel,
             ref IntPtr pBuf,
@@ -98,15 +103,15 @@ namespace EvilBaschdi.Core.Browsers
         /// <returns></returns>
         [DllImport("Netapi32", SetLastError = true)]
         [SuppressUnmanagedCodeSecurity]
-        public static extern int NetApiBufferFree(IntPtr pBuf);
+        private static extern int NetApiBufferFree(IntPtr pBuf);
 
         /// <summary>
         ///     ServerInfo.
         /// </summary>
         [StructLayout(LayoutKind.Sequential)]
-        public struct ServerInfo
+        private struct ServerInfo
         {
-            internal readonly int svPlatformId;
+            private readonly int svPlatformId;
 
             [MarshalAs(UnmanagedType.LPWStr)] internal readonly string svName;
         }

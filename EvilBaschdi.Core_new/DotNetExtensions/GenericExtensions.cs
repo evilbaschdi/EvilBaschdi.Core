@@ -1,6 +1,6 @@
 using System.Linq;
 
-namespace EvilBaschdi.Core.DotNetExtensions
+namespace EvilBaschdi.Core_new.DotNetExtensions
 {
     /// <summary>
     ///     Class to provide generic extension methods

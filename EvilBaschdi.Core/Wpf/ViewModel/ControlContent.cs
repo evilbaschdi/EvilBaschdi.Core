@@ -1,6 +1,6 @@
 ﻿using System.Windows.Media;
 
-namespace EvilBaschdi.Core.Wpf
+namespace EvilBaschdi.Core.Wpf.ViewModel
 {
     /// <summary>
     /// </summary>

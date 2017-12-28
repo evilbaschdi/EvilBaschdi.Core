@@ -12,7 +12,6 @@ namespace EvilBaschdi.Core.Wpf.View
         public AboutWindow()
         {
             InitializeComponent();
-            Loaded += (s, e) => this.EnableGlassEffect();
         }
     }
 }

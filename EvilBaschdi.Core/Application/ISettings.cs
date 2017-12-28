@@ -14,10 +14,5 @@
         ///     MahApps ThemeManager Theme.
         /// </summary>
         string Theme { get; set; }
-
-        /// <summary>
-        ///     DisplayName of last screen position.
-        /// </summary>
-        string LastScreenDisplayName { get; set; }
     }
 }

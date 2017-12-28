@@ -7,17 +7,17 @@ namespace EvilBaschdi.Core.Wpf
     /// </summary>
     internal struct Margins
     {
-        public int Bottom;
-        public int Left;
-        public int Right;
-        public int Top;
+        private int _bottom;
+        private int _left;
+        private int _top;
+        private int _right;
 
         public Margins(Thickness t)
         {
-            Left = (int) t.Left;
-            Right = (int) t.Right;
-            Top = (int) t.Top;
-            Bottom = (int) t.Bottom;
+            _left = (int) t.Left;
+            _right = (int) t.Right;
+            _top = (int) t.Top;
+            _bottom = (int) t.Bottom;
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 
-namespace EvilBaschdi.Core.Threading
+namespace EvilBaschdi.Core_new.Threading
 {
     /// <summary>
     ///     Interface to provide multi threading execution.
@@ -14,6 +14,5 @@ namespace EvilBaschdi.Core.Threading
         /// <param name="list"></param>
         /// <param name="worker"></param>
         void CallInParallelByProcessorCount(IList list, Action<Tuple<int, int>> worker);
-
     }
 }

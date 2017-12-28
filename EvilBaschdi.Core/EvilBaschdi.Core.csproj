@@ -40,11 +40,15 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MahApps.Metro, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.1.6.0-alpha009\lib\net45\MahApps.Metro.dll</HintPath>
+    <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\ControlzEx.dll</HintPath>
     </Reference>
-    <Reference Include="MahApps.Metro.IconPacks, Version=1.9.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.IconPacks.1.9.0\lib\net46\MahApps.Metro.IconPacks.dll</HintPath>
+    <Reference Include="MahApps.Metro, Version=1.6.0.184, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.6.0-alpha0184\lib\net45\MahApps.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="MahApps.Metro.IconPacks, Version=2.0.0.31, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MahApps.Metro.IconPacks.2.0.0\lib\net46\MahApps.Metro.IconPacks.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -54,7 +58,7 @@
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <HintPath>..\packages\MahApps.Metro.1.6.0-alpha009\lib\net45\System.Windows.Interactivity.dll</HintPath>
+      <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net462\System.Windows.Interactivity.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xaml" />
@@ -80,10 +84,20 @@
     <Compile Include="Application\ICurrentScreen.cs" />
     <Compile Include="Application\IMoveToScreen.cs" />
     <Compile Include="Application\Info.cs" />
+    <Compile Include="Application\IScreenCapture.cs" />
     <Compile Include="Application\IScreenCount.cs" />
     <Compile Include="Application\ISettings.cs" />
     <Compile Include="Application\MoveToScreen.cs">
       <DependentUpon>IMoveToScreen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\ScreenCapture.cs">
+      <DependentUpon>IScreenCapture.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\ScreenCapture.Gdi32.cs">
+      <DependentUpon>IScreenCapture.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Application\ScreenCapture.User32.cs">
+      <DependentUpon>IScreenCapture.cs</DependentUpon>
     </Compile>
     <Compile Include="Application\ScreenCount.cs">
       <DependentUpon>IScreenCount.cs</DependentUpon>
@@ -105,12 +119,8 @@
     <Compile Include="DirectoryExtensions\FilePath.cs">
       <DependentUpon>IFilePath.cs</DependentUpon>
     </Compile>
-    <Compile Include="DirectoryExtensions\Ftp.cs">
-      <DependentUpon>IFtp.cs</DependentUpon>
-    </Compile>
     <Compile Include="DirectoryExtensions\IFilePath.cs" />
     <Compile Include="DirectoryExtensions\Helpers.cs" />
-    <Compile Include="DirectoryExtensions\IFtp.cs" />
     <Compile Include="DotNetExtensions\CalculateTimeSpan.cs" />
     <Compile Include="DotNetExtensions\ColorHelpers.cs" />
     <Compile Include="DotNetExtensions\ConcurrentBagExtensions.cs" />
@@ -133,13 +143,15 @@
     </Compile>
     <Compile Include="Logging\IAppendAllTextWithHeadline.cs" />
     <Compile Include="Model\AboutWindowConfiguration.cs" />
-    <Compile Include="Security\Encryption.cs" />
+    <Compile Include="Security\Encryption.cs">
+      <DependentUpon>IEncryption.cs</DependentUpon>
+    </Compile>
     <Compile Include="Security\IEncryption.cs" />
     <Compile Include="Threading\IMultiThreadingHelper.cs" />
     <Compile Include="Threading\MultiThreadingHelper.cs">
       <DependentUpon>IMultiThreadingHelper.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\ControlContent.cs" />
+    <Compile Include="Wpf\ViewModel\ControlContent.cs" />
     <Compile Include="Wpf\CustomFlyout.cs">
       <DependentUpon>IFlyout.cs</DependentUpon>
     </Compile>
@@ -149,12 +161,10 @@
     <Compile Include="Wpf\IDialogService.cs" />
     <Compile Include="Wpf\IFlyout.cs" />
     <Compile Include="Wpf\IThemeManagerHelper.cs" />
-    <Compile Include="Wpf\IToast.cs" />
     <Compile Include="Wpf\Margins.cs" />
     <Compile Include="Wpf\MetroStyle.cs">
       <DependentUpon>IMetroStyle.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\GlassEffectHelper.cs" />
     <Compile Include="DotNetExtensions\InternalClasses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Wpf\IMetroStyle.cs" />
@@ -162,11 +172,8 @@
     <Compile Include="Wpf\ThemeManagerHelper.cs">
       <DependentUpon>IThemeManagerHelper.cs</DependentUpon>
     </Compile>
-    <Compile Include="Wpf\Toast.cs">
-      <DependentUpon>IToast.cs</DependentUpon>
-    </Compile>
     <Compile Include="DotNetExtensions\VersionHelper.cs" />
-    <Compile Include="Wpf\ViewModel\AboutWindowConfiguration.cs" />
+    <Compile Include="Wpf\ViewModel\AboutViewModel.cs" />
     <Compile Include="Wpf\View\AboutWindow.xaml.cs">
       <DependentUpon>AboutWindow.xaml</DependentUpon>
     </Compile>

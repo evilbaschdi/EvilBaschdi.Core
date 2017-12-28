@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.15
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvilBaschdi.Core", "EvilBaschdi.Core\EvilBaschdi.Core.csproj", "{8A06A423-244F-404F-AAD8-53DE2EE2AED7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestUI", "TestUI\TestUI.csproj", "{B4487BC3-80C2-43C3-800F-F686F14A8BE7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlyOutTest", "FlyOutTest\FlyOutTest.csproj", "{F125AC5D-E2EB-4A2C-BABF-7956199C820C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EvilBaschdi.Core_new", "EvilBaschdi.Core_new\EvilBaschdi.Core_new.csproj", "{40644D57-A210-48C4-95E3-5576600D0A40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,8 +29,15 @@ Global
 		{F125AC5D-E2EB-4A2C-BABF-7956199C820C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F125AC5D-E2EB-4A2C-BABF-7956199C820C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F125AC5D-E2EB-4A2C-BABF-7956199C820C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40644D57-A210-48C4-95E3-5576600D0A40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40644D57-A210-48C4-95E3-5576600D0A40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40644D57-A210-48C4-95E3-5576600D0A40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40644D57-A210-48C4-95E3-5576600D0A40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {829487DC-6417-4839-A044-177BBE58DDCD}
 	EndGlobalSection
 EndGlobal

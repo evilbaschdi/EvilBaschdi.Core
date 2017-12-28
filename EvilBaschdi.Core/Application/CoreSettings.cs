@@ -34,12 +34,5 @@ namespace EvilBaschdi.Core.Application
             get => _applicationSettingsBaseHelper.Get("Theme", "");
             set => _applicationSettingsBaseHelper.Set("Theme", value);
         }
-
-        /// <inheritdoc />
-        public string LastScreenDisplayName
-        {
-            get => _applicationSettingsBaseHelper.Get("LastScreenDisplayName", "");
-            set => _applicationSettingsBaseHelper.Set("LastScreenDisplayName", value);
-        }
     }
 }

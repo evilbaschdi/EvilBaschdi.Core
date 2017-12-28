@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
@@ -15,6 +14,7 @@ using EvilBaschdi.Core.Security;
 using EvilBaschdi.Core.Threading;
 using EvilBaschdi.Core.Wpf;
 using EvilBaschdi.TestUI.Properties;
+using Hardcodet.Wpf.TaskbarNotification;
 using MahApps.Metro;
 using MahApps.Metro.Controls;
 
@@ -28,22 +28,19 @@ namespace EvilBaschdi.TestUI
     public partial class MainWindow : MetroWindow
     {
         private readonly ISettings _coreSettings;
-
+        private readonly IDialogService _dialogService;
         private readonly IEncryption _encryption;
 
         // ReSharper disable once NotAccessedField.Local
         private readonly IFilePath _filePath;
 
         private readonly int _overrideProtection;
-
         private readonly IMetroStyle _style;
-
         private INetworkBrowser _networkBrowser;
 
         public MainWindow()
         {
             InitializeComponent();
-            Loaded += (s, e) => this.EnableGlassEffect();
             IMultiThreadingHelper multiThreadingHelper = new MultiThreadingHelper();
             _encryption = new Encryption();
             _filePath = new FilePath(multiThreadingHelper);
@@ -56,8 +53,8 @@ namespace EvilBaschdi.TestUI
             _style = new MetroStyle(this, Accent, ThemeSwitch, _coreSettings, themeManagerHelper);
             // ReSharper disable once UnusedVariable
             _style.Load();
+            _dialogService = new DialogService(this);
             //flyout.Run();
-
 
             var filePath = Assembly.GetEntryAssembly()?.Location;
             if (filePath != null)
@@ -66,35 +63,34 @@ namespace EvilBaschdi.TestUI
             }
             var contextMenu = new ContextMenu();
 
-            foreach (string accentItem in _style.Accent.Items)
-            {
-                var menuItem = new MenuItem
-                               {
-                                   Header = accentItem
-                               };
+            //foreach (string accentItem in _style.Accent.Items)
+            //{
+            //    var menuItem = new MenuItem
+            //                   {
+            //                       Header = accentItem
+            //                   };
 
-                contextMenu.Items.Add(menuItem);
-            }
+            //    contextMenu.Items.Add(menuItem);
+            //}
 
 
             TestTaskbarIcon.ContextMenu = contextMenu;
             _overrideProtection = 1;
         }
 
-
-        private void WindowClosing(object sender, CancelEventArgs cancelEventArgs)
-        {
-            ICurrentScreen currentScreen = new CurrentScreen();
-            var currentDisplayName = currentScreen.ValueFor(this);
-            _coreSettings.LastScreenDisplayName = currentDisplayName;
-        }
-
-
         // ReSharper disable once UnusedMember.Local
         private void LoadNetworkBrowserToArrayList()
         {
             _networkBrowser = new NetworkBrowser();
-            UpdateCombo(cboNetwork, _networkBrowser.GetNetworkComputers);
+            var networkBrowserValue = _networkBrowser.Value;
+            if (networkBrowserValue != null && networkBrowserValue.Any())
+            {
+                UpdateCombo(cboNetwork, networkBrowserValue);
+            }
+            else
+            {
+                _dialogService.ShowMessage("Problem :-/", _networkBrowser.Exception.Message);
+            }
         }
 
         private void BtnEncrypt_Click(object sender, RoutedEventArgs e)
@@ -120,6 +116,9 @@ namespace EvilBaschdi.TestUI
                 txtOutput.Background = Brushes.DarkRed;
             }
 
+            TestTaskbarIcon.Visibility = Visibility.Visible;
+            TestTaskbarIcon.ShowBalloonTip("Wichtig!", "Hallo Welt...", BalloonIcon.Info);
+
             //var currentDirectory = Directory.GetCurrentDirectory();
             //var configuration = currentDirectory.EndsWith("Release") ? "Release" : "Debug";
             //var root = currentDirectory.Replace($@"EvilBaschdi.Core\TestUI\bin\{configuration}", "");
@@ -132,51 +131,6 @@ namespace EvilBaschdi.TestUI
             //var childProjects = _filePath.GetFileList(root, includeList, null).Where(file => !file.ToLower().Contains("evilbaschdi.core"));
             //var childConfigs = new ConcurrentBag<string>();
 
-            #region cs project
-
-            //Parallel.ForEach(childProjects,
-            //    childProject =>
-            //    {
-            //        try
-            //        {
-            //            var targetProject = new Project(childProject);
-
-            //            var isCoreIncluded = targetProject.Items.Any(item => item.EvaluatedInclude == "EvilBaschdi.Core");
-            //            var isMahAppsVersionDifferent =
-            //                targetProject.Items.Any(item => item.EvaluatedInclude.StartsWith("MahApps.Metro,") && item.EvaluatedInclude != coreProject.MahApps.Key);
-            //            if (isCoreIncluded && isMahAppsVersionDifferent)
-            //            {
-            //                foreach (var item in targetProject.Items)
-            //                {
-            //                    if (item.EvaluatedInclude.StartsWith("MahApps.Metro"))
-            //                    {
-            //                        item.Rename(coreProject.MahApps.Key);
-            //                        item.RemoveMetadata("HintPath");
-            //                        item.SetMetadataValue("HintPath", coreProject.MahApps.Value);
-            //                    }
-            //                    if (item.EvaluatedInclude.StartsWith("System.Windows.Interactivity"))
-            //                    {
-            //                        item.Rename(coreProject.SysWinInt.Key);
-            //                        item.RemoveMetadata("HintPath");
-            //                        item.SetMetadataValue("HintPath", coreProject.SysWinInt.Value);
-            //                    }
-            //                }
-            //                targetProject.Save();
-            //                var currentPath = Path.GetDirectoryName(childProject);
-            //                var configPath = $@"{currentPath}\packages.config";
-            //                if (File.Exists(configPath))
-            //                {
-            //                    childConfigs.Add(configPath);
-            //                }
-            //            }
-            //        }
-            //        catch (Exception exception)
-            //        {
-            //            MessageBox.Show(exception.Message);
-            //        }
-            //    });
-
-            #endregion cs project
 
             #region nuget
 
@@ -200,7 +154,6 @@ namespace EvilBaschdi.TestUI
 
             #endregion nuget
         }
-
 
         private void UpdateCombo(Selector selector, IEnumerable enumerable)
         {

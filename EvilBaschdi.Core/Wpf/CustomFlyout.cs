@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
+using EvilBaschdi.Core.Wpf.ViewModel;
 using MahApps.Metro.Controls;
 using MahApps.Metro.IconPacks;
 
