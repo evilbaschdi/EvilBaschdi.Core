@@ -12,13 +12,13 @@ namespace EvilBaschdi.Core.Logging
         /// <param name="path"></param>
         /// <param name="contents"></param>
         /// <param name="headline"></param>
-        void For(string path, string contents, string headline);
+        void RunFor(string path, string contents, string headline);
 
         /// <summary>
         /// </summary>
         /// <param name="path"></param>
         /// <param name="stringBuilder"></param>
         /// <param name="headline"></param>
-        void For(string path, StringBuilder stringBuilder, string headline);
+        void RunFor(string path, StringBuilder stringBuilder, string headline);
     }
 }

@@ -18,10 +18,12 @@ namespace EvilBaschdi.Core.Security
             {
                 throw new ArgumentNullException(nameof(clearText));
             }
+
             if (encryptionKey == null)
             {
                 throw new ArgumentNullException(nameof(encryptionKey));
             }
+
             var clearBytes = Encoding.Unicode.GetBytes(clearText);
             var rfc2898DeriveBytes = new Rfc2898DeriveBytes(encryptionKey,
                 new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
@@ -37,10 +39,12 @@ namespace EvilBaschdi.Core.Security
             {
                 throw new ArgumentNullException(nameof(cipherText));
             }
+
             if (encryptionKey == null)
             {
                 throw new ArgumentNullException(nameof(encryptionKey));
             }
+
             var cipherBytes = Convert.FromBase64String(cipherText);
             var rfc2898DeriveBytes = new Rfc2898DeriveBytes(encryptionKey,
                 new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
