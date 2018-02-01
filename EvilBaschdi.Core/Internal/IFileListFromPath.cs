@@ -4,7 +4,7 @@ using EvilBaschdi.Core.Model;
 namespace EvilBaschdi.Core.Internal
 {
     /// <inheritdoc />
-    public interface IFilePath : IValueFor2<string, FilePathFilter, List<string>>
+    public interface IFileListFromPath : IValueFor2<string, FileListFromPathFilter, List<string>>
     {
         /// <summary>
         ///     Gets a list of accessible directories that contain files.

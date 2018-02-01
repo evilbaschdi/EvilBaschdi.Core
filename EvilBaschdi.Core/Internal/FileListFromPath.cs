@@ -10,7 +10,7 @@ using EvilBaschdi.Core.Model;
 namespace EvilBaschdi.Core.Internal
 {
     /// <inheritdoc />
-    public class FilePath : IFilePath
+    public class FileListFromPath : IFileListFromPath
     {
         private readonly IMultiThreading _multiThreading;
 
@@ -18,7 +18,7 @@ namespace EvilBaschdi.Core.Internal
         ///     Initialisiert eine neue Instanz der <see cref="T:System.Object" />-Klasse.
         /// </summary>
         /// <exception cref="ArgumentNullException"><paramref name="multiThreading" /> is <see langword="null" />.</exception>
-        public FilePath(IMultiThreading multiThreading)
+        public FileListFromPath(IMultiThreading multiThreading)
         {
             _multiThreading = multiThreading ?? throw new ArgumentNullException(nameof(multiThreading));
         }
@@ -41,16 +41,16 @@ namespace EvilBaschdi.Core.Internal
         }
 
         /// <inheritdoc />
-        public List<string> ValueFor(string initialDirectory, FilePathFilter filePathFilter)
+        public List<string> ValueFor(string initialDirectory, FileListFromPathFilter fileListFromPathFilter)
         {
             if (initialDirectory == null)
             {
                 throw new ArgumentNullException(nameof(initialDirectory));
             }
 
-            if (filePathFilter == null)
+            if (fileListFromPathFilter == null)
             {
-                throw new ArgumentNullException(nameof(filePathFilter));
+                throw new ArgumentNullException(nameof(fileListFromPathFilter));
             }
 
             var fileList = new ConcurrentBag<string>();
@@ -59,10 +59,10 @@ namespace EvilBaschdi.Core.Internal
             {
                 //root directory.
                 var initialDirectoryFileList = Directory.GetFiles(initialDirectory).Select(item => item.ToLower()).ToList();
-                var dirList = initialDirectoryFileList.Where(file => IsValidFileName(file, fileList, filePathFilter)).ToList();
+                var dirList = initialDirectoryFileList.Where(file => IsValidFileName(file, fileList, fileListFromPathFilter)).ToList();
                 //sub directories.
                 var initialDirectorySubdirectoriesFileList = GetSubdirectoriesContainingOnlyFiles(initialDirectory).SelectMany(Directory.GetFiles).Select(item => item.ToLower());
-                var dirSubList = initialDirectorySubdirectoriesFileList.Where(file => IsValidFileName(file, fileList, filePathFilter)).ToList();
+                var dirSubList = initialDirectorySubdirectoriesFileList.Where(file => IsValidFileName(file, fileList, fileListFromPathFilter)).ToList();
 
                 var processList = new List<string>();
                 processList.AddRange(dirList);
@@ -76,7 +76,7 @@ namespace EvilBaschdi.Core.Internal
             return fileList.ToList();
         }
 
-        private bool IsValidFileName(string file, ConcurrentBag<string> fileList, FilePathFilter filePathFilter)
+        private bool IsValidFileName(string file, ConcurrentBag<string> fileList, FileListFromPathFilter fileListFromPathFilter)
         {
             if (file == null)
             {
@@ -88,12 +88,12 @@ namespace EvilBaschdi.Core.Internal
                 throw new ArgumentNullException(nameof(fileList));
             }
 
-            var includeExtensionList = filePathFilter.FilterExtensionsToEqual;
-            var excludeExtensionList = filePathFilter.FilterExtensionsNotToEqual;
-            var includeFileNameList = filePathFilter.FilterFileNamesToEqual;
-            var excludeFileNameList = filePathFilter.FilterFileNamesNotToEqual;
-            var includeFilePathList = filePathFilter.FilterFilePathsToEqual;
-            var excludeFilePathList = filePathFilter.FilterFilePathsNotToEqual;
+            var includeExtensionList = fileListFromPathFilter.FilterExtensionsToEqual;
+            var excludeExtensionList = fileListFromPathFilter.FilterExtensionsNotToEqual;
+            var includeFileNameList = fileListFromPathFilter.FilterFileNamesToEqual;
+            var excludeFileNameList = fileListFromPathFilter.FilterFileNamesNotToEqual;
+            var includeFilePathList = fileListFromPathFilter.FilterFilePathsToEqual;
+            var excludeFilePathList = fileListFromPathFilter.FilterFilePathsNotToEqual;
 
             var path = file.ToLower();
             var fileInfo = new FileInfo(file);
