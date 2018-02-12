@@ -109,11 +109,11 @@ namespace EvilBaschdi.Core.Internal
             var includeFilePath = includeFilePathList == null || !includeFilePathList.Any() || includeFilePathList.Contains(path);
 
             // .docx
-            var excludeExtention = excludeExtensionList != null && excludeExtensionList.Contains(fileExtension);
+            var excludeExtention = excludeExtensionList != null && excludeExtensionList.Contains(fileExtension, StringComparer.InvariantCultureIgnoreCase);
             // ...file.x
-            var excludeFileName = excludeFileNameList != null && excludeFileNameList.Any(p => fileName.Contains(p));
+            var excludeFileName = excludeFileNameList != null && excludeFileNameList.Any(p => fileName.Contains(p, StringComparison.InvariantCultureIgnoreCase));
             // C:\Temp\... 
-            var excludeFilePath = excludeFilePathList != null && excludeFilePathList.Any(p => path.Contains(p));
+            var excludeFilePath = excludeFilePathList != null && excludeFilePathList.Any(p => path.Contains(p, StringComparison.InvariantCultureIgnoreCase));
 
             return alreadyContained && hasFileExtension && includeExtention && !excludeExtention && includeFileName && !excludeFileName && includeFilePath && !excludeFilePath;
         }
