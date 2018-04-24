@@ -7,8 +7,8 @@
     /// <typeparam name="T"></typeparam>
     public abstract class CachedValue<T> : ICachedValue<T>
     {
-        private T _value;
         private bool _isCached;
+        private T _value;
 
         /// <summary>
         ///     Non cached value

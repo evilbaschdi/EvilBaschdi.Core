@@ -25,14 +25,17 @@ namespace EvilBaschdi.Core.Extensions
             {
                 throw new ArgumentNullException(nameof(source));
             }
+
             if (value == null)
             {
                 throw new ArgumentNullException(nameof(value));
             }
+
             if (!Enum.IsDefined(typeof(StringComparison), comparisonType))
             {
-                throw new InvalidEnumArgumentException(nameof(comparisonType), (int)comparisonType, typeof(StringComparison));
+                throw new InvalidEnumArgumentException(nameof(comparisonType), (int) comparisonType, typeof(StringComparison));
             }
+
             return source.IndexOf(value, comparisonType) >= 0;
         }
 
