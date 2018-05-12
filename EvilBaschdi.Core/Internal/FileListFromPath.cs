@@ -21,6 +21,7 @@ namespace EvilBaschdi.Core.Internal
         public FileListFromPath(IMultiThreading multiThreading)
         {
             _multiThreading = multiThreading ?? throw new ArgumentNullException(nameof(multiThreading));
+           
         }
 
         /// <inheritdoc />
