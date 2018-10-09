@@ -35,16 +35,14 @@ namespace EvilBaschdi.Core.Internal
                     Directory.CreateDirectory(targetFolder);
                     foreach (var file in folder)
                     {
-                        if (file != null)
+                        if (file == null) continue;
+                        var targetFile = Path.Combine(targetFolder, Path.GetFileName(file));
+                        if (File.Exists(targetFile))
                         {
-                            var targetFile = Path.Combine(targetFolder, Path.GetFileName(file));
-                            if (File.Exists(targetFile))
-                            {
-                                File.Delete(targetFile);
-                            }
-
-                            File.Move(file, targetFile);
+                            File.Delete(targetFile);
                         }
+
+                        File.Move(file, targetFile);
                     }
                 }
 
