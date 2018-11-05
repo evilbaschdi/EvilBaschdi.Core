@@ -1,14 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net452;net46</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net451;net452;net46</TargetFrameworks>
     <Authors>evilbaschdi</Authors>
     <Company>evilbaschdi</Company>
-    <AssemblyVersion>2.0.0.0</AssemblyVersion>
+    <AssemblyVersion>2.1.0.0</AssemblyVersion>
     <AssemblyName>EvilBaschdi.Core</AssemblyName>
     <OutputType>Library</OutputType>
     <PackageId>EvilBaschdi.Core</PackageId>
-    <FileVersion>2.0.0.0</FileVersion>
-    <Version>2.0.0</Version>
+    <FileVersion>2.1.0.0</FileVersion>
+    <Version>2.1.0</Version>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
@@ -17,7 +17,7 @@
     <Description>core assembly</Description>
   </PropertyGroup>
   <PropertyGroup>
-    <LangVersion>7.2</LangVersion>
+    <LangVersion>7.3</LangVersion>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\EvilBaschdi.Core.xml</DocumentationFile>
   </PropertyGroup>
 </Project>
