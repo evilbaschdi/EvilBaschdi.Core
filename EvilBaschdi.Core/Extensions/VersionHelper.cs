@@ -42,6 +42,7 @@ namespace EvilBaschdi.Core.Extensions
         ///     Application has to contain a app.manifest supporting windows 10.
         /// </summary>
         /// <returns></returns>
+        // ReSharper disable once MemberCanBePrivate.Global
         public static string GetWindowsClientVersion()
         {
             var major = Environment.OSVersion.Version.Major;

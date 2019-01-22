@@ -15,7 +15,7 @@ namespace EvilBaschdi.Core.Internal
         private readonly IMultiThreading _multiThreading;
 
         /// <summary>
-        ///     Initialisiert eine neue Instanz der <see cref="T:System.Object" />-Klasse.
+        ///    Constructor
         /// </summary>
         /// <exception cref="ArgumentNullException"><paramref name="multiThreading" /> is <see langword="null" />.</exception>
         public FileListFromPath(IMultiThreading multiThreading)
@@ -56,23 +56,26 @@ namespace EvilBaschdi.Core.Internal
 
             var fileList = new ConcurrentBag<string>();
 
-            if (initialDirectory.IsAccessible())
+            if (!initialDirectory.IsAccessible())
             {
-                //root directory.
-                var initialDirectoryFileList = Directory.GetFiles(initialDirectory).Select(item => item.ToLower()).ToList();
-                var dirList = initialDirectoryFileList.Where(file => IsValidFileName(file, fileList, fileListFromPathFilter)).ToList();
-                //sub directories.
-                var initialDirectorySubdirectoriesFileList = GetSubdirectoriesContainingOnlyFiles(initialDirectory).SelectMany(Directory.GetFiles).Select(item => item.ToLower());
-                var dirSubList = initialDirectorySubdirectoriesFileList.Where(file => IsValidFileName(file, fileList, fileListFromPathFilter)).ToList();
-
-                var processList = new List<string>();
-                processList.AddRange(dirList);
-                processList.AddRange(dirSubList);
-
-                _multiThreading.RunFor(processList,
-                    range => Parallel.For(range.Item1, range.Item2,
-                        i => { fileList.Add(processList[i]); }));
+                return fileList.ToList();
             }
+
+            //root directory.
+            var initialDirectoryFileList = Directory.GetFiles(initialDirectory).Select(item => item.ToLower()).ToList();
+            var dirList = initialDirectoryFileList.Where(file => IsValidFileName(file, fileList, fileListFromPathFilter)).ToList();
+            //sub directories.
+            var initialDirectorySubdirectoriesFileList = GetSubdirectoriesContainingOnlyFiles(initialDirectory).SelectMany(Directory.GetFiles).Select(item => item.ToLower());
+            var dirSubList = initialDirectorySubdirectoriesFileList.Where(file => IsValidFileName(file, fileList, fileListFromPathFilter)).ToList();
+
+            var processList = new List<string>();
+            processList.AddRange(dirList);
+            processList.AddRange(dirSubList);
+
+            _multiThreading.RunFor(processList,
+                // ReSharper disable once ImplicitlyCapturedClosure
+                range => Parallel.For(range.Item1, range.Item2,
+                    i => { fileList.Add(processList[i]); }));
 
             return fileList.ToList();
         }

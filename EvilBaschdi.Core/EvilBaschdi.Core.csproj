@@ -13,7 +13,7 @@
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Copyright>Copyright © evilbaschdi 2015 - 2018</Copyright>
+    <Copyright>Copyright © evilbaschdi 2015 - 2019</Copyright>
     <Description>core assembly</Description>
   </PropertyGroup>
   <PropertyGroup>
@@ -22,7 +22,7 @@
     <Description>Core Package</Description>
   </PropertyGroup>
   <PropertyGroup>
-    <LangVersion>7.3</LangVersion>
+    <LangVersion>latest</LangVersion>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\EvilBaschdi.Core.xml</DocumentationFile>
   </PropertyGroup>
 </Project>

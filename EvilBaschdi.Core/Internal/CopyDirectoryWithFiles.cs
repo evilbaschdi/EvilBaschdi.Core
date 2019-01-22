@@ -28,7 +28,7 @@ namespace EvilBaschdi.Core.Internal
                 fileInfo.CopyTo(Path.Combine(target.FullName, fileInfo.Name), true);
             }
 
-            // Copy each subdirectory using recursion.
+            // Copy each sub-directory using recursion.
             foreach (var diSourceSubDir in source.GetDirectories())
             {
                 var nextTargetSubDir = target.CreateSubdirectory(diSourceSubDir.Name);

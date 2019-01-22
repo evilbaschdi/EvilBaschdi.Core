@@ -68,6 +68,7 @@ namespace EvilBaschdi.Core.Security
             }
 
             var memoryStream = new MemoryStream();
+            // ReSharper disable once IdentifierTypo
             var rijndael = Rijndael.Create();
             rijndael.Key = key ?? throw new ArgumentNullException(nameof(key));
             rijndael.IV = iv ?? throw new ArgumentNullException(nameof(iv));
@@ -94,6 +95,7 @@ namespace EvilBaschdi.Core.Security
             }
 
             var memoryStream = new MemoryStream();
+            // ReSharper disable once IdentifierTypo
             var rijndael = Rijndael.Create();
             rijndael.Key = key ?? throw new ArgumentNullException(nameof(key));
             rijndael.IV = iv ?? throw new ArgumentNullException(nameof(iv));
