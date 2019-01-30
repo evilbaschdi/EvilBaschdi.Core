@@ -14,15 +14,15 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="Albedo" Version="2.0.0" />
-    <PackageReference Include="AutoFixture" Version="4.7.0" />
-    <PackageReference Include="AutoFixture.AutoNSubstitute" Version="4.7.0" />
-    <PackageReference Include="AutoFixture.Idioms" Version="4.7.0" />
-    <PackageReference Include="AutoFixture.Xunit2" Version="4.7.0" />
+    <PackageReference Include="AutoFixture" Version="4.8.0" />
+    <PackageReference Include="AutoFixture.AutoNSubstitute" Version="4.8.0" />
+    <PackageReference Include="AutoFixture.Idioms" Version="4.8.0" />
+    <PackageReference Include="AutoFixture.Xunit2" Version="4.8.0" />
     <PackageReference Include="Castle.Core" Version="4.3.1" />
     <PackageReference Include="Fare" Version="2.1.1" />
     <PackageReference Include="FluentAssertions" Version="5.6.0" />
     <PackageReference Include="NCrunch.Framework" Version="3.17.0" />
-    <PackageReference Include="NSubstitute" Version="3.1.0" />
+    <PackageReference Include="NSubstitute" Version="4.0.0" />
     <PackageReference Include="System.ValueTuple" version="4.5.0" />
     <PackageReference Include="xunit" Version="2.4.1" />
     <PackageReference Include="xunit.analyzers" Version="0.10.0" />
