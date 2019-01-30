@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 using AutoFixture.Idioms;
 using AutoFixture.Xunit2;
+using FluentAssertions;
 using Xunit;
 
 
@@ -142,4 +144,5 @@ namespace EvilBaschdi.Core.Tests
             }
         }
     }
+   
 }
