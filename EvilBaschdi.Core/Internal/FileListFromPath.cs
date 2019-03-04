@@ -15,13 +15,12 @@ namespace EvilBaschdi.Core.Internal
         private readonly IMultiThreading _multiThreading;
 
         /// <summary>
-        ///    Constructor
+        ///     Constructor
         /// </summary>
         /// <exception cref="ArgumentNullException"><paramref name="multiThreading" /> is <see langword="null" />.</exception>
         public FileListFromPath(IMultiThreading multiThreading)
         {
             _multiThreading = multiThreading ?? throw new ArgumentNullException(nameof(multiThreading));
-           
         }
 
         /// <inheritdoc />

@@ -13,6 +13,12 @@ namespace EvilBaschdi.Core.Extensions
         public static bool IsVista => GetWindowsClientVersion() == "Vista";
 
         /// <summary>
+        ///     OS is Windows 10.
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsWindows10 => GetWindowsClientVersion().StartsWith("Win10");
+
+        /// <summary>
         ///     OS is Windows 7.
         /// </summary>
         public static bool IsWindows7 => GetWindowsClientVersion() == "Win7";
@@ -21,12 +27,6 @@ namespace EvilBaschdi.Core.Extensions
         ///     OS is Windows 8 or 8.1.
         /// </summary>
         public static bool IsWindows8 => GetWindowsClientVersion().StartsWith("Win8");
-
-        /// <summary>
-        ///     OS is Windows 10.
-        /// </summary>
-        /// <returns></returns>
-        public static bool IsWindows10 => GetWindowsClientVersion().StartsWith("Win10");
 
         //{
         //    var currentVersion = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");

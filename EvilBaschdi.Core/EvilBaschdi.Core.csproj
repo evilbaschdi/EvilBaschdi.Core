@@ -4,24 +4,13 @@
     <TieredCompilation>true</TieredCompilation>
     <Authors>Sebastian Walter</Authors>
     <Company>evilbaschdi</Company>
-    <AssemblyVersion>2.1.0.0</AssemblyVersion>
-    <AssemblyName>EvilBaschdi.Core</AssemblyName>    
     <PackageId>EvilBaschdi.Core</PackageId>
-    <FileVersion>2.1.0.0</FileVersion>
-    <Version>2.1.0</Version>
-    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Version>2019.3.4.751-develop</Version>
     <Copyright>Copyright © evilbaschdi 2015 - 2019</Copyright>
-    <Description>core assembly</Description>
-  </PropertyGroup>
-  <PropertyGroup>
-  <PackageIconUrl><![CDATA[https://avatars1.githubusercontent.com/u/1897807?s=120&v=4]]></PackageIconUrl>
+    <PackageIconUrl><![CDATA[https://avatars1.githubusercontent.com/u/1897807?s=120&v=4]]></PackageIconUrl>
+    <RepositoryUrl>https://github.com/evilbaschdi/EvilBaschdi.Core</RepositoryUrl>
     <PackageTags>Core</PackageTags>
-    <Description>Core Package</Description>
-  </PropertyGroup>
-  <PropertyGroup>
+    <Description>Core assembly package</Description>
     <LangVersion>latest</LangVersion>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\EvilBaschdi.Core.xml</DocumentationFile>
   </PropertyGroup>

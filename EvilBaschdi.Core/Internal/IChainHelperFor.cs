@@ -9,10 +9,10 @@
     {
         /// <summary>
         /// </summary>
-        IChainHelperFor<TIn, TOut> NextChain { get; }
+        bool AmIResponsible { get; }
 
         /// <summary>
         /// </summary>
-        bool AmIResponsible { get; }
+        IChainHelperFor<TIn, TOut> NextChain { get; }
     }
 }
