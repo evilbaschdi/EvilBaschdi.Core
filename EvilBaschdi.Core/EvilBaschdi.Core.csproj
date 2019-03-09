@@ -1,11 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netcoreapp3.0;net451;net452;net46</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net4;net45;net451;net452;net46;</TargetFrameworks>
     <TieredCompilation>true</TieredCompilation>
     <Authors>Sebastian Walter</Authors>
     <Company>evilbaschdi</Company>
     <PackageId>EvilBaschdi.Core</PackageId>
-    <Version>2019.3.4.751-develop</Version>
+    <Version>2019.3.9.1706-develop</Version>
     <Copyright>Copyright © evilbaschdi 2015 - 2019</Copyright>
     <PackageIconUrl><![CDATA[https://avatars1.githubusercontent.com/u/1897807?s=120&v=4]]></PackageIconUrl>
     <RepositoryUrl>https://github.com/evilbaschdi/EvilBaschdi.Core</RepositoryUrl>
