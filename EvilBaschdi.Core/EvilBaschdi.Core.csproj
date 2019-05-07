@@ -5,8 +5,8 @@
     <Authors>Sebastian Walter</Authors>
     <Company>evilbaschdi</Company>
     <PackageId>EvilBaschdi.Core</PackageId>
-    <Version>$([System.DateTime]::Now.ToString(yyyy.M.d.hmm))-develop</Version>
-    <Copyright>Copyright © 2015 - $([System.DateTime]::Today.ToString(yyyy)) evilbaschdi</Copyright>
+    <Version>$([System.DateTime]::UtcNow.ToString(yyyy.M.d.hmm))-develop</Version>
+    <Copyright>Copyright © 2015 - $([System.DateTime]::UtcNow.ToString(yyyy)) evilbaschdi</Copyright>
     <PackageIconUrl><![CDATA[https://avatars1.githubusercontent.com/u/1897807?s=120&v=4]]></PackageIconUrl>
     <RepositoryUrl>https://github.com/evilbaschdi/EvilBaschdi.Core</RepositoryUrl>
     <PackageTags>Core</PackageTags>
