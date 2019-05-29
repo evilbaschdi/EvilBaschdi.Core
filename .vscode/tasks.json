@@ -20,6 +20,6 @@
                 "${workspaceFolder}/EvilBaschdi.Core.Tests/EvilBaschdi.Core.Tests.csproj"
             ],
             "problemMatcher": "$msCompile"
-        }     
+        }
     ]
 }
