@@ -7,9 +7,9 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/EvilBaschdi.Core/EvilBaschdi.Core.csproj"
+                "${workspaceFolder}/EvilBaschdi.Core.csproj"
             ],
-            "problemMatcher": "$msCompile"
+            "problemMatcher": "$tsc"
         },
         {
             "label": "publish",
@@ -17,7 +17,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/EvilBaschdi.Core/EvilBaschdi.Core.csproj"
+                "${workspaceFolder}/EvilBaschdi.Core.csproj"
             ],
             "problemMatcher": "$tsc"
         },
@@ -28,19 +28,9 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/EvilBaschdi.Core/EvilBaschdi.Core.csproj"
+                "${workspaceFolder}/EvilBaschdi.Core.csproj"
             ],
             "problemMatcher": "$tsc"
-        },
-        {
-            "label": "test",
-            "command": "dotnet",
-            "type": "process",
-            "args": [
-                "test",
-                "${workspaceFolder}/EvilBaschdi.Core.Tests/EvilBaschdi.Core.Tests.csproj"
-            ],
-            "problemMatcher": "$msCompile"
         }
     ]
 }

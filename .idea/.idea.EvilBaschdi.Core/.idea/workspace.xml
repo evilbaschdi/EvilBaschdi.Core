@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e4ea5883-c56b-4c28-988f-8bf068028527" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.vscode/tasks.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/tasks.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EvilBaschdi.Core.Tests/EvilBaschdi.Core.Tests.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/EvilBaschdi.Core.Tests/EvilBaschdi.Core.Tests.csproj" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/EvilBaschdi.Core.Tests/CachedValueForTests.cs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="176">
+              <caret line="31" column="16" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
+              <folding>
+                <marker date="1551682930456" expanded="false" signature="6:97" ph="..." />
+                <marker date="1551682930456" expanded="true" signature="131:4051" ph="{...}" />
+                <marker date="1551682930456" expanded="true" signature="170:4049" ph="{...}" />
+                <marker date="1551682930456" expanded="true" signature="290:391" ph="{...}" />
+                <marker date="1551682930456" expanded="true" signature="498:593" ph="{...}" />
+                <marker date="1551682930456" expanded="true" signature="705:837" ph="{...}" />
+                <marker date="1551682930456" expanded="true" signature="1034:1217" ph="{...}" />
+                <marker date="1551682930456" expanded="true" signature="1057:1087" ph="/* Arrange ... */" />
+                <marker date="1551682930456" expanded="true" signature="1388:1607" ph="{...}" />
+                <marker date="1551682930456" expanded="true" signature="1411:1441" ph="/* Arrange ... */" />
+                <marker date="1551682930456" expanded="true" signature="1801:2097" ph="{...}" />
+                <marker date="1551682930456" expanded="true" signature="1824:1854" ph="/* Arrange ... */" />
+                <marker date="1551682930456" expanded="true" signature="2234:2606" ph="{...}" />
+                <marker date="1551682930456" expanded="true" signature="2749:3322" ph="{...}" />
+                <marker date="1551682930456" expanded="true" signature="3401:3563" ph="{...}" />
+                <marker date="1551682930456" expanded="true" signature="3481:3553" ph="{...}" />
+                <marker date="1551682930456" expanded="true" signature="3662:4043" ph="{...}" />
+                <marker date="1551682930456" expanded="true" signature="3842:3870" ph="{...}" />
+                <marker date="1551682930456" expanded="true" signature="3939:4033" ph="{...}" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/EvilBaschdi.Core.Tests/CachedValueForTests.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="ProjectConfigurationFiles">
+    <option name="files">
+      <list>
+        <option value="$PROJECT_DIR$/.idea/.idea.EvilBaschdi.Core/.idea/vcs.xml" />
+        <option value="$PROJECT_DIR$/.idea/.idea.EvilBaschdi.Core/.idea/indexLayout.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-2568" />
+    <option name="y" value="-8" />
+    <option name="width" value="2576" />
+    <option name="height" value="1416" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="SolutionExplorer" proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="FileSystemExplorer" />
+      <pane id="AssemblyExplorer" />
+      <pane id="SolutionExplorer">
+        <option name="show-all-files" value="false" />
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Rider.DefaultBreakpoints.AreToggled" value="true" />
+    <property name="Rider.ProjectViewActivator.IsNotFirstRun" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.appearance" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e4ea5883-c56b-4c28-988f-8bf068028527" name="Default Changelist" comment="" />
+      <created>1563032462451</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1563032462451</updated>
+      <workItem from="1563032471639" duration="633000" />
+      <workItem from="1563033485407" duration="33000" />
+      <workItem from="1563033577506" duration="68000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="734000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-2568" y="-8" width="2576" height="1416" extended-state="6" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13468415" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info id="Azure Explorer" order="3" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="NuGet" order="7" />
+      <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Database Changes" order="10" />
+      <window_info anchor="bottom" id="Unit Tests" order="11" weight="0.3297953" />
+      <window_info anchor="bottom" id="Terminal" order="12" />
+      <window_info anchor="bottom" id="Event Log" order="13" side_tool="true" />
+      <window_info anchor="bottom" id="Build" order="14" />
+      <window_info anchor="bottom" id="Azure Activity Log" order="15" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Errors In Solution" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="false" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="NUnit" />
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" suspend="NONE" type="DotNet Exception Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/EvilBaschdi.Core.Tests/CachedValueForTests.cs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="176">
+          <caret line="31" column="16" selection-start-line="31" selection-start-column="16" selection-end-line="31" selection-end-column="16" />
+          <folding>
+            <marker date="1551682930456" expanded="false" signature="6:97" ph="..." />
+            <marker date="1551682930456" expanded="true" signature="131:4051" ph="{...}" />
+            <marker date="1551682930456" expanded="true" signature="170:4049" ph="{...}" />
+            <marker date="1551682930456" expanded="true" signature="290:391" ph="{...}" />
+            <marker date="1551682930456" expanded="true" signature="498:593" ph="{...}" />
+            <marker date="1551682930456" expanded="true" signature="705:837" ph="{...}" />
+            <marker date="1551682930456" expanded="true" signature="1034:1217" ph="{...}" />
+            <marker date="1551682930456" expanded="true" signature="1057:1087" ph="/* Arrange ... */" />
+            <marker date="1551682930456" expanded="true" signature="1388:1607" ph="{...}" />
+            <marker date="1551682930456" expanded="true" signature="1411:1441" ph="/* Arrange ... */" />
+            <marker date="1551682930456" expanded="true" signature="1801:2097" ph="{...}" />
+            <marker date="1551682930456" expanded="true" signature="1824:1854" ph="/* Arrange ... */" />
+            <marker date="1551682930456" expanded="true" signature="2234:2606" ph="{...}" />
+            <marker date="1551682930456" expanded="true" signature="2749:3322" ph="{...}" />
+            <marker date="1551682930456" expanded="true" signature="3401:3563" ph="{...}" />
+            <marker date="1551682930456" expanded="true" signature="3481:3553" ph="{...}" />
+            <marker date="1551682930456" expanded="true" signature="3662:4043" ph="{...}" />
+            <marker date="1551682930456" expanded="true" signature="3842:3870" ph="{...}" />
+            <marker date="1551682930456" expanded="true" signature="3939:4033" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
