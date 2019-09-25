@@ -15,7 +15,7 @@ namespace EvilBaschdi.Core.Internal
         private readonly IMultiThreading _multiThreading;
 
         /// <summary>
-        ///     Initialisiert eine neue Instanz der <see cref="T:System.Object" />-Klasse.
+        ///     Constructor
         /// </summary>
         /// <exception cref="ArgumentNullException"><paramref name="multiThreading" /> is <see langword="null" />.</exception>
         public FileListFromPath(IMultiThreading multiThreading)
@@ -55,23 +55,26 @@ namespace EvilBaschdi.Core.Internal
 
             var fileList = new ConcurrentBag<string>();
 
-            if (initialDirectory.IsAccessible())
+            if (!initialDirectory.IsAccessible())
             {
-                //root directory.
-                var initialDirectoryFileList = Directory.GetFiles(initialDirectory).Select(item => item.ToLower()).ToList();
-                var dirList = initialDirectoryFileList.Where(file => IsValidFileName(file, fileList, fileListFromPathFilter)).ToList();
-                //sub directories.
-                var initialDirectorySubdirectoriesFileList = GetSubdirectoriesContainingOnlyFiles(initialDirectory).SelectMany(Directory.GetFiles).Select(item => item.ToLower());
-                var dirSubList = initialDirectorySubdirectoriesFileList.Where(file => IsValidFileName(file, fileList, fileListFromPathFilter)).ToList();
-
-                var processList = new List<string>();
-                processList.AddRange(dirList);
-                processList.AddRange(dirSubList);
-
-                _multiThreading.RunFor(processList,
-                    range => Parallel.For(range.Item1, range.Item2,
-                        i => { fileList.Add(processList[i]); }));
+                return fileList.ToList();
             }
+
+            //root directory.
+            var initialDirectoryFileList = Directory.GetFiles(initialDirectory).Select(item => item.ToLower()).ToList();
+            var dirList = initialDirectoryFileList.Where(file => IsValidFileName(file, fileList, fileListFromPathFilter)).ToList();
+            //sub directories.
+            var initialDirectorySubdirectoriesFileList = GetSubdirectoriesContainingOnlyFiles(initialDirectory).SelectMany(Directory.GetFiles).Select(item => item.ToLower());
+            var dirSubList = initialDirectorySubdirectoriesFileList.Where(file => IsValidFileName(file, fileList, fileListFromPathFilter)).ToList();
+
+            var processList = new List<string>();
+            processList.AddRange(dirList);
+            processList.AddRange(dirSubList);
+
+            _multiThreading.RunFor(processList,
+                // ReSharper disable once ImplicitlyCapturedClosure
+                range => Parallel.For(range.Item1, range.Item2,
+                    i => { fileList.Add(processList[i]); }));
 
             return fileList.ToList();
         }
@@ -104,18 +107,18 @@ namespace EvilBaschdi.Core.Internal
             var hasFileExtension = !string.IsNullOrWhiteSpace(fileExtension);
 
             //!Any() => all allowed; else => list has to contain extension, name or path
-            var includeExtention = includeExtensionList == null || !includeExtensionList.Any() || includeExtensionList.Contains(fileExtension);
+            var includeExtension = includeExtensionList == null || !includeExtensionList.Any() || includeExtensionList.Contains(fileExtension);
             var includeFileName = includeFileNameList == null || !includeFileNameList.Any() || includeFileNameList.Contains(fileName);
             var includeFilePath = includeFilePathList == null || !includeFilePathList.Any() || includeFilePathList.Contains(path);
 
             // .docx
-            var excludeExtention = excludeExtensionList != null && excludeExtensionList.Contains(fileExtension, StringComparer.InvariantCultureIgnoreCase);
+            var excludeExtension = excludeExtensionList != null && excludeExtensionList.Contains(fileExtension, StringComparer.InvariantCultureIgnoreCase);
             // ...file.x
             var excludeFileName = excludeFileNameList != null && excludeFileNameList.Any(p => fileName.Contains(p, StringComparison.InvariantCultureIgnoreCase));
             // C:\Temp\... 
             var excludeFilePath = excludeFilePathList != null && excludeFilePathList.Any(p => path.Contains(p, StringComparison.InvariantCultureIgnoreCase));
 
-            return alreadyContained && hasFileExtension && includeExtention && !excludeExtention && includeFileName && !excludeFileName && includeFilePath && !excludeFilePath;
+            return alreadyContained && hasFileExtension && includeExtension && !excludeExtension && includeFileName && !excludeFileName && includeFilePath && !excludeFilePath;
         }
     }
 }

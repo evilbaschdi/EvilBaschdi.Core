@@ -1,4 +1,6 @@
-﻿namespace EvilBaschdi.Core.Internal
+﻿using System;
+
+namespace EvilBaschdi.Core.Internal
 {
     /// <inheritdoc />
     public abstract class ChainHelperFor<TIn, TOut> : IChainHelperFor<TIn, TOut>
@@ -12,14 +14,17 @@
         /// <summary>
         ///     Initializes a new instance of the <see cref="T:System.Object" /> class.
         /// </summary>
+        /// <exception cref="ArgumentNullException"></exception>
         protected ChainHelperFor(IChainHelperFor<TIn, TOut> chainHelperFor)
         {
-            if (chainHelperFor == null)
-            {
-                //   throw new ArgumentNullException(nameof(chainHelperFor));
-            }
+            NextChain = chainHelperFor ?? throw new ArgumentNullException(nameof(chainHelperFor));
+        }
 
-            NextChain = chainHelperFor;
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="T:System.Object" /> class.
+        /// </summary>
+        protected ChainHelperFor()
+        {
         }
 
         /// <inheritdoc />
@@ -32,7 +37,7 @@
         public TOut ValueFor(TIn input)
         {
             Input = input;
-            return AmIResponsible ? InnerValueFor(input) : NextChain.ValueFor(input);
+            return AmIResponsible ? InnerValueFor(input) : NextChain != null ? NextChain.ValueFor(input) : default;
         }
 
 

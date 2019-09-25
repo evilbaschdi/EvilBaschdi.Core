@@ -10,13 +10,13 @@ namespace EvilBaschdi.Core.Extensions
     public static class StringExtensions
     {
         /// <summary>
-        ///     Contains <see cref="System.StringComparison" /> statt.
+        ///     Contains <see cref="StringComparison" />.
         /// </summary>
-        /// <param name="source">Die Zeichenfolge in der gesucht werden soll.</param>
-        /// <param name="value">Die zu suchende Zeichenfolge.</param>
-        /// <param name="comparisonType">Der Modus der beim Vergleichen angewendet werden soll.</param>
+        /// <param name="source">The string to seek in.</param>
+        /// <param name="value">The string to seek.</param>
+        /// <param name="comparisonType">One of the enumeration values that specifies the rules for the search.</param>
         /// <returns>
-        ///     <c>true</c> wenn <paramref name="value" /> in <paramref name="source" /> gefunden wurde; andernfalls
+        ///     <c>true</c> if <paramref name="value" /> is found in <paramref name="source" />; else
         ///     <c>false</c>
         /// </returns>
         public static bool Contains(this string source, string value, StringComparison comparisonType)
@@ -25,14 +25,17 @@ namespace EvilBaschdi.Core.Extensions
             {
                 throw new ArgumentNullException(nameof(source));
             }
+
             if (value == null)
             {
                 throw new ArgumentNullException(nameof(value));
             }
+
             if (!Enum.IsDefined(typeof(StringComparison), comparisonType))
             {
-                throw new InvalidEnumArgumentException(nameof(comparisonType), (int)comparisonType, typeof(StringComparison));
+                throw new InvalidEnumArgumentException(nameof(comparisonType), (int) comparisonType, typeof(StringComparison));
             }
+
             return source.IndexOf(value, comparisonType) >= 0;
         }
 
