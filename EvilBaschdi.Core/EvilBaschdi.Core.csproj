@@ -11,7 +11,7 @@
     <RepositoryUrl>https://github.com/evilbaschdi/EvilBaschdi.Core</RepositoryUrl>
     <PackageTags>Core</PackageTags>
     <Description>Core assembly package</Description>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>8</LangVersion>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\EvilBaschdi.Core.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
