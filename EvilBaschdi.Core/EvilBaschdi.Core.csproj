@@ -1,9 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net4;net45;net451;net452;net46</TargetFrameworks>
-    <TieredCompilation>true</TieredCompilation>
     <Authors>Sebastian Walter</Authors>
-    <Company>evilbaschdi</Company>
+    <Company>evilbaschdi (Sebastian Walter)</Company>
     <PackageId>EvilBaschdi.Core</PackageId>
     <Version>$([System.DateTime]::UtcNow.AddHours(2).ToString(yyyy.M.d.Hmm))-develop</Version>
     <Copyright>Copyright © 2015 - $([System.DateTime]::UtcNow.ToString(yyyy)) evilbaschdi</Copyright>
