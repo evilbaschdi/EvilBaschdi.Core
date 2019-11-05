@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using AutoFixture.Idioms;
-using AutoFixture.Xunit2;
+using EvilBaschdi.Testing;
 using Xunit;
 
 namespace EvilBaschdi.Core.Tests
@@ -9,28 +9,28 @@ namespace EvilBaschdi.Core.Tests
     public class CachedValueForTests
     {
         [Theory]
-        [AutoData]
+        [NSubstituteOmitAutoPropertiesTrueAutoData]
         public void Constructor_HasNullGuards(GuardClauseAssertion assertion)
         {
             assertion.Verify(typeof(CachedValueForTestClass).GetConstructors());
         }
 
         [Theory]
-        [AutoData]
+        [NSubstituteOmitAutoPropertiesTrueAutoData]
         public void Constructor_ReturnsI(CachedValueForTestClass sut)
         {
             Assert.IsAssignableFrom<ICachedValueFor<string, string>>(sut);
         }
 
         [Theory]
-        [AutoData]
+        [NSubstituteOmitAutoPropertiesTrueAutoData]
         public void Methods_HaveNullGuards(GuardClauseAssertion assertion)
         {
             assertion.Verify(typeof(CachedValueForTestClass).GetMethods().Where(method => !method.IsAbstract));
         }
 
         [Theory]
-        [AutoData]
+        [NSubstituteOmitAutoPropertiesTrueAutoData]
         public void ValueFor_DictionaryDoesNotContainKey_AddedToDictionary_ReturnsCachedValue(
             string key,
             CachedValueForTestClass sut)
@@ -45,7 +45,7 @@ namespace EvilBaschdi.Core.Tests
         }
 
         [Theory]
-        [AutoData]
+        [NSubstituteOmitAutoPropertiesTrueAutoData]
         public void ValueFor_DictionaryContainsKey_ReturnsSameValue(
             string key,
             CachedValueForTestClass sut)
@@ -61,7 +61,7 @@ namespace EvilBaschdi.Core.Tests
         }
 
         [Theory]
-        [AutoData]
+        [NSubstituteOmitAutoPropertiesTrueAutoData]
         public void ValueFor_DictionaryContainsKey_ResetsCache_ReturnsNotSameButEqualValue(
             string key,
             CachedValueForTestClass sut)
@@ -79,7 +79,7 @@ namespace EvilBaschdi.Core.Tests
         }
 
         [Theory]
-        [AutoData]
+        [NSubstituteOmitAutoPropertiesTrueAutoData]
         public void ValueFor_ReturnsDefaultValue_CachesDefaultValue(
             string dummyValue)
         {
@@ -97,7 +97,7 @@ namespace EvilBaschdi.Core.Tests
         }
 
         [Theory]
-        [AutoData]
+        [NSubstituteOmitAutoPropertiesTrueAutoData]
         public void ValueFor_ReturnsDefaultValue_DoesNotCacheDefaultValue(
             string dummyValue)
         {

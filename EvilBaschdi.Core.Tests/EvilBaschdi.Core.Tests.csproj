@@ -6,10 +6,11 @@
     <TieredCompilation>true</TieredCompilation>
     <IsTestProject>true</IsTestProject>
     <NoWarn>1701;1702</NoWarn>
-    <Version>$([System.DateTime]::UtcNow.AddHours(2).ToString(yyyy.M.d.Hmm))-develop</Version>
+    <Version>$([System.DateTime]::UtcNow.ToString(yyyy.M.d.Hmm))-develop</Version>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EvilBaschdi.Testing" Version="2019.11.4.50-develop" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.3.0" />
     <PackageReference Include="Microsoft.CodeCoverage" Version="16.3.0" />
     <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="16.3.0" />
