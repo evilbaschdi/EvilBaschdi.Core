@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Text;
 
 namespace EvilBaschdi.Core.Extensions
 {
@@ -130,6 +131,17 @@ namespace EvilBaschdi.Core.Extensions
             }
 
             return value.Length > count ? value.Remove(0, count) : value;
+        }
+
+        /// <summary>
+        ///     Decodes a given string to UTF8
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
+        public static string DecodeString(this string input)
+        {
+            var bytes = Encoding.Default.GetBytes(input);
+            return Encoding.UTF8.GetString(bytes);
         }
     }
 }
