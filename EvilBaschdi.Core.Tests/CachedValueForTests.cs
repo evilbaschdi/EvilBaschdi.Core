@@ -2,6 +2,7 @@
 using System.Linq;
 using AutoFixture.Idioms;
 using EvilBaschdi.Testing;
+using FluentAssertions;
 using Xunit;
 
 namespace EvilBaschdi.Core.Tests
@@ -19,7 +20,7 @@ namespace EvilBaschdi.Core.Tests
         [NSubstituteOmitAutoPropertiesTrueAutoData]
         public void Constructor_ReturnsI(CachedValueForTestClass sut)
         {
-            Assert.IsAssignableFrom<ICachedValueFor<string, string>>(sut);
+            sut.Should().BeAssignableTo<ICachedValueFor<string, string>>();
         }
 
         [Theory]
@@ -41,7 +42,7 @@ namespace EvilBaschdi.Core.Tests
             var result = sut.ValueFor(key);
 
             // Assert
-            Assert.Equal($"result = {key}", result);
+            result.Should().Be($"result = {key}");
         }
 
         [Theory]
@@ -57,7 +58,7 @@ namespace EvilBaschdi.Core.Tests
             var result2 = sut.ValueFor(key);
 
             // Assert
-            Assert.Same(result2, result1);
+            result2.Should().BeSameAs(result1);
         }
 
         [Theory]
@@ -74,8 +75,8 @@ namespace EvilBaschdi.Core.Tests
             var result2 = sut.ValueFor(key);
 
             // Assert
-            Assert.NotSame(result2, result1);
-            Assert.Equal(result2, result1);
+            result2.Should().Be(result1);
+            result2.Should().NotBeSameAs(result1);
         }
 
         [Theory]
@@ -92,8 +93,8 @@ namespace EvilBaschdi.Core.Tests
 
 
             // Assert            
-            Assert.Equal(1, sut.CallCounter);
-            Assert.Equal(result2, result1);
+            sut.CallCounter.Should().Be(1);
+            result2.Should().Be(result1);
         }
 
         [Theory]
@@ -113,8 +114,8 @@ namespace EvilBaschdi.Core.Tests
 #pragma warning disable xUnit2005 // Do not use identity check on value type
             Assert.NotSame(result2, result1);
 #pragma warning restore xUnit2005 // Do not use identity check on value type
-            Assert.Equal(2, sut.CallCounter);
-            Assert.Equal(result2, result1);
+            sut.CallCounter.Should().Be(2);
+            result2.Should().Be(result1);
         }
 
         public class CachedValueForTestClass : CachedValueFor<string, string>
