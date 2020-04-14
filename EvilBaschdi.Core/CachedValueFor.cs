@@ -20,7 +20,7 @@ namespace EvilBaschdi.Core
         {
         }
 
-        /// <inheritdoc />
+
         /// <summary />
         /// <param name="cacheDefaultValue"></param>
         protected CachedValueFor(bool cacheDefaultValue)
@@ -54,9 +54,7 @@ namespace EvilBaschdi.Core
             return nonCachedValue;
         }
 
-        /// <inheritdoc>
-        ///     <cref></cref>
-        /// </inheritdoc>
+
         /// <summary>
         ///     Resets the Cache
         /// </summary>
