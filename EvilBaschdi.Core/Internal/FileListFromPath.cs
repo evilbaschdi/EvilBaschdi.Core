@@ -3,25 +3,17 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using EvilBaschdi.Core.Extensions;
 using EvilBaschdi.Core.Model;
+using JetBrains.Annotations;
 
 namespace EvilBaschdi.Core.Internal
 {
     /// <inheritdoc />
     public class FileListFromPath : IFileListFromPath
     {
-        private readonly IMultiThreading _multiThreading;
-
-        /// <summary>
-        ///     Constructor
-        /// </summary>
-        /// <exception cref="ArgumentNullException"><paramref name="multiThreading" /> is <see langword="null" />.</exception>
-        public FileListFromPath(IMultiThreading multiThreading)
-        {
-            _multiThreading = multiThreading ?? throw new ArgumentNullException(nameof(multiThreading));
-        }
+        private ConcurrentBag<string> _fileList;
+        private FileListFromPathFilter _fileListFromPathFilter = new FileListFromPathFilter();
 
         /// <inheritdoc />
         /// <summary>
@@ -30,95 +22,110 @@ namespace EvilBaschdi.Core.Internal
         /// <param name="path"></param>
         /// <returns></returns>
         /// <exception cref="T:System.ArgumentNullException"><paramref name="path" /> is <see langword="null" />.</exception>
-        public IEnumerable<string> GetSubdirectoriesContainingOnlyFiles(string path)
+        public IEnumerable<string> GetSubdirectoriesContainingOnlyFiles([NotNull] string path)
         {
             if (path == null)
             {
                 throw new ArgumentNullException(nameof(path));
             }
 
-            return Directory.GetDirectories(path, "*", SearchOption.AllDirectories).Where(dir => dir.IsAccessible()).ToList();
+            var include = _fileListFromPathFilter.FilterFilePathsToEqual ?? new List<string>();
+            var exclude = _fileListFromPathFilter.FilterFilePathsNotToEqual ?? new List<string>();
+
+            var list = new List<string>();
+            var directories = Directory.GetDirectories(path, "*", SearchOption.AllDirectories).Where(dir => dir.IsAccessible()).ToList();
+
+            foreach (var directory in directories)
+            {
+                if (include.Any() || exclude.Any())
+                {
+                    list.AddRange(from item in include
+                                  where directory.EndsWith($@"\{item}", StringComparison.OrdinalIgnoreCase) ||
+                                        directory.Contains($@"\{item}\", StringComparison.OrdinalIgnoreCase)
+                                  select directory);
+                    list.AddRange(from item in exclude
+                                  where !directory.EndsWith($@"\{item}", StringComparison.OrdinalIgnoreCase) &&
+                                        !directory.Contains($@"\{item}\", StringComparison.OrdinalIgnoreCase)
+                                  select directory);
+                }
+                else
+                {
+                    list.Add(directory);
+                }
+            }
+
+            return list.Distinct();
         }
 
         /// <inheritdoc />
-        public List<string> ValueFor(string initialDirectory, FileListFromPathFilter fileListFromPathFilter)
+        public List<string> ValueFor([NotNull] string initialDirectory)
         {
             if (initialDirectory == null)
             {
                 throw new ArgumentNullException(nameof(initialDirectory));
             }
 
-            if (fileListFromPathFilter == null)
+            return ValueFor(initialDirectory, new FileListFromPathFilter());
+        }
+
+        /// <inheritdoc />
+        public List<string> ValueFor([NotNull] string initialDirectory, [NotNull] FileListFromPathFilter fileListFromPathFilter)
+        {
+            if (initialDirectory == null)
             {
-                throw new ArgumentNullException(nameof(fileListFromPathFilter));
+                throw new ArgumentNullException(nameof(initialDirectory));
             }
 
-            var fileList = new ConcurrentBag<string>();
+            _fileList = new ConcurrentBag<string>();
+            _fileListFromPathFilter = fileListFromPathFilter ?? throw new ArgumentNullException(nameof(fileListFromPathFilter));
 
             if (!initialDirectory.IsAccessible())
             {
-                return fileList.ToList();
+                return _fileList.ToList();
             }
 
             //root directory.
             var initialDirectoryFileList = Directory.GetFiles(initialDirectory).Select(item => item.ToLower()).ToList();
-            var dirList = initialDirectoryFileList.Where(file => IsValidFileName(file, fileList, fileListFromPathFilter)).ToList();
+            var dirList = initialDirectoryFileList.Where(FileIsValid).ToList();
             //sub directories.
             var initialDirectorySubdirectoriesFileList = GetSubdirectoriesContainingOnlyFiles(initialDirectory).SelectMany(Directory.GetFiles).Select(item => item.ToLower());
-            var dirSubList = initialDirectorySubdirectoriesFileList.Where(file => IsValidFileName(file, fileList, fileListFromPathFilter)).ToList();
+            var dirSubList = initialDirectorySubdirectoriesFileList.Where(FileIsValid).ToList();
 
-            var processList = new List<string>();
-            processList.AddRange(dirList);
-            processList.AddRange(dirSubList);
+            _fileList.AddRange(dirList);
+            _fileList.AddRange(dirSubList);
 
-            _multiThreading.RunFor(processList,
-                // ReSharper disable once ImplicitlyCapturedClosure
-                range => Parallel.For(range.Item1, range.Item2,
-                    i => { fileList.Add(processList[i]); }));
-
-            return fileList.ToList();
+            return _fileList.ToList();
         }
 
-        private bool IsValidFileName(string file, ConcurrentBag<string> fileList, FileListFromPathFilter fileListFromPathFilter)
+        private bool FileIsValid([NotNull] string file)
         {
             if (file == null)
             {
                 throw new ArgumentNullException(nameof(file));
             }
 
-            if (fileList == null)
-            {
-                throw new ArgumentNullException(nameof(fileList));
-            }
+            var includeExtensionList = _fileListFromPathFilter.FilterExtensionsToEqual ?? new List<string>();
+            var excludeExtensionList = _fileListFromPathFilter.FilterExtensionsNotToEqual ?? new List<string>();
+            var includeFileNameList = _fileListFromPathFilter.FilterFileNamesToEqual ?? new List<string>();
+            var excludeFileNameList = _fileListFromPathFilter.FilterFileNamesNotToEqual ?? new List<string>();
 
-            var includeExtensionList = fileListFromPathFilter.FilterExtensionsToEqual;
-            var excludeExtensionList = fileListFromPathFilter.FilterExtensionsNotToEqual;
-            var includeFileNameList = fileListFromPathFilter.FilterFileNamesToEqual;
-            var excludeFileNameList = fileListFromPathFilter.FilterFileNamesNotToEqual;
-            var includeFilePathList = fileListFromPathFilter.FilterFilePathsToEqual;
-            var excludeFilePathList = fileListFromPathFilter.FilterFilePathsNotToEqual;
-
-            var path = file.ToLower();
             var fileInfo = new FileInfo(file);
             var fileName = fileInfo.Name.ToLower();
             var fileExtension = fileInfo.Extension.ToLower().TrimStart('.');
 
-            var alreadyContained = !fileList.Contains(file);
+            var alreadyContained = !_fileList.Contains(file);
             var hasFileExtension = !string.IsNullOrWhiteSpace(fileExtension);
 
             //!Any() => all allowed; else => list has to contain extension, name or path
-            var includeExtension = includeExtensionList == null || !includeExtensionList.Any() || includeExtensionList.Contains(fileExtension);
-            var includeFileName = includeFileNameList == null || !includeFileNameList.Any() || includeFileNameList.Contains(fileName);
-            var includeFilePath = includeFilePathList == null || !includeFilePathList.Any() || includeFilePathList.Contains(path);
+            var includeExtension = !includeExtensionList.Any() || includeExtensionList.Contains(fileExtension);
+            var includeFileName = !includeFileNameList.Any() || includeFileNameList.Contains(fileName);
 
             // .docx
-            var excludeExtension = excludeExtensionList != null && excludeExtensionList.Contains(fileExtension, StringComparer.InvariantCultureIgnoreCase);
+            var excludeExtension = excludeExtensionList.Contains(fileExtension, StringComparer.InvariantCultureIgnoreCase);
             // ...file.x
-            var excludeFileName = excludeFileNameList != null && excludeFileNameList.Any(p => fileName.Contains(p, StringComparison.InvariantCultureIgnoreCase));
-            // C:\Temp\... 
-            var excludeFilePath = excludeFilePathList != null && excludeFilePathList.Any(p => path.Contains(p, StringComparison.InvariantCultureIgnoreCase));
+            var excludeFileName = excludeFileNameList.Any(p => fileName.Contains(p, StringComparison.InvariantCultureIgnoreCase));
 
-            return alreadyContained && hasFileExtension && includeExtension && !excludeExtension && includeFileName && !excludeFileName && includeFilePath && !excludeFilePath;
+            return alreadyContained && hasFileExtension && includeExtension && !excludeExtension && includeFileName && !excludeFileName;
         }
     }
 }
