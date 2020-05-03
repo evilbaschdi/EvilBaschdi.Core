@@ -18,7 +18,7 @@
     <RepositoryUrl>https://github.com/evilbaschdi/EvilBaschdi.Core</RepositoryUrl>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net4;net45;net451;net452;net46</TargetFrameworks>
     <Title>EvilBaschdi.Core</Title>
-    <Version>$([System.DateTime]::UtcNow.ToString(yyyy.M.d.Hmm))-develop</Version>
+    <Version>$([System.DateTime]::UtcNow.ToString(yyyy.M.d.Hmm))</Version>
   </PropertyGroup>
   <ItemGroup>
     <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
