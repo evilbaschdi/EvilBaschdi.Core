@@ -8,7 +8,7 @@
     <!-- ReSharper disable once UnknownProperty -->
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\EvilBaschdi.Core.xml</DocumentationFile>
     <IsPackable>true</IsPackable>
-    <LangVersion>8</LangVersion>
+    <LangVersion>preview</LangVersion>
     <PackageIcon>icon.png</PackageIcon>
     <PackageIconUrl><![CDATA[https://avatars1.githubusercontent.com/u/1897807?s=120&v=4]]></PackageIconUrl>
     <PackageId>EvilBaschdi.Core</PackageId>
@@ -16,8 +16,7 @@
     <PackageTags>Core</PackageTags>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryUrl>https://github.com/evilbaschdi/EvilBaschdi.Core</RepositoryUrl>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net4;net45;net451;net452;net46</TargetFrameworks>
-    <Title>EvilBaschdi.Core</Title>
+    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
     <Version>$([System.DateTime]::UtcNow.ToString(yyyy.M.d.Hmm))</Version>
   </PropertyGroup>
   <ItemGroup>

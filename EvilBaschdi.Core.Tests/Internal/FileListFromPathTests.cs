@@ -1,15 +1,11 @@
-using EvilBaschdi.Core.Internal;
-using NSubstitute;
-using System;
 using System.Collections.Generic;
-using Xunit;
 using System.Linq;
 using AutoFixture.Idioms;
-using AutoFixture.Xunit2;
+using EvilBaschdi.Core.Internal;
 using EvilBaschdi.Core.Model;
 using EvilBaschdi.Testing;
 using FluentAssertions;
-using Xunit.Extensions;
+using Xunit;
 
 namespace EvilBaschdi.Core.Tests.Internal
 {

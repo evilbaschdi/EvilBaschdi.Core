@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using JetBrains.Annotations;
 
 namespace EvilBaschdi.Core.Extensions
 {
@@ -11,6 +12,7 @@ namespace EvilBaschdi.Core.Extensions
         /// </summary>
         /// <param name="fileInfo"></param>
         /// <returns></returns>
+        [CanBeNull]
         public static string GetProperFilePathCapitalization(this FileInfo fileInfo)
         {
             var dirInfo = fileInfo.Directory;
