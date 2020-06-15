@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5</TargetFramework>
     <IsPackable>false</IsPackable>
     <TieredCompilation>true</TieredCompilation>
     <IsTestProject>true</IsTestProject>
@@ -24,11 +24,11 @@
     <PackageReference Include="Fare" Version="2.1.2" />
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
     <PackageReference Include="NCrunch.Framework" Version="4.0.0.1" />
-    <PackageReference Include="NSubstitute" Version="4.2.1" />
+    <PackageReference Include="NSubstitute" Version="4.2.2" />
     <PackageReference Include="NSubstitute.Analyzers.CSharp" Version="1.0.13" />
     <PackageReference Include="System.ValueTuple" version="4.5.0" />
     <PackageReference Include="xunit" Version="2.4.2-pre.build.4151" />
-    <PackageReference Include="xunit.analyzers" Version="0.11.0-pre.37" />
+    <PackageReference Include="xunit.analyzers" Version="0.11.0-pre.40" />
     <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="5.0.0-preview.5.20278.1" />
     <PackageReference Include="xunit.runner.console" Version="2.4.2-pre.build.4151">
       <PrivateAssets>all</PrivateAssets>
