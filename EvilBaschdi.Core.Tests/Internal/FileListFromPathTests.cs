@@ -68,7 +68,7 @@ namespace EvilBaschdi.Core.Tests.Internal
             var result = sut.ValueFor(@"C:\temp", filePathFilter);
 
             // Assert
-            result.Should().HaveCount(8);
+            result.Should().HaveCount(9);
         }
 
         [Theory, NSubstituteOmitAutoPropertiesTrueAutoData]

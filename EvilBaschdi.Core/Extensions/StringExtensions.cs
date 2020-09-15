@@ -41,7 +41,7 @@ namespace EvilBaschdi.Core.Extensions
         }
 
         /// <summary>
-        ///     Replace with <see cref="System.StringComparison" />
+        ///     Replace with <see cref="StringComparison" />
         /// </summary>
         /// <param name="source"></param>
         /// <param name="oldValue"></param>

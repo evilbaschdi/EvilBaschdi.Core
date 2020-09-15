@@ -51,37 +51,23 @@ namespace EvilBaschdi.Core.Extensions
 
 
             // ReSharper disable once SwitchStatementMissingSomeCases
-            switch (major)
+            return major switch
             {
-                case 4 when minor == 0 && build == 950:
-                    return "Win95 Release 1";
-                case 4 when minor == 0 && build == 1111:
-                    return "Win95 Release 2";
-                case 4 when minor == 3 && (build == 1212 || build == 1213 || build == 1214):
-                    return "Win95 Release 2.1";
-                case 4 when minor == 10 && build == 1998:
-                    return "Win98";
-                case 4 when minor == 10 && build == 2222:
-                    return "Win98 Second Edition";
-                case 4 when minor == 90:
-                    return "WinMe";
-                case 5 when minor == 0:
-                    return "Win2000";
-                case 5 when minor == 1 && build == 2600:
-                    return "WinXP";
-                case 6 when minor == 0:
-                    return "Vista";
-                case 6 when minor == 1:
-                    return "Win7";
-                case 6 when minor == 2 && build == 9200:
-                    return "Win8";
-                case 6 when minor == 3 && build == 9600:
-                    return "Win8.1";
-                case 10 when minor == 0 && build >= 10240:
-                    return "Win10";
-            }
-
-            return "Can not find os version.";
+                4 when minor == 0 && build == 950 => "Win95 Release 1",
+                4 when minor == 0 && build == 1111 => "Win95 Release 2",
+                4 when minor == 3 && (build == 1212 || build == 1213 || build == 1214) => "Win95 Release 2.1",
+                4 when minor == 10 && build == 1998 => "Win98",
+                4 when minor == 10 && build == 2222 => "Win98 Second Edition",
+                4 when minor == 90 => "WinMe",
+                5 when minor == 0 => "Win2000",
+                5 when minor == 1 && build == 2600 => "WinXP",
+                6 when minor == 0 => "Vista",
+                6 when minor == 1 => "Win7",
+                6 when minor == 2 && build == 9200 => "Win8",
+                6 when minor == 3 && build == 9600 => "Win8.1",
+                10 when minor == 0 && build >= 10240 => "Win10",
+                _ => "Can not find os version.",
+            };
         }
     }
 }

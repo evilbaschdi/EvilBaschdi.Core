@@ -24,31 +24,36 @@ namespace EvilBaschdi.Core.Internal
         /// <exception cref="T:System.ArgumentNullException"><paramref name="path" /> is <see langword="null" />.</exception>
         public IEnumerable<string> GetSubdirectoriesContainingOnlyFiles([NotNull] string path)
         {
-            if (path == null) throw new ArgumentNullException(nameof(path));
+            if (path == null)
+            {
+                throw new ArgumentNullException(nameof(path));
+            }
 
             var include = _fileListFromPathFilter.FilterFilePathsToEqual ?? new List<string>();
             var exclude = _fileListFromPathFilter.FilterFilePathsNotToEqual ?? new List<string>();
 
             var list = new List<string>();
             var directories = Directory.GetDirectories(path, "*", SearchOption.AllDirectories)
-                .Where(dir => dir.IsAccessible()).ToList();
+                                       .Where(dir => dir.IsAccessible()).ToList();
 
             foreach (var directory in directories)
+            {
                 if (include.Any() || exclude.Any())
                 {
                     list.AddRange(from item in include
-                        where directory.EndsWith($@"\{item}", StringComparison.OrdinalIgnoreCase) ||
-                              directory.Contains($@"\{item}\", StringComparison.OrdinalIgnoreCase)
-                        select directory);
+                                  where directory.EndsWith($@"\{item}", StringComparison.OrdinalIgnoreCase) ||
+                                        directory.Contains($@"\{item}\", StringComparison.OrdinalIgnoreCase)
+                                  select directory);
                     list.AddRange(from item in exclude
-                        where !directory.EndsWith($@"\{item}", StringComparison.OrdinalIgnoreCase) &&
-                              !directory.Contains($@"\{item}\", StringComparison.OrdinalIgnoreCase)
-                        select directory);
+                                  where !directory.EndsWith($@"\{item}", StringComparison.OrdinalIgnoreCase) &&
+                                        !directory.Contains($@"\{item}\", StringComparison.OrdinalIgnoreCase)
+                                  select directory);
                 }
                 else
                 {
                     list.Add(directory);
                 }
+            }
 
             return list.Distinct();
         }
@@ -56,29 +61,38 @@ namespace EvilBaschdi.Core.Internal
         /// <inheritdoc />
         public List<string> ValueFor([NotNull] string initialDirectory)
         {
-            if (initialDirectory == null) throw new ArgumentNullException(nameof(initialDirectory));
+            if (initialDirectory == null)
+            {
+                throw new ArgumentNullException(nameof(initialDirectory));
+            }
 
             return ValueFor(initialDirectory, new FileListFromPathFilter());
         }
 
         /// <inheritdoc />
         public List<string> ValueFor([NotNull] string initialDirectory,
-            [NotNull] FileListFromPathFilter fileListFromPathFilter)
+                                     [NotNull] FileListFromPathFilter fileListFromPathFilter)
         {
-            if (initialDirectory == null) throw new ArgumentNullException(nameof(initialDirectory));
+            if (initialDirectory == null)
+            {
+                throw new ArgumentNullException(nameof(initialDirectory));
+            }
 
             _fileListFromPathFilter =
                 fileListFromPathFilter ?? throw new ArgumentNullException(nameof(fileListFromPathFilter));
             _fileList = new ConcurrentBag<string>();
 
-            if (!initialDirectory.IsAccessible()) return _fileList.ToList();
+            if (!initialDirectory.IsAccessible())
+            {
+                return _fileList.ToList();
+            }
 
             //root directory.
             var initialDirectoryFileList = Directory.GetFiles(initialDirectory).Select(item => item.ToLower()).ToList();
             var dirList = initialDirectoryFileList.Where(FileIsValid).ToList();
             //sub directories.
             var initialDirectorySubdirectoriesFileList = GetSubdirectoriesContainingOnlyFiles(initialDirectory)
-                ?.SelectMany(Directory.GetFiles).Select(item => item.ToLower());
+                                                         ?.SelectMany(Directory.GetFiles).Select(item => item.ToLower());
             var dirSubList = initialDirectorySubdirectoriesFileList?.Where(FileIsValid).ToList();
 
             _fileList.AddRange(dirList);
@@ -89,7 +103,10 @@ namespace EvilBaschdi.Core.Internal
 
         private bool FileIsValid([NotNull] string file)
         {
-            if (file == null) throw new ArgumentNullException(nameof(file));
+            if (file == null)
+            {
+                throw new ArgumentNullException(nameof(file));
+            }
 
             var includeExtensionList = _fileListFromPathFilter.FilterExtensionsToEqual ?? new List<string>();
             var excludeExtensionList = _fileListFromPathFilter.FilterExtensionsNotToEqual ?? new List<string>();
