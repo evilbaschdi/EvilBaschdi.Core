@@ -1,30 +1,52 @@
-# .NET Desktop
-# Build and run tests for .NET Desktop or Windows classic desktop solutions.
-# Add steps that publish symbols, save build artifacts, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
-
 pool:
-  vmImage: 'VS2017-Win2016'
-
-variables:
-  solution: '**/*.sln'
-  buildPlatform: 'Any CPU'
-  buildConfiguration: 'Release'
+  name: Hosted Windows 2019 with VS2019
+#Your build pipeline references an undefined variable named ‘BuildConfiguration’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
 
 steps:
-- task: NuGetToolInstaller@0
-
-- task: NuGetCommand@2
+- task: UseDotNet@2
+  displayName: 'Use .Net Core sdk from global.json'
   inputs:
-    restoreSolution: '$(solution)'
+    useGlobalJson: true
 
-- task: VSBuild@1
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet restore'
   inputs:
-    solution: '$(solution)'
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: restore
+    projects: EvilBaschdi.Core/EvilBaschdi.Core.csproj
+    feedsToUse: config
+    nugetConfigPath: NuGet.config
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet build'
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    projects: EvilBaschdi.Core/EvilBaschdi.Core.csproj
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet test'
+  inputs:
+    command: test
+    projects: EvilBaschdi.Core.Tests/EvilBaschdi.Core.Tests.csproj
+  enabled: false
+  continueOnError: true
+
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet pack'
+  inputs:
+    command: pack
+    packagesToPack: EvilBaschdi.Core/EvilBaschdi.Core.csproj
+    nobuild: true
+
+- powershell: |
+   $gitPat = '$(System.AccessToken)'
+   git remote add github https://$gitPat@github.com/evilbaschdi/EvilBaschdi.Core
+   git push github --all
+   git push github --tags
+  displayName: 'PowerShell Script'
+  enabled: false
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: Nuget-Package'
+  inputs:
+    ArtifactName: 'Nuget-Package'
+
