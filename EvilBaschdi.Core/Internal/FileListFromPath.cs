@@ -10,10 +10,11 @@ using JetBrains.Annotations;
 namespace EvilBaschdi.Core.Internal
 {
     /// <inheritdoc />
+    // ReSharper disable once UnusedType.Global
     public class FileListFromPath : IFileListFromPath
     {
         private ConcurrentBag<string> _fileList;
-        private FileListFromPathFilter _fileListFromPathFilter = new FileListFromPathFilter();
+        private FileListFromPathFilter _fileListFromPathFilter = new();
 
         /// <inheritdoc />
         /// <summary>
@@ -58,6 +59,7 @@ namespace EvilBaschdi.Core.Internal
             return list.Distinct();
         }
 
+        /// <exception cref="ArgumentNullException"></exception>
         /// <inheritdoc />
         public List<string> ValueFor([NotNull] string initialDirectory)
         {
@@ -69,6 +71,7 @@ namespace EvilBaschdi.Core.Internal
             return ValueFor(initialDirectory, new FileListFromPathFilter());
         }
 
+        /// <exception cref="ArgumentNullException"></exception>
         /// <inheritdoc />
         public List<string> ValueFor([NotNull] string initialDirectory,
                                      [NotNull] FileListFromPathFilter fileListFromPathFilter)

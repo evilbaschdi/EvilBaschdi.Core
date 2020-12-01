@@ -12,6 +12,7 @@ namespace EvilBaschdi.Core.Internal
         /// </summary>
         /// <param name="path"></param>
         /// <returns></returns>
+        // ReSharper disable once UnusedMemberInSuper.Global
         IEnumerable<string> GetSubdirectoriesContainingOnlyFiles(string path);
     }
 }

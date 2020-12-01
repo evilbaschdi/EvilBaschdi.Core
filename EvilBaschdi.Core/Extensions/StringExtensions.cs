@@ -1,7 +1,6 @@
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Text;
+using JetBrains.Annotations;
 
 namespace EvilBaschdi.Core.Extensions
 {
@@ -11,36 +10,6 @@ namespace EvilBaschdi.Core.Extensions
     public static class StringExtensions
     {
         /// <summary>
-        ///     Contains <see cref="StringComparison" />.
-        /// </summary>
-        /// <param name="source">The string to seek in.</param>
-        /// <param name="value">The string to seek.</param>
-        /// <param name="comparisonType">One of the enumeration values that specifies the rules for the search.</param>
-        /// <returns>
-        ///     <c>true</c> if <paramref name="value" /> is found in <paramref name="source" />; else
-        ///     <c>false</c>
-        /// </returns>
-        public static bool Contains(this string source, string value, StringComparison comparisonType)
-        {
-            if (source == null)
-            {
-                throw new ArgumentNullException(nameof(source));
-            }
-
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
-
-            if (!Enum.IsDefined(typeof(StringComparison), comparisonType))
-            {
-                throw new InvalidEnumArgumentException(nameof(comparisonType), (int) comparisonType, typeof(StringComparison));
-            }
-
-            return source.IndexOf(value, comparisonType) >= 0;
-        }
-
-        /// <summary>
         ///     Replace with <see cref="StringComparison" />
         /// </summary>
         /// <param name="source"></param>
@@ -48,8 +17,19 @@ namespace EvilBaschdi.Core.Extensions
         /// <param name="newValue"></param>
         /// <param name="comparisonType"></param>
         /// <returns></returns>
-        public static string Replace(this string source, string oldValue, string newValue, StringComparison comparisonType)
+        // ReSharper disable once UnusedMember.Global
+        public static string Replace([NotNull] this string source, [NotNull] string oldValue, string newValue, StringComparison comparisonType)
         {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            if (oldValue == null)
+            {
+                throw new ArgumentNullException(nameof(oldValue));
+            }
+
             var index = source.IndexOf(oldValue, comparisonType);
 
             // Determine if we found a match
@@ -70,32 +50,13 @@ namespace EvilBaschdi.Core.Extensions
         }
 
         /// <summary>
-        /// </summary>
-        /// <param name="value"></param>
-        /// <param name="separator"></param>
-        /// <returns></returns>
-        public static IEnumerable<string> SplitToEnumerable(this string value, string separator)
-        {
-            var list = new List<string>();
-            if (value.Contains(separator))
-            {
-                list.AddRange(value.Split(separator.ToCharArray()[0]));
-            }
-            else
-            {
-                list.Add(value);
-            }
-
-            return list;
-        }
-
-        /// <summary>
         ///     Returns a new string in which a specified number of characters in the current instance beginning at from right have
         ///     been deleted.
         /// </summary>
         /// <param name="value">The string to modify to this instance. </param>
         /// <param name="count">The number of characters to delete. </param>
         /// <returns></returns>
+        // ReSharper disable once UnusedMember.Global
         public static string RemoveRight(this string value, int count)
         {
             if (value == null)
@@ -118,6 +79,7 @@ namespace EvilBaschdi.Core.Extensions
         /// <param name="value">The string to modify to this instance. </param>
         /// <param name="count">The number of characters to delete. </param>
         /// <returns></returns>
+        // ReSharper disable once UnusedMember.Global
         public static string RemoveLeft(this string value, int count)
         {
             if (value == null)
@@ -138,6 +100,7 @@ namespace EvilBaschdi.Core.Extensions
         /// </summary>
         /// <param name="input"></param>
         /// <returns></returns>
+        // ReSharper disable once UnusedMember.Global
         public static string DecodeString(this string input)
         {
             var bytes = Encoding.Default.GetBytes(input);

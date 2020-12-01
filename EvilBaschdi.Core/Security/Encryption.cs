@@ -9,6 +9,7 @@ namespace EvilBaschdi.Core.Security
     /// <summary>
     ///     encrypt and decrypt strings
     /// </summary>
+    // ReSharper disable once UnusedType.Global
     public class Encryption : IEncryption
     {
         /// <inheritdoc />
@@ -25,7 +26,7 @@ namespace EvilBaschdi.Core.Security
             }
 
             var clearBytes = Encoding.Unicode.GetBytes(clearText);
-            var rfc2898DeriveBytes = new Rfc2898DeriveBytes(encryptionKey,
+            using var rfc2898DeriveBytes = new Rfc2898DeriveBytes(encryptionKey,
                 new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
             var encryptedData = EncryptString(clearBytes, rfc2898DeriveBytes.GetBytes(32),
                 rfc2898DeriveBytes.GetBytes(16));
@@ -46,7 +47,7 @@ namespace EvilBaschdi.Core.Security
             }
 
             var cipherBytes = Convert.FromBase64String(cipherText);
-            var rfc2898DeriveBytes = new Rfc2898DeriveBytes(encryptionKey,
+            using var rfc2898DeriveBytes = new Rfc2898DeriveBytes(encryptionKey,
                 new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 });
             var decryptedData = DecryptString(cipherBytes, rfc2898DeriveBytes.GetBytes(32),
                 rfc2898DeriveBytes.GetBytes(16));
@@ -60,16 +61,16 @@ namespace EvilBaschdi.Core.Security
         /// <param name="key">The key.</param>
         /// <param name="iv">The IV.</param>
         /// <returns></returns>
-        private byte[] EncryptString(byte[] clearText, byte[] key, byte[] iv)
+        private static byte[] EncryptString(byte[] clearText, byte[] key, byte[] iv)
         {
             if (clearText == null)
             {
                 throw new ArgumentNullException(nameof(clearText));
             }
 
-            var memoryStream = new MemoryStream();
+            using var memoryStream = new MemoryStream();
             // ReSharper disable once IdentifierTypo
-            var rijndael = Rijndael.Create();
+            using var rijndael = Rijndael.Create();
             rijndael.Key = key ?? throw new ArgumentNullException(nameof(key));
             rijndael.IV = iv ?? throw new ArgumentNullException(nameof(iv));
             var cryptoStream = new CryptoStream(memoryStream, rijndael.CreateEncryptor(), CryptoStreamMode.Write);
@@ -87,16 +88,16 @@ namespace EvilBaschdi.Core.Security
         /// <param name="iv">The IV.</param>
         /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
-        private byte[] DecryptString(byte[] cipherData, byte[] key, byte[] iv)
+        private static byte[] DecryptString(byte[] cipherData, byte[] key, byte[] iv)
         {
             if (cipherData == null)
             {
                 throw new ArgumentNullException(nameof(cipherData));
             }
 
-            var memoryStream = new MemoryStream();
+            using var memoryStream = new MemoryStream();
             // ReSharper disable once IdentifierTypo
-            var rijndael = Rijndael.Create();
+            using var rijndael = Rijndael.Create();
             rijndael.Key = key ?? throw new ArgumentNullException(nameof(key));
             rijndael.IV = iv ?? throw new ArgumentNullException(nameof(iv));
             var cryptoStream = new CryptoStream(memoryStream, rijndael.CreateDecryptor(), CryptoStreamMode.Write);

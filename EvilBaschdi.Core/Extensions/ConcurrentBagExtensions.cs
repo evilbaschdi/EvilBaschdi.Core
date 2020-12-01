@@ -1,5 +1,7 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 
 namespace EvilBaschdi.Core.Extensions
 {
@@ -14,8 +16,18 @@ namespace EvilBaschdi.Core.Extensions
         /// <typeparam name="T"></typeparam>
         /// <param name="bag"></param>
         /// <param name="toAdd"></param>
-        public static void AddRange<T>(this ConcurrentBag<T> bag, IEnumerable<T> toAdd)
+        public static void AddRange<T>([NotNull] this ConcurrentBag<T> bag, [NotNull] IEnumerable<T> toAdd)
         {
+            if (bag == null)
+            {
+                throw new ArgumentNullException(nameof(bag));
+            }
+
+            if (toAdd == null)
+            {
+                throw new ArgumentNullException(nameof(toAdd));
+            }
+
             foreach (var element in toAdd)
             {
                 bag.Add(element);

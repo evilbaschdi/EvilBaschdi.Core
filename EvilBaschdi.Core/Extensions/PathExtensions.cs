@@ -33,7 +33,7 @@ namespace EvilBaschdi.Core.Extensions
         // ReSharper disable once MemberCanBePrivate.Global
         public static DirectoryInfo DirectoryInfo(this string directoryPath)
         {
-            return new DirectoryInfo(directoryPath);
+            return new(directoryPath);
         }
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace EvilBaschdi.Core.Extensions
         // ReSharper disable once MemberCanBePrivate.Global
         public static FileInfo FileInfo(this string filePath)
         {
-            return new FileInfo(filePath);
+            return new(filePath);
         }
 
         /// <summary>

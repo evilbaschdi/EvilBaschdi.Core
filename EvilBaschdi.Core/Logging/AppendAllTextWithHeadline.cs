@@ -8,6 +8,7 @@ namespace EvilBaschdi.Core.Logging
     /// <summary>
     ///     Does a File.AppendAllText by adding a headline to the file.
     /// </summary>
+    // ReSharper disable once UnusedType.Global
     public class AppendAllTextWithHeadline : IAppendAllTextWithHeadline
     {
         /// <inheritdoc />

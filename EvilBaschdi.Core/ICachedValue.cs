@@ -7,5 +7,9 @@
     /// <typeparam name="T"></typeparam>
     public interface ICachedValue<out T> : IValue<T>
     {
+        /// <summary>
+        ///     Reset Cache
+        /// </summary>
+        void ResetCache();
     }
 }

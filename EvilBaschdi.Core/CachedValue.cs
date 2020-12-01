@@ -5,6 +5,7 @@
     ///     Abstract class for value caching
     /// </summary>
     /// <typeparam name="T"></typeparam>
+    // ReSharper disable once UnusedType.Global
     public abstract class CachedValue<T> : ICachedValue<T>
     {
         private bool _isCached;
@@ -32,6 +33,15 @@
                 _isCached = true;
                 return _value;
             }
+        }
+
+        /// <summary>
+        ///     Resets the Cached Value
+        /// </summary>
+        public void ResetCache()
+        {
+            _isCached = false;
+            _value = default;
         }
     }
 }

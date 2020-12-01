@@ -3,6 +3,7 @@
 namespace EvilBaschdi.Core.Internal
 {
     /// <inheritdoc />
+    // ReSharper disable once UnusedType.Global
     public abstract class ChainHelperFor<TIn, TOut> : IChainHelperFor<TIn, TOut>
     {
         /// <summary>

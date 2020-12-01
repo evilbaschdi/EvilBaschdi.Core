@@ -9,6 +9,7 @@ namespace EvilBaschdi.Core.Internal
     /// <summary>
     ///     Class to provide multi threading execution.
     /// </summary>
+    // ReSharper disable once UnusedType.Global
     public class MultiThreading : IMultiThreading
     {
         /// <inheritdoc />

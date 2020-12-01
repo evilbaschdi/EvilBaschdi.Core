@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace EvilBaschdi.Core.Extensions
 {
@@ -12,6 +13,7 @@ namespace EvilBaschdi.Core.Extensions
         ///     Extension to get size of a directory.
         /// </summary>
         /// <exception cref="ArgumentNullException"><paramref name="dir" /> is <see langword="null" />.</exception>
+        // ReSharper disable once UnusedMember.Global
         public static double GetDirectorySize(this DirectoryInfo dir)
         {
             if (dir == null)
@@ -27,8 +29,13 @@ namespace EvilBaschdi.Core.Extensions
         /// </summary>
         /// <param name="dirInfo"></param>
         /// <returns></returns>
-        public static string GetProperDirectoryCapitalization(this DirectoryInfo dirInfo)
+        public static string GetProperDirectoryCapitalization([NotNull] this DirectoryInfo dirInfo)
         {
+            if (dirInfo == null)
+            {
+                throw new ArgumentNullException(nameof(dirInfo));
+            }
+
             var parentDirInfo = dirInfo.Parent;
 
             return null == parentDirInfo
@@ -44,6 +51,7 @@ namespace EvilBaschdi.Core.Extensions
         /// <param name="name"></param>
         /// <exception cref="ArgumentNullException"><paramref name="dir" /> is <see langword="null" />.</exception>
         /// <exception cref="ArgumentException">New name cannot be null or blank</exception>
+        // ReSharper disable once UnusedMember.Global
         public static void RenameTo(this DirectoryInfo dir, string name)
         {
             if (dir?.Parent == null)

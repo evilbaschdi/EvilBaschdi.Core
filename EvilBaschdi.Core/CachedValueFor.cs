@@ -10,10 +10,11 @@ namespace EvilBaschdi.Core
     /// </summary>
     /// <typeparam name="TIn"></typeparam>
     /// <typeparam name="TOut"></typeparam>
+    // ReSharper disable once UnusedType.Global
     public abstract class CachedValueFor<TIn, TOut> : ICachedValueFor<TIn, TOut>
     {
         private readonly bool _cacheDefaultValue = true;
-        private readonly Dictionary<TIn, TOut> _valueDictionary = new Dictionary<TIn, TOut>();
+        private readonly Dictionary<TIn, TOut> _valueDictionary = new();
 
         /// <summary />
         protected CachedValueFor()
