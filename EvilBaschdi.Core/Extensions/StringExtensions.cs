@@ -2,13 +2,51 @@ using System;
 using System.Text;
 using JetBrains.Annotations;
 
+#if NETSTANDARD2_0
+using System.ComponentModel;
+
+#endif
+
 namespace EvilBaschdi.Core.Extensions
 {
     /// <summary>
     ///     Class to extend the functionality of the String class.
     /// </summary>
+    // ReSharper disable once UnusedType.Global
     public static class StringExtensions
     {
+#if NETSTANDARD2_0
+        /// <summary>
+        ///     Contains <see cref="StringComparison" />.
+        /// </summary>
+        /// <param name="source">The string to seek in.</param>
+        /// <param name="value">The string to seek.</param>
+        /// <param name="comparisonType">One of the enumeration values that specifies the rules for the search.</param>
+        /// <returns>
+        ///     <c>true</c> if <paramref name="value" /> is found in <paramref name="source" />; else
+        ///     <c>false</c>
+        /// </returns>
+        // ReSharper disable once UnusedMember.Global
+        public static bool Contains(this string source, string value, StringComparison comparisonType)
+        {
+            if (source == null)
+            {
+                throw new ArgumentNullException(nameof(source));
+            }
+
+            if (value == null)
+            {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            if (!Enum.IsDefined(typeof(StringComparison), comparisonType))
+            {
+                throw new InvalidEnumArgumentException(nameof(comparisonType), (int) comparisonType, typeof(StringComparison));
+            }
+
+            return source.IndexOf(value, comparisonType) >= 0;
+        }
+#endif
         /// <summary>
         ///     Replace with <see cref="StringComparison" />
         /// </summary>
