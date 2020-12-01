@@ -33,6 +33,7 @@
                 _isCached = true;
                 return _value;
             }
+            internal set => _value = value;
         }
 
         /// <summary>
