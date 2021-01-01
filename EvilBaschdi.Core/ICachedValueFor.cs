@@ -7,5 +7,9 @@
     /// <typeparam name="TOut"></typeparam>
     public interface ICachedValueFor<in TIn, out TOut> : IValueFor<TIn, TOut>
     {
+        /// <summary>
+        ///     Reset Cache
+        /// </summary>
+        void ResetCache();
     }
 }
