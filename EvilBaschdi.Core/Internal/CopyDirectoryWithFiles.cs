@@ -4,6 +4,7 @@ using System.IO;
 namespace EvilBaschdi.Core.Internal
 {
     /// <inheritdoc />
+    // ReSharper disable once UnusedType.Global
     public class CopyDirectoryWithFiles : ICopyDirectoryWithFiles
     {
         /// <inheritdoc />

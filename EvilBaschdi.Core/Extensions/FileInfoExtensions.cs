@@ -1,18 +1,27 @@
 ﻿using System;
 using System.IO;
+using JetBrains.Annotations;
 
 namespace EvilBaschdi.Core.Extensions
 {
     /// <summary>
     /// </summary>
+    // ReSharper disable once UnusedType.Global
     public static class FileInfoExtensions
     {
         /// <summary>
         /// </summary>
         /// <param name="fileInfo"></param>
         /// <returns></returns>
-        public static string GetProperFilePathCapitalization(this FileInfo fileInfo)
+        [CanBeNull]
+        // ReSharper disable once UnusedMember.Global
+        public static string GetProperFilePathCapitalization([NotNull] this FileInfo fileInfo)
         {
+            if (fileInfo == null)
+            {
+                throw new ArgumentNullException(nameof(fileInfo));
+            }
+
             var dirInfo = fileInfo.Directory;
             return dirInfo != null
                 ? Path.Combine(dirInfo.GetProperDirectoryCapitalization(),
@@ -27,6 +36,7 @@ namespace EvilBaschdi.Core.Extensions
         /// <param name="file">FileInfo of tile to check.</param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"><paramref name="file" /> is <see langword="null" />.</exception>
+        // ReSharper disable once UnusedMember.Global
         public static bool IsFileLocked(this FileInfo file)
         {
             if (file == null)

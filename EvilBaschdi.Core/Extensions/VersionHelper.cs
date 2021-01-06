@@ -5,29 +5,9 @@ namespace EvilBaschdi.Core.Extensions
     /// <summary>
     ///     Get if Windows Version is vista or higher.
     /// </summary>
+    // ReSharper disable once UnusedType.Global
     public static class VersionHelper
     {
-        /// <summary>
-        ///     OS is Windows Vista.
-        /// </summary>
-        public static bool IsVista => GetWindowsClientVersion() == "Vista";
-
-        /// <summary>
-        ///     OS is Windows 10.
-        /// </summary>
-        /// <returns></returns>
-        public static bool IsWindows10 => GetWindowsClientVersion().StartsWith("Win10");
-
-        /// <summary>
-        ///     OS is Windows 7.
-        /// </summary>
-        public static bool IsWindows7 => GetWindowsClientVersion() == "Win7";
-
-        /// <summary>
-        ///     OS is Windows 8 or 8.1.
-        /// </summary>
-        public static bool IsWindows8 => GetWindowsClientVersion().StartsWith("Win8");
-
         //{
         //    var currentVersion = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
 
@@ -43,45 +23,55 @@ namespace EvilBaschdi.Core.Extensions
         /// </summary>
         /// <returns></returns>
         // ReSharper disable once MemberCanBePrivate.Global
-        public static string GetWindowsClientVersion()
+        public static string GetWindowsClientVersion
         {
-            var major = Environment.OSVersion.Version.Major;
-            var minor = Environment.OSVersion.Version.Minor;
-            var build = Environment.OSVersion.Version.Build;
-
-
-            // ReSharper disable once SwitchStatementMissingSomeCases
-            switch (major)
+            get
             {
-                case 4 when minor == 0 && build == 950:
-                    return "Win95 Release 1";
-                case 4 when minor == 0 && build == 1111:
-                    return "Win95 Release 2";
-                case 4 when minor == 3 && (build == 1212 || build == 1213 || build == 1214):
-                    return "Win95 Release 2.1";
-                case 4 when minor == 10 && build == 1998:
-                    return "Win98";
-                case 4 when minor == 10 && build == 2222:
-                    return "Win98 Second Edition";
-                case 4 when minor == 90:
-                    return "WinMe";
-                case 5 when minor == 0:
-                    return "Win2000";
-                case 5 when minor == 1 && build == 2600:
-                    return "WinXP";
-                case 6 when minor == 0:
-                    return "Vista";
-                case 6 when minor == 1:
-                    return "Win7";
-                case 6 when minor == 2 && build == 9200:
-                    return "Win8";
-                case 6 when minor == 3 && build == 9600:
-                    return "Win8.1";
-                case 10 when minor == 0 && build >= 10240:
-                    return "Win10";
-            }
+                var major = Environment.OSVersion.Version.Major;
+                var minor = Environment.OSVersion.Version.Minor;
+                var build = Environment.OSVersion.Version.Build;
 
-            return "Can not find os version.";
+
+                // ReSharper disable once SwitchStatementMissingSomeCases
+                return major switch
+                {
+                    4 when minor == 0 && build == 950 => "Win95 Release 1",
+                    4 when minor == 0 && build == 1111 => "Win95 Release 2",
+                    4 when minor == 3 && (build == 1212 || build == 1213 || build == 1214) => "Win95 Release 2.1",
+                    4 when minor == 10 && build == 1998 => "Win98",
+                    4 when minor == 10 && build == 2222 => "Win98 Second Edition",
+                    4 when minor == 90 => "WinMe",
+                    5 when minor == 0 => "Win2000",
+                    5 when minor == 1 && build == 2600 => "WinXP",
+                    6 when minor == 0 => "Vista",
+                    6 when minor == 1 => "Win7",
+                    6 when minor == 2 && build == 9200 => "Win8",
+                    6 when minor == 3 && build == 9600 => "Win8.1",
+                    10 when minor == 0 && build >= 10240 => "Win10",
+                    _ => "Can not find os version.",
+                };
+            }
         }
+
+        /// <summary>
+        ///     OS is Windows Vista.
+        /// </summary>
+        public static bool IsVista => GetWindowsClientVersion == "Vista";
+
+        /// <summary>
+        ///     OS is Windows 10.
+        /// </summary>
+        /// <returns></returns>
+        public static bool IsWindows10 => GetWindowsClientVersion.StartsWith("Win10");
+
+        /// <summary>
+        ///     OS is Windows 7.
+        /// </summary>
+        public static bool IsWindows7 => GetWindowsClientVersion == "Win7";
+
+        /// <summary>
+        ///     OS is Windows 8 or 8.1.
+        /// </summary>
+        public static bool IsWindows8 => GetWindowsClientVersion.StartsWith("Win8");
     }
 }

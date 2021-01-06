@@ -10,10 +10,11 @@ using JetBrains.Annotations;
 namespace EvilBaschdi.Core.Internal
 {
     /// <inheritdoc />
+    // ReSharper disable once UnusedType.Global
     public class FileListFromPath : IFileListFromPath
     {
         private ConcurrentBag<string> _fileList;
-        private FileListFromPathFilter _fileListFromPathFilter = new FileListFromPathFilter();
+        private FileListFromPathFilter _fileListFromPathFilter = new();
 
         /// <inheritdoc />
         /// <summary>
@@ -33,7 +34,8 @@ namespace EvilBaschdi.Core.Internal
             var exclude = _fileListFromPathFilter.FilterFilePathsNotToEqual ?? new List<string>();
 
             var list = new List<string>();
-            var directories = Directory.GetDirectories(path, "*", SearchOption.AllDirectories).Where(dir => dir.IsAccessible()).ToList();
+            var directories = Directory.GetDirectories(path, "*", SearchOption.AllDirectories)
+                                       .Where(dir => dir.IsAccessible()).ToList();
 
             foreach (var directory in directories)
             {
@@ -57,6 +59,7 @@ namespace EvilBaschdi.Core.Internal
             return list.Distinct();
         }
 
+        /// <exception cref="ArgumentNullException"></exception>
         /// <inheritdoc />
         public List<string> ValueFor([NotNull] string initialDirectory)
         {
@@ -68,16 +71,19 @@ namespace EvilBaschdi.Core.Internal
             return ValueFor(initialDirectory, new FileListFromPathFilter());
         }
 
+        /// <exception cref="ArgumentNullException"></exception>
         /// <inheritdoc />
-        public List<string> ValueFor([NotNull] string initialDirectory, [NotNull] FileListFromPathFilter fileListFromPathFilter)
+        public List<string> ValueFor([NotNull] string initialDirectory,
+                                     [NotNull] FileListFromPathFilter fileListFromPathFilter)
         {
             if (initialDirectory == null)
             {
                 throw new ArgumentNullException(nameof(initialDirectory));
             }
 
+            _fileListFromPathFilter =
+                fileListFromPathFilter ?? throw new ArgumentNullException(nameof(fileListFromPathFilter));
             _fileList = new ConcurrentBag<string>();
-            _fileListFromPathFilter = fileListFromPathFilter ?? throw new ArgumentNullException(nameof(fileListFromPathFilter));
 
             if (!initialDirectory.IsAccessible())
             {
@@ -88,8 +94,9 @@ namespace EvilBaschdi.Core.Internal
             var initialDirectoryFileList = Directory.GetFiles(initialDirectory).Select(item => item.ToLower()).ToList();
             var dirList = initialDirectoryFileList.Where(FileIsValid).ToList();
             //sub directories.
-            var initialDirectorySubdirectoriesFileList = GetSubdirectoriesContainingOnlyFiles(initialDirectory).SelectMany(Directory.GetFiles).Select(item => item.ToLower());
-            var dirSubList = initialDirectorySubdirectoriesFileList.Where(FileIsValid).ToList();
+            var initialDirectorySubdirectoriesFileList = GetSubdirectoriesContainingOnlyFiles(initialDirectory)
+                                                         ?.SelectMany(Directory.GetFiles).Select(item => item.ToLower());
+            var dirSubList = initialDirectorySubdirectoriesFileList?.Where(FileIsValid).ToList();
 
             _fileList.AddRange(dirList);
             _fileList.AddRange(dirSubList);
@@ -121,11 +128,14 @@ namespace EvilBaschdi.Core.Internal
             var includeFileName = !includeFileNameList.Any() || includeFileNameList.Contains(fileName);
 
             // .docx
-            var excludeExtension = excludeExtensionList.Contains(fileExtension, StringComparer.InvariantCultureIgnoreCase);
+            var excludeExtension =
+                excludeExtensionList.Contains(fileExtension, StringComparer.InvariantCultureIgnoreCase);
             // ...file.x
-            var excludeFileName = excludeFileNameList.Any(p => fileName.Contains(p, StringComparison.InvariantCultureIgnoreCase));
+            var excludeFileName =
+                excludeFileNameList.Any(p => fileName.Contains(p, StringComparison.InvariantCultureIgnoreCase));
 
-            return alreadyContained && hasFileExtension && includeExtension && !excludeExtension && includeFileName && !excludeFileName;
+            return alreadyContained && hasFileExtension && includeExtension && !excludeExtension && includeFileName &&
+                   !excludeFileName;
         }
     }
 }

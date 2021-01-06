@@ -126,7 +126,7 @@ namespace EvilBaschdi.Core.Tests
             }
         }
 
-        public class CachedValueForTestClassReturningDefaultOfGuid : CachedValueFor<string, Guid>
+        private class CachedValueForTestClassReturningDefaultOfGuid : CachedValueFor<string, Guid>
         {
             public int CallCounter;
 

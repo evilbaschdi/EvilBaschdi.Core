@@ -5,6 +5,7 @@ using System.Linq;
 namespace EvilBaschdi.Core.Internal
 {
     /// <inheritdoc />
+    // ReSharper disable once UnusedType.Global
     public class MoveDirectory : IMoveDirectory
     {
         /// <inheritdoc />
@@ -31,6 +32,11 @@ namespace EvilBaschdi.Core.Internal
                 var files = Directory.EnumerateFiles(sourcePath, "*", SearchOption.AllDirectories).GroupBy(Path.GetDirectoryName);
                 foreach (var folder in files)
                 {
+                    if (folder.Key == null)
+                    {
+                        continue;
+                    }
+
                     var targetFolder = folder.Key.Replace(sourcePath, targetPath);
                     Directory.CreateDirectory(targetFolder);
                     foreach (var file in folder)

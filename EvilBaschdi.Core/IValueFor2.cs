@@ -9,6 +9,7 @@
     public interface IValueFor2<in TIn1, in TIn2, out TOut>
     {
         /// <summary>Value</summary>
+        // ReSharper disable once UnusedMemberInSuper.Global
         TOut ValueFor(TIn1 valueIn1, TIn2 valueIn2);
     }
 }

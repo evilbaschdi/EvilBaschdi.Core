@@ -5,12 +5,11 @@ namespace EvilBaschdi.Core
     /// <summary>
     /// </summary>
     // ReSharper disable once UnusedType.Global
-    public interface ITaskValue<TResult>
+    public interface IRunTaskFor<in TIn>
     {
         /// <summary>
         /// </summary>
-
         // ReSharper disable once UnusedMember.Global
-        Task<TResult> TaskValue();
+        Task RunTaskFor(TIn value);
     }
 }
