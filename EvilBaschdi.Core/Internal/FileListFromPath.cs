@@ -179,7 +179,7 @@ namespace EvilBaschdi.Core.Internal
             var excludeFileNameList = _fileListFromPathFilter.FilterFileNamesNotToEqual;
 
             var fileName = entry.FileName.ToString();
-            var fileExtension = Path.GetExtension(entry.ToFullPath());
+            var fileExtension = Path.GetExtension(entry.ToFullPath()).TrimStart('.');
 
             var alreadyContained = !_fileList.Contains(file, StringComparer.OrdinalIgnoreCase);
             var hasFileExtension = !string.IsNullOrWhiteSpace(fileExtension);
