@@ -16,17 +16,17 @@
     <PackageReference Include="AutoFixture.Idioms" Version="4.15.0" />
     <PackageReference Include="AutoFixture.Xunit2" Version="4.15.0" />
     <PackageReference Include="Castle.Core" Version="4.4.1" />
-    <PackageReference Include="coverlet.collector" Version="3.0.2">
+    <PackageReference Include="coverlet.collector" Version="3.0.3">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="EvilBaschdi.Testing" Version="2021.2.8.1743" />
     <PackageReference Include="Fare" Version="2.1.2" />
     <PackageReference Include="FluentAssertions" Version="6.0.0-alpha0002" />
-    <PackageReference Include="Microsoft.CodeCoverage" Version="16.9.0-preview-20210127-04" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.0-preview-20210127-04" />
-    <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="16.9.0-preview-20210127-04" />
-    <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="16.9.0-preview-20210127-04" />
+    <PackageReference Include="Microsoft.CodeCoverage" Version="16.10.0-preview-20210219-03" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.10.0-preview-20210219-03" />
+    <PackageReference Include="Microsoft.TestPlatform.ObjectModel" Version="16.10.0-preview-20210219-03" />
+    <PackageReference Include="Microsoft.TestPlatform.TestHost" Version="16.10.0-preview-20210219-03" />
     <PackageReference Include="NCrunch.Framework" Version="4.7.0.4" />
     <PackageReference Include="NSubstitute" Version="4.2.2" />
     <PackageReference Include="NSubstitute.Analyzers.CSharp" Version="1.0.14" />
