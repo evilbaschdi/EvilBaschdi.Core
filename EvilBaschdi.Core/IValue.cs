@@ -7,6 +7,8 @@
     public interface IValue<out T>
     {
         /// <summary>Value</summary>
+        // ReSharper disable UnusedMemberInSuper.Global
         T Value { get; }
+        // ReSharper restore UnusedMemberInSuper.Global
     }
 }

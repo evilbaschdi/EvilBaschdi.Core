@@ -10,7 +10,9 @@ namespace EvilBaschdi.Core.Model
         /// <summary>
         /// </summary>
         // ReSharper disable once UnusedAutoPropertyAccessor.Global
+        // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
         public List<string> FilterExtensionsNotToEqual { get; set; } = new();
+        
 
         /// <summary>
         /// </summary>
@@ -36,5 +38,6 @@ namespace EvilBaschdi.Core.Model
         /// </summary>
         // ReSharper disable once UnusedAutoPropertyAccessor.Global
         public List<string> FilterFilePathsToEqual { get; set; } = new();
+        // ReSharper restore AutoPropertyCanBeMadeGetOnly.Global
     }
 }

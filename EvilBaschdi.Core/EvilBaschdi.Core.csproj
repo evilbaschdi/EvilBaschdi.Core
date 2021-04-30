@@ -16,7 +16,7 @@
     <PackageTags>Core</PackageTags>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryUrl>https://github.com/evilbaschdi/EvilBaschdi.Core</RepositoryUrl>
-    <TargetFrameworks>netstandard2.1;net5.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.1;net5.0;net6.0</TargetFrameworks>
     <Version>$([System.DateTime]::UtcNow.ToString(yyyy.M.d.Hmm))-develop</Version>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
   </PropertyGroup>
@@ -24,7 +24,7 @@
     <None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="JetBrains.Annotations" Version="2021.1.0-eap01" />
+    <PackageReference Include="JetBrains.Annotations" Version="2021.1.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.0-beta-20204-02">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>

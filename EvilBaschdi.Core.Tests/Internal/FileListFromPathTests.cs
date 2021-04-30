@@ -34,28 +34,6 @@ namespace EvilBaschdi.Core.Tests.Internal
             FileListFromPath sut)
         {
             // Arrange
-
-            var excludeExtensionList = new List<string>
-                                       {
-                                           "ics",
-                                           "sam"
-                                       };
-
-            var excludeFileNameList = new List<string>
-                                      {
-                                          "listfilesbydate_log_"
-                                      };
-
-            var includeFilePaths = new List<string>
-                                   {
-                                       "mach2_0.3.0.0_x64"
-                                   };
-
-            var excludeFilePaths = new List<string>
-                                   {
-                                       "sdk"
-                                   };
-
             var filePathFilter = new FileListFromPathFilter
                                  {
                                      FilterExtensionsToEqual = new List<string>
@@ -76,7 +54,7 @@ namespace EvilBaschdi.Core.Tests.Internal
             FileListFromPath sut)
         {
             // Arrange
-            var userDir = @"C:\Symbols";
+            const string userDir = @"C:\Symbols";
 
             // Act
             var result = sut.GetSubdirectoriesContainingOnlyFiles(userDir);

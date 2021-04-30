@@ -1,15 +1,6 @@
-﻿using System;
-using System.Linq;
-using AutoFixture.Idioms;
-using AutoFixture.Xunit2;
-using EvilBaschdi.Testing;
-using FluentAssertions;
-using JetBrains.Annotations;
-using NSubstitute;
-using Xunit;
-
-namespace EvilBaschdi.Core.Tests
+﻿namespace EvilBaschdi.Core.Tests
 {
+    // ReSharper disable once UnusedType.Global
     public class CachedWritableValueTests
     {
         //[Theory, NSubstituteOmitAutoPropertiesTrueAutoData]

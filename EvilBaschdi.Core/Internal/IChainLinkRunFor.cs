@@ -1,11 +1,8 @@
 ﻿namespace EvilBaschdi.Core.Internal
 {
     /// <inheritdoc />
-    /// <summary>
-    /// </summary>
     /// <typeparam name="TIn"></typeparam>
-    /// <typeparam name="TOut"></typeparam>
-    public interface IChainHelperFor<in TIn, out TOut> : IValueFor<TIn, TOut>
+    public interface IChainLinkRunFor<in TIn> : IRunFor<TIn>
     {
         /// <summary>
         /// </summary>
@@ -16,7 +13,7 @@
         /// <summary>
         /// </summary>
         // ReSharper disable UnusedMemberInSuper.Global
-        IChainHelperFor<TIn, TOut> NextChain { get; }
+        IChainLinkRunFor<TIn> NextChain { get; }
         // ReSharper restore UnusedMemberInSuper.Global
     }
 }

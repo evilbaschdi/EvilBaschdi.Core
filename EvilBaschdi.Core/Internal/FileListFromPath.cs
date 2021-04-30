@@ -29,9 +29,9 @@ namespace EvilBaschdi.Core.Internal
             }
 
             var enumeration = new FileSystemEnumerable<string>(
-                                  directory: path,
-                                  transform: (ref FileSystemEntry entry) => entry.ToFullPath(),
-                                  options: new EnumerationOptions
+                                  path,
+                                  (ref FileSystemEntry entry) => entry.ToFullPath(),
+                                  new EnumerationOptions
                                            {
                                                RecurseSubdirectories = true,
                                                MatchCasing = MatchCasing.CaseInsensitive,
@@ -70,9 +70,9 @@ namespace EvilBaschdi.Core.Internal
 
 
             var enumeration = new FileSystemEnumerable<string>(
-                                  directory: initialDirectory,
-                                  transform: (ref FileSystemEntry entry) => entry.ToFullPath(),
-                                  options: new EnumerationOptions
+                                  initialDirectory,
+                                  (ref FileSystemEntry entry) => entry.ToFullPath(),
+                                  new EnumerationOptions
                                            {
                                                RecurseSubdirectories = true,
                                                MatchCasing = MatchCasing.CaseInsensitive,
@@ -86,7 +86,6 @@ namespace EvilBaschdi.Core.Internal
 
         private bool FileSystemEntryIsValid(FileSystemEntry entry)
         {
-            var file = entry.ToFullPath();
             var includeExtensionList = _fileListFromPathFilter.FilterExtensionsToEqual;
             var excludeExtensionList = _fileListFromPathFilter.FilterExtensionsNotToEqual;
             var includeFileNameList = _fileListFromPathFilter.FilterFileNamesToEqual;
