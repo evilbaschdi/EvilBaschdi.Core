@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace EvilBaschdi.Core.Internal
 {
@@ -19,7 +20,23 @@ namespace EvilBaschdi.Core.Internal
         }
 
         /// <inheritdoc />
-        public void RunFor(string sourcePath, string destinationPath)
+        public async Task RunForAsync(string sourcePath, string destinationPath)
+        {
+            if (sourcePath == null)
+            {
+                throw new ArgumentNullException(nameof(sourcePath));
+            }
+
+            if (destinationPath == null)
+            {
+                throw new ArgumentNullException(nameof(destinationPath));
+            }
+
+            await ValueForAsync(sourcePath, destinationPath);
+        }
+
+        /// <inheritdoc />
+        public async Task<int> ValueForAsync(string sourcePath, string destinationPath)
         {
             if (sourcePath == null)
             {
@@ -34,7 +51,7 @@ namespace EvilBaschdi.Core.Internal
             var diSource = new DirectoryInfo(sourcePath);
             var diTarget = new DirectoryInfo(destinationPath);
 
-            _copyDirectoryWithFiles.RunFor(diSource, diTarget);
+            return await _copyDirectoryWithFiles.ValueForAsync(diSource, diTarget);
         }
     }
 }
