@@ -1,20 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
-
-namespace EvilBaschdi.Core.Internal
+﻿namespace EvilBaschdi.Core.Internal
 {
     /// <summary>
-    /// 
     /// </summary>
-    public interface ICopyDirectoryWithProgress
+    public interface ICopyDirectoryWithProgress : IRunForAsync2<string, string>
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="target"></param>
-        /// <param name="progress"></param>
-        /// <returns></returns>
-        Task RunForAsync(string source, string target, IProgress<double> progress);
     }
 }

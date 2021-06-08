@@ -7,15 +7,8 @@ namespace EvilBaschdi.Core.Internal
     /// <summary>
     /// 
     /// </summary>
-    public interface ICopyDirectoryWithFilesWithProgress
+    public interface ICopyDirectoryWithFilesWithProgress : IRunForAsync2<DirectoryInfo, DirectoryInfo>
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="target"></param>
-        /// <param name="progress"></param>
-        /// <returns></returns>
-        Task RunForAsync(DirectoryInfo source, DirectoryInfo target, IProgress<double> progress);
+       
     }
 }

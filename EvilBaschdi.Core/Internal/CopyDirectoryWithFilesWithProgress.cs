@@ -9,8 +9,9 @@ namespace EvilBaschdi.Core.Internal
     public class CopyDirectoryWithFilesWithProgress : ICopyDirectoryWithFilesWithProgress
     {
         private readonly ICopyProgress _copyProgress;
+
         /// <summary>
-        /// Constructor
+        ///     Constructor
         /// </summary>
         /// <param name="copyProgress"></param>
         public CopyDirectoryWithFilesWithProgress([NotNull] ICopyProgress copyProgress)
@@ -19,7 +20,7 @@ namespace EvilBaschdi.Core.Internal
         }
 
         /// <inheritdoc />
-        public async Task RunForAsync([NotNull] DirectoryInfo source, [NotNull] DirectoryInfo target, [NotNull] IProgress<double> progress)
+        public async Task RunForAsync([NotNull] DirectoryInfo source, [NotNull] DirectoryInfo target)
         {
             if (source == null)
             {
@@ -31,10 +32,6 @@ namespace EvilBaschdi.Core.Internal
                 throw new ArgumentNullException(nameof(target));
             }
 
-            if (progress == null)
-            {
-                throw new ArgumentNullException(nameof(progress));
-            }
 
             Directory.CreateDirectory(target.FullName);
 
@@ -47,15 +44,14 @@ namespace EvilBaschdi.Core.Internal
                 fileInfo.CopyTo(Path.Combine(target.FullName, fileInfo.Name), true);
 
                 _copyProgress.TempSize += fileInfo.Length;
-
-                progress.Report(_copyProgress.TempSize * 100 / _copyProgress.TotalSize);
+                _copyProgress.Progress.Report(_copyProgress.TempSize * 100 / _copyProgress.TotalSize);
             }
 
             // Copy each sub-directory using recursion.
             foreach (var diSourceSubDir in source.GetDirectories())
             {
                 var nextTargetSubDir = target.CreateSubdirectory(diSourceSubDir.Name);
-                await RunForAsync(diSourceSubDir, nextTargetSubDir, progress);
+                await RunForAsync(diSourceSubDir, nextTargetSubDir);
             }
         }
     }

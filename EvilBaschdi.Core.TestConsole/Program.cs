@@ -17,15 +17,17 @@ namespace EvilBaschdi.Core.TestConsole
             //await copyDirectory.RunForAsync(@"C:\temp\copy_source", @"C:\temp\copy_target");
 
             var t = 0d;
-            IProgress<double> progress = new Progress<double>(increment =>
-                                                              {
-                                                                  t += increment;
-                                                                  //Console.WriteLine($"t: {t}");
-                                                                  Console.WriteLine($"increment: {increment}");
-                                                              });
 
 
-            await copyDirectoryWithProgress.RunForAsync(@"C:\Windows10Upgrade", @"C:\temp\copy_target", progress);
+            copyProgress.Progress = new Progress<double>(increment =>
+                                                         {
+                                                             t += increment;
+                                                             //Console.WriteLine($"t: {t}");
+                                                             Console.WriteLine($"increment: {increment}");
+                                                         });
+
+
+            await copyDirectoryWithProgress.RunForAsync(@"C:\Windows10Upgrade", @"C:\temp\copy_target");
 
 
             //var directoryInfo = new DirectoryInfo(@"C:\temp\copy_source");

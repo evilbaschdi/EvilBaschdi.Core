@@ -26,7 +26,7 @@ namespace EvilBaschdi.Core.Internal
         }
 
         /// <inheritdoc />
-        public async Task RunForAsync([NotNull] string source, [NotNull] string target, [NotNull] IProgress<double> progress)
+        public async Task RunForAsync([NotNull] string source, [NotNull] string target)
         {
             if (source == null)
             {
@@ -38,17 +38,14 @@ namespace EvilBaschdi.Core.Internal
                 throw new ArgumentNullException(nameof(target));
             }
 
-            if (progress == null)
-            {
-                throw new ArgumentNullException(nameof(progress));
-            }
-
+          
             var diSource = new DirectoryInfo(source);
             var diTarget = new DirectoryInfo(target);
 
             _copyProgress.TotalSize = diSource.GetDirectorySize();
+            _copyProgress.TempSize = 0d;
 
-            await _copyDirectoryWithFilesWithProgress.RunForAsync(diSource, diTarget, progress);
+            await _copyDirectoryWithFilesWithProgress.RunForAsync(diSource, diTarget);
         }
     }
 }
