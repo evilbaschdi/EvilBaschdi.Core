@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28315.86
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31410.414
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EvilBaschdi.Core", "EvilBaschdi.Core\EvilBaschdi.Core.csproj", "{40644D57-A210-48C4-95E3-5576600D0A40}"
 EndProject
@@ -9,6 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
+		azure-pipelines.yml = azure-pipelines.yml
 		global.json = global.json
 		NuGet.config = NuGet.config
 		README.md = README.md
@@ -16,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EvilBaschdi.Core.Tests", "EvilBaschdi.Core.Tests\EvilBaschdi.Core.Tests.csproj", "{AAAE5409-6F40-40AA-8E7B-7A853EB44FE2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvilBaschdi.Core.TestConsole", "EvilBaschdi.Core.TestConsole\EvilBaschdi.Core.TestConsole.csproj", "{B7669119-B07A-4F40-9E01-A12329C17111}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EvilBaschdi.Core.TestConsole", "EvilBaschdi.Core.TestConsole\EvilBaschdi.Core.TestConsole.csproj", "{B7669119-B07A-4F40-9E01-A12329C17111}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,52 +1,21 @@
-pool:
-  name: Hosted Windows 2019 with VS2019
-#Your build pipeline references an undefined variable named ‘BuildConfiguration’. Create or edit the build pipeline for this YAML file, define the variable on the Variables tab. See https://go.microsoft.com/fwlink/?linkid=865972
+# ASP.NET Core
+# Build and test ASP.NET Core projects targeting .NET Core.
+# Add steps that run tests, create a NuGet package, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
-steps:
-- task: UseDotNet@2
-  displayName: 'Use .Net Core sdk from global.json'
-  inputs:
-    useGlobalJson: true
+trigger:
+  branches:
+    include: 
+      - '*'
 
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet restore'
-  inputs:
-    command: restore
-    projects: EvilBaschdi.Core/EvilBaschdi.Core.csproj
-    feedsToUse: config
-    nugetConfigPath: NuGet.config
+resources:
+  repositories:
+    - repository: templates
+      type: git
+      name: Main/EvilBaschdi.BuildTemplates
+      ref: refs/heads/main # optional ref to pin to
 
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet build'
-  inputs:
-    projects: EvilBaschdi.Core/EvilBaschdi.Core.csproj
-    arguments: '--configuration $(BuildConfiguration)'
-
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet test'
-  inputs:
-    command: test
-    projects: EvilBaschdi.Core.Tests/EvilBaschdi.Core.Tests.csproj
-  enabled: false
-  continueOnError: true
-
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet pack'
-  inputs:
-    command: pack
-    packagesToPack: EvilBaschdi.Core/EvilBaschdi.Core.csproj
-    nobuild: true
-
-- powershell: |
-   $gitPat = '$(System.AccessToken)'
-   git remote add github https://$gitPat@github.com/evilbaschdi/EvilBaschdi.Core
-   git push github --all
-   git push github --tags
-  displayName: 'PowerShell Script'
-  enabled: false
-
-- task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: Nuget-Package'
-  inputs:
-    ArtifactName: 'Nuget-Package'
-
+jobs:
+- template: azureDevOps.yml@templates  # Template reference
+  parameters:
+    projectName: $(Build.Repository.Name)
