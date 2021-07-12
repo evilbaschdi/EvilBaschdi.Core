@@ -10,7 +10,7 @@ using System.ComponentModel;
 namespace EvilBaschdi.Core.Extensions
 {
     /// <summary>
-    ///     Class to extend the functionality of the String class.
+    ///     Class to extend the functionality of type <see cref="string"/>
     /// </summary>
     // ReSharper disable once UnusedType.Global
     public static class StringExtensions
@@ -144,5 +144,6 @@ namespace EvilBaschdi.Core.Extensions
             var bytes = Encoding.Default.GetBytes(input);
             return Encoding.UTF8.GetString(bytes);
         }
+
     }
 }
