@@ -44,7 +44,7 @@ namespace EvilBaschdi.Core.Internal
             foreach (var diSourceSubDir in source.GetDirectories())
             {
                 var nextTargetSubDir = target.CreateSubdirectory(diSourceSubDir.Name);
-                var runForAsync = await ValueForAsync(diSourceSubDir, nextTargetSubDir);
+                await ValueForAsync(diSourceSubDir, nextTargetSubDir);
             }
 
             return progress;

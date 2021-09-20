@@ -4,8 +4,11 @@ using EvilBaschdi.Core.Internal;
 
 namespace EvilBaschdi.Core.TestConsole
 {
+    // ReSharper disable once ArrangeTypeModifiers
+    // ReSharper disable once ClassNeverInstantiated.Global
     class Program
     {
+        // ReSharper disable once UnusedParameter.Local
         static async Task Main(string[] args)
         {
             Console.WriteLine("Hello World!");
@@ -32,7 +35,7 @@ namespace EvilBaschdi.Core.TestConsole
 
             //var directoryInfo = new DirectoryInfo(@"C:\temp\copy_source");
 
-            //Console.WriteLine(directoryInfo.GetDirectorySize());
+            Console.WriteLine(t);
             Console.ReadLine();
         }
     }
