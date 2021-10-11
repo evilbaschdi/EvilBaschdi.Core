@@ -21,7 +21,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="EvilBaschdi.Testing" Version="2021.10.3.2147-develop" />
+    <PackageReference Include="EvilBaschdi.Testing" Version="2021.10.11.1624-develop" />
     <PackageReference Include="Fare" Version="2.1.2" />
     <PackageReference Include="FluentAssertions" Version="6.1.0" />
     <PackageReference Include="Microsoft.CodeCoverage" Version="16.11.0" />
