@@ -4,42 +4,32 @@ namespace EvilBaschdi.Core.Internal
 {
     /// <inheritdoc />
     // ReSharper disable once UnusedType.Global
-    public abstract class ChainHelperFor<TIn, TOut> : IChainHelperFor<TIn, TOut>
+    public abstract class ChainLinkValueFor<TIn, TOut> : IChainLinkValueFor<TIn, TOut>
     {
-        /// <summary>
-        /// </summary>
-        // ReSharper disable once MemberCanBePrivate.Global
-        // ReSharper disable once NotAccessedField.Global
-        protected TIn Input;
-
         /// <summary>
         ///     Initializes a new instance of the <see cref="T:System.Object" /> class.
         /// </summary>
         /// <exception cref="ArgumentNullException"></exception>
-        protected ChainHelperFor(IChainHelperFor<TIn, TOut> chainHelperFor)
+        protected ChainLinkValueFor(IChainLinkValueFor<TIn, TOut> chainLinkValueFor)
         {
-            NextChain = chainHelperFor ?? throw new ArgumentNullException(nameof(chainHelperFor));
+            NextChain = chainLinkValueFor ?? throw new ArgumentNullException(nameof(chainLinkValueFor));
         }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="T:System.Object" /> class.
         /// </summary>
-        protected ChainHelperFor()
+        protected ChainLinkValueFor()
         {
         }
 
         /// <inheritdoc />
-        public IChainHelperFor<TIn, TOut> NextChain { get; }
+        public IChainLinkValueFor<TIn, TOut> NextChain { get; }
 
         /// <inheritdoc />
         public abstract bool AmIResponsible { get; }
 
         /// <inheritdoc />
-        public TOut ValueFor(TIn input)
-        {
-            Input = input;
-            return AmIResponsible ? InnerValueFor(input) : NextChain != null ? NextChain.ValueFor(input) : default;
-        }
+        public TOut ValueFor(TIn input) => AmIResponsible ? InnerValueFor(input) : NextChain != null ? NextChain.ValueFor(input) : default;
 
 
         /// <summary>

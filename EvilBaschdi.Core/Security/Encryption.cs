@@ -70,10 +70,10 @@ namespace EvilBaschdi.Core.Security
 
             using var memoryStream = new MemoryStream();
             // ReSharper disable once IdentifierTypo
-            using var rijndael = Rijndael.Create();
-            rijndael.Key = key ?? throw new ArgumentNullException(nameof(key));
-            rijndael.IV = iv ?? throw new ArgumentNullException(nameof(iv));
-            var cryptoStream = new CryptoStream(memoryStream, rijndael.CreateEncryptor(), CryptoStreamMode.Write);
+            using var aes = Aes.Create();
+            aes.Key = key ?? throw new ArgumentNullException(nameof(key));
+            aes.IV = iv ?? throw new ArgumentNullException(nameof(iv));
+            var cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(), CryptoStreamMode.Write);
             cryptoStream.Write(clearText, 0, clearText.Length);
             cryptoStream.Close();
             var encryptedData = memoryStream.ToArray();
@@ -97,10 +97,10 @@ namespace EvilBaschdi.Core.Security
 
             using var memoryStream = new MemoryStream();
             // ReSharper disable once IdentifierTypo
-            using var rijndael = Rijndael.Create();
-            rijndael.Key = key ?? throw new ArgumentNullException(nameof(key));
-            rijndael.IV = iv ?? throw new ArgumentNullException(nameof(iv));
-            var cryptoStream = new CryptoStream(memoryStream, rijndael.CreateDecryptor(), CryptoStreamMode.Write);
+            using var aes = Aes.Create();
+            aes.Key = key ?? throw new ArgumentNullException(nameof(key));
+            aes.IV = iv ?? throw new ArgumentNullException(nameof(iv));
+            var cryptoStream = new CryptoStream(memoryStream, aes.CreateDecryptor(), CryptoStreamMode.Write);
             cryptoStream.Write(cipherData, 0, cipherData.Length);
             cryptoStream.Close();
             var decryptedData = memoryStream.ToArray();

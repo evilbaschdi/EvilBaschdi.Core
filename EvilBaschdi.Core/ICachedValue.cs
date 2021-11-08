@@ -10,6 +10,7 @@
         /// <summary>
         ///     Reset Cache
         /// </summary>
+        // ReSharper disable once UnusedMemberInSuper.Global
         void ResetCache();
     }
 }

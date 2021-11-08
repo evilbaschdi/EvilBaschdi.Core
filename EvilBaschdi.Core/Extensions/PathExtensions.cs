@@ -9,10 +9,12 @@ namespace EvilBaschdi.Core.Extensions
 {
     /// <summary>
     /// </summary>
+    // ReSharper disable once UnusedType.Global
     public static class PathExtensions
     {
         /// <summary>
         /// </summary>
+        // ReSharper disable once UnusedMember.Global
         public static bool IsAccessible(this string directoryPath)
         {
             try
@@ -39,6 +41,7 @@ namespace EvilBaschdi.Core.Extensions
         /// <summary>
         /// </summary>
         // ReSharper disable once MemberCanBePrivate.Global
+        // ReSharper disable once UnusedMember.Global
         public static FileInfo FileInfo(this string filePath)
         {
             return new(filePath);
@@ -48,6 +51,7 @@ namespace EvilBaschdi.Core.Extensions
         /// </summary>
         /// <param name="directories"></param>
         /// <returns></returns>
+        // ReSharper disable once UnusedMember.Global
         public static List<string> GetExistingDirectories(this IEnumerable<string> directories)
         {
             var list = new ConcurrentBag<string>();
