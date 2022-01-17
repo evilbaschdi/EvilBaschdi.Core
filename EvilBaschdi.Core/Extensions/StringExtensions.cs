@@ -1,7 +1,6 @@
 using System;
 using System.Text;
 using JetBrains.Annotations;
-
 #if NETSTANDARD2_0
 using System.ComponentModel;
 
@@ -10,7 +9,7 @@ using System.ComponentModel;
 namespace EvilBaschdi.Core.Extensions
 {
     /// <summary>
-    ///     Class to extend the functionality of type <see cref="string"/>
+    ///     Class to extend the functionality of type <see cref="string" />
     /// </summary>
     // ReSharper disable once UnusedType.Global
     public static class StringExtensions
@@ -144,6 +143,5 @@ namespace EvilBaschdi.Core.Extensions
             var bytes = Encoding.Default.GetBytes(input);
             return Encoding.UTF8.GetString(bytes);
         }
-
     }
 }

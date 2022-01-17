@@ -29,7 +29,6 @@ namespace EvilBaschdi.Core.Tests.Extensions
 
             // Act
 
-
             // Assert
             dummyConcurrentBag1.Count.Should().Be(2);
             dummyConcurrentBag1.Should().Contain(dummyString1);

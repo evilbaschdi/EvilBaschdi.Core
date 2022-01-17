@@ -21,7 +21,6 @@ namespace EvilBaschdi.Core
         {
         }
 
-
         /// <summary />
         /// <param name="cacheDefaultValue"></param>
         protected CachedValueFor(bool cacheDefaultValue)
@@ -46,7 +45,6 @@ namespace EvilBaschdi.Core
 
             var nonCachedValue = NonCachedValueFor(value);
 
-
             if (_cacheDefaultValue || !Equals(nonCachedValue, default(TOut)))
             {
                 _valueDictionary[value] = nonCachedValue;
@@ -54,7 +52,6 @@ namespace EvilBaschdi.Core
 
             return nonCachedValue;
         }
-
 
         /// <summary>
         ///     Resets the Cache

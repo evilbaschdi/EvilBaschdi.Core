@@ -91,7 +91,6 @@ namespace EvilBaschdi.Core.Tests
             var result1 = sut.ValueFor(dummyValue);
             var result2 = sut.ValueFor(dummyValue);
 
-
             // Assert            
             sut.CallCounter.Should().Be(1);
             result2.Should().Be(result1);
@@ -108,7 +107,6 @@ namespace EvilBaschdi.Core.Tests
             // Act
             var result1 = sut.ValueFor(dummyValue);
             var result2 = sut.ValueFor(dummyValue);
-
 
             // Assert            
 #pragma warning disable xUnit2005 // Do not use identity check on value type

@@ -31,7 +31,6 @@ namespace EvilBaschdi.Core.Internal
         /// <inheritdoc />
         public TOut ValueFor(TIn input) => AmIResponsible ? InnerValueFor(input) : NextChain != null ? NextChain.ValueFor(input) : default;
 
-
         /// <summary>
         /// </summary>
         /// <param name="input"></param>

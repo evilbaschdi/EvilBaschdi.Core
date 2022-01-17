@@ -29,7 +29,6 @@ namespace EvilBaschdi.Core.Extensions
                 : null;
         }
 
-
         /// <summary>
         ///     Returns true, if a file is locked.
         /// </summary>

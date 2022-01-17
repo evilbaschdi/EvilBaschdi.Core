@@ -7,6 +7,11 @@ namespace EvilBaschdi.Core.Internal
     public interface ICopyProgress
     {
         /// <summary>
+        ///     IProgress{T}
+        /// </summary>
+        IProgress<double> Progress { get; set; }
+
+        /// <summary>
         ///     Temp size of files to copy
         /// </summary>
         double TempSize { get; set; }
@@ -15,10 +20,5 @@ namespace EvilBaschdi.Core.Internal
         ///     Total size of files to copy
         /// </summary>
         double TotalSize { get; set; }
-
-        /// <summary>
-        ///     IProgress{T}
-        /// </summary>
-        IProgress<double> Progress { get; set; }
     }
 }

@@ -32,7 +32,6 @@ namespace EvilBaschdi.Core.Internal
                 throw new ArgumentNullException(nameof(target));
             }
 
-
             Directory.CreateDirectory(target.FullName);
 
             var files = source.GetFiles();

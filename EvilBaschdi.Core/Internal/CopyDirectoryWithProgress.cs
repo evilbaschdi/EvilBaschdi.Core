@@ -38,7 +38,6 @@ namespace EvilBaschdi.Core.Internal
                 throw new ArgumentNullException(nameof(target));
             }
 
-          
             var diSource = new DirectoryInfo(source);
             var diTarget = new DirectoryInfo(target);
 

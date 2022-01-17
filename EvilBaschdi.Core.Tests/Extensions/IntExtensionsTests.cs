@@ -32,7 +32,6 @@ namespace EvilBaschdi.Core.Tests.Extensions
         {
             // Arrange
 
-
             // Act
             var result = input.ToWords();
 

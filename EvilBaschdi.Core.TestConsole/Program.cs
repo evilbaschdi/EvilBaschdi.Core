@@ -21,7 +21,6 @@ namespace EvilBaschdi.Core.TestConsole
 
             var t = 0d;
 
-
             copyProgress.Progress = new Progress<double>(increment =>
                                                          {
                                                              t += increment;
@@ -29,9 +28,7 @@ namespace EvilBaschdi.Core.TestConsole
                                                              Console.WriteLine($"increment: {increment}");
                                                          });
 
-
             await copyDirectoryWithProgress.RunForAsync(@"C:\Windows10Upgrade", @"C:\temp\copy_target");
-
 
             //var directoryInfo = new DirectoryInfo(@"C:\temp\copy_source");
 

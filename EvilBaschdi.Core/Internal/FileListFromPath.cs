@@ -32,11 +32,11 @@ namespace EvilBaschdi.Core.Internal
                                   path,
                                   (ref FileSystemEntry entry) => entry.ToFullPath(),
                                   new EnumerationOptions
-                                           {
-                                               RecurseSubdirectories = true,
-                                               MatchCasing = MatchCasing.CaseInsensitive,
-                                               IgnoreInaccessible = true
-                                           })
+                                  {
+                                      RecurseSubdirectories = true,
+                                      MatchCasing = MatchCasing.CaseInsensitive,
+                                      IgnoreInaccessible = true
+                                  })
                               {
                                   ShouldIncludePredicate = (ref FileSystemEntry entry) => entry.IsDirectory
                               };
@@ -68,16 +68,15 @@ namespace EvilBaschdi.Core.Internal
             _fileListFromPathFilter =
                 fileListFromPathFilter ?? throw new ArgumentNullException(nameof(fileListFromPathFilter));
 
-
             var enumeration = new FileSystemEnumerable<string>(
                                   initialDirectory,
                                   (ref FileSystemEntry entry) => entry.ToFullPath(),
                                   new EnumerationOptions
-                                           {
-                                               RecurseSubdirectories = true,
-                                               MatchCasing = MatchCasing.CaseInsensitive,
-                                               IgnoreInaccessible = true
-                                           })
+                                  {
+                                      RecurseSubdirectories = true,
+                                      MatchCasing = MatchCasing.CaseInsensitive,
+                                      IgnoreInaccessible = true
+                                  })
                               {
                                   ShouldIncludePredicate = (ref FileSystemEntry entry) => !entry.IsDirectory && FileSystemEntryIsValid(entry)
                               };

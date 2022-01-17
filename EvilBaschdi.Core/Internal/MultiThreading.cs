@@ -39,9 +39,9 @@ namespace EvilBaschdi.Core.Internal
                 return;
             }
 
-            var partitionSize = Math.Ceiling(list.Count / (decimal) Environment.ProcessorCount);
+            var partitionSize = Math.Ceiling(list.Count / (decimal)Environment.ProcessorCount);
 
-            Parallel.ForEach(Partitioner.Create(0, list.Count, (int) partitionSize), worker);
+            Parallel.ForEach(Partitioner.Create(0, list.Count, (int)partitionSize), worker);
         }
     }
 }

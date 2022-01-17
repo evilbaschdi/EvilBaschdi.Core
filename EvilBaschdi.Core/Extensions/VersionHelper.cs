@@ -31,7 +31,6 @@ namespace EvilBaschdi.Core.Extensions
                 var minor = Environment.OSVersion.Version.Minor;
                 var build = Environment.OSVersion.Version.Build;
 
-
                 // ReSharper disable once SwitchStatementMissingSomeCases
                 return major switch
                 {
