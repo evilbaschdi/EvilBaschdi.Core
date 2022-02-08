@@ -1,10 +1,9 @@
 ﻿using System.IO;
 
-namespace EvilBaschdi.Core.Internal
+namespace EvilBaschdi.Core.Internal;
+
+/// <summary>
+/// </summary>
+public interface ICopyDirectoryWithFilesWithProgress : IRunForAsync2<DirectoryInfo, DirectoryInfo>
 {
-    /// <summary>
-    /// </summary>
-    public interface ICopyDirectoryWithFilesWithProgress : IRunForAsync2<DirectoryInfo, DirectoryInfo>
-    {
-    }
 }
