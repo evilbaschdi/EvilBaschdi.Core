@@ -11,11 +11,13 @@ public class FileListFromPathFilter
     /// </summary>
     // ReSharper disable once UnusedAutoPropertyAccessor.Global
     // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
+    // ReSharper disable PropertyCanBeMadeInitOnly.Global
     public List<string> FilterExtensionsNotToEqual { get; set; } = new();
 
     /// <summary>
     /// </summary>
     // ReSharper disable once UnusedAutoPropertyAccessor.Global
+
     public List<string> FilterExtensionsToEqual { get; set; } = new();
 
     /// <summary>
@@ -37,5 +39,6 @@ public class FileListFromPathFilter
     /// </summary>
     // ReSharper disable once UnusedAutoPropertyAccessor.Global
     public List<string> FilterFilePathsToEqual { get; set; } = new();
+    // ReSharper restore PropertyCanBeMadeInitOnly.Global
     // ReSharper restore AutoPropertyCanBeMadeGetOnly.Global
 }

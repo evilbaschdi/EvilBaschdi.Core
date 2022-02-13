@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO.Enumeration;
 using EvilBaschdi.Core.Model;
 
 namespace EvilBaschdi.Core.Internal;
@@ -14,4 +15,12 @@ public interface IFileListFromPath : IValueFor2<string, FileListFromPathFilter, 
     /// <returns></returns>
     // ReSharper disable once UnusedMemberInSuper.Global
     IEnumerable<string> GetSubdirectoriesContainingOnlyFiles(string path);
+
+    /// <summary>
+    /// </summary>
+    /// <param name="entry"></param>
+    /// <param name="fileListFromPathFilter"></param>
+    /// <returns></returns>
+    // ReSharper disable once UnusedMemberInSuper.Global
+    bool FileSystemEntryIsValid(FileSystemEntry entry, FileListFromPathFilter fileListFromPathFilter);
 }

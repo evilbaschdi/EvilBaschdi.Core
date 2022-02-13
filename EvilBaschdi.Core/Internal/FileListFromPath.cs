@@ -12,8 +12,6 @@ namespace EvilBaschdi.Core.Internal;
 // ReSharper disable once UnusedType.Global
 public class FileListFromPath : IFileListFromPath
 {
-    private FileListFromPathFilter _fileListFromPathFilter = new();
-
     /// <inheritdoc />
     /// <summary>
     ///     Gets a list of accessible directories that contain files.
@@ -31,7 +29,7 @@ public class FileListFromPath : IFileListFromPath
         var enumeration = new FileSystemEnumerable<string>(
                               path,
                               (ref FileSystemEntry entry) => entry.ToFullPath(),
-                              new EnumerationOptions
+                              new()
                               {
                                   RecurseSubdirectories = true,
                                   MatchCasing = MatchCasing.CaseInsensitive,
@@ -52,7 +50,7 @@ public class FileListFromPath : IFileListFromPath
             throw new ArgumentNullException(nameof(initialDirectory));
         }
 
-        return ValueFor(initialDirectory, new FileListFromPathFilter());
+        return ValueFor(initialDirectory, new());
     }
 
     /// <exception cref="ArgumentNullException"></exception>
@@ -65,30 +63,38 @@ public class FileListFromPath : IFileListFromPath
             throw new ArgumentNullException(nameof(initialDirectory));
         }
 
-        _fileListFromPathFilter =
-            fileListFromPathFilter ?? throw new ArgumentNullException(nameof(fileListFromPathFilter));
+        if (fileListFromPathFilter == null)
+        {
+            throw new ArgumentNullException(nameof(fileListFromPathFilter));
+        }
 
         var enumeration = new FileSystemEnumerable<string>(
                               initialDirectory,
                               (ref FileSystemEntry entry) => entry.ToFullPath(),
-                              new EnumerationOptions
+                              new()
                               {
                                   RecurseSubdirectories = true,
                                   MatchCasing = MatchCasing.CaseInsensitive,
                                   IgnoreInaccessible = true
                               })
                           {
-                              ShouldIncludePredicate = (ref FileSystemEntry entry) => !entry.IsDirectory && FileSystemEntryIsValid(entry)
+                              ShouldIncludePredicate = (ref FileSystemEntry entry) => !entry.IsDirectory && FileSystemEntryIsValid(entry, fileListFromPathFilter)
                           };
         return enumeration.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
     }
 
-    private bool FileSystemEntryIsValid(FileSystemEntry entry)
+    /// <inheritdoc />
+    public bool FileSystemEntryIsValid(FileSystemEntry entry, [NotNull] FileListFromPathFilter fileListFromPathFilter)
     {
-        var includeExtensionList = _fileListFromPathFilter.FilterExtensionsToEqual;
-        var excludeExtensionList = _fileListFromPathFilter.FilterExtensionsNotToEqual;
-        var includeFileNameList = _fileListFromPathFilter.FilterFileNamesToEqual;
-        var excludeFileNameList = _fileListFromPathFilter.FilterFileNamesNotToEqual;
+        if (fileListFromPathFilter == null)
+        {
+            throw new ArgumentNullException(nameof(fileListFromPathFilter));
+        }
+
+        var includeExtensionList = fileListFromPathFilter.FilterExtensionsToEqual;
+        var excludeExtensionList = fileListFromPathFilter.FilterExtensionsNotToEqual;
+        var includeFileNameList = fileListFromPathFilter.FilterFileNamesToEqual;
+        var excludeFileNameList = fileListFromPathFilter.FilterFileNamesNotToEqual;
 
         var fileName = entry.FileName.ToString();
         var fileExtension = Path.GetExtension(entry.ToFullPath()).TrimStart('.');

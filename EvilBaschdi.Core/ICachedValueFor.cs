@@ -10,5 +10,6 @@ public interface ICachedValueFor<in TIn, out TOut> : IValueFor<TIn, TOut>
     /// <summary>
     ///     Reset Cache
     /// </summary>
+    // ReSharper disable once UnusedMemberInSuper.Global
     void ResetCache();
 }
