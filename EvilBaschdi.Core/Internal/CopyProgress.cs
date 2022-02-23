@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EvilBaschdi.Core.Internal;
+﻿namespace EvilBaschdi.Core.Internal;
 
 /// <inheritdoc />
 public class CopyProgress : ICopyProgress

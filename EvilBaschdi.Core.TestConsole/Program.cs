@@ -1,5 +1,4 @@
-﻿using System;
-using EvilBaschdi.Core.Extensions;
+﻿using EvilBaschdi.Core.Extensions;
 
 namespace EvilBaschdi.Core.TestConsole;
 
@@ -8,7 +7,7 @@ namespace EvilBaschdi.Core.TestConsole;
 class Program
 {
     // ReSharper disable once UnusedParameter.Local
-    static void Main(string[] args)
+    private static void Main()
     {
         Console.WriteLine("Hello World!");
 

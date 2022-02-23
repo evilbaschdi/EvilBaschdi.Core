@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using AutoFixture.Idioms;
+﻿using AutoFixture.Idioms;
 using EvilBaschdi.Testing;
 using FluentAssertions;
 using Xunit;

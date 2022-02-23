@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace EvilBaschdi.Core;
+﻿namespace EvilBaschdi.Core;
 
 /// <inheritdoc />
 // ReSharper disable once UnusedType.Global

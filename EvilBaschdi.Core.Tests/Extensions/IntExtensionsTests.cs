@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using AutoFixture.Idioms;
+﻿using AutoFixture.Idioms;
 using EvilBaschdi.Core.Extensions;
 using EvilBaschdi.Testing;
 using FluentAssertions;

@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-
-namespace EvilBaschdi.Core.Internal;
+﻿namespace EvilBaschdi.Core.Internal;
 
 /// <inheritdoc />
 // ReSharper disable once UnusedType.Global

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EvilBaschdi.Core;
+﻿namespace EvilBaschdi.Core;
 
 /// <inheritdoc />
 public interface IGuid : IValue<Guid>

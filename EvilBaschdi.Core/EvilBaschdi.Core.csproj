@@ -8,6 +8,7 @@
 		<!-- ReSharper disable once UnknownProperty -->
 		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\EvilBaschdi.Core.xml</DocumentationFile>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<ImplicitUsings>enable</ImplicitUsings>
 		<IsPackable>true</IsPackable>
 		<LangVersion>preview</LangVersion>
 		<PackageIcon>icon.png</PackageIcon>

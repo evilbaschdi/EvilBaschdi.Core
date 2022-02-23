@@ -12,7 +12,7 @@ public class CachedWritableValueTests
     //[Theory, NSubstituteOmitAutoPropertiesTrueAutoData]
     //public void Constructor_Returns(DummyCachedWritableValueString sut)
     //{
-    //    Assert.IsAssignableFrom<IValue<string>>(sut);
+    //    Assert.IsAssignableFrom<IString>(sut);
     //    Assert.IsAssignableFrom<IWritableValue<string>>(sut);
     //    Assert.IsAssignableFrom<CachedValue<string>>(sut);
     //}

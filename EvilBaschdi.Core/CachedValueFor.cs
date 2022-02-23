@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace EvilBaschdi.Core;
+﻿namespace EvilBaschdi.Core;
 
 /// <inheritdoc cref="ICachedValueFor{TIn,TOut}" />
 /// <summary>

@@ -1,5 +1,3 @@
-using System;
-
 namespace EvilBaschdi.Core.Extensions;
 
 /// <summary>

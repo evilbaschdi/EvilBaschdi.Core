@@ -1,4 +1,3 @@
-using System;
 using System.Text;
 using JetBrains.Annotations;
 #if NETSTANDARD2_0

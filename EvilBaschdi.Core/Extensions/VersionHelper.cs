@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EvilBaschdi.Core.Extensions;
+﻿namespace EvilBaschdi.Core.Extensions;
 
 /// <summary>
 ///     Get if Windows Version is vista or higher.

@@ -1,7 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using EvilBaschdi.Core.Extensions;
+﻿using EvilBaschdi.Core.Extensions;
 using JetBrains.Annotations;
 
 namespace EvilBaschdi.Core.Internal;

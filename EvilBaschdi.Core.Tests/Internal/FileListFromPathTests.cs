@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-using System.Linq;
 using AutoFixture.Idioms;
 using EvilBaschdi.Core.Internal;
 using EvilBaschdi.Core.Model;
