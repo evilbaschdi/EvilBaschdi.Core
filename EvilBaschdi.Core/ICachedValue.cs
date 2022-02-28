@@ -1,16 +1,15 @@
-﻿namespace EvilBaschdi.Core
+﻿namespace EvilBaschdi.Core;
+
+/// <inheritdoc />
+/// <summary>
+///     Interface for classes that return a cached value
+/// </summary>
+/// <typeparam name="T"></typeparam>
+public interface ICachedValue<out T> : IValue<T>
 {
-    /// <inheritdoc />
     /// <summary>
-    ///     Interface for classes that return a cached value
+    ///     Reset Cache
     /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public interface ICachedValue<out T> : IValue<T>
-    {
-        /// <summary>
-        ///     Reset Cache
-        /// </summary>
-        // ReSharper disable once UnusedMemberInSuper.Global
-        void ResetCache();
-    }
+    // ReSharper disable once UnusedMemberInSuper.Global
+    void ResetCache();
 }

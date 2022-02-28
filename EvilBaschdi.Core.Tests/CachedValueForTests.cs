@@ -1,145 +1,140 @@
-﻿using System;
-using System.Linq;
-using AutoFixture.Idioms;
+﻿using AutoFixture.Idioms;
 using EvilBaschdi.Testing;
 using FluentAssertions;
 using Xunit;
 
-namespace EvilBaschdi.Core.Tests
+namespace EvilBaschdi.Core.Tests;
+
+public class CachedValueForTests
 {
-    public class CachedValueForTests
+    [Theory]
+    [NSubstituteOmitAutoPropertiesTrueAutoData]
+    public void Constructor_HasNullGuards(GuardClauseAssertion assertion)
     {
-        [Theory]
-        [NSubstituteOmitAutoPropertiesTrueAutoData]
-        public void Constructor_HasNullGuards(GuardClauseAssertion assertion)
-        {
-            assertion.Verify(typeof(CachedValueForTestClass).GetConstructors());
-        }
+        assertion.Verify(typeof(CachedValueForTestClass).GetConstructors());
+    }
 
-        [Theory]
-        [NSubstituteOmitAutoPropertiesTrueAutoData]
-        public void Constructor_ReturnsI(CachedValueForTestClass sut)
-        {
-            sut.Should().BeAssignableTo<ICachedValueFor<string, string>>();
-        }
+    [Theory]
+    [NSubstituteOmitAutoPropertiesTrueAutoData]
+    public void Constructor_ReturnsI(CachedValueForTestClass sut)
+    {
+        sut.Should().BeAssignableTo<ICachedValueFor<string, string>>();
+    }
 
-        [Theory]
-        [NSubstituteOmitAutoPropertiesTrueAutoData]
-        public void Methods_HaveNullGuards(GuardClauseAssertion assertion)
-        {
-            assertion.Verify(typeof(CachedValueForTestClass).GetMethods().Where(method => !method.IsAbstract));
-        }
+    [Theory]
+    [NSubstituteOmitAutoPropertiesTrueAutoData]
+    public void Methods_HaveNullGuards(GuardClauseAssertion assertion)
+    {
+        assertion.Verify(typeof(CachedValueForTestClass).GetMethods().Where(method => !method.IsAbstract));
+    }
 
-        [Theory]
-        [NSubstituteOmitAutoPropertiesTrueAutoData]
-        public void ValueFor_DictionaryDoesNotContainKey_AddedToDictionary_ReturnsCachedValue(
-            string key,
-            CachedValueForTestClass sut)
-        {
-            // Arrange
+    [Theory]
+    [NSubstituteOmitAutoPropertiesTrueAutoData]
+    public void ValueFor_DictionaryDoesNotContainKey_AddedToDictionary_ReturnsCachedValue(
+        string key,
+        CachedValueForTestClass sut)
+    {
+        // Arrange
 
-            // Act
-            var result = sut.ValueFor(key);
+        // Act
+        var result = sut.ValueFor(key);
 
-            // Assert
-            result.Should().Be($"result = {key}");
-        }
+        // Assert
+        result.Should().Be($"result = {key}");
+    }
 
-        [Theory]
-        [NSubstituteOmitAutoPropertiesTrueAutoData]
-        public void ValueFor_DictionaryContainsKey_ReturnsSameValue(
-            string key,
-            CachedValueForTestClass sut)
-        {
-            // Arrange
+    [Theory]
+    [NSubstituteOmitAutoPropertiesTrueAutoData]
+    public void ValueFor_DictionaryContainsKey_ReturnsSameValue(
+        string key,
+        CachedValueForTestClass sut)
+    {
+        // Arrange
 
-            // Act
-            var result1 = sut.ValueFor(key);
-            var result2 = sut.ValueFor(key);
+        // Act
+        var result1 = sut.ValueFor(key);
+        var result2 = sut.ValueFor(key);
 
-            // Assert
-            result2.Should().BeSameAs(result1);
-        }
+        // Assert
+        result2.Should().BeSameAs(result1);
+    }
 
-        [Theory]
-        [NSubstituteOmitAutoPropertiesTrueAutoData]
-        public void ValueFor_DictionaryContainsKey_ResetsCache_ReturnsNotSameButEqualValue(
-            string key,
-            CachedValueForTestClass sut)
-        {
-            // Arrange
+    [Theory]
+    [NSubstituteOmitAutoPropertiesTrueAutoData]
+    public void ValueFor_DictionaryContainsKey_ResetsCache_ReturnsNotSameButEqualValue(
+        string key,
+        CachedValueForTestClass sut)
+    {
+        // Arrange
 
-            // Act
-            var result1 = sut.ValueFor(key);
-            sut.ResetCache();
-            var result2 = sut.ValueFor(key);
+        // Act
+        var result1 = sut.ValueFor(key);
+        sut.ResetCache();
+        var result2 = sut.ValueFor(key);
 
-            // Assert
-            result2.Should().Be(result1);
-            result2.Should().NotBeSameAs(result1);
-        }
+        // Assert
+        result2.Should().Be(result1);
+        result2.Should().NotBeSameAs(result1);
+    }
 
-        [Theory]
-        [NSubstituteOmitAutoPropertiesTrueAutoData]
-        public void ValueFor_ReturnsDefaultValue_CachesDefaultValue(
-            string dummyValue)
-        {
-            // Arrange
-            var sut = new CachedValueForTestClassReturningDefaultOfGuid(true);
+    [Theory]
+    [NSubstituteOmitAutoPropertiesTrueAutoData]
+    public void ValueFor_ReturnsDefaultValue_CachesDefaultValue(
+        string dummyValue)
+    {
+        // Arrange
+        var sut = new CachedValueForTestClassReturningDefaultOfGuid(true);
 
-            // Act
-            var result1 = sut.ValueFor(dummyValue);
-            var result2 = sut.ValueFor(dummyValue);
+        // Act
+        var result1 = sut.ValueFor(dummyValue);
+        var result2 = sut.ValueFor(dummyValue);
 
+        // Assert            
+        sut.CallCounter.Should().Be(1);
+        result2.Should().Be(result1);
+    }
 
-            // Assert            
-            sut.CallCounter.Should().Be(1);
-            result2.Should().Be(result1);
-        }
+    [Theory]
+    [NSubstituteOmitAutoPropertiesTrueAutoData]
+    public void ValueFor_ReturnsDefaultValue_DoesNotCacheDefaultValue(
+        string dummyValue)
+    {
+        // Arrange
+        var sut = new CachedValueForTestClassReturningDefaultOfGuid(false);
 
-        [Theory]
-        [NSubstituteOmitAutoPropertiesTrueAutoData]
-        public void ValueFor_ReturnsDefaultValue_DoesNotCacheDefaultValue(
-            string dummyValue)
-        {
-            // Arrange
-            var sut = new CachedValueForTestClassReturningDefaultOfGuid(false);
+        // Act
+        var result1 = sut.ValueFor(dummyValue);
+        var result2 = sut.ValueFor(dummyValue);
 
-            // Act
-            var result1 = sut.ValueFor(dummyValue);
-            var result2 = sut.ValueFor(dummyValue);
-
-
-            // Assert            
+        // Assert            
 #pragma warning disable xUnit2005 // Do not use identity check on value type
-            Assert.NotSame(result2, result1);
+        Assert.NotSame(result2, result1);
 #pragma warning restore xUnit2005 // Do not use identity check on value type
-            sut.CallCounter.Should().Be(2);
-            result2.Should().Be(result1);
+        sut.CallCounter.Should().Be(2);
+        result2.Should().Be(result1);
+    }
+
+    public class CachedValueForTestClass : CachedValueFor<string, string>
+    {
+        protected override string NonCachedValueFor(string value)
+        {
+            return $"result = {value}";
+        }
+    }
+
+    private class CachedValueForTestClassReturningDefaultOfGuid : CachedValueFor<string, Guid>
+    {
+        public int CallCounter;
+
+        public CachedValueForTestClassReturningDefaultOfGuid(bool cacheDefaultValues)
+            : base(cacheDefaultValues)
+        {
         }
 
-        public class CachedValueForTestClass : CachedValueFor<string, string>
+        protected override Guid NonCachedValueFor(string value)
         {
-            protected override string NonCachedValueFor(string value)
-            {
-                return $"result = {value}";
-            }
-        }
-
-        private class CachedValueForTestClassReturningDefaultOfGuid : CachedValueFor<string, Guid>
-        {
-            public int CallCounter;
-
-            public CachedValueForTestClassReturningDefaultOfGuid(bool cacheDefaultValues)
-                : base(cacheDefaultValues)
-            {
-            }
-
-            protected override Guid NonCachedValueFor(string value)
-            {
-                CallCounter++;
-                return Guid.Empty;
-            }
+            CallCounter++;
+            return Guid.Empty;
         }
     }
 }

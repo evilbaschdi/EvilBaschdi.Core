@@ -1,8 +1,7 @@
-﻿namespace EvilBaschdi.Core.Internal
+﻿namespace EvilBaschdi.Core.Internal;
+
+/// <summary>
+/// </summary>
+public interface ICopyDirectoryWithProgress : IRunForAsync2<string, string>
 {
-    /// <summary>
-    /// </summary>
-    public interface ICopyDirectoryWithProgress : IRunForAsync2<string, string>
-    {
-    }
 }
