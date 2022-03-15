@@ -30,7 +30,7 @@ public class ConcurrentBagExtensionsTests
         // Act
 
         // Assert
-        dummyConcurrentBag1.Count.Should().Be(2);
+        dummyConcurrentBag1.Should().HaveCount(2);
         dummyConcurrentBag1.Should().Contain(dummyString1);
         dummyConcurrentBag1.Should().Contain(dummyString2);
     }
