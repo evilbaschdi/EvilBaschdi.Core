@@ -34,7 +34,7 @@ public class FileListFromPathTests
         // Arrange
         var filePathFilter = new FileListFromPathFilter
                              {
-                                 FilterExtensionsToEqual = new List<string>
+                                 FilterExtensionsToEqual = new()
                                                            {
                                                                "txt"
                                                            }
