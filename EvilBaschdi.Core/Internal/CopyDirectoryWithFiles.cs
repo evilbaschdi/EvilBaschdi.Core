@@ -5,8 +5,18 @@
 public class CopyDirectoryWithFiles : ICopyDirectoryWithFiles
 {
     /// <inheritdoc />
-    public async Task<int> ValueForAsync(DirectoryInfo source, DirectoryInfo target)
+    public async Task ValueFor(DirectoryInfo source, DirectoryInfo target)
     {
+        if (source == null)
+        {
+            throw new ArgumentNullException(nameof(source));
+        }
+
+        if (target == null)
+        {
+            throw new ArgumentNullException(nameof(target));
+        }
+
         if (source == null)
         {
             throw new ArgumentNullException(nameof(source));
@@ -19,13 +29,11 @@ public class CopyDirectoryWithFiles : ICopyDirectoryWithFiles
 
         Directory.CreateDirectory(target.FullName);
 
-        var progress = 0;
-
         var files = source.GetFiles("*", SearchOption.AllDirectories);
 
         if (!files.Any())
         {
-            return progress;
+            return;
         }
 
         // Copy each file into the new directory.
@@ -39,25 +47,7 @@ public class CopyDirectoryWithFiles : ICopyDirectoryWithFiles
         foreach (var diSourceSubDir in source.GetDirectories())
         {
             var nextTargetSubDir = target.CreateSubdirectory(diSourceSubDir.Name);
-            await ValueForAsync(diSourceSubDir, nextTargetSubDir);
+            await ValueFor(diSourceSubDir, nextTargetSubDir);
         }
-
-        return progress;
-    }
-
-    /// <inheritdoc />
-    public async Task RunForAsync(DirectoryInfo source, DirectoryInfo target)
-    {
-        if (source == null)
-        {
-            throw new ArgumentNullException(nameof(source));
-        }
-
-        if (target == null)
-        {
-            throw new ArgumentNullException(nameof(target));
-        }
-
-        await ValueForAsync(source, target);
     }
 }

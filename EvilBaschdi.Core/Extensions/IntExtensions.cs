@@ -40,31 +40,33 @@ public static class IntExtensions
             number %= 100;
         }
 
-        if (number > 0)
+        if (number <= 0)
         {
-            if (words != "")
-            {
-                words += "and ";
-            }
+            return words;
+        }
 
-            var unitsMap = new[]
-                           {
-                               "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen",
-                               "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"
-                           };
-            var tensMap = new[] { "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+        if (words != "")
+        {
+            words += "and ";
+        }
 
-            if (number < 20)
+        var unitsMap = new[]
+                       {
+                           "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen",
+                           "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"
+                       };
+        var tensMap = new[] { "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+
+        if (number < 20)
+        {
+            words += unitsMap[number];
+        }
+        else
+        {
+            words += tensMap[number / 10];
+            if (number % 10 > 0)
             {
-                words += unitsMap[number];
-            }
-            else
-            {
-                words += tensMap[number / 10];
-                if (number % 10 > 0)
-                {
-                    words += $"-{unitsMap[number % 10]}";
-                }
+                words += $"-{unitsMap[number % 10]}";
             }
         }
 

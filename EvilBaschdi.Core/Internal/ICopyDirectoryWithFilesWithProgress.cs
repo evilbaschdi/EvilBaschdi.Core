@@ -2,6 +2,6 @@
 
 /// <summary>
 /// </summary>
-public interface ICopyDirectoryWithFilesWithProgress : IRunForAsync2<DirectoryInfo, DirectoryInfo>
+public interface ICopyDirectoryWithFilesWithProgress : ITaskValueFor2<DirectoryInfo, DirectoryInfo>
 {
 }

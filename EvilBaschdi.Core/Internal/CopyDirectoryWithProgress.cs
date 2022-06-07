@@ -23,7 +23,7 @@ public class CopyDirectoryWithProgress : ICopyDirectoryWithProgress
     }
 
     /// <inheritdoc />
-    public async Task RunForAsync([NotNull] string source, [NotNull] string target)
+    public async Task ValueFor([NotNull] string source, [NotNull] string target)
     {
         if (source == null)
         {
@@ -41,6 +41,6 @@ public class CopyDirectoryWithProgress : ICopyDirectoryWithProgress
         _copyProgress.TotalSize = diSource.GetDirectorySize();
         _copyProgress.TempSize = 0d;
 
-        await _copyDirectoryWithFilesWithProgress.RunForAsync(diSource, diTarget);
+        await _copyDirectoryWithFilesWithProgress.ValueFor(diSource, diTarget);
     }
 }

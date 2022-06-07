@@ -2,6 +2,6 @@
 
 /// <summary>
 /// </summary>
-public interface ICopyDirectoryWithProgress : IRunForAsync2<string, string>
+public interface ICopyDirectoryWithProgress : ITaskValueFor2<string, string>
 {
 }

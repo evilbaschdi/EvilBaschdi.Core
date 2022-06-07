@@ -3,6 +3,7 @@
 namespace EvilBaschdi.Core.Internal;
 
 /// <inheritdoc />
+// ReSharper disable once UnusedType.Global
 public class CopyDirectoryWithFilesWithProgress : ICopyDirectoryWithFilesWithProgress
 {
     private readonly ICopyProgress _copyProgress;
@@ -17,7 +18,7 @@ public class CopyDirectoryWithFilesWithProgress : ICopyDirectoryWithFilesWithPro
     }
 
     /// <inheritdoc />
-    public async Task RunForAsync([NotNull] DirectoryInfo source, [NotNull] DirectoryInfo target)
+    public async Task ValueFor([NotNull] DirectoryInfo source, [NotNull] DirectoryInfo target)
     {
         if (source == null)
         {
@@ -47,7 +48,7 @@ public class CopyDirectoryWithFilesWithProgress : ICopyDirectoryWithFilesWithPro
         foreach (var diSourceSubDir in source.GetDirectories())
         {
             var nextTargetSubDir = target.CreateSubdirectory(diSourceSubDir.Name);
-            await RunForAsync(diSourceSubDir, nextTargetSubDir);
+            await ValueFor(diSourceSubDir, nextTargetSubDir);
         }
     }
 }

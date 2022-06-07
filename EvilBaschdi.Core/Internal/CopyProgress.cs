@@ -1,6 +1,7 @@
 ﻿namespace EvilBaschdi.Core.Internal;
 
 /// <inheritdoc />
+// ReSharper disable once UnusedType.Global
 public class CopyProgress : ICopyProgress
 {
     /// <inheritdoc />
