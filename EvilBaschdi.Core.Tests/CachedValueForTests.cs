@@ -1,9 +1,4 @@
-﻿using AutoFixture.Idioms;
-using EvilBaschdi.Testing;
-using FluentAssertions;
-using Xunit;
-
-namespace EvilBaschdi.Core.Tests;
+﻿namespace EvilBaschdi.Core.Tests;
 
 public class CachedValueForTests
 {

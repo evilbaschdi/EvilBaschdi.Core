@@ -1,9 +1,5 @@
 using System.Collections.Concurrent;
-using AutoFixture.Idioms;
 using EvilBaschdi.Core.Extensions;
-using EvilBaschdi.Testing;
-using FluentAssertions;
-using Xunit;
 
 namespace EvilBaschdi.Core.Tests.Extensions;
 
