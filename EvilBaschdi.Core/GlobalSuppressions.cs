@@ -10,3 +10,6 @@ using System.Diagnostics.CodeAnalysis;
 [assembly:
     SuppressMessage("Design", "CA1005:Avoid excessive parameters on generic types", Justification = "<Pending>", Scope = "type",
         Target = "~T:EvilBaschdi.Core.ITaskWithResultValueFor2`3")]
+[assembly:
+    SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "<Pending>", Scope = "member",
+        Target = "~M:EvilBaschdi.Core.AppHelpers.ProcessByPath.RunFor(System.String)")]
