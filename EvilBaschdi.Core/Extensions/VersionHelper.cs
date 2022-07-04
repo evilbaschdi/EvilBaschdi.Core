@@ -1,4 +1,6 @@
-﻿namespace EvilBaschdi.Core.Extensions;
+﻿using System.Runtime.InteropServices;
+
+namespace EvilBaschdi.Core.Extensions;
 
 /// <summary>
 ///     Get if Windows Version is vista or higher.
@@ -46,10 +48,25 @@ public static class VersionHelper
                 6 when minor == 3 && build == 9600 => "Win8.1",
                 10 when minor == 0 && build is >= 10240 and < 22000 => "Win10",
                 10 when minor == 0 && build >= 22000 => "Win11",
-                _ => "Can not find os version.",
+                _ => "Can not find windows version.",
             };
         }
     }
+
+    /// <summary>
+    ///     OS is FreeBSD
+    /// </summary>
+    public static bool IsFreeBsd => RuntimeInformation.IsOSPlatform(OSPlatform.FreeBSD);
+
+    /// <summary>
+    ///     OS is Linux
+    /// </summary>
+    public static bool IsLinux => RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
+
+    /// <summary>
+    ///     OS is OSX
+    /// </summary>
+    public static bool IsOsX => RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 
     /// <summary>
     ///     OS is Windows Vista.
@@ -57,24 +74,29 @@ public static class VersionHelper
     public static bool IsVista => GetWindowsClientVersion == "Vista";
 
     /// <summary>
+    ///     OS is Windows
+    /// </summary>
+    public static bool IsWindows => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+
+    /// <summary>
     ///     OS is Windows 10.
     /// </summary>
     /// <returns></returns>
-    public static bool IsWindows10 => GetWindowsClientVersion.StartsWith("Win10");
+    public static bool IsWindows10 => IsWindows && GetWindowsClientVersion.StartsWith("Win10");
 
     /// <summary>
     ///     OS is Windows 11.
     /// </summary>
     /// <returns></returns>
-    public static bool IsWindows11 => GetWindowsClientVersion.StartsWith("Win11");
+    public static bool IsWindows11 => IsWindows && GetWindowsClientVersion.StartsWith("Win11");
 
     /// <summary>
     ///     OS is Windows 7.
     /// </summary>
-    public static bool IsWindows7 => GetWindowsClientVersion == "Win7";
+    public static bool IsWindows7 => IsWindows && GetWindowsClientVersion == "Win7";
 
     /// <summary>
     ///     OS is Windows 8 or 8.1.
     /// </summary>
-    public static bool IsWindows8 => GetWindowsClientVersion.StartsWith("Win8");
+    public static bool IsWindows8 => IsWindows && GetWindowsClientVersion.StartsWith("Win8");
 }
