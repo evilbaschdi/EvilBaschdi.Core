@@ -35,7 +35,7 @@ public static class DirectoryInfoExtensions
 
         var parentDirInfo = dirInfo.Parent;
 
-        return null == parentDirInfo
+        return parentDirInfo == null
             ? dirInfo.Name
             : Path.Combine(GetProperDirectoryCapitalization(parentDirInfo),
                 parentDirInfo.GetDirectories(dirInfo.Name)[0].Name).Trim();

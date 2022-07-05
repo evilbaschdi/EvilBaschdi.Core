@@ -21,7 +21,6 @@ public abstract class CachedValueFor<TIn, TOut> : ICachedValueFor<TIn, TOut>
     /// <summary />
     /// <param name="cacheDefaultValue"></param>
     protected CachedValueFor(bool cacheDefaultValue)
-
     {
         _cacheDefaultValue = cacheDefaultValue;
     }
