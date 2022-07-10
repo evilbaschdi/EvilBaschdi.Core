@@ -76,6 +76,7 @@ public static class VersionHelper
     /// <summary>
     ///     OS is Windows
     /// </summary>
+    // ReSharper disable once MemberCanBePrivate.Global
     public static bool IsWindows => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
 
     /// <summary>
