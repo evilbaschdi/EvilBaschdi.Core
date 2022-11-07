@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-namespace EvilBaschdi.Core.Extensions;
+﻿namespace EvilBaschdi.Core.Extensions;
 
 /// <summary>
 /// </summary>
