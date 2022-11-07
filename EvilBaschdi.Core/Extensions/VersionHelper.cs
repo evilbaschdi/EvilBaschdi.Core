@@ -8,15 +8,6 @@ namespace EvilBaschdi.Core.Extensions;
 // ReSharper disable once UnusedType.Global
 public static class VersionHelper
 {
-    //{
-    //    var currentVersion = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion");
-
-    //    // ReSharper disable once PossibleNullReferenceException
-    //    var productName = currentVersion.GetValue("ProductName").ToString();
-
-    //    return productName.StartsWith("Windows 10") || productName.StartsWith("Windows Server 2016");
-    //}
-
     /// <summary>
     ///     Gets the real OS Version.
     ///     Application has to contain a app.manifest supporting windows 10.

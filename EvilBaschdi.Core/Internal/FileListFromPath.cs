@@ -1,6 +1,5 @@
 using System.IO.Enumeration;
 using EvilBaschdi.Core.Model;
-using JetBrains.Annotations;
 
 namespace EvilBaschdi.Core.Internal;
 

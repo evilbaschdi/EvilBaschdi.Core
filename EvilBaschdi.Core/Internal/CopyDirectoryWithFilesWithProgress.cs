@@ -1,6 +1,4 @@
-﻿using JetBrains.Annotations;
-
-namespace EvilBaschdi.Core.Internal;
+﻿namespace EvilBaschdi.Core.Internal;
 
 /// <inheritdoc />
 // ReSharper disable once UnusedType.Global
