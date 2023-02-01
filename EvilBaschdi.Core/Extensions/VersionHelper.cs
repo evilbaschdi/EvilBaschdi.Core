@@ -1,5 +1,7 @@
 ﻿using System.Runtime.InteropServices;
 
+// ReSharper disable UnusedMember.Global
+
 namespace EvilBaschdi.Core.Extensions;
 
 /// <summary>

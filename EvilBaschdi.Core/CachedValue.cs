@@ -17,6 +17,7 @@ public abstract class CachedValue<T> : ICachedValue<T>
     ///     Constructor
     /// </summary>
     /// <param name="cacheTypeDefaultValue"></param>
+    // ReSharper disable once UnusedMember.Global
     protected CachedValue(bool cacheTypeDefaultValue)
     {
         _cacheTypeDefaultValue = cacheTypeDefaultValue;
@@ -51,6 +52,7 @@ public abstract class CachedValue<T> : ICachedValue<T>
 
             return _value;
         }
+        // ReSharper disable once UnusedMember.Global
         internal set => _value = value;
     }
 

@@ -9,5 +9,6 @@ public interface IValueFromMethod<out TOut>
     /// <summary>
     /// </summary>
     /// <returns></returns>
+    // ReSharper disable once UnusedMember.Global
     TOut Value();
 }

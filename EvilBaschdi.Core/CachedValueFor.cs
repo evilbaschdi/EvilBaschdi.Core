@@ -34,9 +34,9 @@ public abstract class CachedValueFor<TIn, TOut> : ICachedValueFor<TIn, TOut>
             throw new ArgumentNullException(nameof(value));
         }
 
-        if (_valueDictionary.ContainsKey(value))
+        if (_valueDictionary.TryGetValue(value, out var valueFor))
         {
-            return _valueDictionary[value];
+            return valueFor;
         }
 
         var nonCachedValue = NonCachedValueFor(value);

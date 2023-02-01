@@ -25,7 +25,10 @@ public class Encryption : IEncryption
 
         var clearBytes = Encoding.Unicode.GetBytes(clearText);
         using var rfc2898DeriveBytes = new Rfc2898DeriveBytes(encryptionKey,
+            // ReSharper disable once UseUtf8StringLiteral
+#pragma warning disable IDE0230
             new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 },
+#pragma warning restore IDE0230
             1000,
             HashAlgorithmName.SHA1);
         var encryptedData = EncryptString(clearBytes, rfc2898DeriveBytes.GetBytes(32),
@@ -48,7 +51,10 @@ public class Encryption : IEncryption
 
         var cipherBytes = Convert.FromBase64String(cipherText);
         using var rfc2898DeriveBytes = new Rfc2898DeriveBytes(encryptionKey,
+            // ReSharper disable once UseUtf8StringLiteral
+#pragma warning disable IDE0230
             new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 },
+#pragma warning restore IDE0230
             1000,
             HashAlgorithmName.SHA1);
         var decryptedData = DecryptString(cipherBytes, rfc2898DeriveBytes.GetBytes(32),
