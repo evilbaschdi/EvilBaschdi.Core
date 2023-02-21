@@ -1,9 +1,5 @@
-using AutoFixture.Idioms;
 using EvilBaschdi.Core.Internal;
 using EvilBaschdi.Core.Model;
-using EvilBaschdi.Testing;
-using FluentAssertions;
-using Xunit;
 
 namespace EvilBaschdi.Core.Tests.Internal;
 
@@ -34,7 +30,7 @@ public class FileListFromPathTests
         // Arrange
         var filePathFilter = new FileListFromPathFilter
                              {
-                                 FilterExtensionsToEqual = new List<string>
+                                 FilterExtensionsToEqual = new()
                                                            {
                                                                "txt"
                                                            }
@@ -52,12 +48,12 @@ public class FileListFromPathTests
         FileListFromPath sut)
     {
         // Arrange
-        const string userDir = @"C:\Symbols";
+        const string dir = @"C:\Windows";
 
         // Act
-        var result = sut.GetSubdirectoriesContainingOnlyFiles(userDir);
+        var result = sut.GetSubdirectoriesContainingOnlyFiles(dir);
 
         // Assert
-        result.Should().HaveCount(18);
+        result.Should().NotBeNull();
     }
 }

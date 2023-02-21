@@ -1,5 +1,4 @@
 ﻿using System.Collections.Concurrent;
-using JetBrains.Annotations;
 
 namespace EvilBaschdi.Core.Extensions;
 

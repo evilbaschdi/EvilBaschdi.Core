@@ -1,9 +1,5 @@
 using System.Collections.Concurrent;
-using AutoFixture.Idioms;
 using EvilBaschdi.Core.Extensions;
-using EvilBaschdi.Testing;
-using FluentAssertions;
-using Xunit;
 
 namespace EvilBaschdi.Core.Tests.Extensions;
 
@@ -30,7 +26,7 @@ public class ConcurrentBagExtensionsTests
         // Act
 
         // Assert
-        dummyConcurrentBag1.Count.Should().Be(2);
+        dummyConcurrentBag1.Should().HaveCount(2);
         dummyConcurrentBag1.Should().Contain(dummyString1);
         dummyConcurrentBag1.Should().Contain(dummyString2);
     }

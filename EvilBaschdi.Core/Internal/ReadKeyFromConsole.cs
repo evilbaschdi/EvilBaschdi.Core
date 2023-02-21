@@ -11,6 +11,11 @@ public class ReadKeyFromConsole : IReadKeyFromConsole
     /// <returns></returns>
     public string ValueFor(string key)
     {
+        if (key == null)
+        {
+            throw new ArgumentNullException(nameof(key));
+        }
+
         Console.Write($"{key}: ");
 
         var retry = false;

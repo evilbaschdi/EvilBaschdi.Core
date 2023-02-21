@@ -1,29 +1,24 @@
-﻿using AutoFixture.Idioms;
-using EvilBaschdi.Core.Internal;
-using EvilBaschdi.Testing;
-using FluentAssertions;
-using Xunit;
+﻿using EvilBaschdi.Core.Internal;
 
-namespace EvilBaschdi.Core.Tests.Internal
+namespace EvilBaschdi.Core.Tests.Internal;
+
+public class ValidateValueTests
 {
-    public class ValidateValueTests
+    [Theory, NSubstituteOmitAutoPropertiesTrueAutoData]
+    public void Constructor_HasNullGuards(GuardClauseAssertion assertion)
     {
-        [Theory, NSubstituteOmitAutoPropertiesTrueAutoData]
-        public void Constructor_HasNullGuards(GuardClauseAssertion assertion)
-        {
-            assertion.Verify(typeof(ValidateValue).GetConstructors());
-        }
+        assertion.Verify(typeof(ValidateValue).GetConstructors());
+    }
 
-        [Theory, NSubstituteOmitAutoPropertiesTrueAutoData]
-        public void Constructor_ReturnsInterfaceName(ValidateValue sut)
-        {
-            sut.Should().BeAssignableTo<IValidateValue>();
-        }
+    [Theory, NSubstituteOmitAutoPropertiesTrueAutoData]
+    public void Constructor_ReturnsInterfaceName(ValidateValue sut)
+    {
+        sut.Should().BeAssignableTo<IValidateValue>();
+    }
 
-        [Theory, NSubstituteOmitAutoPropertiesTrueAutoData]
-        public void Methods_HaveNullGuards(GuardClauseAssertion assertion)
-        {
-            assertion.Verify(typeof(ValidateValue).GetMethods().Where(method => !method.IsAbstract));
-        }
+    [Theory, NSubstituteOmitAutoPropertiesTrueAutoData]
+    public void Methods_HaveNullGuards(GuardClauseAssertion assertion)
+    {
+        assertion.Verify(typeof(ValidateValue).GetMethods().Where(method => !method.IsAbstract));
     }
 }

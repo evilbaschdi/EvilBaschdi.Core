@@ -16,23 +16,7 @@ public class CopyDirectory : ICopyDirectory
     }
 
     /// <inheritdoc />
-    public async Task RunForAsync(string sourcePath, string destinationPath)
-    {
-        if (sourcePath == null)
-        {
-            throw new ArgumentNullException(nameof(sourcePath));
-        }
-
-        if (destinationPath == null)
-        {
-            throw new ArgumentNullException(nameof(destinationPath));
-        }
-
-        await ValueForAsync(sourcePath, destinationPath);
-    }
-
-    /// <inheritdoc />
-    public async Task<int> ValueForAsync(string sourcePath, string destinationPath)
+    public async Task ValueFor(string sourcePath, string destinationPath)
     {
         if (sourcePath == null)
         {
@@ -47,6 +31,6 @@ public class CopyDirectory : ICopyDirectory
         var diSource = new DirectoryInfo(sourcePath);
         var diTarget = new DirectoryInfo(destinationPath);
 
-        return await _copyDirectoryWithFiles.ValueForAsync(diSource, diTarget);
+        await _copyDirectoryWithFiles.ValueFor(diSource, diTarget);
     }
 }

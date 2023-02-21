@@ -1,9 +1,4 @@
-﻿using AutoFixture.Idioms;
-using EvilBaschdi.Testing;
-using FluentAssertions;
-using Xunit;
-
-namespace EvilBaschdi.Core.Tests;
+﻿namespace EvilBaschdi.Core.Tests;
 
 public class CachedValueForTests
 {
@@ -108,7 +103,9 @@ public class CachedValueForTests
 
         // Assert            
 #pragma warning disable xUnit2005 // Do not use identity check on value type
+#pragma warning disable AssertNotSame // Simplify Assertion
         Assert.NotSame(result2, result1);
+#pragma warning restore AssertNotSame // Simplify Assertion
 #pragma warning restore xUnit2005 // Do not use identity check on value type
         sut.CallCounter.Should().Be(2);
         result2.Should().Be(result1);

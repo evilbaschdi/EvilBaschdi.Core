@@ -1,4 +1,6 @@
-﻿namespace EvilBaschdi.Core.Security;
+﻿// ReSharper disable UnusedMember.Global
+
+namespace EvilBaschdi.Core.Security;
 
 /// <summary>
 /// </summary>

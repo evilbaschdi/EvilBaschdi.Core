@@ -7,6 +7,7 @@ public interface ICopyProgress
     /// <summary>
     ///     IProgress{T}
     /// </summary>
+    // ReSharper disable once UnusedMember.Global
     IProgress<double> Progress { get; set; }
 
     /// <summary>
