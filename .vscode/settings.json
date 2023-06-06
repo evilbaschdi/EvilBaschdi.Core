@@ -1,5 +1,6 @@
 {
     "cSpell.words": [
         "Baschdi"
-    ]
+    ],
+    "dotnet.defaultSolution": "EvilBaschdi.Core.sln"
 }
