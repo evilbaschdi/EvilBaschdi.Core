@@ -1,6 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
+		<AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
 		<Authors>Sebastian Walter</Authors>
 		<Company>evilbaschdi (Sebastian Walter)</Company>
 		<Copyright>Copyright © 2015 - $([System.DateTime]::UtcNow.ToString(yyyy)) evilbaschdi</Copyright>
