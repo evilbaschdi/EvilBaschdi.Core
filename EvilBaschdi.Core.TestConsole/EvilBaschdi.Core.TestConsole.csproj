@@ -2,11 +2,6 @@
 
   <PropertyGroup>
 	  <OutputType>Exe</OutputType>
-	  <TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
-	  <Version>$([System.DateTime]::UtcNow.ToString(yyyy.M.d.Hmm))</Version>
-	  <EnableNETAnalyzers>true</EnableNETAnalyzers>
-	  <ImplicitUsings>enable</ImplicitUsings>
-	  <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

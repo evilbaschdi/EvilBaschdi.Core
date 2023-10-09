@@ -1,20 +1,15 @@
 ﻿namespace EvilBaschdi.Core.Internal;
 
 /// <inheritdoc />
+/// <summary>
+///     Constructor
+/// </summary>
+/// <param name="readKeyFromConsole"></param>
+/// <exception cref="ArgumentNullException"></exception>
 // ReSharper disable once UnusedType.Global
-public class ValidateValue : IValidateValue
+public class ValidateValue(IReadKeyFromConsole readKeyFromConsole) : IValidateValue
 {
-    private readonly IReadKeyFromConsole _readKeyFromConsole;
-
-    /// <summary>
-    ///     Constructor
-    /// </summary>
-    /// <param name="readKeyFromConsole"></param>
-    /// <exception cref="ArgumentNullException"></exception>
-    public ValidateValue(IReadKeyFromConsole readKeyFromConsole)
-    {
-        _readKeyFromConsole = readKeyFromConsole ?? throw new ArgumentNullException(nameof(readKeyFromConsole));
-    }
+    private readonly IReadKeyFromConsole _readKeyFromConsole = readKeyFromConsole ?? throw new ArgumentNullException(nameof(readKeyFromConsole));
 
     /// <inheritdoc />
     public void RunFor(string key, string s)

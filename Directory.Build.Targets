@@ -1,0 +1,122 @@
+<Project>
+
+	<ItemGroup>
+		<Compile Remove="TestResults\**" />
+		<EmbeddedResource Remove="TestResults\**" />
+		<None Remove="TestResults\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="**\*.cs">
+			<DependentUpon>$([System.String]::Copy(I%(Filename).cs))</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="**\IBool.cs">
+			<DependentUpon>IValue.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\ICachedValue.cs">
+			<DependentUpon>IValue.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\ICurrentAssembly.cs">
+			<DependentUpon>IValue.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\IDecimal.cs">
+			<DependentUpon>IValue.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\IDouble.cs">
+			<DependentUpon>IValue.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\IGuid.cs">
+			<DependentUpon>IValue.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\IInt.cs">
+			<DependentUpon>IValue.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\IObject.cs">
+			<DependentUpon>IValue.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\IString.cs">
+			<DependentUpon>IValue.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\ITask.cs">
+			<DependentUpon>IValue.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\ITaskOf.cs">
+			<DependentUpon>IValue.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\IIEnumerableOf.cs">
+			<DependentUpon>IValue.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\IListOf.cs">
+			<DependentUpon>IValue.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\IWritableValue.cs">
+			<DependentUpon>IValue.cs</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="**\IBoolWithInjection.cs">
+			<DependentUpon>IValueFor.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\ICachedValueFor.cs">
+			<DependentUpon>IValueFor.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\IDecimalWithInjection.cs">
+			<DependentUpon>IValueFor.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\IDoubleWithInjection.cs">
+			<DependentUpon>IValueFor.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\IGuidWithInjection.cs">
+			<DependentUpon>IValueFor.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\IIntWithInjection.cs">
+			<DependentUpon>IValueFor.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\IObjectWithInjection.cs">
+			<DependentUpon>IValueFor.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\IStringWithInjection.cs">
+			<DependentUpon>IValueFor.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\ITaskWithInjection.cs">
+			<DependentUpon>IValueFor.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\ITaskOfWithInjection.cs">
+			<DependentUpon>IValueFor.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\IIEnumerableOfWithInjection.cs">
+			<DependentUpon>IValueFor.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\IListOfWithInjection.cs">
+			<DependentUpon>IValueFor.cs</DependentUpon>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="**\ITaskFromMethod.cs">
+			<DependentUpon>IValueFromMethod.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\ITaskOfFromMethod.cs">
+			<DependentUpon>IValueFromMethod.cs</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="**\ITaskWithInjection2.cs">
+			<DependentUpon>IValueFor2.cs</DependentUpon>
+		</Compile>
+		<Compile Update="**\ITaskOfWithInjection2.cs">
+			<DependentUpon>IValueFor2.cs</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="**\ICachedWritableValue.cs">
+			<DependentUpon>IWritableValue.cs</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+</Project>

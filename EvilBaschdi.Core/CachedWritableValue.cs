@@ -1,9 +1,9 @@
 namespace EvilBaschdi.Core;
 
-/// <inheritdoc cref="IWritableValue{T}" />
-/// <inheritdoc cref="ICachedValue{T}" />
+/// <inheritdoc cref="ICachedWritableValue{T}" />
+/// <inheritdoc cref="CachedValue{T}" />
 // ReSharper disable once UnusedType.Global
-public abstract class CachedWritableValue<T> : CachedValue<T>, IWritableValue<T>
+public abstract class CachedWritableValue<T> : CachedValue<T>, ICachedWritableValue<T>
 {
     /// <summary>
     /// </summary>

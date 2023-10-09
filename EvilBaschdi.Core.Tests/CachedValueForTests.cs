@@ -103,9 +103,11 @@ public class CachedValueForTests
 
         // Assert            
 #pragma warning disable xUnit2005 // Do not use identity check on value type
-#pragma warning disable AssertNotSame // Simplify Assertion
+#pragma warning disable MFA001 // Replace Xunit assertion with Fluent Assertions equivalent
+#pragma warning disable FluentAssertions0703 // Simplify Assertion
         Assert.NotSame(result2, result1);
-#pragma warning restore AssertNotSame // Simplify Assertion
+#pragma warning restore FluentAssertions0703 // Simplify Assertion
+#pragma warning restore MFA001 // Replace Xunit assertion with Fluent Assertions equivalent
 #pragma warning restore xUnit2005 // Do not use identity check on value type
         sut.CallCounter.Should().Be(2);
         result2.Should().Be(result1);
@@ -119,14 +121,9 @@ public class CachedValueForTests
         }
     }
 
-    private class CachedValueForTestClassReturningDefaultOfGuid : CachedValueFor<string, Guid>
+    private class CachedValueForTestClassReturningDefaultOfGuid(bool cacheDefaultValues) : CachedValueFor<string, Guid>(cacheDefaultValues)
     {
         public int CallCounter;
-
-        public CachedValueForTestClassReturningDefaultOfGuid(bool cacheDefaultValues)
-            : base(cacheDefaultValues)
-        {
-        }
 
         protected override Guid NonCachedValueFor(string value)
         {

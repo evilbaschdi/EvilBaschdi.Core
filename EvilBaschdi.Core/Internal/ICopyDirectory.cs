@@ -1,6 +1,6 @@
 ﻿namespace EvilBaschdi.Core.Internal;
 
-/// <inheritdoc cref="ITaskValueFor2{TIn1,TIn2}" />
-public interface ICopyDirectory : ITaskValueFor2<string, string>
+/// <inheritdoc cref="ITaskWithInjection2{TIn1,TIn2}" />
+public interface ICopyDirectory : ITaskWithInjection2<string, string>
 {
 }

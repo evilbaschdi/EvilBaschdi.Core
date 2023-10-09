@@ -3,25 +3,23 @@
 namespace EvilBaschdi.Core.Internal;
 
 /// <inheritdoc />
+/// <summary>
+///     Constructor
+/// </summary>
+/// <param name="copyDirectoryWithFilesWithProgress"></param>
+/// <param name="copyProgress"></param>
+/// <exception cref="ArgumentNullException"></exception>
 // ReSharper disable once UnusedType.Global
-public class CopyDirectoryWithProgress : ICopyDirectoryWithProgress
+public class CopyDirectoryWithProgress
+    ([NotNull] ICopyDirectoryWithFilesWithProgress copyDirectoryWithFilesWithProgress, [NotNull] ICopyProgress copyProgress) : ICopyDirectoryWithProgress
 {
-    private readonly ICopyDirectoryWithFilesWithProgress _copyDirectoryWithFilesWithProgress;
-    private readonly ICopyProgress _copyProgress;
+    private readonly ICopyDirectoryWithFilesWithProgress _copyDirectoryWithFilesWithProgress =
+        copyDirectoryWithFilesWithProgress ?? throw new ArgumentNullException(nameof(copyDirectoryWithFilesWithProgress));
 
-    /// <summary>
-    ///     Constructor
-    /// </summary>
-    /// <param name="copyDirectoryWithFilesWithProgress"></param>
-    /// <param name="copyProgress"></param>
-    /// <exception cref="ArgumentNullException"></exception>
-    public CopyDirectoryWithProgress([NotNull] ICopyDirectoryWithFilesWithProgress copyDirectoryWithFilesWithProgress, [NotNull] ICopyProgress copyProgress)
-    {
-        _copyDirectoryWithFilesWithProgress = copyDirectoryWithFilesWithProgress ?? throw new ArgumentNullException(nameof(copyDirectoryWithFilesWithProgress));
-        _copyProgress = copyProgress ?? throw new ArgumentNullException(nameof(copyProgress));
-    }
+    private readonly ICopyProgress _copyProgress = copyProgress ?? throw new ArgumentNullException(nameof(copyProgress));
 
     /// <inheritdoc />
+    // ReSharper disable once ReplaceAsyncWithTaskReturn
     public async Task ValueFor([NotNull] string source, [NotNull] string target)
     {
         if (source == null)
