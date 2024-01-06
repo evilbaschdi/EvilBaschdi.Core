@@ -7,16 +7,15 @@
 /// <param name="copyDirectoryWithFiles"></param>
 // ReSharper disable once UnusedType.Global
 public class CopyDirectory(
-    ICopyDirectoryWithFiles copyDirectoryWithFiles) : ICopyDirectory
+    [NotNull] ICopyDirectoryWithFiles copyDirectoryWithFiles) : ICopyDirectory
 {
     private readonly ICopyDirectoryWithFiles _copyDirectoryWithFiles = copyDirectoryWithFiles ?? throw new ArgumentNullException(nameof(copyDirectoryWithFiles));
 
     /// <inheritdoc />
     // ReSharper disable once ReplaceAsyncWithTaskReturn
-    public async Task ValueFor(string sourcePath, string destinationPath)
+    public async Task ValueFor([NotNull] string sourcePath, [NotNull] string destinationPath)
     {
         ArgumentNullException.ThrowIfNull(sourcePath);
-
         ArgumentNullException.ThrowIfNull(destinationPath);
 
         var diSource = new DirectoryInfo(sourcePath);

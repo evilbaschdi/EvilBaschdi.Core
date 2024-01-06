@@ -27,12 +27,9 @@ public abstract class CachedValueFor<TIn, TOut> : ICachedValueFor<TIn, TOut>
 
     /// <inheritdoc />
     /// <summary>(Cached Value)</summary>
-    public TOut ValueFor(TIn value)
+    public TOut ValueFor([NotNull] TIn value)
     {
-        if (value == null)
-        {
-            throw new ArgumentNullException(nameof(value));
-        }
+        ArgumentNullException.ThrowIfNull(value);
 
         if (_valueDictionary.TryGetValue(value, out var valueFor))
         {

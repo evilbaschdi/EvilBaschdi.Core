@@ -17,7 +17,7 @@ public static class IntExtensions
             case 0:
                 return "zero";
             case < 0:
-                return $"minus {ToWords(Math.Abs(number))}";
+                return $"minus {ToWords(Math.Abs(number))}".Trim();
         }
 
         var words = string.Empty;
@@ -45,11 +45,6 @@ public static class IntExtensions
             return words;
         }
 
-        if (words != "")
-        {
-            words += "and ";
-        }
-
         var unitsMap = new[]
                        {
                            "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen",
@@ -70,6 +65,6 @@ public static class IntExtensions
             }
         }
 
-        return words;
+        return words.Trim();
     }
 }

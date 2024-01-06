@@ -5,14 +5,9 @@
 public class CopyDirectoryWithFiles : ICopyDirectoryWithFiles
 {
     /// <inheritdoc />
-    public async Task ValueFor(DirectoryInfo source, DirectoryInfo target)
+    public async Task ValueFor([NotNull] DirectoryInfo source, [NotNull] DirectoryInfo target)
     {
         ArgumentNullException.ThrowIfNull(source);
-
-        ArgumentNullException.ThrowIfNull(target);
-
-        ArgumentNullException.ThrowIfNull(source);
-
         ArgumentNullException.ThrowIfNull(target);
 
         Directory.CreateDirectory(target.FullName);

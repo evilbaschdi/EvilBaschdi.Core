@@ -8,7 +8,7 @@ public abstract class ChainLinkRunFor<TIn> : IChainLinkRunFor<TIn>
     ///     Initializes a new instance of the <see cref="T:System.Object" /> class.
     /// </summary>
     /// <exception cref="ArgumentNullException"></exception>
-    protected ChainLinkRunFor(IChainLinkRunFor<TIn> chainLinkRunFor)
+    protected ChainLinkRunFor([NotNull] IChainLinkRunFor<TIn> chainLinkRunFor)
     {
         NextChain = chainLinkRunFor ?? throw new ArgumentNullException(nameof(chainLinkRunFor));
     }
@@ -27,8 +27,9 @@ public abstract class ChainLinkRunFor<TIn> : IChainLinkRunFor<TIn>
     public abstract bool AmIResponsible { get; }
 
     /// <inheritdoc />
-    public void RunFor(TIn input)
+    public void RunFor([NotNull] TIn input)
     {
+        ArgumentNullException.ThrowIfNull(input);
         if (AmIResponsible)
         {
             InnerRunFor(input);
@@ -43,5 +44,5 @@ public abstract class ChainLinkRunFor<TIn> : IChainLinkRunFor<TIn>
     /// </summary>
     /// <param name="input"></param>
     /// <returns></returns>
-    protected abstract void InnerRunFor(TIn input);
+    protected abstract void InnerRunFor([NotNull] TIn input);
 }

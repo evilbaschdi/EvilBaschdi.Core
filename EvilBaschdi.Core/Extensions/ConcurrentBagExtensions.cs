@@ -21,9 +21,6 @@ public static class ConcurrentBagExtensions
 
         ArgumentNullException.ThrowIfNull(toAdd);
 
-        foreach (var element in toAdd)
-        {
-            bag.Add(element);
-        }
+        Parallel.ForEach(toAdd, bag.Add);
     }
 }

@@ -11,16 +11,14 @@ public class ProcessByPath : IProcessByPath
     {
         ArgumentNullException.ThrowIfNull(value);
 
-        var process = new Process
-                      {
-                          StartInfo =
-                          {
-                              FileName = value,
-                              UseShellExecute = true
-                          }
-                      };
-
-        return process;
+        return new()
+               {
+                   StartInfo =
+                   {
+                       FileName = value,
+                       UseShellExecute = true
+                   }
+               };
     }
 
     /// <inheritdoc />

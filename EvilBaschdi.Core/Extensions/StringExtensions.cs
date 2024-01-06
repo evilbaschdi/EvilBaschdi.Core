@@ -1,8 +1,4 @@
 using System.Text;
-#if NETSTANDARD2_0
-using System.ComponentModel;
-
-#endif
 
 namespace EvilBaschdi.Core.Extensions
 {
@@ -12,38 +8,6 @@ namespace EvilBaschdi.Core.Extensions
     // ReSharper disable once UnusedType.Global
     public static class StringExtensions
     {
-#if NETSTANDARD2_0
-        /// <summary>
-        ///     Contains <see cref="StringComparison" />.
-        /// </summary>
-        /// <param name="source">The string to seek in.</param>
-        /// <param name="value">The string to seek.</param>
-        /// <param name="comparisonType">One of the enumeration values that specifies the rules for the search.</param>
-        /// <returns>
-        ///     <c>true</c> if <paramref name="value" /> is found in <paramref name="source" />; else
-        ///     <c>false</c>
-        /// </returns>
-        // ReSharper disable once UnusedMember.Global
-        public static bool Contains(this string source, string value, StringComparison comparisonType)
-        {
-            if (source == null)
-            {
-                throw new ArgumentNullException(nameof(source));
-            }
-
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
-
-            if (!Enum.IsDefined(typeof(StringComparison), comparisonType))
-            {
-                throw new InvalidEnumArgumentException(nameof(comparisonType), (int) comparisonType, typeof(StringComparison));
-            }
-
-            return source.IndexOf(value, comparisonType) >= 0;
-        }
-#endif
         /// <summary>
         ///     Replace with <see cref="StringComparison" />
         /// </summary>
@@ -95,7 +59,9 @@ namespace EvilBaschdi.Core.Extensions
                 throw new ArgumentOutOfRangeException(nameof(count));
             }
 
-            return value.Length > count ? value.Remove(value.Length - count, count) : value;
+            return value.Length > count
+                ? value.Remove(value.Length - count, count)
+                : value;
         }
 
         /// <summary>
@@ -115,7 +81,9 @@ namespace EvilBaschdi.Core.Extensions
                 throw new ArgumentOutOfRangeException(nameof(count));
             }
 
-            return value.Length > count ? value.Remove(0, count) : value;
+            return value.Length > count
+                ? value.Remove(0, count)
+                : value;
         }
 
         /// <summary>

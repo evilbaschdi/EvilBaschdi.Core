@@ -8,7 +8,7 @@ public abstract class ChainLinkRun : IChainLinkRun
     ///     Initializes a new instance of the <see cref="T:System.Object" /> class.
     /// </summary>
     /// <exception cref="ArgumentNullException"></exception>
-    protected ChainLinkRun(IChainLinkRun chainLinkRun)
+    protected ChainLinkRun([NotNull] IChainLinkRun chainLinkRun)
     {
         NextChain = chainLinkRun ?? throw new ArgumentNullException(nameof(chainLinkRun));
     }

@@ -7,17 +7,20 @@
 /// <param name="readKeyFromConsole"></param>
 /// <exception cref="ArgumentNullException"></exception>
 // ReSharper disable once UnusedType.Global
-public class ValidateValue(IReadKeyFromConsole readKeyFromConsole) : IValidateValue
+public class ValidateValue(
+    [NotNull] IReadKeyFromConsole readKeyFromConsole) : IValidateValue
 {
     private readonly IReadKeyFromConsole _readKeyFromConsole = readKeyFromConsole ?? throw new ArgumentNullException(nameof(readKeyFromConsole));
 
     /// <inheritdoc />
-    public void RunFor(string key, string s)
+    public void RunFor([NotNull] string key, [NotNull] string s)
     {
+        ArgumentNullException.ThrowIfNull(key);
+        ArgumentNullException.ThrowIfNull(s);
         Console.WriteLine($"{key}: {s}");
-        var response = _readKeyFromConsole.ValueFor("Correct [yes] / [no]").ToLower();
+        var response = _readKeyFromConsole.ValueFor("Correct [y] / [n]").ToLower();
 
-        if (response.Contains("yes"))
+        if (response.Contains("y"))
         {
             return;
         }
