@@ -10,8 +10,9 @@ namespace EvilBaschdi.Core.Internal;
 /// <param name="copyProgress"></param>
 /// <exception cref="ArgumentNullException"></exception>
 // ReSharper disable once UnusedType.Global
-public class CopyDirectoryWithProgress
-    ([NotNull] ICopyDirectoryWithFilesWithProgress copyDirectoryWithFilesWithProgress, [NotNull] ICopyProgress copyProgress) : ICopyDirectoryWithProgress
+public class CopyDirectoryWithProgress(
+    [NotNull] ICopyDirectoryWithFilesWithProgress copyDirectoryWithFilesWithProgress,
+    [NotNull] ICopyProgress copyProgress) : ICopyDirectoryWithProgress
 {
     private readonly ICopyDirectoryWithFilesWithProgress _copyDirectoryWithFilesWithProgress =
         copyDirectoryWithFilesWithProgress ?? throw new ArgumentNullException(nameof(copyDirectoryWithFilesWithProgress));
@@ -22,15 +23,9 @@ public class CopyDirectoryWithProgress
     // ReSharper disable once ReplaceAsyncWithTaskReturn
     public async Task ValueFor([NotNull] string source, [NotNull] string target)
     {
-        if (source == null)
-        {
-            throw new ArgumentNullException(nameof(source));
-        }
+        ArgumentNullException.ThrowIfNull(source);
 
-        if (target == null)
-        {
-            throw new ArgumentNullException(nameof(target));
-        }
+        ArgumentNullException.ThrowIfNull(target);
 
         var diSource = new DirectoryInfo(source);
         var diTarget = new DirectoryInfo(target);

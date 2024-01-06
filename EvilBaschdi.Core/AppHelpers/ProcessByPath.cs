@@ -9,10 +9,7 @@ public class ProcessByPath : IProcessByPath
     /// <inheritdoc />
     public Process ValueFor([NotNull] string value)
     {
-        if (value == null)
-        {
-            throw new ArgumentNullException(nameof(value));
-        }
+        ArgumentNullException.ThrowIfNull(value);
 
         var process = new Process
                       {
@@ -29,10 +26,7 @@ public class ProcessByPath : IProcessByPath
     /// <inheritdoc />
     public void RunFor([NotNull] string value)
     {
-        if (value == null)
-        {
-            throw new ArgumentNullException(nameof(value));
-        }
+        ArgumentNullException.ThrowIfNull(value);
 
         ValueFor(value).Start();
     }

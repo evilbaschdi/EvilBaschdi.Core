@@ -22,15 +22,9 @@ public class MultiThreading : IMultiThreading
     /// </exception>
     public void RunFor(IList list, Action<Tuple<int, int>> worker)
     {
-        if (list == null)
-        {
-            throw new ArgumentNullException(nameof(list));
-        }
+        ArgumentNullException.ThrowIfNull(list);
 
-        if (worker == null)
-        {
-            throw new ArgumentNullException(nameof(worker));
-        }
+        ArgumentNullException.ThrowIfNull(worker);
 
         if (list.Count <= 0)
         {

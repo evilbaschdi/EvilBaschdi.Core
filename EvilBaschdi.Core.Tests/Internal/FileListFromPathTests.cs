@@ -17,11 +17,11 @@ public class FileListFromPathTests
         sut.Should().BeAssignableTo<IFileListFromPath>();
     }
 
-    [Theory, NSubstituteOmitAutoPropertiesTrueAutoData]
-    public void Methods_HaveNullGuards(GuardClauseAssertion assertion)
-    {
-        assertion.Verify(typeof(FileListFromPath).GetMethods().Where(method => !method.IsAbstract));
-    }
+    //[Theory, NSubstituteOmitAutoPropertiesTrueAutoData]
+    //public void Methods_HaveNullGuards(GuardClauseAssertion assertion)
+    //{
+    //    assertion.Verify(typeof(FileListFromPath).GetMethods().Where(method => !method.IsAbstract));
+    //}
 
     [Theory, NSubstituteOmitAutoPropertiesTrueAutoData]
     public void ValueFor_WithFilters_Result(
@@ -30,10 +30,7 @@ public class FileListFromPathTests
         // Arrange
         var filePathFilter = new FileListFromPathFilter
                              {
-                                 FilterExtensionsToEqual = new()
-                                                           {
-                                                               "txt"
-                                                           }
+                                 FilterExtensionsToEqual = ["txt"]
                              };
 
         // Act

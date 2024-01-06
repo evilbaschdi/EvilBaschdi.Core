@@ -13,21 +13,15 @@ public class Encryption : IEncryption
     /// <inheritdoc />
     public string EncryptString(string clearText, string encryptionKey)
     {
-        if (clearText == null)
-        {
-            throw new ArgumentNullException(nameof(clearText));
-        }
+        ArgumentNullException.ThrowIfNull(clearText);
 
-        if (encryptionKey == null)
-        {
-            throw new ArgumentNullException(nameof(encryptionKey));
-        }
+        ArgumentNullException.ThrowIfNull(encryptionKey);
 
         var clearBytes = Encoding.Unicode.GetBytes(clearText);
         using var rfc2898DeriveBytes = new Rfc2898DeriveBytes(encryptionKey,
             // ReSharper disable once UseUtf8StringLiteral
 #pragma warning disable IDE0230
-            new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 },
+            [0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76],
 #pragma warning restore IDE0230
             1000,
             HashAlgorithmName.SHA1);
@@ -39,21 +33,15 @@ public class Encryption : IEncryption
     /// <inheritdoc />
     public string DecryptString(string cipherText, string encryptionKey)
     {
-        if (cipherText == null)
-        {
-            throw new ArgumentNullException(nameof(cipherText));
-        }
+        ArgumentNullException.ThrowIfNull(cipherText);
 
-        if (encryptionKey == null)
-        {
-            throw new ArgumentNullException(nameof(encryptionKey));
-        }
+        ArgumentNullException.ThrowIfNull(encryptionKey);
 
         var cipherBytes = Convert.FromBase64String(cipherText);
         using var rfc2898DeriveBytes = new Rfc2898DeriveBytes(encryptionKey,
             // ReSharper disable once UseUtf8StringLiteral
 #pragma warning disable IDE0230
-            new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 },
+            [0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76],
 #pragma warning restore IDE0230
             1000,
             HashAlgorithmName.SHA1);
@@ -71,10 +59,7 @@ public class Encryption : IEncryption
     /// <returns></returns>
     private static byte[] EncryptString(byte[] clearText, byte[] key, byte[] iv)
     {
-        if (clearText == null)
-        {
-            throw new ArgumentNullException(nameof(clearText));
-        }
+        ArgumentNullException.ThrowIfNull(clearText);
 
         using var memoryStream = new MemoryStream();
         // ReSharper disable once IdentifierTypo
@@ -98,10 +83,7 @@ public class Encryption : IEncryption
     /// <returns></returns>
     private static byte[] DecryptString(byte[] cipherData, byte[] key, byte[] iv)
     {
-        if (cipherData == null)
-        {
-            throw new ArgumentNullException(nameof(cipherData));
-        }
+        ArgumentNullException.ThrowIfNull(cipherData);
 
         using var memoryStream = new MemoryStream();
         // ReSharper disable once IdentifierTypo

@@ -13,10 +13,7 @@ public static class FileInfoExtensions
     // ReSharper disable once UnusedMember.Global
     public static string GetProperFilePathCapitalization([NotNull] this FileInfo fileInfo)
     {
-        if (fileInfo == null)
-        {
-            throw new ArgumentNullException(nameof(fileInfo));
-        }
+        ArgumentNullException.ThrowIfNull(fileInfo);
 
         var dirInfo = fileInfo.Directory;
         return dirInfo != null
@@ -34,10 +31,7 @@ public static class FileInfoExtensions
     // ReSharper disable once UnusedMember.Global
     public static bool IsFileLocked(this FileInfo file)
     {
-        if (file == null)
-        {
-            throw new ArgumentNullException(nameof(file));
-        }
+        ArgumentNullException.ThrowIfNull(file);
 
         FileStream stream = null;
 

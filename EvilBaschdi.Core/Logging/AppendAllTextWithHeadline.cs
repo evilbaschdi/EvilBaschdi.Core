@@ -15,20 +15,11 @@ public class AppendAllTextWithHeadline : IAppendAllTextWithHeadline
     /// <param name="headline"></param>
     public void RunFor(string path, string contents, string headline)
     {
-        if (path == null)
-        {
-            throw new ArgumentNullException(nameof(path));
-        }
+        ArgumentNullException.ThrowIfNull(path);
 
-        if (contents == null)
-        {
-            throw new ArgumentNullException(nameof(contents));
-        }
+        ArgumentNullException.ThrowIfNull(contents);
 
-        if (headline == null)
-        {
-            throw new ArgumentNullException(nameof(headline));
-        }
+        ArgumentNullException.ThrowIfNull(headline);
 
         if (!File.Exists(path))
         {
@@ -44,20 +35,11 @@ public class AppendAllTextWithHeadline : IAppendAllTextWithHeadline
     /// <param name="headline"></param>
     public void RunFor(string path, StringBuilder stringBuilder, string headline)
     {
-        if (path == null)
-        {
-            throw new ArgumentNullException(nameof(path));
-        }
+        ArgumentNullException.ThrowIfNull(path);
 
-        if (stringBuilder == null)
-        {
-            throw new ArgumentNullException(nameof(stringBuilder));
-        }
+        ArgumentNullException.ThrowIfNull(stringBuilder);
 
-        if (headline == null)
-        {
-            throw new ArgumentNullException(nameof(headline));
-        }
+        ArgumentNullException.ThrowIfNull(headline);
 
         RunFor(path, stringBuilder.ToString(), headline);
     }

@@ -55,15 +55,9 @@ namespace EvilBaschdi.Core.Extensions
         // ReSharper disable once UnusedMember.Global
         public static string Replace([NotNull] this string source, [NotNull] string oldValue, string newValue, StringComparison comparisonType)
         {
-            if (source == null)
-            {
-                throw new ArgumentNullException(nameof(source));
-            }
+            ArgumentNullException.ThrowIfNull(source);
 
-            if (oldValue == null)
-            {
-                throw new ArgumentNullException(nameof(oldValue));
-            }
+            ArgumentNullException.ThrowIfNull(oldValue);
 
             var index = source.IndexOf(oldValue, comparisonType);
 
@@ -94,10 +88,7 @@ namespace EvilBaschdi.Core.Extensions
         // ReSharper disable once UnusedMember.Global
         public static string RemoveRight(this string value, int count)
         {
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
+            ArgumentNullException.ThrowIfNull(value);
 
             if (count <= 0)
             {
@@ -117,10 +108,7 @@ namespace EvilBaschdi.Core.Extensions
         // ReSharper disable once UnusedMember.Global
         public static string RemoveLeft(this string value, int count)
         {
-            if (value == null)
-            {
-                throw new ArgumentNullException(nameof(value));
-            }
+            ArgumentNullException.ThrowIfNull(value);
 
             if (count <= 0)
             {

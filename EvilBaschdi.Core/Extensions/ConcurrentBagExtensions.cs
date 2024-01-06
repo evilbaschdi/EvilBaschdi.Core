@@ -17,15 +17,9 @@ public static class ConcurrentBagExtensions
     // ReSharper disable once UnusedMember.Global
     public static void AddRange<T>([NotNull] this ConcurrentBag<T> bag, [NotNull] IEnumerable<T> toAdd)
     {
-        if (bag == null)
-        {
-            throw new ArgumentNullException(nameof(bag));
-        }
+        ArgumentNullException.ThrowIfNull(bag);
 
-        if (toAdd == null)
-        {
-            throw new ArgumentNullException(nameof(toAdd));
-        }
+        ArgumentNullException.ThrowIfNull(toAdd);
 
         foreach (var element in toAdd)
         {

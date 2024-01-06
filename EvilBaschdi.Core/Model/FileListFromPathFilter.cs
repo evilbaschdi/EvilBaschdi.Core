@@ -10,35 +10,35 @@ public class FileListFromPathFilter
     // ReSharper disable once UnusedAutoPropertyAccessor.Global
     // ReSharper disable AutoPropertyCanBeMadeGetOnly.Global
     // ReSharper disable PropertyCanBeMadeInitOnly.Global
-    public List<string> FilterExtensionsNotToEqual { get; set; } = new();
+    public List<string> FilterExtensionsNotToEqual { get; set; } = [];
 
     /// <summary>
     /// </summary>
     // ReSharper disable once UnusedAutoPropertyAccessor.Global
 
-    public List<string> FilterExtensionsToEqual { get; set; } = new();
+    public List<string> FilterExtensionsToEqual { get; set; } = [];
 
     /// <summary>
     /// </summary>
     // ReSharper disable once UnusedAutoPropertyAccessor.Global
-    public List<string> FilterFileNamesNotToEqual { get; set; } = new();
+    public List<string> FilterFileNamesNotToEqual { get; set; } = [];
 
     /// <summary>
     /// </summary>
     // ReSharper disable once UnusedAutoPropertyAccessor.Global
-    public List<string> FilterFileNamesToEqual { get; set; } = new();
-
-    /// <summary>
-    /// </summary>
-    // ReSharper disable once UnusedAutoPropertyAccessor.Global
-    // ReSharper disable once UnusedMember.Global
-    public List<string> FilterFilePathsNotToEqual { get; set; } = new();
+    public List<string> FilterFileNamesToEqual { get; set; } = [];
 
     /// <summary>
     /// </summary>
     // ReSharper disable once UnusedAutoPropertyAccessor.Global
     // ReSharper disable once UnusedMember.Global
-    public List<string> FilterFilePathsToEqual { get; set; } = new();
+    public List<string> FilterFilePathsNotToEqual { get; set; } = [];
+
+    /// <summary>
+    /// </summary>
+    // ReSharper disable once UnusedAutoPropertyAccessor.Global
+    // ReSharper disable once UnusedMember.Global
+    public List<string> FilterFilePathsToEqual { get; set; } = [];
     // ReSharper restore PropertyCanBeMadeInitOnly.Global
     // ReSharper restore AutoPropertyCanBeMadeGetOnly.Global
 }
