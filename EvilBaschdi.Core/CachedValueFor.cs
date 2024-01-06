@@ -11,7 +11,7 @@
 public abstract class CachedValueFor<TIn, TOut> : ICachedValueFor<TIn, TOut>
 {
     private readonly bool _cacheDefaultValue = true;
-    private readonly Dictionary<TIn, TOut> _valueDictionary = new();
+    private readonly Dictionary<TIn, TOut> _valueDictionary = [];
 
     /// <summary />
     protected CachedValueFor()

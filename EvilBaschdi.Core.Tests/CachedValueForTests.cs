@@ -121,7 +121,8 @@ public class CachedValueForTests
         }
     }
 
-    private class CachedValueForTestClassReturningDefaultOfGuid(bool cacheDefaultValues) : CachedValueFor<string, Guid>(cacheDefaultValues)
+    private class CachedValueForTestClassReturningDefaultOfGuid(
+        bool cacheDefaultValues) : CachedValueFor<string, Guid>(cacheDefaultValues)
     {
         public int CallCounter;
 
