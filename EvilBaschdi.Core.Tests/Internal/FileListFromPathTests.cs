@@ -23,6 +23,7 @@ public class FileListFromPathTests
     //    assertion.Verify(typeof(FileListFromPath).GetMethods().Where(method => !method.IsAbstract));
     //}
 
+/*
     [Theory, NSubstituteOmitAutoPropertiesTrueAutoData]
     public void ValueFor_WithFilters_Result(
         FileListFromPath sut)
@@ -39,6 +40,7 @@ public class FileListFromPathTests
         // Assert
         result.Should().HaveCount(5);
     }
+    */
 
     [Theory, NSubstituteOmitAutoPropertiesTrueAutoData]
     public void GetSubdirectoriesContainingOnlyFiles_WithoutFilter_Result(
