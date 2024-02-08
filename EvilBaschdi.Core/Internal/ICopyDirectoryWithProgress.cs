@@ -2,6 +2,6 @@
 
 /// <summary>
 /// </summary>
-public interface ICopyDirectoryWithProgress : ITaskValueFor2<string, string>
+public interface ICopyDirectoryWithProgress : ITaskWithInjection2<string, string>
 {
 }

@@ -20,17 +20,10 @@ public class MultiThreading : IMultiThreading
     ///     <paramref name="list" /> is <see langword="null" />.
     ///     <paramref name="worker" /> is <see langword="null" />.
     /// </exception>
-    public void RunFor(IList list, Action<Tuple<int, int>> worker)
+    public void RunFor([NotNull] IList list, [NotNull] Action<Tuple<int, int>> worker)
     {
-        if (list == null)
-        {
-            throw new ArgumentNullException(nameof(list));
-        }
-
-        if (worker == null)
-        {
-            throw new ArgumentNullException(nameof(worker));
-        }
+        ArgumentNullException.ThrowIfNull(list);
+        ArgumentNullException.ThrowIfNull(worker);
 
         if (list.Count <= 0)
         {

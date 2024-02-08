@@ -11,24 +11,15 @@ namespace EvilBaschdi.Core.Security;
 public class Encryption : IEncryption
 {
     /// <inheritdoc />
-    public string EncryptString(string clearText, string encryptionKey)
+    public string EncryptString([NotNull] string clearText, [NotNull] string encryptionKey)
     {
-        if (clearText == null)
-        {
-            throw new ArgumentNullException(nameof(clearText));
-        }
-
-        if (encryptionKey == null)
-        {
-            throw new ArgumentNullException(nameof(encryptionKey));
-        }
+        ArgumentNullException.ThrowIfNull(clearText);
+        ArgumentNullException.ThrowIfNull(encryptionKey);
 
         var clearBytes = Encoding.Unicode.GetBytes(clearText);
         using var rfc2898DeriveBytes = new Rfc2898DeriveBytes(encryptionKey,
             // ReSharper disable once UseUtf8StringLiteral
-#pragma warning disable IDE0230
-            new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 },
-#pragma warning restore IDE0230
+            [0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76],
             1000,
             HashAlgorithmName.SHA1);
         var encryptedData = EncryptString(clearBytes, rfc2898DeriveBytes.GetBytes(32),
@@ -37,24 +28,15 @@ public class Encryption : IEncryption
     }
 
     /// <inheritdoc />
-    public string DecryptString(string cipherText, string encryptionKey)
+    public string DecryptString([NotNull] string cipherText, [NotNull] string encryptionKey)
     {
-        if (cipherText == null)
-        {
-            throw new ArgumentNullException(nameof(cipherText));
-        }
-
-        if (encryptionKey == null)
-        {
-            throw new ArgumentNullException(nameof(encryptionKey));
-        }
+        ArgumentNullException.ThrowIfNull(cipherText);
+        ArgumentNullException.ThrowIfNull(encryptionKey);
 
         var cipherBytes = Convert.FromBase64String(cipherText);
         using var rfc2898DeriveBytes = new Rfc2898DeriveBytes(encryptionKey,
             // ReSharper disable once UseUtf8StringLiteral
-#pragma warning disable IDE0230
-            new byte[] { 0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76 },
-#pragma warning restore IDE0230
+            [0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76],
             1000,
             HashAlgorithmName.SHA1);
         var decryptedData = DecryptString(cipherBytes, rfc2898DeriveBytes.GetBytes(32),
@@ -69,12 +51,11 @@ public class Encryption : IEncryption
     /// <param name="key">The key.</param>
     /// <param name="iv">The IV.</param>
     /// <returns></returns>
-    private static byte[] EncryptString(byte[] clearText, byte[] key, byte[] iv)
+    private static byte[] EncryptString([NotNull] byte[] clearText, [NotNull] byte[] key, [NotNull] byte[] iv)
     {
-        if (clearText == null)
-        {
-            throw new ArgumentNullException(nameof(clearText));
-        }
+        ArgumentNullException.ThrowIfNull(clearText);
+        ArgumentNullException.ThrowIfNull(key);
+        ArgumentNullException.ThrowIfNull(iv);
 
         using var memoryStream = new MemoryStream();
         // ReSharper disable once IdentifierTypo
@@ -96,12 +77,11 @@ public class Encryption : IEncryption
     /// <param name="iv">The IV.</param>
     /// <exception cref="ArgumentNullException"></exception>
     /// <returns></returns>
-    private static byte[] DecryptString(byte[] cipherData, byte[] key, byte[] iv)
+    private static byte[] DecryptString([NotNull] byte[] cipherData, [NotNull] byte[] key, [NotNull] byte[] iv)
     {
-        if (cipherData == null)
-        {
-            throw new ArgumentNullException(nameof(cipherData));
-        }
+        ArgumentNullException.ThrowIfNull(cipherData);
+        ArgumentNullException.ThrowIfNull(key);
+        ArgumentNullException.ThrowIfNull(iv);
 
         using var memoryStream = new MemoryStream();
         // ReSharper disable once IdentifierTypo

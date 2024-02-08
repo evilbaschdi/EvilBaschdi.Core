@@ -1,4 +1,8 @@
-﻿namespace EvilBaschdi.Core.Tests;
+﻿#pragma warning disable IDE0079
+#pragma warning disable XFA001
+#pragma warning disable MFA001
+#pragma warning disable FluentAssertions0704
+namespace EvilBaschdi.Core.Tests;
 
 /// <summary>
 ///     Do not delete this class.
@@ -13,8 +17,6 @@ public class DoNotDeleteDummyTests
         // Arrange
         // Act
         // Assert
-        // Use FluentAssertions equivalent
         Assert.Equal(1, 1);
-        // Use FluentAssertions equivalent
     }
 }

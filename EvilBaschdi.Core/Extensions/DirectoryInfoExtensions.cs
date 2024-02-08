@@ -11,10 +11,7 @@ public static class DirectoryInfoExtensions
     // ReSharper disable once UnusedMember.Global
     public static double GetDirectorySize(this DirectoryInfo dir)
     {
-        if (dir == null)
-        {
-            throw new ArgumentNullException(nameof(dir));
-        }
+        ArgumentNullException.ThrowIfNull(dir);
 
         var sum = dir.GetFiles().Aggregate<FileInfo, double>(0, (current, file) => current + file.Length);
         return dir.GetDirectories().Aggregate(sum, (current, dir1) => current + GetDirectorySize(dir1));
@@ -26,10 +23,7 @@ public static class DirectoryInfoExtensions
     /// <returns></returns>
     public static string GetProperDirectoryCapitalization([NotNull] this DirectoryInfo dirInfo)
     {
-        if (dirInfo == null)
-        {
-            throw new ArgumentNullException(nameof(dirInfo));
-        }
+        ArgumentNullException.ThrowIfNull(dirInfo);
 
         var parentDirInfo = dirInfo.Parent;
 

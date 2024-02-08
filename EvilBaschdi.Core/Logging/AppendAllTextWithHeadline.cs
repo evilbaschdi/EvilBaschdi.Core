@@ -13,22 +13,11 @@ public class AppendAllTextWithHeadline : IAppendAllTextWithHeadline
     /// <param name="path"></param>
     /// <param name="contents"></param>
     /// <param name="headline"></param>
-    public void RunFor(string path, string contents, string headline)
+    public void RunFor([NotNull] string path, [NotNull] string contents, [NotNull] string headline)
     {
-        if (path == null)
-        {
-            throw new ArgumentNullException(nameof(path));
-        }
-
-        if (contents == null)
-        {
-            throw new ArgumentNullException(nameof(contents));
-        }
-
-        if (headline == null)
-        {
-            throw new ArgumentNullException(nameof(headline));
-        }
+        ArgumentNullException.ThrowIfNull(path);
+        ArgumentNullException.ThrowIfNull(contents);
+        ArgumentNullException.ThrowIfNull(headline);
 
         if (!File.Exists(path))
         {
@@ -42,22 +31,11 @@ public class AppendAllTextWithHeadline : IAppendAllTextWithHeadline
     /// <param name="path"></param>
     /// <param name="stringBuilder"></param>
     /// <param name="headline"></param>
-    public void RunFor(string path, StringBuilder stringBuilder, string headline)
+    public void RunFor([NotNull] string path, [NotNull] StringBuilder stringBuilder, [NotNull] string headline)
     {
-        if (path == null)
-        {
-            throw new ArgumentNullException(nameof(path));
-        }
-
-        if (stringBuilder == null)
-        {
-            throw new ArgumentNullException(nameof(stringBuilder));
-        }
-
-        if (headline == null)
-        {
-            throw new ArgumentNullException(nameof(headline));
-        }
+        ArgumentNullException.ThrowIfNull(path);
+        ArgumentNullException.ThrowIfNull(stringBuilder);
+        ArgumentNullException.ThrowIfNull(headline);
 
         RunFor(path, stringBuilder.ToString(), headline);
     }

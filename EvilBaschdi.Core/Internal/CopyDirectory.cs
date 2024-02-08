@@ -1,32 +1,22 @@
 ﻿namespace EvilBaschdi.Core.Internal;
 
 /// <inheritdoc />
+/// <summary>
+///     Constructor
+/// </summary>
+/// <param name="copyDirectoryWithFiles"></param>
 // ReSharper disable once UnusedType.Global
-public class CopyDirectory : ICopyDirectory
+public class CopyDirectory(
+    [NotNull] ICopyDirectoryWithFiles copyDirectoryWithFiles) : ICopyDirectory
 {
-    private readonly ICopyDirectoryWithFiles _copyDirectoryWithFiles;
-
-    /// <summary>
-    ///     Constructor
-    /// </summary>
-    /// <param name="copyDirectoryWithFiles"></param>
-    public CopyDirectory(ICopyDirectoryWithFiles copyDirectoryWithFiles)
-    {
-        _copyDirectoryWithFiles = copyDirectoryWithFiles ?? throw new ArgumentNullException(nameof(copyDirectoryWithFiles));
-    }
+    private readonly ICopyDirectoryWithFiles _copyDirectoryWithFiles = copyDirectoryWithFiles ?? throw new ArgumentNullException(nameof(copyDirectoryWithFiles));
 
     /// <inheritdoc />
-    public async Task ValueFor(string sourcePath, string destinationPath)
+    // ReSharper disable once ReplaceAsyncWithTaskReturn
+    public async Task ValueFor([NotNull] string sourcePath, [NotNull] string destinationPath)
     {
-        if (sourcePath == null)
-        {
-            throw new ArgumentNullException(nameof(sourcePath));
-        }
-
-        if (destinationPath == null)
-        {
-            throw new ArgumentNullException(nameof(destinationPath));
-        }
+        ArgumentNullException.ThrowIfNull(sourcePath);
+        ArgumentNullException.ThrowIfNull(destinationPath);
 
         var diSource = new DirectoryInfo(sourcePath);
         var diTarget = new DirectoryInfo(destinationPath);

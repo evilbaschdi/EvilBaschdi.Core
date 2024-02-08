@@ -9,12 +9,9 @@ public class ReadKeyFromConsole : IReadKeyFromConsole
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
-    public string ValueFor(string key)
+    public string ValueFor([NotNull] string key)
     {
-        if (key == null)
-        {
-            throw new ArgumentNullException(nameof(key));
-        }
+        ArgumentNullException.ThrowIfNull(key);
 
         Console.Write($"{key}: ");
 

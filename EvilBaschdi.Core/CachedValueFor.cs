@@ -11,7 +11,7 @@
 public abstract class CachedValueFor<TIn, TOut> : ICachedValueFor<TIn, TOut>
 {
     private readonly bool _cacheDefaultValue = true;
-    private readonly Dictionary<TIn, TOut> _valueDictionary = new();
+    private readonly Dictionary<TIn, TOut> _valueDictionary = [];
 
     /// <summary />
     protected CachedValueFor()
@@ -27,12 +27,9 @@ public abstract class CachedValueFor<TIn, TOut> : ICachedValueFor<TIn, TOut>
 
     /// <inheritdoc />
     /// <summary>(Cached Value)</summary>
-    public TOut ValueFor(TIn value)
+    public TOut ValueFor([NotNull] TIn value)
     {
-        if (value == null)
-        {
-            throw new ArgumentNullException(nameof(value));
-        }
+        ArgumentNullException.ThrowIfNull(value);
 
         if (_valueDictionary.TryGetValue(value, out var valueFor))
         {

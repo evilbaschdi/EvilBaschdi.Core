@@ -16,10 +16,7 @@ public class FileListFromPath : IFileListFromPath
     /// <exception cref="T:System.ArgumentNullException"><paramref name="path" /> is <see langword="null" />.</exception>
     public IEnumerable<string> GetSubdirectoriesContainingOnlyFiles([NotNull] string path)
     {
-        if (path == null)
-        {
-            throw new ArgumentNullException(nameof(path));
-        }
+        ArgumentNullException.ThrowIfNull(path);
 
         var enumeration = new FileSystemEnumerable<string>(
                               path,
@@ -40,10 +37,7 @@ public class FileListFromPath : IFileListFromPath
     /// <inheritdoc />
     public List<string> ValueFor([NotNull] string initialDirectory)
     {
-        if (initialDirectory == null)
-        {
-            throw new ArgumentNullException(nameof(initialDirectory));
-        }
+        ArgumentNullException.ThrowIfNull(initialDirectory);
 
         return ValueFor(initialDirectory, new());
     }
@@ -53,15 +47,9 @@ public class FileListFromPath : IFileListFromPath
     public List<string> ValueFor([NotNull] string initialDirectory,
                                  [NotNull] FileListFromPathFilter fileListFromPathFilter)
     {
-        if (initialDirectory == null)
-        {
-            throw new ArgumentNullException(nameof(initialDirectory));
-        }
+        ArgumentNullException.ThrowIfNull(initialDirectory);
 
-        if (fileListFromPathFilter == null)
-        {
-            throw new ArgumentNullException(nameof(fileListFromPathFilter));
-        }
+        ArgumentNullException.ThrowIfNull(fileListFromPathFilter);
 
         var enumeration = new FileSystemEnumerable<string>(
                               initialDirectory,
@@ -81,10 +69,7 @@ public class FileListFromPath : IFileListFromPath
     /// <inheritdoc />
     public bool FileSystemEntryIsValid(FileSystemEntry entry, [NotNull] FileListFromPathFilter fileListFromPathFilter)
     {
-        if (fileListFromPathFilter == null)
-        {
-            throw new ArgumentNullException(nameof(fileListFromPathFilter));
-        }
+        ArgumentNullException.ThrowIfNull(fileListFromPathFilter);
 
         var includeExtensionList = fileListFromPathFilter.FilterExtensionsToEqual;
         var excludeExtensionList = fileListFromPathFilter.FilterExtensionsNotToEqual;

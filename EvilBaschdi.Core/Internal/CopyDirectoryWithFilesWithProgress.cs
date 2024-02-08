@@ -1,32 +1,22 @@
 ﻿namespace EvilBaschdi.Core.Internal;
 
 /// <inheritdoc />
+/// <summary>
+///     Constructor
+/// </summary>
+/// <param name="copyProgress"></param>
 // ReSharper disable once UnusedType.Global
-public class CopyDirectoryWithFilesWithProgress : ICopyDirectoryWithFilesWithProgress
+public class CopyDirectoryWithFilesWithProgress(
+    [NotNull] ICopyProgress copyProgress) : ICopyDirectoryWithFilesWithProgress
 {
-    private readonly ICopyProgress _copyProgress;
-
-    /// <summary>
-    ///     Constructor
-    /// </summary>
-    /// <param name="copyProgress"></param>
-    public CopyDirectoryWithFilesWithProgress([NotNull] ICopyProgress copyProgress)
-    {
-        _copyProgress = copyProgress ?? throw new ArgumentNullException(nameof(copyProgress));
-    }
+    private readonly ICopyProgress _copyProgress = copyProgress ?? throw new ArgumentNullException(nameof(copyProgress));
 
     /// <inheritdoc />
     public async Task ValueFor([NotNull] DirectoryInfo source, [NotNull] DirectoryInfo target)
     {
-        if (source == null)
-        {
-            throw new ArgumentNullException(nameof(source));
-        }
+        ArgumentNullException.ThrowIfNull(source);
 
-        if (target == null)
-        {
-            throw new ArgumentNullException(nameof(target));
-        }
+        ArgumentNullException.ThrowIfNull(target);
 
         Directory.CreateDirectory(target.FullName);
 

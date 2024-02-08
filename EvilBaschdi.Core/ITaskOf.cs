@@ -2,6 +2,6 @@
 
 /// <inheritdoc />
 // ReSharper disable once UnusedType.Global
-public interface IValueOfIEnumerable<out T> : IValue<IEnumerable<T>>
+public interface ITaskOf<TResult> : IValue<Task<TResult>>
 {
 }

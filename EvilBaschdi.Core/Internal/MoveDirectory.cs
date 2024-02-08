@@ -5,17 +5,10 @@
 public class MoveDirectory : IMoveDirectory
 {
     /// <inheritdoc />
-    public void RunFor(string source, string target)
+    public void RunFor([NotNull] string source, [NotNull] string target)
     {
-        if (source == null)
-        {
-            throw new ArgumentNullException(nameof(source));
-        }
-
-        if (target == null)
-        {
-            throw new ArgumentNullException(nameof(target));
-        }
+        ArgumentNullException.ThrowIfNull(source);
+        ArgumentNullException.ThrowIfNull(target);
 
         if (!Directory.Exists(target))
         {

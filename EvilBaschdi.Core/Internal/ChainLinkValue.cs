@@ -8,7 +8,7 @@ public abstract class ChainLinkValue<TOut> : IChainLinkValue<TOut>
     ///     Initializes a new instance of the <see cref="T:System.Object" /> class.
     /// </summary>
     /// <exception cref="ArgumentNullException"></exception>
-    protected ChainLinkValue(IChainLinkValue<TOut> chainLinkValue)
+    protected ChainLinkValue([NotNull] IChainLinkValue<TOut> chainLinkValue)
     {
         NextChain = chainLinkValue ?? throw new ArgumentNullException(nameof(chainLinkValue));
     }
@@ -31,5 +31,9 @@ public abstract class ChainLinkValue<TOut> : IChainLinkValue<TOut>
     public abstract bool AmIResponsible { get; }
 
     /// <inheritdoc />
-    public TOut Value => AmIResponsible ? InnerValue : NextChain != null ? NextChain.Value : default;
+    public TOut Value => AmIResponsible
+        ? InnerValue
+        : NextChain != null
+            ? NextChain.Value
+            : default;
 }
