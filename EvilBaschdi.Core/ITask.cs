@@ -2,6 +2,4 @@
 
 /// <inheritdoc />
 // ReSharper disable once UnusedType.Global
-public interface ITask : IValue<Task>
-{
-}
+public interface ITask : IValue<Task>;

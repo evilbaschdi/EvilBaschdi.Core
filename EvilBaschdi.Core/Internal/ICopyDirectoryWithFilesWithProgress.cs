@@ -2,6 +2,4 @@
 
 /// <summary>
 /// </summary>
-public interface ICopyDirectoryWithFilesWithProgress : ITaskWithInjection2<DirectoryInfo, DirectoryInfo>
-{
-}
+public interface ICopyDirectoryWithFilesWithProgress : ITaskWithInjection2<DirectoryInfo, DirectoryInfo>;

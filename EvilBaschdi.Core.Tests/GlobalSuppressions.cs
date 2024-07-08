@@ -5,4 +5,6 @@
 
 using System.Diagnostics.CodeAnalysis;
 
-[assembly: SuppressMessage("Design", "CA1034:Nested types should not be visible", Justification = "<Pending>", Scope = "type", Target = "~T:EvilBaschdi.Core.Tests.CachedValueForTests.CachedValueForTestClass")]
+[assembly:
+    SuppressMessage("Design", "CA1034:Nested types should not be visible", Justification = "<Pending>", Scope = "type",
+        Target = "~T:EvilBaschdi.Core.Tests.CachedValueForTests.CachedValueForTestClass")]
