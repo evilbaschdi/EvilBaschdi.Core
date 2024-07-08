@@ -44,7 +44,7 @@ public abstract class CachedValue<T> : ICachedValue<T>
         get
         {
             // ReSharper disable once InvertIf
-            if (!_isCached || _isCached && !_cacheTypeDefaultValue && Equals(default(T), _value))
+            if (!_isCached || (_isCached && !_cacheTypeDefaultValue && Equals(default(T), _value)))
             {
                 _value = NonCachedValue;
                 _isCached = true;
