@@ -46,8 +46,12 @@
 
 			<ItemGroup>
 				<Using Include="AutoFixture.Idioms" />
+				<Using Include="AutoFixture.Xunit2" />
 				<Using Include="EvilBaschdi.Testing" />
 				<Using Include="FluentAssertions" />
+				<Using Include="FluentAssertions.Microsoft.Extensions.DependencyInjection" />
+				<Using Include="NSubstitute" />
+				<Using Include="NSubstitute.ReturnsExtensions" />
 				<Using Include="Xunit" />
 			</ItemGroup>
 
@@ -81,5 +85,11 @@
 			</ItemGroup>
 		</When>
 	</Choose>
+
+	<!-- ReSharper disable once UnknownProperty -->
+	<ItemGroup Condition="$(MSBuildProjectName.EndsWith('.Tests'))">
+		<ProjectReference Include="..\$(MSBuildProjectName.Replace('.Tests',''))\$(MSBuildProjectName.Replace('.Tests','')).csproj" />
+	</ItemGroup>
+
 
 </Project>

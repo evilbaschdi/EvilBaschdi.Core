@@ -27,18 +27,6 @@ public static class VersionHelper
             // ReSharper disable once SwitchStatementMissingSomeCases
             return major switch
             {
-                4 when minor == 0 && build == 950 => "Win95 Release 1",
-                4 when minor == 0 && build == 1111 => "Win95 Release 2",
-                4 when minor == 3 && build is 1212 or 1213 or 1214 => "Win95 Release 2.1",
-                4 when minor == 10 && build == 1998 => "Win98",
-                4 when minor == 10 && build == 2222 => "Win98 Second Edition",
-                4 when minor == 90 => "WinMe",
-                5 when minor == 0 => "Win2000",
-                5 when minor == 1 && build == 2600 => "WinXP",
-                6 when minor == 0 => "Vista",
-                6 when minor == 1 => "Win7",
-                6 when minor == 2 && build == 9200 => "Win8",
-                6 when minor == 3 && build == 9600 => "Win8.1",
                 10 when minor == 0 && build is >= 10240 and < 22000 => "Win10",
                 10 when minor == 0 && build >= 22000 => "Win11",
                 _ => "Can not find windows version.",
@@ -62,11 +50,6 @@ public static class VersionHelper
     public static bool IsOsX => RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
 
     /// <summary>
-    ///     OS is Windows Vista.
-    /// </summary>
-    public static bool IsVista => GetWindowsClientVersion == "Vista";
-
-    /// <summary>
     ///     OS is Windows
     /// </summary>
     // ReSharper disable once MemberCanBePrivate.Global
@@ -83,14 +66,4 @@ public static class VersionHelper
     /// </summary>
     /// <returns></returns>
     public static bool IsWindows11 => IsWindows && GetWindowsClientVersion.StartsWith("Win11");
-
-    /// <summary>
-    ///     OS is Windows 7.
-    /// </summary>
-    public static bool IsWindows7 => IsWindows && GetWindowsClientVersion == "Win7";
-
-    /// <summary>
-    ///     OS is Windows 8 or 8.1.
-    /// </summary>
-    public static bool IsWindows8 => IsWindows && GetWindowsClientVersion.StartsWith("Win8");
 }
