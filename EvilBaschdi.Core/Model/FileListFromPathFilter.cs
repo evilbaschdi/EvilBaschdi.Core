@@ -15,7 +15,6 @@ public class FileListFromPathFilter
     /// <summary>
     /// </summary>
     // ReSharper disable once UnusedAutoPropertyAccessor.Global
-
     public List<string> FilterExtensionsToEqual { get; set; } = [];
 
     /// <summary>
