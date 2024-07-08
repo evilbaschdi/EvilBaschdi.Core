@@ -2,6 +2,4 @@
 
 /// <inheritdoc />
 // ReSharper disable once UnusedType.Global
-public interface IInt : IValue<int>
-{
-}
+public interface IInt : IValue<int>;

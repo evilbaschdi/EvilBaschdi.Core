@@ -20,7 +20,7 @@ public class ValidateValue(
         Console.WriteLine($"{key}: {s}");
         var response = _readKeyFromConsole.ValueFor("Correct [y] / [n]").ToLower();
 
-        if (response.Contains("y"))
+        if (response.Contains('y'))
         {
             return;
         }

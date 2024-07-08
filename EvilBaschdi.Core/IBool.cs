@@ -2,6 +2,4 @@
 
 /// <inheritdoc />
 // ReSharper disable once UnusedType.Global
-public interface IBool : IValue<bool>
-{
-}
+public interface IBool : IValue<bool>;
