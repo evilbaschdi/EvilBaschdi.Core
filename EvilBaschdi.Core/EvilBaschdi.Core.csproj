@@ -1,33 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<Authors>Sebastian Walter</Authors>
-		<Company>evilbaschdi (Sebastian Walter)</Company>
-		<Copyright>Copyright © 2015 - $([System.DateTime]::UtcNow.ToString(yyyy)) evilbaschdi</Copyright>
-		<DebugSymbols>true</DebugSymbols>
-		<DebugType>full</DebugType>
-		<Description>Core assembly package</Description>
-		<!-- ReSharper disable once UnknownProperty -->
-		<DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(MSBuildProjectName).xml</DocumentationFile>
-		<IsPackable>true</IsPackable>
-		<!--<Nullable>enable</Nullable>-->
-		<PackageIcon>icon.png</PackageIcon>
-		<PackageIconUrl><![CDATA[https://avatars1.githubusercontent.com/u/1897807?s=120&v=4]]></PackageIconUrl>
-		<PackageId>EvilBaschdi.Core</PackageId>
-		<PackageProjectUrl>https://github.com/evilbaschdi/EvilBaschdi.Core</PackageProjectUrl>
-		<PackageTags>Core</PackageTags>
-		<PublishRepositoryUrl>true</PublishRepositoryUrl>
-		<RepositoryUrl>https://github.com/evilbaschdi/EvilBaschdi.Core</RepositoryUrl>
-		<VersionPrefix>$([System.DateTime]::UtcNow.ToString(yyyy.M.d.Hmm))</VersionPrefix>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<None Include="icon.png" Pack="true" Visible="false" PackagePath="" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<Using Include="EvilBaschdi.Core" />
-		<Using Include="JetBrains.Annotations" />
 	</ItemGroup>
 
 	<ItemGroup>
