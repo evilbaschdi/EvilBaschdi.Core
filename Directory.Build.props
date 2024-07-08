@@ -31,18 +31,9 @@
 	</ItemGroup>
 
 	<Choose>
-		<When Condition="$(MSBuildProjectName.EndsWith('.Wpf'))">
+		<When Condition="$(MSBuildProjectName.EndsWith('.Core'))">
 			<ItemGroup>
-				<PackageReference Include="EvilBaschdi.Core" />
-				<PackageReference Include="MahApps.Metro" />
-				<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" />
-				<PackageReference Include="Ookii.Dialogs.Wpf" />
-			</ItemGroup>
-		</When>
-		<When Condition="$(MSBuildProjectName.EndsWith('.DummyApp'))">
-			<ItemGroup>
-				<PackageReference Include="Hardcodet.NotifyIcon.Wpf" />
-				<PackageReference Include="MahApps.Metro.IconPacks" />
+				<PackageReference Include="JetBrains.Annotations" />
 			</ItemGroup>
 		</When>
 		<When Condition="$(MSBuildProjectName.EndsWith('.Tests'))">
@@ -78,6 +69,10 @@
 				<PackageReference Include="NSubstitute.Analyzers.CSharp">
 					<PrivateAssets>all</PrivateAssets>
 					<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
+				</PackageReference>
+				<PackageReference Include="xunit.analyzers">
+					<PrivateAssets>all</PrivateAssets>
+					<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 				</PackageReference>
 				<PackageReference Include="xunit.runner.visualstudio">
 					<IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
