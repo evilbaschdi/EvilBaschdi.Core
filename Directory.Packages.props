@@ -1,23 +1,23 @@
 <Project>
-	<PropertyGroup>
-		<ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-		<CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
-	</PropertyGroup>
-	<!-- #region Project Libs -->
-	<ItemGroup>
-		<PackageVersion Include="JetBrains.Annotations" Version="2024.2.0" />
-	</ItemGroup>
-	<!-- #endregion Project Libs -->
-	<!-- #region Unit Test Libs -->
-	<ItemGroup>
-		<PackageVersion Include="EvilBaschdi.Testing" Version="2024.5.25.743" />
-		<PackageVersion Include="coverlet.collector" Version="6.0.2" />
-		<PackageVersion Include="FluentAssertions.Analyzers" Version="0.32.0" />
-		<PackageVersion Include="Meziantou.FluentAssertionsAnalyzers" Version="1.0.21" />
-		<PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
-		<PackageVersion Include="NSubstitute.Analyzers.CSharp" Version="1.0.17" />
-		<PackageVersion Include="xunit.analyzers" Version="1.14.0" />
-		<PackageVersion Include="xunit.runner.visualstudio" Version="2.8.1" />
-	</ItemGroup>
-	<!-- #endregion Unit Test Libs -->
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>false</CentralPackageTransitivePinningEnabled>
+  </PropertyGroup>
+  <!-- #region Project Libs -->
+  <ItemGroup>
+    <PackageVersion Include="JetBrains.Annotations" Version="2024.2.0" />
+  </ItemGroup>
+  <!-- #endregion Project Libs -->
+  <!-- #region Unit Test Libs -->
+  <ItemGroup>
+    <PackageVersion Include="EvilBaschdi.Testing" Version="2024.7.8.1748" />
+    <PackageVersion Include="coverlet.collector" Version="6.0.2" />
+    <PackageVersion Include="FluentAssertions.Analyzers" Version="0.33.0" />
+    <PackageVersion Include="Meziantou.FluentAssertionsAnalyzers" Version="1.0.21" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.10.0" />
+    <PackageVersion Include="NSubstitute.Analyzers.CSharp" Version="1.0.17" />
+    <PackageVersion Include="xunit.analyzers" Version="1.15.0" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
+  </ItemGroup>
+  <!-- #endregion Unit Test Libs -->
 </Project>

@@ -16,7 +16,6 @@
 		<LangVersion>preview</LangVersion>
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageIconUrl><![CDATA[https://avatars1.githubusercontent.com/u/1897807?s=120&v=4]]></PackageIconUrl>
-		<PackageId>EvilBaschdi.Core</PackageId>
 		<PackageProjectUrl>https://github.com/evilbaschdi/EvilBaschdi.Core</PackageProjectUrl>
 		<PackageTags>Core</PackageTags>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
