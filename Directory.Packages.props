@@ -10,13 +10,13 @@
   <!-- #endregion Project Libs -->
   <!-- #region Unit Test Libs -->
   <ItemGroup>
-    <PackageVersion Include="EvilBaschdi.Testing" Version="2024.10.28.1729" />
+    <PackageVersion Include="EvilBaschdi.Testing" Version="2024.11.21.1904" />
     <PackageVersion Include="coverlet.collector" Version="6.0.2" />
     <PackageVersion Include="FluentAssertions.Analyzers" Version="0.34.1" />
     <PackageVersion Include="Meziantou.FluentAssertionsAnalyzers" Version="1.0.21" />
-    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
     <PackageVersion Include="NSubstitute.Analyzers.CSharp" Version="1.0.17" />
-    <PackageVersion Include="xunit.analyzers" Version="1.16.0" />
+    <PackageVersion Include="xunit.analyzers" Version="1.17.0" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="2.8.2" />
   </ItemGroup>
   <!-- #endregion Unit Test Libs -->
