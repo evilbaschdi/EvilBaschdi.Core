@@ -10,16 +10,16 @@ public interface IFileListFromPath : IValueFor2<string, FileListFromPathFilter, 
     /// <summary>
     ///     Gets a list of accessible directories that contain files.
     /// </summary>
-    /// <param name="path"></param>
+    /// <param name="directory"></param>
     /// <returns></returns>
     // ReSharper disable once UnusedMemberInSuper.Global
-    IEnumerable<string> GetSubdirectoriesContainingOnlyFiles(string path);
+    IEnumerable<string> GetSubdirectoriesContainingOnlyFiles(string directory);
 
     /// <summary>
     /// </summary>
-    /// <param name="entry"></param>
+    /// <param name="fileSystemEntry"></param>
     /// <param name="fileListFromPathFilter"></param>
     /// <returns></returns>
     // ReSharper disable once UnusedMemberInSuper.Global
-    bool FileSystemEntryIsValid(FileSystemEntry entry, FileListFromPathFilter fileListFromPathFilter);
+    bool FileSystemEntryIsValid(FileSystemEntry fileSystemEntry, FileListFromPathFilter fileListFromPathFilter);
 }

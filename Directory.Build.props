@@ -23,7 +23,7 @@
 		<IncludeSymbols>True</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<TargetFrameworks>net8.0;net9.0</TargetFrameworks>
-		<VersionPrefix>$([System.DateTime]::UtcNow.ToString(yyyy.M.d.Hmm))</VersionPrefix>
+		<VersionPrefix>$([System.DateTime]::UtcNow.ToString(yyyy.M.d.H))</VersionPrefix>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -43,10 +43,14 @@
 				<IsPackable>false</IsPackable>
 				<IsTestProject>true</IsTestProject>
 				<NoWarn>1701;1702;CA1062</NoWarn>
+				<!--<OutputType>Exe</OutputType>
+				<IsTestingPlatformApplication>false</IsTestingPlatformApplication>
+				<TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>-->
 			</PropertyGroup>
 
 			<ItemGroup>
 				<Using Include="AutoFixture.Idioms" />
+				<!--<Using Include="AutoFixture.Xunit3" />-->
 				<Using Include="AutoFixture.Xunit2" />
 				<Using Include="EvilBaschdi.Testing" />
 				<Using Include="FluentAssertions" />
@@ -57,6 +61,11 @@
 			</ItemGroup>
 
 			<ItemGroup>
+				<Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
+			</ItemGroup>
+
+			<ItemGroup>
+				<!--<PackageReference Include="xunit.v3" />-->
 				<PackageReference Include="EvilBaschdi.Testing" />
 				<PackageReference Include="Microsoft.NET.Test.Sdk" />
 				<PackageReference Include="coverlet.collector">

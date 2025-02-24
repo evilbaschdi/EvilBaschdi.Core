@@ -11,16 +11,16 @@ public class FileListFromPath : IFileListFromPath
     /// <summary>
     ///     Gets a list of accessible directories that contain files.
     /// </summary>
-    /// <param name="path"></param>
+    /// <param name="directory"></param>
     /// <returns></returns>
-    /// <exception cref="T:System.ArgumentNullException"><paramref name="path" /> is <see langword="null" />.</exception>
-    public IEnumerable<string> GetSubdirectoriesContainingOnlyFiles([NotNull] string path)
+    /// <exception cref="T:System.ArgumentNullException"><paramref name="directory" /> is <see langword="null" />.</exception>
+    public IEnumerable<string> GetSubdirectoriesContainingOnlyFiles([NotNull] string directory)
     {
-        ArgumentNullException.ThrowIfNull(path);
+        ArgumentNullException.ThrowIfNull(directory);
 
         var enumeration = new FileSystemEnumerable<string>(
-                              path,
-                              (ref FileSystemEntry entry) => entry.ToFullPath(),
+                              directory,
+                              (ref fileSystemEntry) => fileSystemEntry.ToFullPath(),
                               new()
                               {
                                   RecurseSubdirectories = true,
@@ -28,7 +28,7 @@ public class FileListFromPath : IFileListFromPath
                                   IgnoreInaccessible = true
                               })
                           {
-                              ShouldIncludePredicate = (ref FileSystemEntry entry) => entry.IsDirectory
+                              ShouldIncludePredicate = (ref fileSystemEntry) => fileSystemEntry.IsDirectory
                           };
         return enumeration.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
     }
@@ -53,7 +53,7 @@ public class FileListFromPath : IFileListFromPath
 
         var enumeration = new FileSystemEnumerable<string>(
                               initialDirectory,
-                              (ref FileSystemEntry entry) => entry.ToFullPath(),
+                              (ref fileSystemEntry) => fileSystemEntry.ToFullPath(),
                               new()
                               {
                                   RecurseSubdirectories = true,
@@ -61,13 +61,13 @@ public class FileListFromPath : IFileListFromPath
                                   IgnoreInaccessible = true
                               })
                           {
-                              ShouldIncludePredicate = (ref FileSystemEntry entry) => !entry.IsDirectory && FileSystemEntryIsValid(entry, fileListFromPathFilter)
+                              ShouldIncludePredicate = (ref entry) => !entry.IsDirectory && FileSystemEntryIsValid(entry, fileListFromPathFilter)
                           };
         return enumeration.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
     }
 
     /// <inheritdoc />
-    public bool FileSystemEntryIsValid(FileSystemEntry entry, [NotNull] FileListFromPathFilter fileListFromPathFilter)
+    public bool FileSystemEntryIsValid(FileSystemEntry fileSystemEntry, [NotNull] FileListFromPathFilter fileListFromPathFilter)
     {
         ArgumentNullException.ThrowIfNull(fileListFromPathFilter);
 
@@ -76,14 +76,14 @@ public class FileListFromPath : IFileListFromPath
         var includeFileNameList = fileListFromPathFilter.FilterFileNamesToEqual;
         var excludeFileNameList = fileListFromPathFilter.FilterFileNamesNotToEqual;
 
-        var fileName = entry.FileName.ToString();
-        var fileExtension = Path.GetExtension(entry.ToFullPath()).TrimStart('.');
+        var fileName = fileSystemEntry.FileName.ToString();
+        var fileExtension = Path.GetExtension(fileSystemEntry.ToFullPath()).TrimStart('.');
 
         var hasFileExtension = !string.IsNullOrWhiteSpace(fileExtension);
 
         //!Any() => all allowed; else => list has to contain extension, name or path
-        var includeExtension = !includeExtensionList.Any() || includeExtensionList.Contains(fileExtension);
-        var includeFileName = !includeFileNameList.Any() || includeFileNameList.Contains(fileName);
+        var includeExtension = includeExtensionList.Count == 0 || includeExtensionList.Contains(fileExtension);
+        var includeFileName = includeFileNameList.Count == 0 || includeFileNameList.Contains(fileName);
 
         // .docx
         var excludeExtension =
