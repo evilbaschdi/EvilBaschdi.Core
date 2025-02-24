@@ -1,6 +1,8 @@
 using System.IO.Enumeration;
 using EvilBaschdi.Core.Model;
 
+// ReSharper disable RedundantLambdaParameterType
+
 namespace EvilBaschdi.Core.Internal;
 
 /// <inheritdoc />
@@ -20,7 +22,7 @@ public class FileListFromPath : IFileListFromPath
 
         var enumeration = new FileSystemEnumerable<string>(
                               directory,
-                              (ref fileSystemEntry) => fileSystemEntry.ToFullPath(),
+                              (ref FileSystemEntry fileSystemEntry) => fileSystemEntry.ToFullPath(),
                               new()
                               {
                                   RecurseSubdirectories = true,
@@ -28,7 +30,7 @@ public class FileListFromPath : IFileListFromPath
                                   IgnoreInaccessible = true
                               })
                           {
-                              ShouldIncludePredicate = (ref fileSystemEntry) => fileSystemEntry.IsDirectory
+                              ShouldIncludePredicate = (ref FileSystemEntry fileSystemEntry) => fileSystemEntry.IsDirectory
                           };
         return enumeration.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
     }
@@ -53,7 +55,7 @@ public class FileListFromPath : IFileListFromPath
 
         var enumeration = new FileSystemEnumerable<string>(
                               initialDirectory,
-                              (ref fileSystemEntry) => fileSystemEntry.ToFullPath(),
+                              (ref FileSystemEntry fileSystemEntry) => fileSystemEntry.ToFullPath(),
                               new()
                               {
                                   RecurseSubdirectories = true,
@@ -61,7 +63,8 @@ public class FileListFromPath : IFileListFromPath
                                   IgnoreInaccessible = true
                               })
                           {
-                              ShouldIncludePredicate = (ref entry) => !entry.IsDirectory && FileSystemEntryIsValid(entry, fileListFromPathFilter)
+                              ShouldIncludePredicate = (ref FileSystemEntry fileSystemEntry) =>
+                                                           !fileSystemEntry.IsDirectory && FileSystemEntryIsValid(fileSystemEntry, fileListFromPathFilter)
                           };
         return enumeration.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
     }
