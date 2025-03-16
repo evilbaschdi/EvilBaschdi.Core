@@ -10,7 +10,7 @@
   <!-- #endregion Project Libs -->
   <!-- #region Unit Test Libs -->
   <ItemGroup>
-    <PackageVersion Include="EvilBaschdi.Testing" Version="2025.2.21.15" />
+    <PackageVersion Include="EvilBaschdi.Testing" Version="2025.3.10.17" />
     <PackageVersion Include="coverlet.collector" Version="6.0.4" />
     <PackageVersion Include="FluentAssertions.Analyzers" Version="0.34.1" />
     <PackageVersion Include="Meziantou.FluentAssertionsAnalyzers" Version="1.0.21" />
@@ -18,7 +18,7 @@
     <PackageVersion Include="NSubstitute.Analyzers.CSharp" Version="1.0.17" />
     <PackageVersion Include="xunit.analyzers" Version="1.20.0" />
     <PackageVersion Include="xunit.runner.visualstudio" Version="3.0.2" />
-    <PackageVersion Include="xunit.v3" Version="1.0.0" />
+    <PackageVersion Include="xunit.v3" Version="2.0.0" />
   </ItemGroup>
   <!-- #endregion Unit Test Libs -->
 </Project>
