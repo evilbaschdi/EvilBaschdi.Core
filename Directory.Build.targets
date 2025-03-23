@@ -55,6 +55,9 @@
 		<Compile Update="**\IWritableValue.cs">
 			<DependentUpon>IValue.cs</DependentUpon>
 		</Compile>
+		<Compile Update="**\IDictionaryOf.cs">
+			<DependentUpon>IValue.cs</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
@@ -116,6 +119,12 @@
 	<ItemGroup>
 		<Compile Update="**\ICachedWritableValue.cs">
 			<DependentUpon>IWritableValue.cs</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="**\IListOfKeyValuePairOf.cs">
+			<DependentUpon>IListOf.cs</DependentUpon>
 		</Compile>
 	</ItemGroup>
 

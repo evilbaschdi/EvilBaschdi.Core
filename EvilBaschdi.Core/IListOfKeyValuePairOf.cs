@@ -2,4 +2,4 @@
 
 /// <inheritdoc />
 // ReSharper disable once UnusedType.Global
-public interface IListOf<T> : IValue<List<T>>;
+public interface IListOfKeyValuePairOf<TKey, TValue> : IListOf<KeyValuePair<TKey, TValue>>;
