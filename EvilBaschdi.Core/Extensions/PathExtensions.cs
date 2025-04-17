@@ -47,7 +47,7 @@ public static class PathExtensions
     /// <param name="directories"></param>
     /// <returns></returns>
     // ReSharper disable once UnusedMember.Global
-    public static List<string> GetExistingDirectories(this IEnumerable<string> directories)
+    public static ConcurrentBag<string> GetExistingDirectories(this IEnumerable<string> directories)
     {
         var list = new ConcurrentBag<string>();
         Parallel.ForEach(directories, directory =>
@@ -57,6 +57,6 @@ public static class PathExtensions
                                               list.Add(directory);
                                           }
                                       });
-        return list.ToList();
+        return list;
     }
 }

@@ -32,12 +32,12 @@ public class FileListFromPath : IFileListFromPath
                           {
                               ShouldIncludePredicate = (ref FileSystemEntry fileSystemEntry) => fileSystemEntry.IsDirectory
                           };
-        return enumeration.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+        return enumeration.Distinct(StringComparer.OrdinalIgnoreCase);
     }
 
     /// <exception cref="ArgumentNullException"></exception>
     /// <inheritdoc />
-    public List<string> ValueFor([NotNull] string initialDirectory)
+    public IEnumerable<string> ValueFor([NotNull] string initialDirectory)
     {
         ArgumentNullException.ThrowIfNull(initialDirectory);
 
@@ -46,8 +46,8 @@ public class FileListFromPath : IFileListFromPath
 
     /// <exception cref="ArgumentNullException"></exception>
     /// <inheritdoc />
-    public List<string> ValueFor([NotNull] string initialDirectory,
-                                 [NotNull] FileListFromPathFilter fileListFromPathFilter)
+    public IEnumerable<string> ValueFor([NotNull] string initialDirectory,
+                                        [NotNull] FileListFromPathFilter fileListFromPathFilter)
     {
         ArgumentNullException.ThrowIfNull(initialDirectory);
 
@@ -66,7 +66,7 @@ public class FileListFromPath : IFileListFromPath
                               ShouldIncludePredicate = (ref FileSystemEntry fileSystemEntry) =>
                                                            !fileSystemEntry.IsDirectory && FileSystemEntryIsValid(fileSystemEntry, fileListFromPathFilter)
                           };
-        return enumeration.Distinct(StringComparer.OrdinalIgnoreCase).ToList();
+        return enumeration.Distinct(StringComparer.OrdinalIgnoreCase);
     }
 
     /// <inheritdoc />
