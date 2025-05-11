@@ -1,4 +1,4 @@
-﻿namespace EvilBaschdi.Core.Internal;
+﻿namespace EvilBaschdi.Core.Internal.Copy;
 
 /// <summary>
 /// </summary>

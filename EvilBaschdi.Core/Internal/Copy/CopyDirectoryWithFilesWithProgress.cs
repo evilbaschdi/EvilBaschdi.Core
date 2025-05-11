@@ -1,29 +1,35 @@
-﻿namespace EvilBaschdi.Core.Internal;
+﻿namespace EvilBaschdi.Core.Internal.Copy;
 
 /// <inheritdoc />
+/// <summary>
+///     Constructor
+/// </summary>
+/// <param name="copyProgress"></param>
 // ReSharper disable once UnusedType.Global
-public class CopyDirectoryWithFiles : ICopyDirectoryWithFiles
+public class CopyDirectoryWithFilesWithProgress(
+    [NotNull] ICopyProgress copyProgress) : ICopyDirectoryWithFilesWithProgress
 {
+    private readonly ICopyProgress _copyProgress = copyProgress ?? throw new ArgumentNullException(nameof(copyProgress));
+
     /// <inheritdoc />
     public async Task RunForAsync([NotNull] DirectoryInfo source, [NotNull] DirectoryInfo target)
     {
         ArgumentNullException.ThrowIfNull(source);
+
         ArgumentNullException.ThrowIfNull(target);
 
         Directory.CreateDirectory(target.FullName);
 
-        var files = source.GetFiles("*", SearchOption.AllDirectories);
-
-        if (files.Length == 0)
-        {
-            return;
-        }
+        var files = source.GetFiles();
 
         // Copy each file into the new directory.
         foreach (var fileInfo in files)
         {
-            //Console.WriteLine(@"Copying {0}\{1}", target.FullName, fi.Name);
+            Console.WriteLine(@"Copying {0}\{1}", target.FullName, fileInfo.Name);
             fileInfo.CopyTo(Path.Combine(target.FullName, fileInfo.Name), true);
+
+            _copyProgress.TempSize += fileInfo.Length;
+            _copyProgress.Progress.Report(_copyProgress.TempSize * 100 / _copyProgress.TotalSize);
         }
 
         // Copy each sub-directory using recursion.
