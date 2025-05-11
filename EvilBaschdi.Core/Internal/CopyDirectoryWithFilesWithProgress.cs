@@ -12,7 +12,7 @@ public class CopyDirectoryWithFilesWithProgress(
     private readonly ICopyProgress _copyProgress = copyProgress ?? throw new ArgumentNullException(nameof(copyProgress));
 
     /// <inheritdoc />
-    public async Task ValueFor([NotNull] DirectoryInfo source, [NotNull] DirectoryInfo target)
+    public async Task RunForAsync([NotNull] DirectoryInfo source, [NotNull] DirectoryInfo target)
     {
         ArgumentNullException.ThrowIfNull(source);
 
@@ -36,7 +36,7 @@ public class CopyDirectoryWithFilesWithProgress(
         foreach (var diSourceSubDir in source.GetDirectories())
         {
             var nextTargetSubDir = target.CreateSubdirectory(diSourceSubDir.Name);
-            await ValueFor(diSourceSubDir, nextTargetSubDir);
+            await RunForAsync(diSourceSubDir, nextTargetSubDir);
         }
     }
 }

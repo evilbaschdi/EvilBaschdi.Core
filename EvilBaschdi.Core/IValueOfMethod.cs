@@ -4,7 +4,7 @@
 ///     Generic Interface construct to encapsulate methods
 /// </summary>
 /// <typeparam name="TOut"></typeparam>
-public interface IValueFromMethod<out TOut>
+public interface IValueOfMethod<out TOut>
 {
     /// <summary>
     /// </summary>

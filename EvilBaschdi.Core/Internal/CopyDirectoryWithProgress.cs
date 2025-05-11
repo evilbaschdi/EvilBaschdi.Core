@@ -21,7 +21,7 @@ public class CopyDirectoryWithProgress(
 
     /// <inheritdoc />
     // ReSharper disable once ReplaceAsyncWithTaskReturn
-    public async Task ValueFor([NotNull] string source, [NotNull] string target)
+    public async Task RunForAsync([NotNull] string source, [NotNull] string target)
     {
         ArgumentNullException.ThrowIfNull(source);
 
@@ -33,6 +33,6 @@ public class CopyDirectoryWithProgress(
         _copyProgress.TotalSize = diSource.GetDirectorySize();
         _copyProgress.TempSize = 0d;
 
-        await _copyDirectoryWithFilesWithProgress.ValueFor(diSource, diTarget);
+        await _copyDirectoryWithFilesWithProgress.RunForAsync(diSource, diTarget);
     }
 }

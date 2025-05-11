@@ -40,12 +40,6 @@
 		<Compile Update="**\IString.cs">
 			<DependentUpon>IValue.cs</DependentUpon>
 		</Compile>
-		<Compile Update="**\ITask.cs">
-			<DependentUpon>IValue.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\ITaskOf.cs">
-			<DependentUpon>IValue.cs</DependentUpon>
-		</Compile>
 		<Compile Update="**\IIEnumerableOf.cs">
 			<DependentUpon>IValue.cs</DependentUpon>
 		</Compile>
@@ -61,58 +55,56 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Update="**\IBoolWithInjection.cs">
+		<Compile Update="**\IBoolFor.cs">
 			<DependentUpon>IValueFor.cs</DependentUpon>
 		</Compile>
 		<Compile Update="**\ICachedValueFor.cs">
 			<DependentUpon>IValueFor.cs</DependentUpon>
 		</Compile>
-		<Compile Update="**\IDecimalWithInjection.cs">
+		<Compile Update="**\IDecimalFor.cs">
 			<DependentUpon>IValueFor.cs</DependentUpon>
 		</Compile>
-		<Compile Update="**\IDoubleWithInjection.cs">
+		<Compile Update="**\IDoubleFor.cs">
 			<DependentUpon>IValueFor.cs</DependentUpon>
 		</Compile>
-		<Compile Update="**\IGuidWithInjection.cs">
+		<Compile Update="**\IGuidFor.cs">
 			<DependentUpon>IValueFor.cs</DependentUpon>
 		</Compile>
-		<Compile Update="**\IIntWithInjection.cs">
+		<Compile Update="**\IIntFor.cs">
 			<DependentUpon>IValueFor.cs</DependentUpon>
 		</Compile>
-		<Compile Update="**\IObjectWithInjection.cs">
+		<Compile Update="**\IObjectFor.cs">
 			<DependentUpon>IValueFor.cs</DependentUpon>
 		</Compile>
-		<Compile Update="**\IStringWithInjection.cs">
+		<Compile Update="**\IStringFor.cs">
 			<DependentUpon>IValueFor.cs</DependentUpon>
 		</Compile>
-		<Compile Update="**\ITaskWithInjection.cs">
+		<Compile Update="**\IIEnumerableOfFor.cs">
 			<DependentUpon>IValueFor.cs</DependentUpon>
 		</Compile>
-		<Compile Update="**\ITaskOfWithInjection.cs">
+		<Compile Update="**\IValueFor2.cs">
 			<DependentUpon>IValueFor.cs</DependentUpon>
 		</Compile>
-		<Compile Update="**\IIEnumerableOfWithInjection.cs">
+		<Compile Update="**\IListOfFor.cs">
 			<DependentUpon>IValueFor.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\IListOfWithInjection.cs">
-			<DependentUpon>IValueFor.cs</DependentUpon>
-		</Compile>
-	</ItemGroup>
-	<ItemGroup>
-		<Compile Update="**\ITaskFromMethod.cs">
-			<DependentUpon>IValueFromMethod.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\ITaskOfFromMethod.cs">
-			<DependentUpon>IValueFromMethod.cs</DependentUpon>
 		</Compile>
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Update="**\ITaskWithInjection2.cs">
-			<DependentUpon>IValueFor2.cs</DependentUpon>
+		<Compile Update="**\IRunFor2.cs">
+			<DependentUpon>IRunFor.cs</DependentUpon>
 		</Compile>
-		<Compile Update="**\ITaskOfWithInjection2.cs">
-			<DependentUpon>IValueFor2.cs</DependentUpon>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="**\ITaskOfValueFor2.cs">
+			<DependentUpon>ITaskOfValueFor.cs</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="**\ITaskRunFor2.cs">
+			<DependentUpon>ITaskRunFor.cs</DependentUpon>
 		</Compile>
 	</ItemGroup>
 

@@ -4,4 +4,4 @@
 ///     <see cref="decimal" /> ValueFor(TIn value)
 /// </summary>
 // ReSharper disable once UnusedType.Global
-public interface IDecimalWithInjection<in TIn> : IValueFor<TIn, decimal>;
+public interface IDecimalFor<in TIn> : IValueFor<TIn, decimal>;

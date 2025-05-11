@@ -1,7 +1,7 @@
 ﻿namespace EvilBaschdi.Core;
 
 /// <summary>
-///     <see cref="Task" /> Value()
+///     <see cref="Guid" /> ValueFor(TIn value)
 /// </summary>
 // ReSharper disable once UnusedType.Global
-public interface ITaskFromMethod : IValueFromMethod<Task>;
+public interface IGuidFor<in TIn> : IValueFor<TIn, Guid>;

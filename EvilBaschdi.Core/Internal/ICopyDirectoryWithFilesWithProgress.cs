@@ -1,5 +1,4 @@
 ﻿namespace EvilBaschdi.Core.Internal;
 
-/// <summary>
-/// </summary>
-public interface ICopyDirectoryWithFilesWithProgress : ITaskWithInjection2<DirectoryInfo, DirectoryInfo>;
+/// <inheritdoc />
+public interface ICopyDirectoryWithFilesWithProgress : ITaskRunFor2<DirectoryInfo, DirectoryInfo>;
