@@ -15,8 +15,8 @@ resources:
       name: Main/EvilBaschdi.BuildTemplates
       ref: refs/heads/main # optional ref to pin to
 
-jobs:
-- template: buildNPack.yml@templates  # Template reference
+extends:
+  template: buildNPackMultiStage.yml@templates  # Template reference
   parameters:
     projectName: $(Build.Repository.Name)
     framework: net9.0

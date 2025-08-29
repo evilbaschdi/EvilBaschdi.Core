@@ -13,108 +13,25 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Update="**\IBool.cs">
+		<!-- Grouped updates with the same DependentUpon -->
+		<Compile Update="**\IBool.cs;**\ICachedValue.cs;**\ICurrentAssembly.cs;**\IDecimal.cs;**\IDouble.cs;**\IGuid.cs;**\IInt.cs;**\IObject.cs;**\IString.cs;**\IIEnumerableOf.cs;**\IListOf.cs;**\IWritableValue.cs;**\IDictionaryOf.cs">
 			<DependentUpon>IValue.cs</DependentUpon>
 		</Compile>
-		<Compile Update="**\ICachedValue.cs">
-			<DependentUpon>IValue.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\ICurrentAssembly.cs">
-			<DependentUpon>IValue.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\IDecimal.cs">
-			<DependentUpon>IValue.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\IDouble.cs">
-			<DependentUpon>IValue.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\IGuid.cs">
-			<DependentUpon>IValue.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\IInt.cs">
-			<DependentUpon>IValue.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\IObject.cs">
-			<DependentUpon>IValue.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\IString.cs">
-			<DependentUpon>IValue.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\IIEnumerableOf.cs">
-			<DependentUpon>IValue.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\IListOf.cs">
-			<DependentUpon>IValue.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\IWritableValue.cs">
-			<DependentUpon>IValue.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\IDictionaryOf.cs">
-			<DependentUpon>IValue.cs</DependentUpon>
-		</Compile>
-	</ItemGroup>
-
-	<ItemGroup>
-		<Compile Update="**\IBoolFor.cs">
+		<Compile Update="**\IBoolFor.cs;**\ICachedValueFor.cs;**\IDecimalFor.cs;**\IDoubleFor.cs;**\IGuidFor.cs;**\IIntFor.cs;**\IObjectFor.cs;**\IStringFor.cs;**\IIEnumerableOfFor.cs;**\IValueFor2.cs;**\IListOfFor.cs">
 			<DependentUpon>IValueFor.cs</DependentUpon>
 		</Compile>
-		<Compile Update="**\ICachedValueFor.cs">
-			<DependentUpon>IValueFor.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\IDecimalFor.cs">
-			<DependentUpon>IValueFor.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\IDoubleFor.cs">
-			<DependentUpon>IValueFor.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\IGuidFor.cs">
-			<DependentUpon>IValueFor.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\IIntFor.cs">
-			<DependentUpon>IValueFor.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\IObjectFor.cs">
-			<DependentUpon>IValueFor.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\IStringFor.cs">
-			<DependentUpon>IValueFor.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\IIEnumerableOfFor.cs">
-			<DependentUpon>IValueFor.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\IValueFor2.cs">
-			<DependentUpon>IValueFor.cs</DependentUpon>
-		</Compile>
-		<Compile Update="**\IListOfFor.cs">
-			<DependentUpon>IValueFor.cs</DependentUpon>
-		</Compile>
-	</ItemGroup>
-
-	<ItemGroup>
 		<Compile Update="**\IRunFor2.cs">
 			<DependentUpon>IRunFor.cs</DependentUpon>
 		</Compile>
-	</ItemGroup>
-
-	<ItemGroup>
 		<Compile Update="**\ITaskOfValueFor2.cs">
 			<DependentUpon>ITaskOfValueFor.cs</DependentUpon>
 		</Compile>
-	</ItemGroup>
-
-	<ItemGroup>
 		<Compile Update="**\ITaskRunFor2.cs">
 			<DependentUpon>ITaskRunFor.cs</DependentUpon>
 		</Compile>
-	</ItemGroup>
-
-	<ItemGroup>
 		<Compile Update="**\ICachedWritableValue.cs">
 			<DependentUpon>IWritableValue.cs</DependentUpon>
 		</Compile>
-	</ItemGroup>
-
-	<ItemGroup>
 		<Compile Update="**\IListOfKeyValuePairOf.cs">
 			<DependentUpon>IListOf.cs</DependentUpon>
 		</Compile>

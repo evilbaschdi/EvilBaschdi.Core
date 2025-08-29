@@ -10,90 +10,74 @@ namespace EvilBaschdi.Core.Internal;
 public class FileListFromPath : IFileListFromPath
 {
     /// <inheritdoc />
-    /// <summary>
-    ///     Gets a list of accessible directories that contain files.
-    /// </summary>
-    /// <param name="directory"></param>
-    /// <returns></returns>
-    /// <exception cref="T:System.ArgumentNullException"><paramref name="directory" /> is <see langword="null" />.</exception>
     public IEnumerable<string> GetSubdirectoriesContainingOnlyFiles([NotNull] string directory)
     {
         ArgumentNullException.ThrowIfNull(directory);
 
         var enumeration = new FileSystemEnumerable<string>(
-                              directory,
-                              (ref FileSystemEntry fileSystemEntry) => fileSystemEntry.ToFullPath(),
-                              new()
-                              {
-                                  RecurseSubdirectories = true,
-                                  MatchCasing = MatchCasing.CaseInsensitive,
-                                  IgnoreInaccessible = true
-                              })
-                          {
-                              ShouldIncludePredicate = (ref FileSystemEntry fileSystemEntry) => fileSystemEntry.IsDirectory
-                          };
+            directory,
+            static (ref FileSystemEntry entry) => entry.ToFullPath(),
+            new()
+            {
+                RecurseSubdirectories = true,
+                MatchCasing = MatchCasing.CaseInsensitive,
+                IgnoreInaccessible = true
+            })
+        {
+            ShouldIncludePredicate = static (ref FileSystemEntry entry) => entry.IsDirectory
+        };
+
         return enumeration.Distinct(StringComparer.OrdinalIgnoreCase);
     }
 
-    /// <exception cref="ArgumentNullException"></exception>
     /// <inheritdoc />
     public IEnumerable<string> ValueFor([NotNull] string initialDirectory)
     {
         ArgumentNullException.ThrowIfNull(initialDirectory);
-
         return ValueFor(initialDirectory, new());
     }
 
-    /// <exception cref="ArgumentNullException"></exception>
     /// <inheritdoc />
-    public IEnumerable<string> ValueFor([NotNull] string initialDirectory,
-                                        [NotNull] FileListFromPathFilter fileListFromPathFilter)
+    public IEnumerable<string> ValueFor([NotNull] string initialDirectory, [NotNull] FileListFromPathFilter filter)
     {
         ArgumentNullException.ThrowIfNull(initialDirectory);
-
-        ArgumentNullException.ThrowIfNull(fileListFromPathFilter);
+        ArgumentNullException.ThrowIfNull(filter);
 
         var enumeration = new FileSystemEnumerable<string>(
-                              initialDirectory,
-                              (ref FileSystemEntry fileSystemEntry) => fileSystemEntry.ToFullPath(),
-                              new()
-                              {
-                                  RecurseSubdirectories = true,
-                                  MatchCasing = MatchCasing.CaseInsensitive,
-                                  IgnoreInaccessible = true
-                              })
-                          {
-                              ShouldIncludePredicate = (ref FileSystemEntry fileSystemEntry) =>
-                                                           !fileSystemEntry.IsDirectory && FileSystemEntryIsValid(fileSystemEntry, fileListFromPathFilter)
-                          };
+            initialDirectory,
+            static (ref FileSystemEntry entry) => entry.ToFullPath(),
+            new()
+            {
+                RecurseSubdirectories = true,
+                MatchCasing = MatchCasing.CaseInsensitive,
+                IgnoreInaccessible = true
+            })
+        {
+            ShouldIncludePredicate = (ref FileSystemEntry entry) =>
+                !entry.IsDirectory && FileSystemEntryIsValid(entry, filter)
+        };
+
         return enumeration.Distinct(StringComparer.OrdinalIgnoreCase);
     }
 
     /// <inheritdoc />
-    public bool FileSystemEntryIsValid(FileSystemEntry fileSystemEntry, [NotNull] FileListFromPathFilter fileListFromPathFilter)
+    public bool FileSystemEntryIsValid(FileSystemEntry entry, [NotNull] FileListFromPathFilter filter)
     {
-        ArgumentNullException.ThrowIfNull(fileListFromPathFilter);
+        ArgumentNullException.ThrowIfNull(filter);
 
-        var includeExtensionList = fileListFromPathFilter.FilterExtensionsToEqual;
-        var excludeExtensionList = fileListFromPathFilter.FilterExtensionsNotToEqual;
-        var includeFileNameList = fileListFromPathFilter.FilterFileNamesToEqual;
-        var excludeFileNameList = fileListFromPathFilter.FilterFileNamesNotToEqual;
-
-        var fileName = fileSystemEntry.FileName.ToString();
-        var fileExtension = Path.GetExtension(fileSystemEntry.ToFullPath()).TrimStart('.');
-
+        var fileName = entry.FileName.ToString();
+        var fileExtension = Path.GetExtension(entry.ToFullPath()).TrimStart('.');
         var hasFileExtension = !string.IsNullOrWhiteSpace(fileExtension);
 
-        //!Any() => all allowed; else => list has to contain extension, name or path
-        var includeExtension = includeExtensionList.Count == 0 || includeExtensionList.Contains(fileExtension);
-        var includeFileName = includeFileNameList.Count == 0 || includeFileNameList.Contains(fileName);
+        var includeExtension = filter.FilterExtensionsToEqual.Count == 0 ||
+                               filter.FilterExtensionsToEqual.Contains(fileExtension);
+        var includeFileName =
+            filter.FilterFileNamesToEqual.Count == 0 || filter.FilterFileNamesToEqual.Contains(fileName);
 
-        // .docx
         var excludeExtension =
-            excludeExtensionList.Contains(fileExtension, StringComparer.OrdinalIgnoreCase);
-        // ...file.x
+            filter.FilterExtensionsNotToEqual.Contains(fileExtension, StringComparer.OrdinalIgnoreCase);
         var excludeFileName =
-            excludeFileNameList.Any(p => fileName.Contains(p, StringComparison.OrdinalIgnoreCase));
+            filter.FilterFileNamesNotToEqual.Any(p => fileName.Contains(p, StringComparison.OrdinalIgnoreCase));
 
         return hasFileExtension && includeExtension && !excludeExtension && includeFileName && !excludeFileName;
     }
