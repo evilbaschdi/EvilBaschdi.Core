@@ -27,22 +27,22 @@ public abstract class ChainLinkTaskRun : IChainLinkTaskRun
     public abstract bool AmIResponsible { get; }
 
     /// <inheritdoc />
-    public async Task RunAsync()
+    public async Task RunAsync(CancellationToken cancellationToken = default)
     {
         if (AmIResponsible)
         {
-            await InnerRunAsync();
+            await InnerRunAsync(cancellationToken);
         }
         else
         {
             if (NextChain != null)
             {
-                await RunAsync();
+                await RunAsync(cancellationToken);
             }
         }
     }
 
     /// <summary>
     /// </summary>
-    protected abstract Task InnerRunAsync();
+    protected abstract Task InnerRunAsync(CancellationToken cancellationToken = default);
 }

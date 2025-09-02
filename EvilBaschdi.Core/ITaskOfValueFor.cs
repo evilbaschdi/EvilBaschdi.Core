@@ -9,5 +9,5 @@ public interface ITaskOfValueFor<in TIn, TResult>
     /// <summary>
     ///     ValueForAsync
     /// </summary>
-    Task<TResult> ValueForAsync(TIn value);
+    Task<TResult> ValueForAsync(TIn value, CancellationToken cancellationToken = default);
 }

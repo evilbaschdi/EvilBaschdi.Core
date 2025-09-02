@@ -5,7 +5,7 @@
   </PropertyGroup>
   <!-- #region Project Libs -->
   <ItemGroup>
-    <PackageVersion Include="JetBrains.Annotations" Version="2025.2.1" />
+    <PackageVersion Include="JetBrains.Annotations" Version="2025.2.2" />
   </ItemGroup>
   <!-- #endregion Project Libs -->
   <!-- #region Unit Test Libs -->

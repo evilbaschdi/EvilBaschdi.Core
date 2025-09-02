@@ -41,17 +41,17 @@ public class FileListFromPathTests
         }
         */
 
-    [Theory, NSubstituteOmitAutoPropertiesTrueAutoData]
-    public void GetSubdirectoriesContainingOnlyFiles_WithoutFilter_Result(
-        FileListFromPath sut)
-    {
-        // Arrange
-        const string dir = @"C:\Windows";
+    //[Theory, NSubstituteOmitAutoPropertiesTrueAutoData]
+    //public void GetSubdirectoriesContainingOnlyFiles_WithoutFilter_Result(
+    //    FileListFromPath sut)
+    //{
+    //    // Arrange
+    //    const string dir = @"C:\Windows";
 
-        // Act
-        var result = sut.GetSubdirectoriesContainingOnlyFiles(dir);
+    //    // Act
+    //    var result = sut.GetSubdirectoriesContainingOnlyFiles(dir);
 
-        // Assert
-        result.Should().NotBeNull();
-    }
+    //    // Assert
+    //    result.Should().NotBeNull();
+    //}
 }

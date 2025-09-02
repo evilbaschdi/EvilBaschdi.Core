@@ -9,5 +9,5 @@ public interface ITaskRunFor<in TIn>
     /// <summary>
     ///     RunForAsync
     /// </summary>
-    Task RunForAsync(TIn value);
+    Task RunForAsync(TIn value, CancellationToken cancellationToken = default);
 }

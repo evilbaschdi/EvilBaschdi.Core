@@ -22,7 +22,9 @@ public abstract class ChainLinkTaskOfValue<TResult> : IChainLinkTaskOfValue<TRes
 
     /// <summary>
     /// </summary>
-    protected abstract Task<TResult> InnerValueAsync();
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    protected abstract Task<TResult> InnerValueAsync(CancellationToken cancellationToken = default);
 
     /// <inheritdoc />
     public IChainLinkTaskOfValue<TResult> NextChain { get; }
@@ -30,14 +32,13 @@ public abstract class ChainLinkTaskOfValue<TResult> : IChainLinkTaskOfValue<TRes
     /// <inheritdoc />
     public abstract bool AmIResponsible { get; }
 
-    /// <summary>
-    /// </summary>
-    public async Task<TResult> ValueAsync()
+    /// <inheritdoc />
+    public async Task<TResult> ValueAsync(CancellationToken cancellationToken = default)
     {
         return AmIResponsible
-            ? await InnerValueAsync()
+            ? await InnerValueAsync(cancellationToken)
             : NextChain != null
-                ? await ValueAsync()
+                ? await ValueAsync(cancellationToken)
                 : default;
     }
 }

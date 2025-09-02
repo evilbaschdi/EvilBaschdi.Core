@@ -9,5 +9,5 @@ public interface ITaskRun
     /// <summary>
     ///     RunAsync
     /// </summary>
-    Task RunAsync();
+    Task RunAsync(CancellationToken cancellationToken = default);
 }

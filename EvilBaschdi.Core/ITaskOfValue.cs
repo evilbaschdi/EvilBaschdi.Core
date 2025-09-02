@@ -9,5 +9,5 @@ public interface ITaskOfValue<TResult>
     /// <summary>
     ///     ValueAsync
     /// </summary>
-    Task<TResult> ValueAsync();
+    Task<TResult> ValueAsync(CancellationToken cancellationToken = default);
 }

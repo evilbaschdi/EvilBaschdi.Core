@@ -5,7 +5,7 @@
 public class CopyDirectoryWithFiles : ICopyDirectoryWithFiles
 {
     /// <inheritdoc />
-    public async Task RunForAsync([NotNull] DirectoryInfo source, [NotNull] DirectoryInfo target)
+    public async Task RunForAsync([NotNull] DirectoryInfo source, [NotNull] DirectoryInfo target, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(source);
         ArgumentNullException.ThrowIfNull(target);
@@ -30,7 +30,7 @@ public class CopyDirectoryWithFiles : ICopyDirectoryWithFiles
         foreach (var diSourceSubDir in source.GetDirectories())
         {
             var nextTargetSubDir = target.CreateSubdirectory(diSourceSubDir.Name);
-            await RunForAsync(diSourceSubDir, nextTargetSubDir);
+            await RunForAsync(diSourceSubDir, nextTargetSubDir, cancellationToken);
         }
     }
 }

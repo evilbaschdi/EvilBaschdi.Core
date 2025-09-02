@@ -13,7 +13,7 @@ public class CopyDirectory(
 
     /// <inheritdoc />
     // ReSharper disable once ReplaceAsyncWithTaskReturn
-    public async Task RunForAsync([NotNull] string sourcePath, [NotNull] string destinationPath)
+    public async Task RunForAsync([NotNull] string sourcePath, [NotNull] string destinationPath, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(sourcePath);
         ArgumentNullException.ThrowIfNull(destinationPath);
@@ -21,6 +21,6 @@ public class CopyDirectory(
         var diSource = new DirectoryInfo(sourcePath);
         var diTarget = new DirectoryInfo(destinationPath);
 
-        await _copyDirectoryWithFiles.RunForAsync(diSource, diTarget);
+        await _copyDirectoryWithFiles.RunForAsync(diSource, diTarget, cancellationToken);
     }
 }

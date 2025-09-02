@@ -20,6 +20,13 @@ public abstract class ChainLinkTaskOfValueFor<TIn, TResult> : IChainLinkTaskOfVa
     {
     }
 
+    /// <summary>
+    /// </summary>
+    /// <param name="input"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
+    protected abstract Task<TResult> InnerValueForAsync([NotNull] TIn input, CancellationToken cancellationToken = default);
+
     /// <inheritdoc />
     public IChainLinkTaskOfValueFor<TIn, TResult> NextChain { get; }
 
@@ -27,19 +34,13 @@ public abstract class ChainLinkTaskOfValueFor<TIn, TResult> : IChainLinkTaskOfVa
     public abstract bool AmIResponsible { get; }
 
     /// <inheritdoc />
-    public async Task<TResult> ValueForAsync([NotNull] TIn input)
+    public async Task<TResult> ValueForAsync([NotNull] TIn input, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(input);
         return AmIResponsible
-            ? await InnerValueForAsync(input)
+            ? await InnerValueForAsync(input, cancellationToken)
             : NextChain != null
-                ? await ValueForAsync(input)
+                ? await ValueForAsync(input, cancellationToken)
                 : default;
     }
-
-    /// <summary>
-    /// </summary>
-    /// <param name="input"></param>
-    /// <returns></returns>
-    protected abstract Task<TResult> InnerValueForAsync([NotNull] TIn input);
 }

@@ -27,18 +27,18 @@ public abstract class ChainLinkTaskRunFor<TIn> : IChainLinkTaskRunFor<TIn>
     public abstract bool AmIResponsible { get; }
 
     /// <inheritdoc />
-    public async Task RunForAsync([NotNull] TIn input)
+    public async Task RunForAsync([NotNull] TIn input, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(input);
         if (AmIResponsible)
         {
-            await InnerRunForAsync(input);
+            await InnerRunForAsync(input, cancellationToken);
         }
         else
         {
             if (NextChain != null)
             {
-                await RunForAsync(input);
+                await RunForAsync(input, cancellationToken);
             }
             else
             {
@@ -50,6 +50,7 @@ public abstract class ChainLinkTaskRunFor<TIn> : IChainLinkTaskRunFor<TIn>
     /// <summary>
     /// </summary>
     /// <param name="input"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
-    protected abstract Task InnerRunForAsync([NotNull] TIn input);
+    protected abstract Task InnerRunForAsync([NotNull] TIn input, CancellationToken cancellationToken = default);
 }
