@@ -35,6 +35,7 @@
 		<When Condition="$(MSBuildProjectName.EndsWith('.Core'))">
 			<ItemGroup>
 				<PackageReference Include="JetBrains.Annotations" />
+				<PackageReference Include="Newtonsoft.Json" />
 			</ItemGroup>
 		</When>
 		<When Condition="$(MSBuildProjectName.EndsWith('.Tests'))">
