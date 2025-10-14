@@ -17,13 +17,15 @@ public class Encryption : IEncryption
         ArgumentNullException.ThrowIfNull(encryptionKey);
 
         var clearBytes = Encoding.Unicode.GetBytes(clearText);
-        using var rfc2898DeriveBytes = new Rfc2898DeriveBytes(encryptionKey,
-            // ReSharper disable once UseUtf8StringLiteral
-            [0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76],
-            1000,
-            HashAlgorithmName.SHA1);
-        var encryptedData = EncryptString(clearBytes, rfc2898DeriveBytes.GetBytes(32),
-            rfc2898DeriveBytes.GetBytes(16));
+
+        var encryptionKeySpan = encryptionKey.AsSpan();
+        var salt = new ReadOnlySpan<byte>("EvilBaschdi.Core.Security"u8.ToArray());
+
+        byte[] derivedKey16 = Rfc2898DeriveBytes.Pbkdf2(encryptionKeySpan, salt, 1000, HashAlgorithmName.SHA1, 16);
+        byte[] derivedKey32 = Rfc2898DeriveBytes.Pbkdf2(encryptionKeySpan, salt, 1000, HashAlgorithmName.SHA1, 32);
+
+        var encryptedData = EncryptString(clearBytes, derivedKey32, derivedKey16);
+
         return Convert.ToBase64String(encryptedData);
     }
 
@@ -34,13 +36,14 @@ public class Encryption : IEncryption
         ArgumentNullException.ThrowIfNull(encryptionKey);
 
         var cipherBytes = Convert.FromBase64String(cipherText);
-        using var rfc2898DeriveBytes = new Rfc2898DeriveBytes(encryptionKey,
-            // ReSharper disable once UseUtf8StringLiteral
-            [0x49, 0x76, 0x61, 0x6e, 0x20, 0x4d, 0x65, 0x64, 0x76, 0x65, 0x64, 0x65, 0x76],
-            1000,
-            HashAlgorithmName.SHA1);
-        var decryptedData = DecryptString(cipherBytes, rfc2898DeriveBytes.GetBytes(32),
-            rfc2898DeriveBytes.GetBytes(16));
+
+        var encryptionKeySpan = encryptionKey.AsSpan();
+        var salt = new ReadOnlySpan<byte>("EvilBaschdi.Core.Security"u8.ToArray());
+
+        byte[] derivedKey16 = Rfc2898DeriveBytes.Pbkdf2(encryptionKeySpan, salt, 1000, HashAlgorithmName.SHA1, 16);
+        byte[] derivedKey32 = Rfc2898DeriveBytes.Pbkdf2(encryptionKeySpan, salt, 1000, HashAlgorithmName.SHA1, 32);
+
+        var decryptedData = DecryptString(cipherBytes, derivedKey32, derivedKey16);
         return Encoding.Unicode.GetString(decryptedData);
     }
 
