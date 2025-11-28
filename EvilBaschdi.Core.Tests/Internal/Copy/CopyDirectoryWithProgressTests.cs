@@ -17,12 +17,13 @@ public class CopyDirectoryWithProgressTests
         await File.WriteAllTextAsync(Path.Combine(sourcePath, "file.txt"), "test", TestContext.Current.CancellationToken);
 
         // Act
-        await sut.RunForAsync(sourcePath, destinationPath);
+        await sut.RunForAsync(sourcePath, destinationPath, TestContext.Current.CancellationToken);
 
         // Assert
         copyProgress.Received(1).TotalSize = 4;
         copyProgress.Received(1).TempSize = 0d;
-        await copyDirectoryWithFilesWithProgress.Received(1).RunForAsync(Arg.Is<DirectoryInfo>(d => d.Name == "source"), Arg.Is<DirectoryInfo>(d => d.Name == "destination"));
+        await copyDirectoryWithFilesWithProgress.Received(1).RunForAsync(Arg.Is<DirectoryInfo>(d => d.Name == "source"), Arg.Is<DirectoryInfo>(d => d.Name == "destination"),
+            TestContext.Current.CancellationToken);
 
         // Cleanup
         Directory.Delete(sourcePath, true);

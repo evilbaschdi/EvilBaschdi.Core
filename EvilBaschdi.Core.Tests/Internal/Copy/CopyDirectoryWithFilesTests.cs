@@ -39,7 +39,7 @@ public sealed class CopyDirectoryWithFilesTests : IDisposable
         File.WriteAllText(Path.Combine(subDir.FullName, "file2.txt"), "test2");
 
         // Act
-        await sut.RunForAsync(sourceDir, targetDir);
+        await sut.RunForAsync(sourceDir, targetDir, TestContext.Current.CancellationToken);
 
         // Assert
         Directory.Exists(_targetDirectory).Should().BeTrue();

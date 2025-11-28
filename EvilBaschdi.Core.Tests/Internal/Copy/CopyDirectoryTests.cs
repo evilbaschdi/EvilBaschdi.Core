@@ -14,9 +14,10 @@ public class CopyDirectoryTests
         var destinationPath = "destination";
 
         // Act
-        await sut.RunForAsync(sourcePath, destinationPath);
+        await sut.RunForAsync(sourcePath, destinationPath, TestContext.Current.CancellationToken);
 
         // Assert
-        await copyDirectoryWithFiles.Received(1).RunForAsync(Arg.Is<DirectoryInfo>(d => d.Name == sourcePath), Arg.Is<DirectoryInfo>(d => d.Name == destinationPath));
+        await copyDirectoryWithFiles.Received(1).RunForAsync(Arg.Is<DirectoryInfo>(d => d.Name == sourcePath), Arg.Is<DirectoryInfo>(d => d.Name == destinationPath),
+            TestContext.Current.CancellationToken);
     }
 }

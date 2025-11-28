@@ -9,37 +9,43 @@ public static class PathExtensions
 {
     /// <summary>
     /// </summary>
-    // ReSharper disable once UnusedMember.Global
-    public static bool IsAccessible(this string directoryPath)
+    /// <param name="directoryPath"></param>
+    extension(string directoryPath)
     {
-        try
+        /// <summary>
+        /// </summary>
+        // ReSharper disable once UnusedMember.Global
+        public bool IsAccessible()
         {
-            //if GetDirectories works then is accessible
-            directoryPath.DirectoryInfo().GetDirectories();
-            return true;
+            try
+            {
+                //if GetDirectories works then is accessible
+                directoryPath.DirectoryInfo().GetDirectories();
+                return true;
+            }
+            catch (Exception)
+            {
+                //if exception is not accessible
+                return false;
+            }
         }
-        catch (Exception)
+
+        /// <summary>
+        /// </summary>
+        // ReSharper disable once MemberCanBePrivate.Global
+        public DirectoryInfo DirectoryInfo()
         {
-            //if exception is not accessible
-            return false;
+            return new(directoryPath);
         }
-    }
 
-    /// <summary>
-    /// </summary>
-    // ReSharper disable once MemberCanBePrivate.Global
-    public static DirectoryInfo DirectoryInfo(this string directoryPath)
-    {
-        return new(directoryPath);
-    }
-
-    /// <summary>
-    /// </summary>
-    // ReSharper disable once MemberCanBePrivate.Global
-    // ReSharper disable once UnusedMember.Global
-    public static FileInfo FileInfo(this string filePath)
-    {
-        return new(filePath);
+        /// <summary>
+        /// </summary>
+        // ReSharper disable once MemberCanBePrivate.Global
+        // ReSharper disable once UnusedMember.Global
+        public FileInfo FileInfo()
+        {
+            return new(directoryPath);
+        }
     }
 
     /// <summary>
