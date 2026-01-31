@@ -21,7 +21,7 @@ public class MoveDirectory : IMoveDirectory
             var files = Directory.EnumerateFiles(sourcePath, "*", SearchOption.AllDirectories).GroupBy(Path.GetDirectoryName);
             foreach (var folder in files)
             {
-                if (folder.Key == null)
+                if (folder.Key is null)
                 {
                     continue;
                 }
@@ -30,7 +30,7 @@ public class MoveDirectory : IMoveDirectory
                 Directory.CreateDirectory(targetFolder);
                 foreach (var file in folder)
                 {
-                    if (file == null)
+                    if (file is null)
                     {
                         continue;
                     }

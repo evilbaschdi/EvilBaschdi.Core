@@ -27,7 +27,7 @@ public static class DirectoryInfoExtensions
 
         var parentDirInfo = dirInfo.Parent;
 
-        return parentDirInfo == null
+        return parentDirInfo is null
             ? dirInfo.Name
             : Path.Combine(GetProperDirectoryCapitalization(parentDirInfo),
                 parentDirInfo.GetDirectories(dirInfo.Name)[0].Name).Trim();
@@ -43,7 +43,7 @@ public static class DirectoryInfoExtensions
     // ReSharper disable once UnusedMember.Global
     public static void RenameTo(this DirectoryInfo dir, string name)
     {
-        if (dir?.Parent == null)
+        if (dir?.Parent is null)
         {
             throw new ArgumentNullException(nameof(dir), "Directory info to rename cannot be null");
         }

@@ -17,26 +17,26 @@ public static class IntExtensions
             case 0:
                 return "zero";
             case < 0:
-                return $"minus {ToWords(Math.Abs(number))}".Trim();
+                return $"minus {Math.Abs(number).ToWords()}".Trim();
         }
 
         var words = string.Empty;
 
         if (number / 1000000 > 0)
         {
-            words += $"{ToWords(number / 1000000)} million ";
+            words += $"{(number / 1000000).ToWords()} million ";
             number %= 1000000;
         }
 
         if (number / 1000 > 0)
         {
-            words += $"{ToWords(number / 1000)} thousand ";
+            words += $"{(number / 1000).ToWords()} thousand ";
             number %= 1000;
         }
 
         if (number / 100 > 0)
         {
-            words += $"{ToWords(number / 100)} hundred ";
+            words += $"{(number / 100).ToWords()} hundred ";
             number %= 100;
         }
 
@@ -45,12 +45,12 @@ public static class IntExtensions
             return words;
         }
 
-        var unitsMap = new[]
-                       {
-                           "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen",
-                           "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"
-                       };
-        var tensMap = new[] { "zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+        var unitsMap = (string[])
+        [
+            "zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen",
+            "eighteen", "nineteen"
+        ];
+        var tensMap = (string[])["zero", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
 
         if (number < 20)
         {

@@ -35,7 +35,7 @@ public abstract class ChainLinkTaskRun : IChainLinkTaskRun
         }
         else
         {
-            if (NextChain != null)
+            if (NextChain is not null)
             {
                 await RunAsync(cancellationToken);
             }
