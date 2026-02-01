@@ -7,25 +7,46 @@ namespace EvilBaschdi.Core.AppHelpers;
 public class ProcessByPath : IProcessByPath
 {
     /// <inheritdoc />
-    public Process ValueFor([NotNull] string value)
+    public Process ValueFor(string path)
     {
-        ArgumentNullException.ThrowIfNull(value);
+        ArgumentNullException.ThrowIfNull(path);
 
         return new()
                {
-                   StartInfo =
-                   {
-                       FileName = value,
-                       UseShellExecute = true
-                   }
+                   StartInfo = new()
+                               {
+                                   FileName = path,
+                                   UseShellExecute = true
+                               }
                };
     }
 
     /// <inheritdoc />
-    public void RunFor([NotNull] string value)
+    public Process ValueFor(string path, string workingDirectory)
     {
-        ArgumentNullException.ThrowIfNull(value);
+        ArgumentNullException.ThrowIfNull(path);
+        ArgumentNullException.ThrowIfNull(workingDirectory);
 
-        ValueFor(value).Start();
+        var process = ValueFor(path);
+        process.StartInfo.WorkingDirectory = workingDirectory;
+        return process;
+    }
+
+    /// <inheritdoc />
+    public void RunFor(string path)
+    {
+        ArgumentNullException.ThrowIfNull(path);
+        using var process = ValueFor(path);
+        _ = process.Start();
+    }
+
+    /// <inheritdoc />
+    public void RunFor(string path, string workingDirectory)
+    {
+        ArgumentNullException.ThrowIfNull(path);
+        ArgumentNullException.ThrowIfNull(workingDirectory);
+
+        using var process = ValueFor(path, workingDirectory);
+        _ = process.Start();
     }
 }
