@@ -81,7 +81,7 @@ public sealed class PathExtensionsTests : IDisposable
         // Arrange
         var existingDir = _tempDirectory;
         var nonExistingDir = Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString());
-        var dirs = new List<string> { existingDir, nonExistingDir };
+        List<string> dirs = [existingDir, nonExistingDir];
 
         // Act
         var result = dirs.GetExistingDirectories();

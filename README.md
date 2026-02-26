@@ -1,5 +1,6 @@
-# EvilBaschdi.Core
+# EvilBaschdi.Core
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 source code of core assembly.\
 MyGet Feed for NuGet Package: <https://www.myget.org/F/evilbaschdi/api/v3/index.json>
 
