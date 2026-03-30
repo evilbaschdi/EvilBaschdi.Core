@@ -1,4 +1,5 @@
 ﻿using System.Runtime.InteropServices;
+using EvilBaschdi.Core.Enums;
 
 // ReSharper disable UnusedMember.Global
 
@@ -12,7 +13,7 @@ public static class VersionHelper
 {
     /// <summary>
     ///     Gets the real OS Version.
-    ///     Application has to contain a app.manifest supporting windows 10.
+    ///     Application has to contain an app.manifest supporting windows 10.
     /// </summary>
     /// <returns></returns>
     // ReSharper disable once MemberCanBePrivate.Global
@@ -34,26 +35,60 @@ public static class VersionHelper
         }
     }
 
+    // Lazy-loaded property so the check only runs once
+    /// <summary>
+    ///     Gets the current platform.
+    /// </summary>
+    // ReSharper disable once MemberCanBePrivate.Global
+    public static PlatformKind CurrentPlatform => _currentPlatform ??= GetCurrentPlatform();
+
+    private static PlatformKind? _currentPlatform;
+
+    private static PlatformKind GetCurrentPlatform()
+    {
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            return PlatformKind.Windows;
+        }
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            return PlatformKind.Linux;
+        }
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        {
+            return PlatformKind.OSX;
+        }
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.FreeBSD))
+        {
+            return PlatformKind.FreeBSD;
+        }
+
+        return PlatformKind.Unknown;
+    }
+
     /// <summary>
     ///     OS is FreeBSD
     /// </summary>
-    public static bool IsFreeBsd => RuntimeInformation.IsOSPlatform(OSPlatform.FreeBSD);
+    public static bool IsFreeBsd => CurrentPlatform == PlatformKind.FreeBSD;
 
     /// <summary>
     ///     OS is Linux
     /// </summary>
-    public static bool IsLinux => RuntimeInformation.IsOSPlatform(OSPlatform.Linux);
+    public static bool IsLinux => CurrentPlatform == PlatformKind.Linux;
 
     /// <summary>
     ///     OS is OSX
     /// </summary>
-    public static bool IsOsX => RuntimeInformation.IsOSPlatform(OSPlatform.OSX);
+    public static bool IsOSX => CurrentPlatform == PlatformKind.OSX;
 
     /// <summary>
     ///     OS is Windows
     /// </summary>
     // ReSharper disable once MemberCanBePrivate.Global
-    public static bool IsWindows => RuntimeInformation.IsOSPlatform(OSPlatform.Windows);
+    public static bool IsWindows => CurrentPlatform == PlatformKind.Windows;
 
     /// <summary>
     ///     OS is Windows 10.
