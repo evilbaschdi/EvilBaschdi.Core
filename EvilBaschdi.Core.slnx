@@ -11,6 +11,6 @@
     <File Path="NuGet.config" />
     <File Path="README.md" />
   </Folder>
-  <Project Path="EvilBaschdi.Core.Tests/EvilBaschdi.Core.Tests.csproj" />
-  <Project Path="EvilBaschdi.Core/EvilBaschdi.Core.csproj" />
+  <Project Path="tests/EvilBaschdi.Core.Tests/EvilBaschdi.Core.Tests.csproj" />
+  <Project Path="src/EvilBaschdi.Core/EvilBaschdi.Core.csproj" />
 </Solution>

@@ -21,4 +21,5 @@ extends:
     projects:
       - $(Build.Repository.Name)
     framework: net10.0
-    projectParentDirectory: ''
+    projectsParentDirectory: 'src/'
+    testsParentDirectory: 'tests/'

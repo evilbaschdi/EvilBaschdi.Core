@@ -52,7 +52,7 @@
 				<Using Include="AutoFixture.Xunit3" />
 				<Using Include="EvilBaschdi.Testing" />
 				<Using Include="FluentAssertions" />
-				<Using Include="FluentAssertions.Microsoft.Extensions.DependencyInjection" />
+				<Using Include="EvilBaschdi.Testing.FluentAssertions.Microsoft.Extensions.DependencyInjection" />
 				<Using Include="NSubstitute" />
 				<Using Include="NSubstitute.ReturnsExtensions" />
 				<Using Include="Xunit" />
@@ -96,7 +96,7 @@
 
 	<!-- ReSharper disable once UnknownProperty -->
 	<ItemGroup Condition="$(MSBuildProjectName.EndsWith('.Tests'))">
-		<ProjectReference Include="..\$(MSBuildProjectName.Replace('.Tests',''))\$(MSBuildProjectName.Replace('.Tests','')).csproj" />
+		<ProjectReference Include="..\..\src\$(MSBuildProjectName.Replace('.Tests',''))\$(MSBuildProjectName.Replace('.Tests','')).csproj" />
 	</ItemGroup>
 
 </Project>

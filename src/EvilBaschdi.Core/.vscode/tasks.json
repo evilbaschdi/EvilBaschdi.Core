@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/EvilBaschdi.Core.csproj"
+                "${workspaceFolder}/src/EvilBaschdi.Core/EvilBaschdi.Core.csproj"
             ],
             "problemMatcher": "$tsc"
         },
@@ -17,7 +17,7 @@
             "type": "process",
             "args": [
                 "publish",
-                "${workspaceFolder}/EvilBaschdi.Core.csproj"
+                "${workspaceFolder}/src/EvilBaschdi.Core/EvilBaschdi.Core.csproj"
             ],
             "problemMatcher": "$tsc"
         },
@@ -28,7 +28,7 @@
             "args": [
                 "watch",
                 "run",
-                "${workspaceFolder}/EvilBaschdi.Core.csproj"
+                "${workspaceFolder}/src/EvilBaschdi.Core/EvilBaschdi.Core.csproj"
             ],
             "problemMatcher": "$tsc"
         }
