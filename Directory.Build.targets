@@ -14,10 +14,12 @@
 
 	<ItemGroup>
 		<!-- Grouped updates with the same DependentUpon -->
-		<Compile Update="**\IBool.cs;**\ICachedValue.cs;**\ICurrentAssembly.cs;**\IDecimal.cs;**\IDouble.cs;**\IGuid.cs;**\IInt.cs;**\IObject.cs;**\IString.cs;**\IIEnumerableOf.cs;**\IListOf.cs;**\IWritableValue.cs;**\IDictionaryOf.cs">
+		<Compile
+			Update="**\IBool.cs;**\ICachedValue.cs;**\ICurrentAssembly.cs;**\IDecimal.cs;**\IDouble.cs;**\IGuid.cs;**\IInt.cs;**\IObject.cs;**\IString.cs;**\IIEnumerableOf.cs;**\IListOf.cs;**\IWritableValue.cs;**\IDictionaryOf.cs">
 			<DependentUpon>IValue.cs</DependentUpon>
 		</Compile>
-		<Compile Update="**\IBoolFor.cs;**\ICachedValueFor.cs;**\IDecimalFor.cs;**\IDoubleFor.cs;**\IGuidFor.cs;**\IIntFor.cs;**\IObjectFor.cs;**\IStringFor.cs;**\IIEnumerableOfFor.cs;**\IValueFor2.cs;**\IListOfFor.cs">
+		<Compile
+			Update="**\IBoolFor.cs;**\ICachedValueFor.cs;**\IDecimalFor.cs;**\IDoubleFor.cs;**\IGuidFor.cs;**\IIntFor.cs;**\IObjectFor.cs;**\IStringFor.cs;**\IIEnumerableOfFor.cs;**\IValueFor2.cs;**\IListOfFor.cs">
 			<DependentUpon>IValueFor.cs</DependentUpon>
 		</Compile>
 		<Compile Update="**\IRunFor2.cs">

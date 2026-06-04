@@ -14,7 +14,7 @@ public static class DirectoryInfoExtensions
         ArgumentNullException.ThrowIfNull(dir);
 
         var sum = dir.GetFiles().Aggregate<FileInfo, double>(0, (current, file) => current + file.Length);
-        return dir.GetDirectories().Aggregate(sum, (current, dir1) => current + GetDirectorySize(dir1));
+        return dir.GetDirectories().Aggregate(sum, (current, dir1) => current + dir1.GetDirectorySize());
     }
 
     /// <summary>
@@ -29,7 +29,7 @@ public static class DirectoryInfoExtensions
 
         return parentDirInfo is null
             ? dirInfo.Name
-            : Path.Combine(GetProperDirectoryCapitalization(parentDirInfo),
+            : Path.Combine(parentDirInfo.GetProperDirectoryCapitalization(),
                 parentDirInfo.GetDirectories(dirInfo.Name)[0].Name).Trim();
     }
 

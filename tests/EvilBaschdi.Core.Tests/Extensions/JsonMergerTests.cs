@@ -23,26 +23,26 @@ public class JsonMergerTests
         // Arrange
         var dummyPreJObject = JObject.Parse("""
                                             {
-                                                "name": "Alice",
-                                                "age": 30,
-                                                "address": {
-                                                    "city": "Wonderland",
-                                                    "zip": "12345"
-                                                },
-                                                "hobbies": ["reading", "chess"]
-                                            }
+                                                    "name": "Alice",
+                                                    "age": 30,
+                                                    "address": {
+                                                            "city": "Wonderland",
+                                                            "zip": "12345"
+                                                        },
+                                                    "hobbies": ["reading", "chess"]
+                                                }
                                             """);
 
         var dummyTargetJObject = JObject.Parse("""
                                                {
-                                                   "name": "Bob",
-                                                   "age": 25,
-                                                   "address": {
-                                                       "city": "Builderland",
-                                                       "street": "456 Construction Ave"
-                                                   },
-                                                   "hobbies": ["chess", "cycling"]
-                                               }
+                                                       "name": "Bob",
+                                                       "age": 25,
+                                                       "address": {
+                                                               "city": "Builderland",
+                                                               "street": "456 Construction Ave"
+                                                           },
+                                                       "hobbies": ["chess", "cycling"]
+                                                   }
                                                """);
 
         // Act
@@ -51,15 +51,15 @@ public class JsonMergerTests
         // Assert
         var expectedJObject = JObject.Parse("""
                                             {
-                                               "name": "Bob",
-                                               "age": 25,
-                                               "address": {
-                                               "city": "Builderland",
-                                               "zip": "12345",
-                                               "street": "456 Construction Ave"
-                                            },
-                                               "hobbies": ["reading", "chess", "cycling"]
-                                            }
+                                                    "name": "Bob",
+                                                    "age": 25,
+                                                    "address": {
+                                                            "city": "Builderland",
+                                                            "zip": "12345",
+                                                            "street": "456 Construction Ave"
+                                                        },
+                                                    "hobbies": ["reading", "chess", "cycling"]
+                                                }
                                             """);
         result.Should().BeEquivalentTo(expectedJObject);
     }

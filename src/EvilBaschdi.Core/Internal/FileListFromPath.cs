@@ -15,17 +15,17 @@ public class FileListFromPath : IFileListFromPath
         ArgumentNullException.ThrowIfNull(directory);
 
         var enumeration = new FileSystemEnumerable<string>(
-            directory,
-            static (ref FileSystemEntry entry) => entry.ToFullPath(),
-            new()
-            {
-                RecurseSubdirectories = true,
-                MatchCasing = MatchCasing.CaseInsensitive,
-                IgnoreInaccessible = true
-            })
-        {
-            ShouldIncludePredicate = static (ref FileSystemEntry entry) => entry.IsDirectory
-        };
+                              directory,
+                              static (ref FileSystemEntry entry) => entry.ToFullPath(),
+                              new()
+                              {
+                                  RecurseSubdirectories = true,
+                                  MatchCasing = MatchCasing.CaseInsensitive,
+                                  IgnoreInaccessible = true
+                              })
+                          {
+                              ShouldIncludePredicate = static (ref FileSystemEntry entry) => entry.IsDirectory
+                          };
 
         return enumeration.Distinct(StringComparer.OrdinalIgnoreCase);
     }
@@ -44,18 +44,18 @@ public class FileListFromPath : IFileListFromPath
         ArgumentNullException.ThrowIfNull(filter);
 
         var enumeration = new FileSystemEnumerable<string>(
-            initialDirectory,
-            static (ref FileSystemEntry entry) => entry.ToFullPath(),
-            new()
-            {
-                RecurseSubdirectories = true,
-                MatchCasing = MatchCasing.CaseInsensitive,
-                IgnoreInaccessible = true
-            })
-        {
-            ShouldIncludePredicate = (ref FileSystemEntry entry) =>
-                !entry.IsDirectory && FileSystemEntryIsValid(entry, filter)
-        };
+                              initialDirectory,
+                              static (ref FileSystemEntry entry) => entry.ToFullPath(),
+                              new()
+                              {
+                                  RecurseSubdirectories = true,
+                                  MatchCasing = MatchCasing.CaseInsensitive,
+                                  IgnoreInaccessible = true
+                              })
+                          {
+                              ShouldIncludePredicate = (ref FileSystemEntry entry) =>
+                                                           !entry.IsDirectory && FileSystemEntryIsValid(entry, filter)
+                          };
 
         return enumeration.Distinct(StringComparer.OrdinalIgnoreCase);
     }
