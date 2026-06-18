@@ -5,13 +5,13 @@
   </PropertyGroup>
   <!-- #region Project Libs -->
   <ItemGroup>
-    <PackageVersion Include="JetBrains.Annotations" Version="2025.2.4" />
+    <PackageVersion Include="JetBrains.Annotations" Version="2026.2.0" />
     <PackageVersion Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
   <!-- #endregion Project Libs -->
   <!-- #region Unit Test Libs -->
   <ItemGroup>
-    <PackageVersion Include="EvilBaschdi.Testing" Version="2026.5.12.19" />
+    <PackageVersion Include="EvilBaschdi.Testing" Version="2026.6.4.12" />
     <PackageVersion Include="coverlet.collector" Version="10.0.1" />
     <PackageVersion Include="FluentAssertions.Analyzers" Version="0.34.1" />
     <PackageVersion Include="Meziantou.FluentAssertionsAnalyzers" Version="1.0.22" />
