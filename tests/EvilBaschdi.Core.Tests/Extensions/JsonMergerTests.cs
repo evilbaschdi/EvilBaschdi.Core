@@ -1,4 +1,4 @@
-﻿using EvilBaschdi.Core.Extensions;
+using EvilBaschdi.Core.Extensions;
 using Newtonsoft.Json.Linq;
 
 namespace EvilBaschdi.Core.Tests.Extensions;

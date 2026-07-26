@@ -1,4 +1,4 @@
-﻿#pragma warning disable IDE0079
+#pragma warning disable IDE0079
 #pragma warning disable XFA001
 #pragma warning disable MFA001
 #pragma warning disable FluentAssertions0704

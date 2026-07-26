@@ -1,4 +1,4 @@
-﻿namespace EvilBaschdi.Core.Internal.ChainLink;
+namespace EvilBaschdi.Core.Internal.ChainLink;
 
 /// <inheritdoc />
 // ReSharper disable once UnusedType.Global

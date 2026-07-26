@@ -1,4 +1,4 @@
-﻿using System.IO.Enumeration;
+using System.IO.Enumeration;
 using EvilBaschdi.Core.Model;
 
 namespace EvilBaschdi.Core.Internal;

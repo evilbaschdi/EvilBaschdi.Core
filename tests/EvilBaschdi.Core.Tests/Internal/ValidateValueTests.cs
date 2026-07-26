@@ -1,4 +1,4 @@
-﻿using EvilBaschdi.Core.Internal;
+using EvilBaschdi.Core.Internal;
 
 namespace EvilBaschdi.Core.Tests.Internal;
 

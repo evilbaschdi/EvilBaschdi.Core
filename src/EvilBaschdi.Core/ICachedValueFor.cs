@@ -1,4 +1,4 @@
-﻿namespace EvilBaschdi.Core;
+namespace EvilBaschdi.Core;
 
 /// <summary>
 ///     Generic Interface construct to encapsulate cached Classes without Interfaces

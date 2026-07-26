@@ -1,4 +1,4 @@
-﻿namespace EvilBaschdi.Core.Enums;
+namespace EvilBaschdi.Core.Enums;
 
 /// <summary>
 ///     Represents the different kinds of platforms.

@@ -1,4 +1,4 @@
-﻿namespace EvilBaschdi.Core;
+namespace EvilBaschdi.Core;
 
 /// <summary>
 ///     <see cref="string" /> ValueFor(TIn value)

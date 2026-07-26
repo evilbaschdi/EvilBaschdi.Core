@@ -1,4 +1,4 @@
-﻿using EvilBaschdi.Core.AppHelpers;
+using EvilBaschdi.Core.AppHelpers;
 
 namespace EvilBaschdi.Core.Tests.AppHelpers;
 

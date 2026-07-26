@@ -1,4 +1,4 @@
-﻿namespace EvilBaschdi.Core.Internal;
+namespace EvilBaschdi.Core.Internal;
 
 /// <inheritdoc />
 public interface IReadKeyFromConsole : IValueFor<string, string>;

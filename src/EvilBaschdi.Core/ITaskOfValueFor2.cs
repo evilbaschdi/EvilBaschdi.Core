@@ -1,4 +1,4 @@
-﻿namespace EvilBaschdi.Core;
+namespace EvilBaschdi.Core;
 
 /// <summary>
 ///     Task&lt;TResult&gt; ValueForAsync(TIn1 valueIn1, TIn2 valueIn2);

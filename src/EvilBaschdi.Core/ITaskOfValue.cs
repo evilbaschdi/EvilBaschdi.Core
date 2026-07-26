@@ -1,4 +1,4 @@
-﻿namespace EvilBaschdi.Core;
+namespace EvilBaschdi.Core;
 
 /// <summary>
 ///     Task&lt;TResult&gt; ValueAsync();

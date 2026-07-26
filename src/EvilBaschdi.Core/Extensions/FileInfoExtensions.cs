@@ -1,4 +1,4 @@
-﻿namespace EvilBaschdi.Core.Extensions;
+namespace EvilBaschdi.Core.Extensions;
 
 /// <summary>
 /// </summary>

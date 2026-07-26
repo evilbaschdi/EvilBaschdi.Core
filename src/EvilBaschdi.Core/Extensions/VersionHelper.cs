@@ -1,4 +1,4 @@
-﻿using System.Runtime.InteropServices;
+using System.Runtime.InteropServices;
 using EvilBaschdi.Core.Enums;
 
 // ReSharper disable UnusedMember.Global

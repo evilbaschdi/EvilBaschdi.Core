@@ -1,4 +1,4 @@
-﻿using EvilBaschdi.Core.Extensions;
+using EvilBaschdi.Core.Extensions;
 
 namespace EvilBaschdi.Core.Internal.Copy;
 

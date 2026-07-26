@@ -1,4 +1,4 @@
-﻿namespace EvilBaschdi.Core.Tests;
+namespace EvilBaschdi.Core.Tests;
 
 // ReSharper disable once UnusedType.Global
 public class CachedWritableValueTests
