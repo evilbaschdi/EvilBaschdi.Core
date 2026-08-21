@@ -15,11 +15,11 @@
 	<ItemGroup>
 		<!-- Grouped updates with the same DependentUpon -->
 		<Compile
-			Update="**\IBool.cs;**\ICachedValue.cs;**\ICurrentAssembly.cs;**\IDecimal.cs;**\IDouble.cs;**\IGuid.cs;**\IInt.cs;**\IObject.cs;**\IString.cs;**\IIEnumerableOf.cs;**\IListOf.cs;**\IWritableValue.cs;**\IDictionaryOf.cs">
+			Update="**\IBool.cs;**\ICachedValue.cs;**\ICurrentAssembly.cs;**\IDecimal.cs;**\IDouble.cs;**\IGuid.cs;**\IInt.cs;**\IObject.cs;**\IString.cs;**\IIEnumerableOf.cs;**\IListOf.cs;**\IWritableValue.cs;**\IDictionaryOf.cs;**\IConcurrentBagOf.cs;**\IConcurrentDictionaryOf.cs;**\IConcurrentQueueOf.cs;**\IConcurrentStackOf.cs">
 			<DependentUpon>IValue.cs</DependentUpon>
 		</Compile>
 		<Compile
-			Update="**\IBoolFor.cs;**\ICachedValueFor.cs;**\IDecimalFor.cs;**\IDoubleFor.cs;**\IGuidFor.cs;**\IIntFor.cs;**\IObjectFor.cs;**\IStringFor.cs;**\IIEnumerableOfFor.cs;**\IValueFor2.cs;**\IListOfFor.cs;**\IDictionaryOfFor.cs;**\IListOfKeyValuePairOfFor.cs">
+			Update="**\IBoolFor.cs;**\ICachedValueFor.cs;**\IDecimalFor.cs;**\IDoubleFor.cs;**\IGuidFor.cs;**\IIntFor.cs;**\IObjectFor.cs;**\IStringFor.cs;**\IIEnumerableOfFor.cs;**\IValueFor2.cs;**\IListOfFor.cs;**\IDictionaryOfFor.cs;**\IListOfKeyValuePairOfFor.cs;**\IConcurrentBagOfFor.cs;**\IConcurrentDictionaryOfFor.cs;**\IConcurrentQueueOfFor.cs;**\IConcurrentStackOfFor.cs">
 			<DependentUpon>IValueFor.cs</DependentUpon>
 		</Compile>
 		<Compile Update="**\IRunFor2.cs">
