@@ -7,10 +7,10 @@ namespace EvilBaschdi.Core.Extensions;
 ///     primitive values.
 /// </summary>
 /// <remarks>
-///     This class is intended for scenarios where JSON data from multiple sources needs to be combined into
-///     a single object, with specific logic for resolving conflicts and merging structures.
-///     Unlike <see cref="JObject.Merge(object)" />, this implementation performs deep equality checks when
-///     merging arrays to avoid duplicate entries with identical content.
+///     This class is intended for scenarios where JSON data from multiple sources needs to be combined into a single
+///     object, with specific logic for resolving conflicts and merging structures. Unlike <see cref="JObject" />
+///     .Merge(object), this implementation performs deep equality checks when merging arrays to avoid duplicate entries
+///     with identical content.
 /// </remarks>
 public static class JsonMerger
 {

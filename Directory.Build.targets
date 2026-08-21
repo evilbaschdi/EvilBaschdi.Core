@@ -19,7 +19,7 @@
 			<DependentUpon>IValue.cs</DependentUpon>
 		</Compile>
 		<Compile
-			Update="**\IBoolFor.cs;**\ICachedValueFor.cs;**\IDecimalFor.cs;**\IDoubleFor.cs;**\IGuidFor.cs;**\IIntFor.cs;**\IObjectFor.cs;**\IStringFor.cs;**\IIEnumerableOfFor.cs;**\IValueFor2.cs;**\IListOfFor.cs">
+			Update="**\IBoolFor.cs;**\ICachedValueFor.cs;**\IDecimalFor.cs;**\IDoubleFor.cs;**\IGuidFor.cs;**\IIntFor.cs;**\IObjectFor.cs;**\IStringFor.cs;**\IIEnumerableOfFor.cs;**\IValueFor2.cs;**\IListOfFor.cs;**\IDictionaryOfFor.cs;**\IListOfKeyValuePairOfFor.cs">
 			<DependentUpon>IValueFor.cs</DependentUpon>
 		</Compile>
 		<Compile Update="**\IRunFor2.cs">
